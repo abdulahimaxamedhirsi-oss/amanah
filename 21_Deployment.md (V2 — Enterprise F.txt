@@ -1,0 +1,178 @@
+21_Deployment.md (V2 — Enterprise Fintech Deployment Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit comment Amanah est déployé en production.
+
+👉 Objectif :
+
+zéro downtime
+scalabilité mondiale
+sécurité bancaire-grade
+rollback instantané
+séparation stricte des environnements
+2. ENVIRONNEMENTS
+2.1 Environnements standards
+DEV → local development
+STAGING → tests intégrés
+PRODUCTION → live financial system
+2.2 Rule
+No production deployment without staging validation
+3. ARCHITECTURE DEPLOYMENT
+3.1 Infrastructure model
+Frontend (CDN)
+   ↓
+API Gateway
+   ↓
+Backend (NestJS cluster)
+   ↓
+Redis Cluster
+   ↓
+PostgreSQL Primary + Replicas
+   ↓
+Event Bus (Kafka / Redis Streams)
+3.2 Scaling model
+horizontal scaling for API
+read replicas for database
+queue-based event processing
+4. DOCKER ARCHITECTURE
+4.1 Services
+api-service
+worker-service (ledger + payments)
+websocket-service
+redis
+postgres
+4.2 Rule
+Each service must be stateless
+5. CI/CD PIPELINE
+5.1 Flow
+Code push
+   ↓
+Lint + Type check
+   ↓
+Unit tests
+   ↓
+Integration tests
+   ↓
+Ledger validation tests
+   ↓
+Build Docker images
+   ↓
+Deploy to staging
+   ↓
+E2E tests
+   ↓
+Deploy to production
+6. BLUE / GREEN DEPLOYMENT
+6.1 Strategy
+Blue = current production
+Green = new version
+6.2 Flow
+Deploy Green
+   ↓
+Run health checks
+   ↓
+Switch traffic
+   ↓
+Monitor system
+6.3 Rollback
+
+Instant rollback to Blue if:
+
+payment failure spike
+ledger inconsistency
+API latency increase
+7. DATABASE DEPLOYMENT
+7.1 PostgreSQL setup
+primary DB (writes)
+replicas (reads)
+backup snapshots
+7.2 Migration rule
+No destructive migration in production
+8. REDIS DEPLOYMENT
+
+Used for:
+
+caching
+queues
+websocket pub/sub
+
+Rule:
+
+Redis cluster mode for scaling
+persistence enabled
+9. EVENT SYSTEM DEPLOYMENT
+9.1 Kafka / Redis Streams
+
+Used for:
+
+ledger events
+payment events
+wallet updates
+9.2 Rule
+All financial operations must emit events
+10. MONITORING SYSTEM
+Tools
+Prometheus (metrics)
+Grafana (visualization)
+ELK stack (logs)
+Metrics tracked
+payment success rate
+ledger consistency
+API latency
+error rates
+11. ALERTING SYSTEM
+
+Triggers:
+
+payment failure spike
+ledger mismatch
+API downtime
+FX engine failure
+
+Actions:
+
+alert admin
+auto rollback
+isolate service
+12. SECURITY IN DEPLOYMENT
+secrets stored in vault
+environment isolation
+no hardcoded keys
+TLS everywhere
+13. BACKUP & RECOVERY
+13.1 Database backups
+daily snapshots
+point-in-time recovery
+13.2 Disaster recovery
+Region failure → failover to backup region
+14. DISASTER RECOVERY PLAN
+
+Scenarios:
+
+database crash
+complete region outage
+event bus failure
+
+System must:
+
+recover without data loss
+preserve ledger integrity
+15. PERFORMANCE REQUIREMENTS
+API uptime: 99.99%
+payment availability: 99.999%
+recovery time: < 5 minutes
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER deploy without full test suite
+ALWAYS validate ledger integrity pre-deploy
+NEVER skip staging environment
+ALWAYS support rollback strategy
+NEVER deploy untested migrations
+17. SUCCESS CRITERIA
+zero downtime deployments
+instant rollback capability
+global scalability ready
+full observability active
+safe financial operations under load

@@ -1,0 +1,159 @@
+31_Virtual_Cards.md (V2 — Enterprise Virtual Card System Ultra Detailed)
+1. OBJECTIF DU SYSTÈME
+
+Le système de Virtual Cards Amanah permet de générer des cartes de paiement numériques instantanées, entièrement liées au wallet via le ledger.
+
+👉 Objectif :
+
+permettre paiements e-commerce sécurisés
+réduire fraude carte physique
+offrir contrôle granulaire des dépenses
+activer/desactiver cartes instantanément
+sécuriser paiements en ligne à grande échelle
+2. CORE PRINCIPLE
+2.1 Virtual card = temporary payment identity
+A virtual card is a temporary, controlled payment identity linked to wallet ledger.
+2.2 No independent funds
+aucune valeur stockée dans la carte
+tout dépend du wallet + ledger
+2.3 Instant lifecycle control
+création instantanée
+destruction instantanée
+modification instantanée des limites
+3. CREATION FLOW
+3.1 Step-by-step process
+User requests virtual card
+   ↓
+Wallet validation (ledger check)
+   ↓
+Risk engine evaluation
+   ↓
+KYC status verification
+   ↓
+Token generation
+   ↓
+Virtual card issued
+3.2 Constraints
+max cards per user configurable
+country restrictions applied
+risk score threshold required
+4. TYPES OF VIRTUAL CARDS
+4.1 Standard Virtual Card
+normal online usage
+reusable until expiration
+4.2 Single-Use Card
+Card becomes invalid after 1 successful transaction
+
+👉 Use case:
+
+high-risk merchant
+subscription trials
+unknown websites
+4.3 Merchant-Locked Card
+restricted to one merchant only
+prevents fraud reuse
+4.4 Time-Limited Card
+expires after X minutes/hours/days
+5. TRANSACTION FLOW
+Merchant request
+   ↓
+Card token validation
+   ↓
+Merchant lock check
+   ↓
+Risk engine
+   ↓
+Limit check
+   ↓
+Ledger validation
+   ↓
+Approval / rejection
+6. SECURITY LAYERS
+6.1 Token security
+no PAN stored
+encrypted vault storage
+rotating tokens possible
+6.2 Device binding (optional)
+card can be locked to device fingerprint
+6.3 Geo-restriction
+country-specific usage rules
+region-based blocking
+7. FRAUD PREVENTION SYSTEM
+7.1 Threats
+stolen card usage
+card testing bots
+subscription abuse
+merchant fraud loops
+7.2 Protection mechanisms
+velocity checks (transactions per minute)
+merchant reputation scoring
+anomaly detection
+behavioral tracking
+7.3 Fraud actions
+auto-block transaction
+freeze virtual card
+require re-authentication
+8. LIMIT SYSTEM
+8.1 Types of limits
+per transaction limit
+daily spending limit
+merchant-specific limit
+risk-based dynamic limits
+8.2 Rule
+Limits are evaluated BEFORE ledger authorization.
+9. LIFECYCLE MANAGEMENT
+9.1 States
+ACTIVE → SUSPENDED → FROZEN → EXPIRED → DESTROYED
+9.2 Rules
+expired cards cannot be reactivated
+frozen cards require admin or risk unlock
+destroyed cards are unrecoverable
+10. REFUND SYSTEM
+refunds go directly back to wallet
+ledger reversal entries created
+virtual card remains unchanged or optionally reissued
+11. NOTIFICATION SYSTEM
+
+User receives:
+
+card creation success
+transaction approvals
+declines
+fraud alerts
+limit warnings
+12. E-COMMERCE INTEGRATION
+12.1 Compatibility
+Stripe-like checkout systems
+recurring payments support
+subscription billing support
+12.2 Secure checkout flow
+tokenized payment
+no exposure of wallet data
+13. PERFORMANCE REQUIREMENTS
+card generation < 1s
+authorization < 300ms
+fraud check < 150ms
+full transaction < 2s max
+14. ERROR HANDLING
+{
+  "error": {
+    "code": "VIRTUAL_CARD_DECLINED",
+    "message": "Transaction blocked by risk engine",
+    "traceId": "uuid"
+  }
+}
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER store raw card data
+ALWAYS enforce ledger validation
+ALWAYS apply merchant lock rules
+NEVER bypass risk engine
+ALWAYS enforce single-use logic correctly
+16. SUCCESS CRITERIA
+secure e-commerce payments
+fraud-resistant virtual cards
+instant lifecycle control
+ledger-consistent transactions
+scalable global usage

@@ -1,0 +1,208 @@
+2_Business_Model.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU BUSINESS MODEL
+
+Ce document définit comment Amanah génère, capture et distribue la valeur financière.
+
+Il doit être strictement aligné avec :
+
+Ledger System (source de vérité)
+FX Engine
+Fee Engine
+Treasury System
+Settlement Engine
+2. PRINCIPLE OF VALUE FLOW
+
+Dans Amanah, toute valeur suit un flux strict :
+
+User Action
+   ↓
+Payment Engine
+   ↓
+Fee Engine (optional deduction)
+   ↓
+FX Engine (if currency conversion)
+   ↓
+Ledger (truth layer)
+   ↓
+Settlement Layer
+   ↓
+Revenue Allocation
+3. REVENUE SOURCES
+
+Amanah génère des revenus via 6 canaux principaux.
+
+3.1 TRANSACTION FEES
+Definition
+
+Fee appliqué sur chaque transaction.
+
+Types de fees
+Fixed fee (ex: 0.20€)
+Percentage fee (ex: 1.5%)
+Hybrid fee (fixed + %)
+Ledger impact
+
+Chaque fee = écritures séparées :
+
+User debit: 100
+Fee debit: 2
+Merchant credit: 98
+Revenue account credit: 2
+3.2 FX SPREAD REVENUE
+Definition
+
+Profit sur conversion de devise.
+
+Example
+Market rate: 1 USD = 0.92 EUR
+Amanah rate: 0.90 EUR
+
+👉 Spread = revenue
+
+Rules
+FX rate must be frozen per transaction
+Spread must be logged in Ledger
+3.3 M-AMANAH COMMISSIONS
+Definition
+
+Commission on cash-in / cash-out via agents.
+
+Flow
+User deposits cash
+   ↓
+Agent receives cash
+   ↓
+Ledger records:
+   - user credit
+   - agent commission
+   - treasury adjustment
+3.4 MERCHANT FEES
+Definition
+
+Fees charged to merchants.
+
+Models
+per transaction fee
+monthly subscription
+premium API access
+3.5 CARDS REVENUE
+
+Includes:
+
+Google Wallet / Apple Pay fees
+Card issuance fees
+interchange revenue
+foreign transaction fees
+3.6 TREASURY YIELD (FUTURE)
+
+Funds temporarily held in system generate yield.
+
+⚠️ This is strictly regulated and must be separated in Ledger.
+
+4. COST STRUCTURE
+
+Amanah has operational costs:
+
+4.1 Infrastructure
+servers
+databases
+Redis
+queues
+monitoring
+4.2 Payment Providers
+bank APIs
+mobile money APIs
+FX providers
+4.3 Compliance Costs
+KYC providers
+AML screening
+sanctions list APIs
+4.4 Agent Network Costs
+M-Amanah commissions
+liquidity provisioning
+5. PROFIT MODEL
+Formula:
+Revenue
+ - FX costs
+ - Provider fees
+ - Operational costs
+ = Net Profit
+6. REVENUE ALLOCATION MODEL
+
+Chaque revenu est réparti dans des comptes Ledger :
+
+Example:
+Revenue from transaction:
+- Treasury account: 40%
+- Operational account: 40%
+- Reserve account: 20%
+7. PRICING ENGINE RULES
+
+Pricing est dynamique selon :
+
+pays
+devise
+risque
+volume utilisateur
+provider cost
+8. COUNTRY-BASED PRICING
+
+Chaque pays peut avoir :
+
+fee structure différente
+FX spread différent
+provider différent
+risk multiplier
+9. BUSINESS LIMITATIONS (NON-GOALS)
+
+Amanah ne doit pas :
+
+manipuler les taux FX arbitrairement
+cacher les frais
+créer des revenus hors Ledger
+bypass FX Engine
+10. UNIT ECONOMICS
+
+Chaque transaction doit être analysée :
+
+Metrics:
+cost per transaction
+revenue per transaction
+FX margin
+net margin
+11. LEDGER ALIGNMENT RULE (CRITICAL)
+
+Chaque revenu doit être :
+
+enregistré dans Ledger
+traçable
+immutable
+auditable
+12. FRAUD & REVENUE PROTECTION
+
+Revenu ne peut pas être :
+
+généré hors système
+injecté manuellement
+modifié après coup
+13. SCALABILITY MODEL
+
+Revenue model doit supporter :
+
+1M transactions/day
+10M transactions/day
+100M transactions/day
+14. CLAUDE CODE RULES
+
+Claude Code doit toujours :
+
+vérifier que chaque revenue flow a des écritures Ledger
+ne jamais créer de revenu sans double entry
+valider FX impact
+valider fee consistency
+vérifier reconciliation
+15. SUCCESS METRICS
+gross revenue accuracy = 100%
+no missing ledger entries
+fee reconciliation mismatch = 0
+FX discrepancy = 0

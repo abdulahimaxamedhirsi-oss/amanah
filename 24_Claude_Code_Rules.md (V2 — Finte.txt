@@ -1,0 +1,154 @@
+24_Claude_Code_Rules.md (V2 — Fintech Engineering Execution Protocol)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit les règles strictes d’exécution pour Claude Code sur le projet Amanah.
+
+👉 Objectif :
+
+éviter les erreurs d’architecture
+garantir la cohérence fintech
+empêcher les raccourcis dangereux
+forcer une exécution industrielle étape par étape
+standardiser le développement multi-modules
+2. CORE PRINCIPLE
+2.1 No assumption rule
+Claude Code must NEVER assume missing implementation
+It must inspect, verify, then act
+2.2 Fintech safety first
+aucune improvisation sur Ledger
+aucune logique financière approximative
+aucune suppression de règle métier
+2.3 Step-by-step execution mandatory
+Claude Code must break every task into verifiable steps
+3. PROJECT UNDERSTANDING RULE
+
+Claude Code must always:
+
+lire le contexte complet
+analyser dépendances
+vérifier impact Ledger / Payment / FX
+identifier risques
+4. IMPLEMENTATION WORKFLOW
+4.1 Standard flow
+1. Analyse du module
+2. Identification des dépendances
+3. Vérification Ledger impact
+4. Design solution
+5. Implémentation
+6. Tests unitaires
+7. Tests intégration
+8. Validation finale
+4.2 Rule
+No implementation without test strategy
+5. FINANCIAL SYSTEM RULES
+5.1 Ledger-first enforcement
+Every financial action must pass through Ledger validation
+5.2 No direct balance mutation
+wallet is derived only
+ledger is immutable
+5.3 No silent financial operations
+
+Every operation must emit:
+
+event
+log
+traceId
+6. CODE QUALITY RULES
+6.1 Mandatory standards
+clean architecture
+strict typing (TypeScript)
+no any type in financial modules
+6.2 No shortcut coding
+No temporary hacks in production financial modules
+7. DEBUGGING RULES
+7.1 Debug process
+
+Claude Code must:
+
+reproduce issue
+isolate module
+inspect ledger impact
+validate logs
+fix root cause (not symptom)
+7.2 Forbidden actions
+patch without understanding
+ignore error traces
+bypass validation
+8. TESTING ENFORCEMENT
+
+Before any completion:
+
+unit tests must pass
+integration tests required
+ledger consistency verified
+9. SECURITY RULES
+
+Claude Code must:
+
+never expose secrets
+never log sensitive data
+never bypass auth layers
+validate all inputs
+10. MODULE DEPENDENCY RULES
+
+Allowed dependencies:
+
+payment → ledger, fx, risk
+wallet → ledger only
+auth → users only
+
+Forbidden:
+
+wallet → payment (direct coupling)
+frontend → ledger
+11. ERROR HANDLING RULE
+{
+  "error": {
+    "code": "MODULE_ERROR_XXX",
+    "message": "clear explanation",
+    "traceId": "uuid"
+  }
+}
+12. CHANGE MANAGEMENT RULE
+
+Every change must include:
+
+impact analysis
+affected modules
+test coverage update
+rollback strategy
+13. PERFORMANCE RULES
+no blocking operations in API
+async processing for payments
+caching only non-financial data
+14. FINTECH SAFETY RULES
+
+Claude Code must NEVER:
+
+modify ledger directly
+bypass FX engine
+skip AML/KYC checks
+ignore risk engine results
+15. ARCHITECTURE ENFORCEMENT
+domain logic isolated
+infrastructure separated
+no business logic in controllers
+16. AUDITABILITY RULE
+
+Every action must be traceable:
+
+traceId required
+event emission required
+ledger entry required
+17. SUCCESS CRITERIA
+
+Claude Code is considered correct only if:
+
+system compiles
+tests pass
+ledger consistency intact
+no architecture violation
+no security bypass possible
+18. FINAL EXECUTION PRINCIPLE
+Claude Code must behave like a senior fintech engineer,
+not a code generator.

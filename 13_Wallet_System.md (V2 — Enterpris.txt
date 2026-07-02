@@ -1,0 +1,174 @@
+13_Wallet_System.md (V2 — Enterprise Fintech Wallet Engine)
+1. OBJECTIF DU SYSTÈME WALLET
+
+Le Wallet dans Amanah est :
+
+Une vue calculée en temps réel du Ledger, jamais une source de vérité.
+
+Rôle principal
+
+Le Wallet sert à :
+
+afficher les balances utilisateur
+agréger les données du Ledger
+fournir une UX rapide
+supporter multi-devises
+synchronisation temps réel
+2. CORE PRINCIPLE
+2.1 Wallet = Projection
+Wallet ≠ Storage
+Wallet = Derived state from Ledger
+2.2 No direct mutation rule
+Wallet ne peut jamais être modifié directement
+toute mise à jour vient du Ledger uniquement
+2.3 Real-time consistency
+
+Wallet doit être synchronisé en temps réel via :
+
+WebSockets
+Events Ledger
+fallback API polling
+3. WALLET STRUCTURE
+3.1 Wallet model
+{
+  "userId": "uuid",
+  "currency": "USD",
+  "availableBalance": 1000,
+  "pendingBalance": 150,
+  "lockedBalance": 50,
+  "updatedAt": "timestamp"
+}
+3.2 Balance definitions
+Available Balance
+utilisable immédiatement
+Pending Balance
+transactions en cours
+Locked Balance
+fonds bloqués (fraude, risk, chargeback)
+4. WALLET COMPUTATION ENGINE
+4.1 Source of truth
+Ledger Entries → Wallet Computation Engine → Wallet View
+4.2 Calculation rule
+Balance = SUM(CREDITS) - SUM(DEBITS)
+4.3 Currency separation
+
+Chaque devise a :
+
+wallet indépendant
+ledger accounts séparés
+5. WALLET UPDATE FLOW
+5.1 Flow
+Ledger entry created
+   ↓
+Event emitted (ledger.entry.created)
+   ↓
+Wallet recomputation triggered
+   ↓
+WebSocket update sent
+   ↓
+Frontend refresh
+6. REAL-TIME SYSTEM
+6.1 WebSocket channels
+wallet:{userId}
+balance:{userId}
+transactions:{userId}
+6.2 Events
+wallet.updated
+wallet.recalculated
+balance.changed
+6.3 Rule
+Wallet must update within < 500ms after ledger change
+7. MULTI-CURRENCY SYSTEM
+7.1 Structure
+
+Each user has multiple wallets:
+
+USD wallet
+EUR wallet
+XAF wallet
+NGN wallet
+etc.
+7.2 FX rule
+no implicit conversion
+FX must be explicit via FX engine
+no hidden currency mixing
+8. WALLET STATES
+8.1 Normal state
+fully synced with ledger
+8.2 Pending state
+awaiting ledger confirmation
+8.3 Frozen state
+blocked due to risk or compliance
+9. EDGE CASES
+9.1 Ledger mismatch
+
+If wallet ≠ ledger:
+
+👉 wallet is recomputed from scratch
+
+9.2 Race conditions
+handled via event ordering
+traceId ensures consistency
+9.3 Double update prevention
+idempotency enforced on wallet recompute
+10. API INTEGRATION
+GET /wallet/balance
+
+Returns computed state:
+
+{
+  "available": 1000,
+  "pending": 100,
+  "locked": 50,
+  "currency": "USD"
+}
+GET /wallet/transactions
+proxy to ledger transactions
+paginated
+filtered
+11. PERFORMANCE REQUIREMENTS
+wallet fetch < 100ms (cached)
+recomputation < 500ms
+WebSocket update < 300ms
+12. SECURITY RULES
+12.1 No client-side trust
+
+Frontend must NEVER:
+
+calculate balances
+modify wallet state
+12.2 Access control
+user can only access own wallet
+admin has read-only override
+13. OBSERVABILITY
+
+Track:
+
+wallet recalculation frequency
+wallet mismatch incidents
+ledger-to-wallet latency
+14. DATABASE RELATIONSHIP
+
+Wallet table = projection only:
+
+user_id
+currency
+cached balances
+
+Ledger remains source of truth.
+
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER treat wallet as source of truth
+ALWAYS derive wallet from ledger
+ALWAYS recompute on mismatch
+NEVER allow manual balance editing
+ALWAYS propagate ledger events
+16. SUCCESS CRITERIA
+wallet always matches ledger
+zero divergence allowed
+real-time updates stable
+multi-currency fully supported
+deterministic recomputation possible

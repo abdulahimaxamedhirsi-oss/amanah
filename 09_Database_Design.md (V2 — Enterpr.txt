@@ -1,0 +1,211 @@
+09_Database_Design.md (V2 — Enterprise Fintech Ledger Database)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit la structure complète de la base de données Amanah.
+
+👉 C’est ici que réside :
+
+la vérité financière (Ledger)
+les utilisateurs
+les transactions
+les FX operations
+les audits
+les états système
+2. PRINCIPLE OF DATABASE DESIGN
+2.1 Ledger-first architecture
+Ledger tables = IMMUTABLE source of truth
+Everything else = derived state
+2.2 No financial mutation allowed
+no UPDATE on ledger entries
+no DELETE on transactions
+only INSERT (append-only system)
+2.3 Separation of concerns
+Financial data ≠ UX data
+Wallet ≠ Ledger
+Analytics ≠ truth
+3. CORE DATABASE STACK
+3.1 PostgreSQL (Primary DB)
+all financial data
+all user data
+all transactions
+ledger engine
+3.2 Redis (Support Layer)
+caching
+queues
+websocket pub/sub
+3.3 Future (optional scale)
+event store (Kafka / Pulsar)
+data warehouse (BigQuery)
+4. CORE TABLES OVERVIEW
+4.1 USERS
+id UUID PRIMARY KEY
+email TEXT UNIQUE
+phone TEXT UNIQUE
+password_hash TEXT
+status ENUM(active, suspended, closed)
+created_at TIMESTAMP
+4.2 ICAN TABLE
+id UUID PRIMARY KEY
+user_id UUID UNIQUE
+ican_code TEXT UNIQUE
+country TEXT
+status ENUM(active, blocked)
+created_at TIMESTAMP
+4.3 WALLETS (PROJECTION ONLY)
+id UUID PRIMARY KEY
+user_id UUID
+currency TEXT
+available_balance DECIMAL
+pending_balance DECIMAL
+locked_balance DECIMAL
+updated_at TIMESTAMP
+
+⚠️ NOTE:
+This is NOT source of truth.
+
+5. CORE LEDGER SYSTEM (CRITICAL)
+5.1 LEDGER ACCOUNTS
+id UUID PRIMARY KEY
+user_id UUID
+type ENUM(user, merchant, treasury, system, agent)
+currency TEXT
+created_at TIMESTAMP
+5.2 LEDGER ENTRIES (DOUBLE ENTRY CORE)
+id UUID PRIMARY KEY
+account_id UUID
+transaction_id UUID
+type ENUM(debit, credit)
+amount DECIMAL
+currency TEXT
+trace_id UUID
+created_at TIMESTAMP
+5.3 RULE
+SUM(debits) = SUM(credits) PER transaction
+5.4 INDEXES (CRITICAL)
+(transaction_id)
+(account_id)
+(created_at)
+(trace_id)
+6. TRANSACTIONS TABLE
+id UUID PRIMARY KEY
+user_id UUID
+type ENUM(payment, fx, cashin, cashout, refund)
+status ENUM(created, processing, success, failed)
+amount DECIMAL
+currency TEXT
+fx_rate DECIMAL
+fee DECIMAL
+trace_id UUID
+created_at TIMESTAMP
+7. FX TABLE
+id UUID PRIMARY KEY
+base_currency TEXT
+target_currency TEXT
+rate DECIMAL
+spread DECIMAL
+provider TEXT
+locked BOOLEAN
+created_at TIMESTAMP
+8. FEE ENGINE TABLE
+id UUID PRIMARY KEY
+transaction_id UUID
+type ENUM(fixed, percentage, hybrid)
+amount DECIMAL
+currency TEXT
+revenue_account_id UUID
+created_at TIMESTAMP
+9. M-AMANAH AGENTS
+id UUID PRIMARY KEY
+user_id UUID
+location TEXT
+status ENUM(active, suspended)
+cash_balance DECIMAL
+created_at TIMESTAMP
+10. MERCHANTS
+id UUID PRIMARY KEY
+user_id UUID
+business_name TEXT
+status ENUM(active, pending, blocked)
+settlement_account_id UUID
+created_at TIMESTAMP
+11. NOTIFICATIONS TABLE
+id UUID PRIMARY KEY
+user_id UUID
+type TEXT
+message TEXT
+status ENUM(sent, delivered, failed)
+created_at TIMESTAMP
+12. WEBHOOKS TABLE
+id UUID PRIMARY KEY
+url TEXT
+event_type TEXT
+secret TEXT
+status ENUM(active, disabled)
+created_at TIMESTAMP
+13. AUDIT LOGS (CRITICAL)
+id UUID PRIMARY KEY
+user_id UUID
+action TEXT
+trace_id UUID
+metadata JSONB
+created_at TIMESTAMP
+14. EVENT STORE (OPTIONAL ADVANCED)
+id UUID PRIMARY KEY
+event_type TEXT
+payload JSONB
+trace_id UUID
+created_at TIMESTAMP
+15. INDEXING STRATEGY
+Must-have indexes:
+user_id (all tables)
+transaction_id
+trace_id
+created_at (time queries)
+status fields
+16. PARTITIONING STRATEGY
+Transactions
+
+Partition by:
+
+date (monthly)
+or region (future scale)
+Ledger entries
+
+Partition by:
+
+transaction_id hash
+17. DATA CONSISTENCY RULES
+17.1 Strong consistency
+ledger tables
+transactions
+17.2 Eventual consistency
+wallet projection
+notifications
+analytics
+18. MIGRATION RULES
+Prisma migrations only
+no manual DB edits in production
+migrations must be backward compatible
+19. DATA RETENTION
+financial records: NEVER DELETE
+audit logs: minimum 7 years
+notifications: 90 days retention
+20. SECURITY RULES
+encryption at rest required
+sensitive fields masked
+no plaintext passwords
+no financial data in logs
+21. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER modify ledger entries after creation
+NEVER treat wallet as source of truth
+ALWAYS enforce double-entry consistency
+ALWAYS ensure trace_id tracking
+NEVER bypass transaction table
+22. SUCCESS CRITERIA
+100% ledger integrity
+zero orphan entries
+deterministic financial reconstruction possible
+full auditability at any time

@@ -1,0 +1,204 @@
+Non_Functional_Requirements.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit les contraintes non fonctionnelles obligatoires d’Amanah.
+
+Ces contraintes ne décrivent pas ce que le système fait, mais :
+
+comment le système doit exister en production réelle (niveau banque mondiale).
+
+2. PRINCIPLE OF NON-FUNCTIONAL DESIGN
+
+Amanah doit être conçu comme un système :
+
+bancaire
+distribué
+audit-able
+hautement résilient
+déterministe
+sans point de défaillance critique unique
+3. PERFORMANCE REQUIREMENTS
+3.1 Latency Targets
+Core payment flow
+Target: < 2 seconds (internal transaction)
+FX conversion
+Target: < 300ms (rate fetch)
+Target: < 2s (execution)
+Ledger posting
+Target: < 100ms per entry batch
+3.2 Throughput
+System must support:
+10,000 TPS (initial)
+100,000 TPS (scale phase)
+1,000,000 TPS (future architecture)
+3.3 API Performance
+95% of requests under 300ms
+99.9% under 1s
+4. AVAILABILITY REQUIREMENTS
+4.1 Uptime SLA
+99.99% uptime target
+4.2 Downtime tolerance
+max 4.3 minutes/month
+4.3 Failure behavior
+no financial data loss
+graceful degradation allowed (non-financial features only)
+5. RELIABILITY REQUIREMENTS
+5.1 Ledger Integrity
+0 tolerance for imbalance
+100% consistency required
+5.2 Transaction Reliability
+
+Each transaction must guarantee:
+
+atomicity
+consistency
+durability
+idempotency
+5.3 Retry safety
+all external calls must be retry-safe
+no duplicate ledger entries allowed
+6. SCALABILITY REQUIREMENTS
+6.1 Horizontal scaling
+
+All services must be:
+
+stateless (except ledger)
+horizontally scalable
+containerized
+6.2 Database scaling
+PostgreSQL partitioning mandatory
+read replicas required
+eventual migration to distributed SQL possible
+6.3 Queue scaling
+Redis / Kafka compatible design
+async processing for non-critical flows
+7. SECURITY REQUIREMENTS
+7.1 Authentication
+JWT-based auth
+refresh token rotation
+session invalidation support
+7.2 Authorization
+RBAC mandatory
+future ABAC support
+7.3 Data protection
+encryption at rest
+encryption in transit (TLS 1.2+)
+7.4 Sensitive data
+never stored in logs
+masked in API responses
+7.5 Financial security rules
+ledger entries immutable
+no manual balance override allowed
+admin cannot bypass ledger
+8. OBSERVABILITY REQUIREMENTS
+8.1 Logging
+structured logs only (JSON)
+traceId required for every request
+8.2 Metrics
+
+Must track:
+
+transaction success rate
+ledger imbalance detection (must always be 0)
+FX latency
+payment latency
+8.3 Tracing
+distributed tracing mandatory
+full payment journey traceability
+9. DATA CONSISTENCY MODEL
+9.1 Ledger consistency
+STRICT CONSISTENCY (GLOBAL FINANCIAL STATE)
+9.2 Non-financial systems
+eventual consistency allowed for:
+notifications
+analytics
+dashboards
+9.3 Wallet model
+eventual consistency ONLY
+derived from ledger
+10. DISASTER RECOVERY
+10.1 Recovery objectives
+RPO: 0 (no data loss)
+RTO: < 15 minutes
+10.2 Backup strategy
+continuous WAL archiving
+point-in-time recovery
+daily snapshot backups
+10.3 Failure scenarios
+
+Must handle:
+
+database crash
+Redis failure
+queue outage
+partial network failure
+provider outage (FX / banks)
+11. ERROR HANDLING STANDARDS
+11.1 Global error format
+{
+  "error": {
+    "code": "STRING_CODE",
+    "message": "Human readable message",
+    "traceId": "uuid"
+  }
+}
+11.2 Error categories
+AUTH_XXX
+LEDGER_XXX
+PAYMENT_XXX
+FX_XXX
+SYSTEM_XXX
+11.3 No silent failure rule
+every failure must be explicit
+every failure must be logged
+every failure must be traceable
+12. DEPLOYMENT REQUIREMENTS
+12.1 Containerization
+Docker mandatory for all services
+12.2 Environment separation
+dev
+staging
+production
+12.3 CI/CD
+automated tests required before deploy
+ledger consistency checks required before production deploy
+13. COMPATIBILITY REQUIREMENTS
+13.1 Multi-region support
+system must support global users
+latency-aware routing required
+13.2 Multi-currency
+unlimited currency support
+FX engine abstraction required
+14. FINTECH SAFETY RULES
+14.1 No financial override
+
+No admin action can:
+
+modify ledger entries
+change balances directly
+delete transactions
+14.2 Audit requirement
+
+All actions must be:
+
+logged
+traceable
+replayable
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+verify every financial operation respects ACID rules
+ensure no ledger inconsistency is possible
+reject any design violating immutability
+ensure scalability constraints are respected
+never assume performance shortcuts that break financial integrity
+16. SUCCESS CRITERIA
+
+System is valid only if:
+
+ledger imbalance = 0 always
+uptime ≥ 99.99%
+no orphan transactions
+no silent failures
+full traceability of all financial flows

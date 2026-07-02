@@ -1,0 +1,169 @@
+16_Blockchain_Architecture.md (V2 — Hybrid Ledger + Blockchain Settlement Layer)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit comment Amanah utilise la blockchain comme :
+
+une couche d’audit, de preuve et de settlement futur — sans remplacer le Ledger interne.
+
+Rôle principal
+fournir une preuve immuable des transactions
+sécuriser les audits financiers
+permettre future tokenisation
+connecter Amanah à Web3 (optionnel)
+renforcer la transparence globale
+2. CORE PRINCIPLE
+2.1 Ledger stays primary
+Ledger = source of truth
+Blockchain = proof layer
+2.2 No blockchain dependency for core operations
+payments do NOT depend on blockchain
+blockchain is asynchronous
+system must work without it
+2.3 Hybrid architecture
+
+Amanah =
+
+off-chain (ledger system)
+on-chain (audit + settlement proofs)
+3. ARCHITECTURE OVERVIEW
+3.1 System layers
+Frontend
+   ↓
+Backend (Ledger Engine)
+   ↓
+Blockchain Adapter Layer
+   ↓
+Blockchain Networks (Ethereum / L2 / Private chain)
+4. ON-CHAIN DATA MODEL
+4.1 What goes on-chain
+
+Only hashed proofs:
+
+transaction hash
+ledger root hash
+batch settlement proof
+audit snapshots
+4.2 What NEVER goes on-chain
+user personal data
+full transaction details
+balances
+ICAN identity
+5. BLOCKCHAIN ADAPTER SYSTEM
+5.1 Purpose
+
+Standard interface to multiple chains:
+
+Ethereum
+Polygon
+private consortium chain (future)
+Hyperledger (enterprise option)
+5.2 Interface
+{
+  "submitProof": {},
+  "verifyProof": {},
+  "getTransaction": {},
+  "batchCommit": {}
+}
+6. LEDGER HASHING SYSTEM
+6.1 Process
+Ledger transactions batch
+   ↓
+Merkle tree generation
+   ↓
+Root hash computed
+   ↓
+Root sent to blockchain
+   ↓
+Stored permanently
+6.2 Purpose
+tamper-proof audit trail
+verifiable financial history
+regulatory compliance
+7. BATCH SETTLEMENT SYSTEM
+7.1 Concept
+
+Instead of writing every transaction on-chain:
+
+transactions are grouped in batches
+batches are anchored on-chain
+7.2 Flow
+Transactions → Batch
+Batch → Hash root
+Root → Blockchain
+Confirmation → Stored in DB
+8. SMART CONTRACT INTERFACE (FUTURE)
+8.1 Responsibilities
+
+Smart contracts (future phase):
+
+verify settlement proofs
+store ledger roots
+manage tokenized assets
+8.2 Contract types
+SettlementContract
+AuditContract
+TreasuryContract (future)
+9. SECURITY MODEL
+9.1 No private data on-chain
+
+Strict rule:
+
+NO PII EVER ON BLOCKCHAIN
+9.2 Signature validation
+all proofs must be signed
+backend signs batch root
+blockchain verifies signature
+10. FAILURE MODEL
+10.1 Blockchain unavailable
+
+System behavior:
+
+ledger continues normally
+batches queued
+retry later
+10.2 Invalid proof
+reject on-chain submission
+trigger audit alert
+11. AUDIT SYSTEM
+
+Blockchain enables:
+
+immutable audit trail
+external verification
+regulatory compliance
+Audit query example:
+prove transaction existed at time T
+verify ledger integrity
+12. PERFORMANCE MODEL
+batching reduces cost
+async processing
+no blocking operations
+13. OBSERVABILITY
+
+Track:
+
+batch submission success
+chain confirmation time
+hash mismatch incidents
+14. FUTURE TOKENIZATION LAYER
+
+Possible future features:
+
+stablecoin integration
+Amanah token (A-USD)
+programmable money flows
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER depend on blockchain for core payments
+ALWAYS ensure ledger remains primary system
+NEVER expose user data on-chain
+ALWAYS batch transactions before sending
+ALWAYS verify hash integrity
+16. SUCCESS CRITERIA
+full auditability of all transactions
+tamper-proof history
+zero dependency on blockchain uptime
+scalable batching system
+cryptographic proof of ledger integrity

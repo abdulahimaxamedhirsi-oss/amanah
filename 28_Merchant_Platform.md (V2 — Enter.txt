@@ -1,0 +1,151 @@
+28_Merchant_Platform.md (V2 — Enterprise Merchant & Business Payment System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit la plateforme marchands d’Amanah.
+
+👉 Objectif :
+
+permettre aux entreprises d’accepter des paiements
+gérer des flux entrants/sortants
+fournir API type Stripe
+connecter e-commerce + agents + mobile money
+automatiser les settlements
+2. CORE PRINCIPLE
+2.1 Merchant = financial actor
+Merchant is not a user, but a financial entity with ledger exposure
+2.2 Ledger always applies
+tous les paiements marchands passent par ledger
+aucune transaction directe hors système
+2.3 Platform as infrastructure
+
+Amanah devient :
+
+wallet system (B2C)
+payment infrastructure (B2B)
+3. MERCHANT ONBOARDING
+3.1 Steps
+Registration
+   ↓
+Business verification (KYB)
+   ↓
+Risk scoring
+   ↓
+Account activation
+   ↓
+API key generation
+3.2 KYB (Know Your Business)
+company name
+registration number
+country
+beneficial owners
+bank accounts
+4. MERCHANT ACCOUNT TYPES
+4.1 Types
+STARTER (low volume)
+GROWTH (medium volume)
+ENTERPRISE (high volume + custom rules)
+5. PAYMENT ACCEPTANCE SYSTEM
+5.1 Payment methods
+card payments
+wallet payments
+bank transfer
+mobile money (M-Amanah integration)
+5.2 Flow
+Customer initiates payment
+   ↓
+Merchant API receives request
+   ↓
+Risk engine validation
+   ↓
+Payment engine processing
+   ↓
+Ledger commit
+   ↓
+Merchant settlement updated
+6. MERCHANT API SYSTEM
+6.1 Core endpoints
+POST /merchant/payments/create
+GET /merchant/payments/status
+GET /merchant/balance
+POST /merchant/refunds
+6.2 API security
+API keys required
+IP whitelisting optional
+signature verification required
+7. SETTLEMENT SYSTEM
+7.1 Settlement logic
+Customer pays → funds held → batch settlement → merchant payout
+7.2 Settlement cycles
+instant (low risk merchants)
+daily batch
+weekly batch
+8. MERCHANT WALLET
+8.1 Features
+balance overview
+incoming payments
+payout history
+fees breakdown
+8.2 Rule
+
+Merchant wallet = ledger projection only
+
+9. REFUND SYSTEM
+9.1 Types
+full refund
+partial refund
+9.2 Rule
+Refunds ALWAYS create new ledger entries (never modify old ones)
+10. FRAUD & RISK CONTROL
+10.1 Merchant risk score
+transaction volume
+chargeback rate
+geographic risk
+10.2 Actions
+limit payments
+delay settlements
+freeze account
+11. CHARGEBACK SYSTEM
+dispute tracking
+evidence submission
+resolution engine
+12. REPORTING SYSTEM
+
+Merchants can view:
+
+revenue analytics
+transaction breakdown
+conversion rates
+fee structure
+13. WEBHOOK SYSTEM
+13.1 Events
+payment.succeeded
+payment.failed
+refund.created
+settlement.completed
+13.2 Rule
+retries required
+signed payloads
+idempotent delivery
+14. SECURITY MODEL
+API authentication required
+signature validation mandatory
+request throttling enabled
+15. PERFORMANCE REQUIREMENTS
+payment processing < 2s
+webhook delivery < 1s
+API response < 300ms
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass merchant risk engine
+ALWAYS enforce ledger consistency
+NEVER modify settlement history
+ALWAYS validate API signatures
+ALWAYS treat merchant as financial entity
+17. SUCCESS CRITERIA
+merchants can accept payments globally
+settlements are reliable and auditable
+fraud detection active
+API stable and scalable
+full ledger traceability

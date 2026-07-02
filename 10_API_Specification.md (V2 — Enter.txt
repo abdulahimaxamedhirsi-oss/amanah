@@ -1,0 +1,245 @@
+10_API_Specification.md (V2 — Enterprise Fintech API Contract)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit toutes les APIs backend d’Amanah :
+
+endpoints REST
+payloads exacts
+règles d’authentification
+règles d’idempotency
+erreurs standardisées
+lien direct avec Ledger
+
+👉 Ce document = contrat officiel entre Frontend ↔ Backend ↔ Ledger
+
+2. GLOBAL API PRINCIPLES
+2.1 Ledger-first rule
+Aucune API ne peut exister sans impact ledger traçable (direct ou indirect)
+2.2 No silent success / no silent failure
+
+Chaque réponse doit être explicite :
+
+success
+failed
+pending
+2.3 Idempotency mandatory
+
+Toutes les APIs financières doivent accepter :
+
+Idempotency-Key: UUID
+2.4 Traceability
+
+Chaque request doit contenir :
+
+traceId
+3. AUTHENTICATION APIs
+3.1 Register
+POST /auth/register
+{
+  "email": "string",
+  "phone": "string",
+  "password": "string"
+}
+Response
+{
+  "userId": "uuid",
+  "status": "pending_verification"
+}
+3.2 Verify OTP
+POST /auth/verify-otp
+{
+  "userId": "uuid",
+  "otp": "string"
+}
+3.3 Login
+POST /auth/login
+{
+  "emailOrPhone": "string",
+  "password": "string"
+}
+4. USER APIs
+GET /users/me
+
+Returns:
+
+{
+  "id": "uuid",
+  "email": "string",
+  "phone": "string",
+  "status": "active"
+}
+PATCH /users/me
+
+Update profile
+
+5. ICAN APIs
+POST /ican/create
+
+Creates financial identity.
+
+GET /ican/:id
+
+Returns ICAN profile.
+
+6. WALLET APIs (READ ONLY)
+GET /wallet/balance
+{
+  "available": 1000,
+  "pending": 100,
+  "locked": 50,
+  "currency": "USD"
+}
+GET /wallet/transactions
+
+Paginated ledger projection.
+
+⚠️ Wallet = NEVER directly modified
+
+7. PAYMENT ENGINE APIs
+POST /payments/send
+Request
+{
+  "recipientId": "uuid",
+  "amount": 100,
+  "currency": "USD",
+  "idempotencyKey": "uuid"
+}
+Response
+{
+  "transactionId": "uuid",
+  "status": "processing"
+}
+Rules
+must call FX engine if needed
+must call Fee engine
+must write ledger entries
+8. TRANSACTION APIs
+GET /transactions/:id
+
+Returns full trace:
+
+ledger entries
+fees
+FX rate
+status
+GET /transactions
+
+Filters:
+
+date
+type
+status
+9. FX APIs
+GET /fx/rate
+{
+  "base": "USD",
+  "target": "EUR",
+  "rate": 0.92,
+  "spread": 0.01
+}
+POST /fx/convert
+
+Lock FX rate for transaction.
+
+10. CASH (M-AMANAH) APIs
+POST /cash/in
+{
+  "agentId": "uuid",
+  "userIcan": "string",
+  "amount": 100,
+  "currency": "USD"
+}
+POST /cash/out
+
+Same structure reversed.
+
+11. MERCHANT APIs
+POST /merchant/pay
+{
+  "merchantId": "uuid",
+  "amount": 100,
+  "currency": "USD",
+  "idempotencyKey": "uuid"
+}
+GET /merchant/transactions
+12. NOTIFICATION APIs
+GET /notifications
+WebSocket /notifications
+
+Events:
+
+notification.sent
+payment.completed
+wallet.updated
+13. WEBHOOK APIs
+POST /webhooks/register
+{
+  "url": "string",
+  "eventType": "payment.completed"
+}
+Rules
+signed payload required
+retry mechanism mandatory
+14. LEDGER INTERNAL APIs (CRITICAL)
+POST /ledger/entry
+
+⚠️ INTERNAL ONLY
+
+Creates double-entry records.
+
+GET /ledger/transaction/:id
+
+Full audit view.
+
+15. ERROR SYSTEM (GLOBAL)
+Format
+{
+  "error": {
+    "code": "PAYMENT_001",
+    "message": "Insufficient funds",
+    "traceId": "uuid"
+  }
+}
+Categories
+AUTH_XXX
+PAYMENT_XXX
+LEDGER_XXX
+FX_XXX
+SYSTEM_XXX
+16. STATUS SYSTEM
+
+All APIs must return:
+
+success
+failed
+pending
+
+No ambiguous states allowed.
+
+17. SECURITY RULES
+JWT required for all protected routes
+RBAC enforced
+internal ledger APIs locked
+idempotency required for all money movement
+18. RATE LIMITING
+auth endpoints: strict
+payment endpoints: moderate
+public FX endpoints: high
+19. PERFORMANCE RULES
+all APIs < 300ms target
+ledger write < 100ms
+payment flow < 2s end-to-end
+20. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER create payment endpoint without ledger impact
+ALWAYS enforce idempotency
+ALWAYS return structured error format
+NEVER bypass FX or fee engine
+ALWAYS ensure traceId propagation
+21. SUCCESS CRITERIA
+100% API coverage of all journeys
+zero undocumented endpoint
+full ledger traceability per API
+deterministic request execution

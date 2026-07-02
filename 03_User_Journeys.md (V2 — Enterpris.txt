@@ -1,0 +1,251 @@
+03_User_Journeys.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit tous les parcours utilisateur critiques d’Amanah.
+
+Chaque parcours doit être :
+
+déterministe
+reproductible
+lié au Ledger
+compatible FX / Fees / Settlement / Treasury
+sans ambiguïté pour Claude Code
+2. PRINCIPLE OF USER JOURNEYS
+
+Chaque user journey suit cette structure :
+
+User Action
+   ↓
+Frontend UI
+   ↓
+API Layer
+   ↓
+Business Engine
+   ↓
+Financial Engines (FX / Fees / Treasury)
+   ↓
+Ledger (source of truth)
+   ↓
+Wallet Projection
+   ↓
+Events + Notifications
+3. JOURNEY 1 — USER REGISTRATION
+3.1 Flow
+User opens app
+   ↓
+Selects "Create account"
+   ↓
+Enters phone/email
+   ↓
+OTP verification
+   ↓
+Profile creation
+   ↓
+KYC initiation
+   ↓
+ICAN generation request
+   ↓
+Wallet initialized (EMPTY projection)
+   ↓
+Ledger account created
+3.2 Ledger impact
+User account creation = no money movement
+Only internal account initialization
+3.3 Edge cases
+OTP failure → retry flow
+duplicate user → error AUTH_002
+KYC blocked country → risk engine trigger
+4. JOURNEY 2 — KYC VERIFICATION
+4.1 Flow
+User uploads documents
+   ↓
+OCR processing
+   ↓
+AML screening
+   ↓
+Risk scoring
+   ↓
+Approval / Rejection
+4.2 States
+PENDING
+UNDER_REVIEW
+APPROVED
+REJECTED
+4.3 Ledger impact
+
+❌ Aucun impact financier
+
+5. JOURNEY 3 — CASH DEPOSIT (M-AMANAH)
+5.1 Flow
+User gives cash to agent
+   ↓
+Agent verifies identity
+   ↓
+Agent initiates deposit
+   ↓
+Backend validates agent liquidity
+   ↓
+Ledger entry created:
+    - User credited
+    - Agent liability updated
+   ↓
+Wallet projection updated
+   ↓
+Notification sent
+5.2 Ledger entries
+DEBIT: Cash-in Clearing Account
+CREDIT: User Wallet Account
+DEBIT: Agent Cash Account
+CREDIT: Agent Liability Account
+5.3 Edge cases
+agent offline
+insufficient liquidity
+fraud detection trigger
+6. JOURNEY 4 — SEND MONEY
+6.1 Flow
+User selects recipient
+   ↓
+Validation (balance, limits)
+   ↓
+FX Engine (if needed)
+   ↓
+Fee calculation
+   ↓
+Ledger posting
+   ↓
+Wallet update
+   ↓
+Recipient notification
+6.2 States
+CREATED
+VALIDATED
+PROCESSING
+SETTLED
+COMPLETED
+FAILED
+6.3 Ledger impact
+DEBIT: Sender Wallet
+CREDIT: Recipient Wallet
+DEBIT: Fee Account
+CREDIT: Revenue Account
+7. JOURNEY 5 — INTERNATIONAL TRANSFER
+7.1 Flow
+User sends money abroad
+   ↓
+FX Engine triggered
+   ↓
+Rate locked
+   ↓
+Settlement Engine selected (bank / mobile money)
+   ↓
+Ledger posting
+   ↓
+Cross-border settlement initiated
+7.2 FX rule
+FX rate MUST be locked at transaction time
+No post-change allowed
+8. JOURNEY 6 — RECEIVE MONEY
+8.1 Flow
+External sender initiates transfer
+   ↓
+Amanah receives webhook/API call
+   ↓
+Validation
+   ↓
+Ledger credit
+   ↓
+Wallet projection update
+   ↓
+Notification
+9. JOURNEY 7 — MERCHANT PAYMENT
+9.1 Flow
+Customer scans QR / pays merchant
+   ↓
+Payment Engine
+   ↓
+Fee Engine
+   ↓
+Ledger posting
+   ↓
+Merchant settlement account credited
+10. JOURNEY 8 — GOOGLE WALLET PAYMENT
+10.1 Flow
+User pays via Google Wallet token
+   ↓
+Token validation
+   ↓
+Card network authorization
+   ↓
+Ledger posting
+   ↓
+Wallet update
+11. JOURNEY 9 — FAILED TRANSACTION
+11.1 Flow
+Transaction initiated
+   ↓
+Failure detected
+   ↓
+Rollback via compensating ledger entry
+   ↓
+Wallet restored
+   ↓
+Notification sent
+12. JOURNEY 10 — REFUND
+12.1 Flow
+Merchant initiates refund
+   ↓
+Validation
+   ↓
+Ledger reversal entries created
+   ↓
+Wallet updated
+   ↓
+Notification
+13. EDGE CASE SYSTEM (CRITICAL)
+
+Tous les journeys doivent gérer :
+
+network failure
+duplicate requests
+partial settlement
+timeout
+inconsistent FX rates
+insufficient funds
+fraud detection trigger
+14. GLOBAL RULES (NON NEGOTIABLE)
+14.1 No journey without Ledger
+
+Every journey MUST result in Ledger entries.
+
+14.2 No silent failure
+
+Every failure MUST generate:
+
+error code
+ledger-safe state
+audit log
+14.3 Idempotency
+
+All journeys MUST support:
+
+retry-safe execution
+duplicate request protection
+14.4 Determinism
+
+Same input → same ledger result
+
+15. CLAUDE CODE RULES
+
+Claude Code MUST:
+
+trace every journey to Ledger impact
+validate state transitions
+ensure idempotency
+ensure FX correctness
+ensure fee correctness
+ensure no orphan transactions
+16. SUCCESS CRITERIA
+100% journey coverage
+0 orphan transactions
+0 wallet-ledger mismatch
+deterministic replay possible

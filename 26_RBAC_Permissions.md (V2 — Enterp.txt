@@ -1,0 +1,158 @@
+26_RBAC_Permissions.md (V2 — Enterprise Role-Based Access Control System)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit :
+
+comment chaque utilisateur, service et système accède aux fonctionnalités d’Amanah
+
+Objectif principal
+empêcher tout accès non autorisé
+protéger Ledger et Payment Engine
+contrôler les permissions API
+isoler les rôles métier
+garantir sécurité bancaire-grade
+2. CORE PRINCIPLE
+2.1 Zero implicit access
+No user or service has access unless explicitly granted
+2.2 Least privilege
+chaque rôle a accès minimal requis
+aucun privilège global par défaut
+3. ROLE DEFINITIONS
+3.1 System roles
+SYSTEM → internal services only
+ADMIN → full control (non-financial override only)
+AUDITOR → read-only access
+SUPPORT → limited user support access
+3.2 Business roles
+USER → client standard
+MERCHANT → business account
+AGENT → M-Amanah cash operator
+COMPLIANCE → KYC/AML operator
+4. PERMISSION MODEL
+4.1 Structure
+{
+  "role": "USER",
+  "permissions": [
+    "wallet.read",
+    "payment.send",
+    "transaction.read"
+  ]
+}
+4.2 Permission format
+module.action
+
+Examples:
+
+wallet.read
+wallet.write (restricted)
+payment.send
+ledger.read (admin only)
+5. MODULE ACCESS MATRIX
+5.1 Wallet
+Role	Access
+USER	read
+MERCHANT	read
+ADMIN	read
+SYSTEM	write
+5.2 Ledger (CRITICAL)
+Role	Access
+USER	none
+MERCHANT	none
+ADMIN	read
+SYSTEM	write
+5.3 Payment Engine
+Role	Access
+USER	send
+MERCHANT	send
+AGENT	send
+ADMIN	full
+6. API ACCESS CONTROL
+6.1 Rule
+Every API endpoint must declare required permissions
+6.2 Example
+@RequirePermissions("payment.send")
+@Post("/payments/send")
+7. SERVICE-LEVEL RBAC
+internal services authenticate via service tokens
+service roles are separate from user roles
+Example
+ledger-service → SYSTEM role only
+fx-service → SYSTEM role only
+payment-service → SYSTEM + internal permissions
+8. ADMIN PERMISSIONS
+
+Admins can:
+
+view transactions
+freeze accounts
+audit logs
+
+BUT CANNOT:
+
+modify ledger entries
+alter historical transactions
+bypass compliance rules
+9. AGENT (M-AMANAH) PERMISSIONS
+
+Agents can:
+
+cash-in
+cash-out
+verify ICAN
+
+Cannot:
+
+view full user balance
+access ledger directly
+10. COMPLIANCE PERMISSIONS
+view KYC data
+flag accounts
+block users
+approve/reject identity
+11. SECURITY RULES
+11.1 Permission enforcement
+RBAC must be enforced at:
+- API layer
+- service layer
+- database layer (if needed)
+11.2 No bypass rule
+no direct service call without permission check
+no internal override without SYSTEM role
+12. AUDIT SYSTEM
+
+Every access logs:
+
+userId / serviceId
+permission used
+endpoint accessed
+traceId
+13. DYNAMIC PERMISSIONS (FUTURE)
+
+Possible extensions:
+
+temporary permissions
+risk-based permissions
+geo-based restrictions
+14. EDGE CASES
+14.1 Role mismatch
+
+→ request rejected
+
+14.2 Unauthorized access attempt
+
+→ logged + security alert triggered
+
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass RBAC checks
+ALWAYS enforce permission per endpoint
+NEVER grant ledger access to non-system roles
+ALWAYS log access events
+NEVER assume default permissions
+16. SUCCESS CRITERIA
+zero unauthorized API access possible
+strict separation of roles
+full audit trail of access
+no privilege escalation possible

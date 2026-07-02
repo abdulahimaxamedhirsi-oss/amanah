@@ -1,0 +1,195 @@
+17_Smart_Contracts.md (V2 — Enterprise Blockchain Execution Layer)
+1. OBJECTIF DU MODULE
+
+Ce document définit les smart contracts d’Amanah qui servent à :
+
+sécuriser les preuves de settlement
+ancrer le Ledger sur blockchain
+gérer la transparence audit
+préparer la future tokenisation
+2. CORE PRINCIPLE
+2.1 Contracts are NOT the system
+Smart Contracts = verification layer
+NOT the financial engine
+2.2 Ledger remains primary
+toutes les transactions viennent du backend
+blockchain ne fait que valider des preuves
+2.3 Minimal on-chain logic
+pas de logique complexe
+uniquement vérification + stockage de hash
+3. SMART CONTRACT ARCHITECTURE
+3.1 Contract layers
+SettlementContract
+   ↓
+AuditContract
+   ↓
+TreasuryProofContract
+4. SETTLEMENT CONTRACT
+4.1 Purpose
+
+Enregistrer les batchs de transactions validées côté backend.
+
+4.2 Structure Solidity
+pragma solidity ^0.8.20;
+
+contract SettlementContract {
+
+    struct Batch {
+        bytes32 batchId;
+        bytes32 ledgerRoot;
+        uint256 timestamp;
+        bool verified;
+    }
+
+    mapping(bytes32 => Batch) public batches;
+
+    event BatchSubmitted(bytes32 batchId, bytes32 ledgerRoot);
+
+    function submitBatch(bytes32 _batchId, bytes32 _ledgerRoot) public {
+        require(batches[_batchId].timestamp == 0, "Batch already exists");
+
+        batches[_batchId] = Batch({
+            batchId: _batchId,
+            ledgerRoot: _ledgerRoot,
+            timestamp: block.timestamp,
+            verified: true
+        });
+
+        emit BatchSubmitted(_batchId, _ledgerRoot);
+    }
+}
+5. AUDIT CONTRACT
+5.1 Purpose
+
+Permettre la vérification externe de l’intégrité du ledger.
+
+5.2 Structure
+pragma solidity ^0.8.20;
+
+contract AuditContract {
+
+    mapping(bytes32 => bool) public ledgerRoots;
+
+    event LedgerRootAnchored(bytes32 root, uint256 timestamp);
+
+    function anchorRoot(bytes32 _root) public {
+        require(!ledgerRoots[_root], "Already anchored");
+
+        ledgerRoots[_root] = true;
+
+        emit LedgerRootAnchored(_root, block.timestamp);
+    }
+
+    function verifyRoot(bytes32 _root) public view returns (bool) {
+        return ledgerRoots[_root];
+    }
+}
+6. TREASURY PROOF CONTRACT
+6.1 Purpose
+preuve de réserves financières
+transparence des fonds système
+6.2 Structure
+pragma solidity ^0.8.20;
+
+contract TreasuryProofContract {
+
+    struct ReserveSnapshot {
+        bytes32 snapshotId;
+        uint256 totalReserves;
+        uint256 timestamp;
+    }
+
+    mapping(bytes32 => ReserveSnapshot) public snapshots;
+
+    event ReserveRecorded(bytes32 snapshotId, uint256 totalReserves);
+
+    function recordSnapshot(bytes32 _id, uint256 _reserves) public {
+        snapshots[_id] = ReserveSnapshot({
+            snapshotId: _id,
+            totalReserves: _reserves,
+            timestamp: block.timestamp
+        });
+
+        emit ReserveRecorded(_id, _reserves);
+    }
+}
+7. SECURITY MODEL
+7.1 No financial logic
+
+Smart contracts MUST NOT:
+
+handle balances
+execute payments
+compute FX
+store user data
+7.2 Only verification logic
+
+Allowed:
+
+store hashes
+verify proofs
+emit events
+7.3 Immutability rule
+Once deployed → contracts cannot modify financial logic
+8. DEPLOYMENT STRATEGY
+8.1 Networks
+Ethereum (main)
+Polygon (low cost)
+private chain (enterprise optional)
+8.2 Upgradeability
+proxy pattern (ONLY if necessary)
+otherwise immutable contracts preferred
+9. BACKEND ↔ BLOCKCHAIN FLOW
+9.1 Flow
+Ledger batch created
+   ↓
+Hash generated
+   ↓
+Backend signs batch
+   ↓
+Smart contract receives hash
+   ↓
+Blockchain stores proof
+10. FAILURE MODEL
+10.1 Blockchain failure
+backend continues normally
+batches queued
+retry mechanism active
+10.2 Contract failure
+revert transaction
+log error in backend
+retry later
+11. EVENTS SYSTEM
+
+Contracts emit:
+
+BatchSubmitted
+LedgerRootAnchored
+ReserveRecorded
+12. OBSERVABILITY
+
+Track:
+
+contract calls success rate
+gas usage
+batch confirmation delay
+mismatch detection
+13. PERFORMANCE RULES
+batch submission < 5 sec
+proof verification instant
+gas optimization mandatory
+14. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER put financial logic in contracts
+ALWAYS keep ledger as source of truth
+ALWAYS verify batch integrity before submission
+NEVER expose user data on-chain
+ALWAYS ensure idempotent batch submission
+15. SUCCESS CRITERIA
+immutable audit trail
+verifiable ledger integrity
+zero financial logic on-chain
+scalable batch processing
+secure settlement proofs

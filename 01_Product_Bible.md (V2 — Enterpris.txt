@@ -1,0 +1,260 @@
+01_Product_Bible.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU PRODUIT
+
+Amanah est une plateforme financière universelle permettant à tout utilisateur de :
+
+ouvrir un compte financier global (ICAN)
+stocker de la valeur multi-devises
+envoyer et recevoir de l’argent instantanément
+utiliser des réseaux locaux (M-Pesa, Orange Money, MTN)
+interagir avec des cartes (Google Wallet, Visa/Mastercard)
+utiliser des agents physiques (M-Amanah)
+accéder à des services marchands
+2. PRODUIT ≠ APPLICATION
+
+Amanah n’est pas une app.
+
+C’est un système de produits interconnectés :
+
+Amanah System
+   ├── Wallet Product
+   ├── Payments Product
+   ├── ICAN Product
+   ├── M-Amanah Product
+   ├── Merchant Product
+   ├── Cards Product
+   ├── FX Product
+   ├── Treasury Product
+
+Chaque produit a :
+
+UI
+API
+règles métier
+events
+ledger impact
+3. USER JOURNEY GLOBAL
+3.1 Onboarding
+User installs app
+   ↓
+Register
+   ↓
+KYC verification
+   ↓
+ICAN creation
+   ↓
+Wallet initialized
+   ↓
+Ledger account created
+3.2 First deposit
+User deposits cash / mobile money
+   ↓
+M-Amanah agent OR API provider
+   ↓
+Ledger entry created
+   ↓
+Wallet updated (projection)
+3.3 Send money
+User selects recipient
+   ↓
+Payment Engine triggered
+   ↓
+FX Engine (if needed)
+   ↓
+Ledger posting
+   ↓
+Settlement engine
+   ↓
+Recipient wallet updated
+4. CORE PRODUCT MODULES
+4.1 WALLET PRODUCT
+Definition
+
+Wallet = UI + projection layer of Ledger
+
+Features
+multi-currency balance
+transaction history
+pending transactions
+locked funds
+available vs total balance
+Rules
+Wallet balance = SUM(Ledger entries)
+NOT stored manually
+States
+ACTIVE
+FROZEN
+RESTRICTED
+CLOSED
+4.2 ICAN PRODUCT
+Definition
+
+ICAN = Global financial identity number
+
+Features
+unique global ID
+routing for payments
+alias for bank/mobile money
+Rules
+1 user = 1 primary ICAN
+ICAN must map to Ledger account
+4.3 PAYMENT PRODUCT
+Features
+send money
+receive money
+request money
+bulk payments
+scheduled payments
+Payment Flow
+User Action
+   ↓
+Validation Layer
+   ↓
+Payment Engine
+   ↓
+FX Engine (if needed)
+   ↓
+Ledger posting
+   ↓
+Settlement
+   ↓
+Notification
+Payment States
+INITIATED
+VALIDATED
+PROCESSING
+SUCCESS
+FAILED
+REVERSED
+4.4 FX PRODUCT
+Features
+currency conversion
+real-time rates
+spread management
+provider fallback
+Rules
+FX rate must be stored at transaction time
+FX must be immutable once applied
+4.5 M-AMANAH PRODUCT
+Definition
+
+Cash-based financial network via agents.
+
+Features
+cash-in
+cash-out
+agent commission
+liquidity management
+Flow Cash-in
+User gives cash to agent
+   ↓
+Agent validates
+   ↓
+Agent API call
+   ↓
+Ledger credit user
+   ↓
+Agent commission credited
+4.6 MERCHANT PRODUCT
+Features
+payment acceptance
+QR code payments
+invoices
+subscriptions
+Merchant Flow
+Customer pays merchant
+   ↓
+Payment Engine
+   ↓
+Ledger posting
+   ↓
+Merchant settlement account credited
+4.7 CARDS PRODUCT
+Features
+virtual cards
+Google Wallet integration
+tokenization
+spending controls
+Rules
+card spend = ledger debit
+card top-up = ledger credit
+5. PRODUCT STATES ENGINE
+
+Chaque produit possède un système d’état.
+
+Example: Transaction State Machine
+CREATED
+   ↓
+VALIDATED
+   ↓
+PROCESSING
+   ↓
+SETTLED
+   ↓
+COMPLETED
+
+ou
+
+FAILED
+REVERSED
+6. ERROR MODEL (PRODUCT LEVEL)
+
+Tous les produits doivent utiliser un système d’erreurs standardisé.
+
+Exemple :
+
+AUTH_001 → invalid credentials
+PAY_002 → insufficient funds
+FX_003 → rate not available
+LEDGER_004 → imbalance detected
+7. EVENT MODEL
+
+Chaque produit émet des événements :
+
+Payment Events
+payment.created
+payment.completed
+payment.failed
+Wallet Events
+wallet.updated
+wallet.frozen
+Ledger Events
+ledger.entry.created
+ledger.entry.reversed
+8. PRODUCT DEPENDENCIES
+Payment Engine
+   → depends on FX Engine
+   → depends on Ledger
+   → depends on Wallet projection
+
+M-Amanah
+   → depends on Ledger
+   → depends on Settlement
+
+Merchant
+   → depends on Payment Engine
+9. UX PRINCIPLES
+Simple first
+Financial clarity always visible
+No hidden fees
+Real-time feedback
+Offline tolerance (Africa-first design)
+10. NON-GOALS
+No trading features
+No crypto speculation
+No lending system (v1)
+No investment portfolio
+11. SUCCESS CRITERIA
+< 2s payment confirmation
+99.9% ledger consistency
+zero balance mismatch
+full traceability of all operations
+12. CLAUDE CODE RULES (IMPORTANT)
+
+Claude Code must:
+
+ALWAYS map feature → ledger impact
+NEVER modify wallet directly
+ALWAYS validate state machine transitions
+NEVER assume missing business rules
+ALWAYS check event emissions

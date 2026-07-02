@@ -1,0 +1,188 @@
+15_Open_Banking.md (V2 — Enterprise Financial Connectivity Layer)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit comment Amanah se connecte au monde extérieur :
+
+banques, mobile money, cartes, fintechs partenaires, rails de paiement
+
+Rôle principal
+connecter Amanah aux systèmes bancaires externes
+intégrer mobile money (Afrique)
+gérer M-Amanah plugin (agents physiques)
+gérer les confirmations de settlement
+normaliser tous les partenaires financiers
+2. CORE PRINCIPLE
+2.1 Amanah is NOT a bank
+Amanah = financial orchestration layer
+NOT a bank holding funds directly
+2.2 External rails abstraction
+
+Tous les systèmes externes doivent être standardisés via :
+
+connectors
+adapters
+unified API layer
+2.3 Settlement-first model
+internal ledger = truth
+external systems = execution layer
+3. ARCHITECTURE OVERVIEW
+3.1 Open Banking Layer
+Amanah Core
+   ↓
+Open Banking Gateway
+   ↓
+Provider Adapters
+   ↓
+External Systems (Banks / Mobile Money)
+3.2 Providers supported
+Banks (API-based)
+Mobile Money (M-Pesa, M-Amanah, Orange Money)
+Card networks (future)
+Crypto rails (future phase)
+4. PROVIDER ADAPTER SYSTEM
+4.1 Adapter pattern
+
+Each provider implements:
+
+send money
+receive confirmation
+check balance (if supported)
+transaction status
+4.2 Standard interface
+{
+  "initPayment": {},
+  "confirmPayment": {},
+  "getStatus": {},
+  "refund": {}
+}
+5. MOBILE MONEY INTEGRATION (AFRICA CORE)
+5.1 Supported rails
+M-Pesa
+Orange Money
+Airtel Money
+M-Amanah (internal plugin system)
+5.2 Flow
+Ledger payment created
+   ↓
+Settlement engine triggers
+   ↓
+Mobile money adapter called
+   ↓
+Provider executes transfer
+   ↓
+Confirmation received
+   ↓
+Ledger finalized
+6. M-AMANAH PLUGIN SYSTEM
+6.1 Concept
+
+M-Amanah = offline/agent-based payment system
+
+Used for:
+
+cash-in
+cash-out
+rural payments
+offline environments
+6.2 Agent flow
+User → Agent
+Agent confirms cash exchange
+System updates ledger
+Sync later with provider rails
+6.3 Agent responsibilities
+cash handling
+identity verification (ICAN lookup)
+transaction confirmation
+7. SETTLEMENT ENGINE INTEGRATION
+7.1 Flow dependency
+
+Open Banking depends on:
+
+Payment Engine
+Ledger Engine
+FX Engine
+Risk Engine
+7.2 Settlement states
+INITIATED
+PENDING_PROVIDER
+CONFIRMED
+FAILED
+REVERSED
+8. ERROR HANDLING
+Provider failures
+timeout
+insufficient provider balance
+API errors
+network failures
+Standard response
+{
+  "error": {
+    "code": "OPENBANK_002",
+    "message": "Provider timeout",
+    "traceId": "uuid"
+  }
+}
+9. RETRY & RELIABILITY SYSTEM
+9.1 Retry rules
+exponential backoff
+max 3 retries
+fallback provider (if available)
+9.2 Idempotency
+same request must not double-pay external rails
+10. PROVIDER HEALTH SYSTEM
+
+Track:
+
+uptime
+latency
+success rate
+failure rate
+
+If provider unhealthy:
+
+automatically disabled
+fallback activated
+11. SECURITY MODEL
+signed requests required
+API keys per provider
+encrypted payloads
+webhook signature verification
+12. WEBHOOK SYSTEM
+
+Providers send:
+
+payment confirmations
+failure notifications
+settlement updates
+Verification rule
+All webhooks must be signed and verified
+13. DATA CONSISTENCY MODEL
+Rule
+External systems = eventually consistent
+Ledger = always consistent
+14. OBSERVABILITY
+
+Track:
+
+provider latency
+settlement delays
+failed transactions per rail
+15. PERFORMANCE REQUIREMENTS
+provider call < 1s target
+fallback trigger < 2s
+settlement confirmation < 5s
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER trust external provider responses blindly
+ALWAYS reconcile with ledger
+ALWAYS enforce idempotency for external payments
+ALWAYS handle provider failure gracefully
+NEVER bypass settlement engine
+17. SUCCESS CRITERIA
+full multi-provider support
+zero duplicate external payments
+full settlement traceability
+automatic fallback working
+mobile money integration stable

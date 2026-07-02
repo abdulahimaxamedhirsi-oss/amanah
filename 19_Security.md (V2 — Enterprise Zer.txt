@@ -1,0 +1,194 @@
+19_Security.md (V2 — Enterprise Zero-Trust Fintech Security Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit toute la stratégie de sécurité d’Amanah.
+
+👉 Objectif :
+
+empêcher toute fraude
+protéger le Ledger
+sécuriser les API
+bloquer les attaques internes et externes
+garantir un système bancaire-grade
+2. CORE SECURITY PRINCIPLE
+2.1 Zero Trust Architecture
+Never trust user, device, network, or service by default
+2.2 Defense in depth
+
+Sécurité en couches :
+
+API layer security
+service layer validation
+ledger enforcement
+database protection
+infrastructure security
+2.3 Ledger is untouchable
+Ledger = IMMUTABLE CORE
+Any compromise attempt = system failure prevention trigger
+3. AUTHENTICATION SECURITY
+3.1 JWT protection
+short-lived tokens
+rotation mandatory
+device-bound sessions (optional)
+3.2 Session hijacking prevention
+IP fingerprinting
+device fingerprinting
+anomaly detection
+4. API SECURITY
+4.1 Rate limiting
+per user
+per IP
+per endpoint
+4.2 Abuse protection
+
+Block:
+
+brute force
+endpoint scraping
+bot traffic
+payment spam
+4.3 Input validation
+strict DTO validation
+schema enforcement
+no raw input passing
+5. ENCRYPTION SYSTEM
+5.1 Data at rest
+AES-256 encryption mandatory
+sensitive fields encrypted in DB
+5.2 Data in transit
+TLS 1.3 required
+certificate pinning for mobile apps
+5.3 Key management
+environment secrets never exposed
+rotated regularly
+stored in secure vault (e.g. AWS KMS)
+6. FRAUD DETECTION SYSTEM
+6.1 Real-time detection
+
+Triggers:
+
+unusual transaction amount
+rapid transfers
+geographic mismatch
+multiple device switching
+6.2 Fraud response levels
+monitor
+warn
+block transaction
+freeze account
+7. SYSTEM ATTACK PROTECTION
+7.1 Common attacks handled
+SQL injection
+XSS
+CSRF
+replay attacks
+API abuse
+7.2 Ledger attack protection
+
+Any attempt to:
+
+modify ledger entries
+bypass double-entry rules
+fake transactions
+
+👉 results in immediate rejection + alert
+
+8. INFRASTRUCTURE SECURITY
+8.1 Network isolation
+backend services isolated
+DB not publicly exposed
+internal service communication only
+8.2 Docker security
+minimal images
+no root containers
+restricted permissions
+9. SECRET MANAGEMENT
+9.1 Rules
+no secrets in code
+no secrets in logs
+environment-based injection only
+9.2 Examples of secrets
+DB credentials
+API keys
+payment provider keys
+JWT secrets
+10. AUDIT LOGGING SECURITY
+
+Every sensitive action logs:
+
+userId
+action type
+traceId
+timestamp
+IP address
+
+Logs are:
+
+immutable
+append-only
+11. ROLE SECURITY (RBAC)
+Roles:
+user
+merchant
+agent
+admin
+system
+Rule:
+Every endpoint must validate role + permission scope
+12. WEB SOCKET SECURITY
+authenticated connection only
+token validation on handshake
+user-specific channels only
+13. PAYMENT SECURITY
+
+Every payment must pass:
+
+authentication check
+risk engine
+AML check
+ledger validation
+14. BLOCKCHAIN SECURITY (LINKED)
+only hashes sent on-chain
+no private data exposed
+signed batch proofs required
+15. INCIDENT RESPONSE SYSTEM
+15.1 Trigger events
+fraud detected
+ledger inconsistency
+API breach attempt
+15.2 Actions
+freeze accounts
+disable endpoints
+alert admin system
+isolate service
+16. MONITORING SYSTEM
+
+Track in real-time:
+
+API latency
+fraud attempts
+failed auth attempts
+ledger mismatch attempts
+17. PENETRATION RESISTANCE MODEL
+
+System must resist:
+
+brute-force attacks
+distributed bot attacks
+API flooding
+data scraping attempts
+18. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass authentication checks
+ALWAYS validate ledger integrity before action
+NEVER expose sensitive data in logs
+ALWAYS enforce encryption rules
+ALWAYS treat external input as hostile
+19. SUCCESS CRITERIA
+zero unauthorized access possible
+zero ledger tampering possible
+full encryption coverage
+real-time fraud detection active
+system resilient under attack

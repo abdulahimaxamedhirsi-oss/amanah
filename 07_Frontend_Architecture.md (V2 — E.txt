@@ -1,0 +1,265 @@
+07_Frontend_Architecture.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit l’architecture frontend complète d’Amanah.
+
+👉 Il doit permettre à Claude Code (ou un développeur humain) de :
+
+construire le frontend sans ambiguïté
+comprendre chaque écran comme une projection du backend
+maintenir la cohérence avec le Ledger system
+garantir un comportement fintech-grade
+2. FRONTEND PHILOSOPHY
+2.1 Frontend = Projection Layer
+
+Le frontend ne contient :
+
+aucune logique financière
+aucune vérité sur les balances
+aucune décision métier critique
+
+👉 Il est uniquement une projection du backend + Ledger
+
+2.2 Backend is Truth
+Frontend ≠ Truth
+Backend + Ledger = Truth
+2.3 Event-driven UI
+
+UI doit être mise à jour via :
+
+WebSockets
+Events backend
+API sync fallback
+3. TECHNOLOGY STACK
+3.1 Core Stack
+React / Next.js (Web)
+React Native (Mobile)
+TypeScript (strict mode)
+TailwindCSS (UI system)
+Zustand or Redux Toolkit (state)
+3.2 Communication Layer
+REST API (primary)
+WebSockets (real-time updates)
+Webhooks (external triggers)
+3.3 Data Fetching
+React Query (TanStack Query)
+caching mandatory
+retry policies enabled
+4. FRONTEND ARCHITECTURE OVERVIEW
+4.1 Layers
+UI Layer (Screens)
+   ↓
+Component Layer
+   ↓
+State Layer
+   ↓
+API Layer
+   ↓
+Backend Services
+   ↓
+Ledger (source of truth)
+4.2 Folder Structure
+src/
+ ├── app/ (Next routes)
+ ├── screens/
+ ├── components/
+ ├── features/
+ │    ├── wallet/
+ │    ├── payments/
+ │    ├── kyc/
+ │    ├── auth/
+ │    ├── transactions/
+ ├── services/
+ ├── hooks/
+ ├── state/
+ ├── utils/
+ ├── types/
+ ├── websocket/
+ └── config/
+5. STATE MANAGEMENT MODEL
+5.1 Principle
+
+State is split into 3 categories:
+
+1. Server State
+transactions
+wallet balance
+ledger projections
+
+👉 Managed by React Query
+
+2. UI State
+modals
+loading states
+navigation
+
+👉 Managed locally or Zustand
+
+3. Real-time State
+wallet updates
+transaction status
+notifications
+
+👉 Managed via WebSockets
+
+6. WALLET ARCHITECTURE (CRITICAL)
+6.1 Wallet is NOT stored state
+Wallet = derived from Ledger API
+NOT local storage
+6.2 Wallet update flow
+Ledger update
+   ↓
+Backend event emitted
+   ↓
+WebSocket push
+   ↓
+Frontend updates UI
+6.3 UI rendering rule
+
+Frontend must always display:
+
+available balance
+pending balance
+locked balance
+7. PAYMENT FLOW ARCHITECTURE
+7.1 Flow
+User UI action
+   ↓
+API call (payment service)
+   ↓
+FX / Fee computation
+   ↓
+Ledger update
+   ↓
+Event emitted
+   ↓
+Frontend update via WebSocket
+7.2 Frontend rule
+
+Frontend NEVER confirms payment success without backend confirmation.
+
+8. WEBSOCKET ARCHITECTURE
+8.1 Channels
+wallet:<userId>
+transactions:<userId>
+notifications:<userId>
+8.2 Events
+wallet.updated
+payment.completed
+payment.failed
+ledger.entry.created
+8.3 Reliability rule
+
+If WebSocket fails:
+
+👉 fallback to polling API
+
+9. FRONTEND MODULES
+9.1 AUTH MODULE
+login
+register
+OTP verification
+session management
+9.2 WALLET MODULE
+balance display
+currency breakdown
+transaction history
+9.3 PAYMENT MODULE
+send money
+receive money
+QR payments
+9.4 TRANSACTIONS MODULE
+history
+filters
+transaction details
+9.5 KYC MODULE
+document upload
+verification status
+9.6 NOTIFICATIONS MODULE
+real-time alerts
+transaction updates
+10. NAVIGATION ARCHITECTURE
+Mobile
+
+Bottom tabs:
+
+Home
+Wallet
+Send
+Activity
+Settings
+Web
+
+Sidebar:
+
+Dashboard
+Users
+Transactions
+Merchants
+Agents
+Settings
+11. UI DATA CONSISTENCY RULE
+Critical rule
+
+Frontend must NEVER compute:
+
+balances
+fees
+FX outcomes
+
+Everything comes from backend.
+
+12. ERROR HANDLING
+Standard format
+{
+  "error": {
+    "code": "STRING",
+    "message": "Human readable",
+    "traceId": "uuid"
+  }
+}
+UI behavior
+show error banner
+allow retry
+show support reference
+13. PERFORMANCE RULES
+Targets
+initial load < 1.5s
+navigation < 300ms
+real-time update < 500ms
+Optimization
+lazy loading required
+component splitting mandatory
+caching via React Query
+14. SECURITY RULES
+Frontend must NEVER:
+store ledger data locally as truth
+store sensitive financial state
+bypass backend validation
+Token handling
+JWT stored in secure HTTP-only cookies
+15. OFFLINE MODE (LIMITED)
+
+Allowed:
+
+view cached transactions
+view cached balances (non-authoritative)
+
+Not allowed:
+
+send payments offline
+modify wallet state offline
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+ensure frontend never contradicts Ledger
+ensure all financial updates come from backend
+ensure WebSocket fallback exists
+ensure no client-side financial logic
+ensure consistency across all screens
+17. SUCCESS CRITERIA
+UI always matches backend ledger state
+zero desynchronization possible
+real-time updates stable
+no financial computation in frontend

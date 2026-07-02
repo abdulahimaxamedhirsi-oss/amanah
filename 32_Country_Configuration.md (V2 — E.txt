@@ -1,0 +1,133 @@
+32_Country_Configuration.md (V2 — Enterprise Multi-Country Fintech Configuration System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit comment Amanah fonctionne dans différents pays avec des règles financières, légales et opérationnelles spécifiques.
+
+👉 Objectif :
+
+adapter Amanah à chaque juridiction
+respecter les régulations locales
+gérer devises et restrictions
+contrôler les fonctionnalités par pays
+permettre expansion globale sans refonte
+2. CORE PRINCIPLE
+2.1 Country is a rule container
+Each country defines its own financial, legal and operational constraints.
+2.2 No global default assumption
+aucune règle universelle sans override pays
+chaque fonctionnalité doit être validée par configuration pays
+3. COUNTRY CONFIG STRUCTURE
+3.1 Base schema
+{
+  "countryCode": "SN",
+  "currency": "XOF",
+  "features": {
+    "wallet": true,
+    "cards": false,
+    "agents": true,
+    "crypto": false
+  },
+  "limits": {
+    "dailyTransferLimit": 500000,
+    "monthlyLimit": 2000000
+  },
+  "compliance": {
+    "kycLevelRequired": 2,
+    "amlStrictMode": true
+  }
+}
+4. COUNTRY FEATURE FLAGS
+4.1 Feature toggles per country
+wallets enabled/disabled
+cards availability
+FX engine access
+merchant system availability
+agent network availability
+4.2 Rule
+A feature is active ONLY if enabled in country config.
+5. CURRENCY SYSTEM
+5.1 Multi-currency model
+base currency per country
+FX conversion via FX Engine
+ledger stores base currency + converted values
+5.2 Rule
+Ledger must store original + converted currency values.
+6. REGULATORY LAYERS
+6.1 Compliance types
+KYC requirements
+AML strictness level
+transaction monitoring rules
+reporting obligations
+6.2 Example
+Country	KYC Level	AML Strictness
+EU	High	Very High
+US	High	Very High
+SN	Medium	Medium
+7. PAYMENT RAILS PER COUNTRY
+7.1 Supported rails
+card networks (Visa/Mastercard)
+mobile money (Africa)
+bank transfers
+local payment systems
+7.2 Rule
+Only country-approved rails can be used for payments.
+8. AGENT NETWORK DEPENDENCY
+agents only active in supported countries
+liquidity rules differ per region
+commission models vary per country
+9. LIMIT SYSTEM PER COUNTRY
+
+Each country defines:
+
+max transaction amount
+daily limits
+FX restrictions
+cash-in/cash-out limits
+10. GEO-RESTRICTIONS
+10.1 Rules
+certain countries can block features entirely
+sanctions list enforced globally
+10.2 Example
+crypto disabled in restricted regions
+cards disabled in high-risk countries
+11. FEATURE DEPLOYMENT STRATEGY
+11.1 Rollout types
+country-by-country rollout
+feature flags controlled remotely
+staged activation
+11.2 Rule
+No feature is globally active without country validation.
+12. DATA LOCALIZATION
+sensitive data may need local storage
+compliance-driven storage rules
+region-based database partitioning
+13. FX ENGINE INTEGRATION
+currency conversion per country rules
+rate restrictions per jurisdiction
+tax adjustments possible
+14. RISK ENGINE PER COUNTRY
+different fraud sensitivity per region
+localized fraud patterns
+country-specific scoring models
+15. SECURITY RULES
+cross-border transactions monitored
+sanctions screening applied globally
+geo-fraud detection enabled
+16. PERFORMANCE REQUIREMENTS
+country config lookup < 50ms
+feature flag resolution < 20ms
+17. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS check country config before executing logic
+NEVER assume feature availability globally
+ALWAYS respect compliance rules per country
+NEVER bypass geo restrictions
+ALWAYS apply correct currency rules
+18. SUCCESS CRITERIA
+fully multi-country scalable system
+compliance per jurisdiction guaranteed
+feature isolation working correctly
+zero cross-country rule violations
+safe global expansion possible

@@ -1,0 +1,155 @@
+23_Coding_Standards.md (V2 — Enterprise Fintech Code Architecture Rules)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit les règles de code obligatoires pour tout le projet Amanah.
+
+👉 Objectif :
+
+code propre et maintenable
+scalabilité longue durée
+zéro dette technique critique
+compatibilité Claude Code
+architecture uniforme
+2. CORE PRINCIPLE
+2.1 Clean architecture mandatory
+Business logic must NEVER depend on frameworks
+2.2 Domain-first design
+domaine métier = priorité
+infrastructure = secondaire
+UI = couche finale
+2.3 No shortcut rule
+No "quick fixes" in financial systems
+3. PROJECT STRUCTURE (NESTJS)
+3.1 Standard architecture
+src/
+ ├── modules/
+ │    ├── auth/
+ │    ├── users/
+ │    ├── payments/
+ │    ├── ledger/
+ │    ├── fx/
+ │    ├── wallet/
+ │    ├── compliance/
+ │
+ ├── common/
+ │    ├── guards/
+ │    ├── filters/
+ │    ├── interceptors/
+ │
+ ├── infrastructure/
+ │    ├── database/
+ │    ├── redis/
+ │    ├── messaging/
+ │
+ ├── domain/
+ │    ├── entities/
+ │    ├── value-objects/
+ │    ├── services/
+ │
+ ├── application/
+ │    ├── use-cases/
+ │
+ ├── main.ts
+4. NAMING CONVENTIONS
+4.1 General rules
+camelCase → variables/functions
+PascalCase → classes/entities
+kebab-case → files (optional consistency)
+4.2 Domain naming
+PaymentService
+LedgerService
+FxEngine
+WalletProjectionService
+5. FINANCIAL CODE RULES
+5.1 No floating point money
+ALL MONEY = DECIMAL OR INTEGER (cents)
+5.2 No direct wallet mutation
+wallet = derived only
+ledger = source of truth
+5.3 Immutable transactions
+never update financial records
+only append new entries
+6. SERVICE DESIGN RULES
+6.1 Single responsibility
+
+Each service must:
+
+do ONE thing only
+no mixed responsibilities
+6.2 Example
+
+❌ Bad:
+
+PaymentService doing FX + Ledger + Wallet
+
+✔ Good:
+
+PaymentService orchestrates
+FXService handles conversion
+LedgerService handles accounting
+7. API DESIGN RULES
+7.1 REST standard
+GET → read
+POST → create
+PATCH → update
+DELETE → disabled for financial data
+7.2 Financial rule
+No DELETE endpoints for money-related entities
+8. ERROR HANDLING STANDARD
+8.1 Format
+{
+  "error": {
+    "code": "MODULE_XXX",
+    "message": "Human readable message",
+    "traceId": "uuid"
+  }
+}
+8.2 Rule
+no raw exceptions exposed
+all errors must be mapped
+9. EVENT-DRIVEN ARCHITECTURE
+9.1 Rule
+All financial operations MUST emit events
+9.2 Event examples
+payment.created
+ledger.updated
+wallet.recalculated
+10. TESTING RULES
+every module must have unit tests
+financial modules must have 100% coverage
+ledger tests are mandatory
+11. SECURITY RULES
+no secrets in code
+all inputs validated
+RBAC enforced everywhere
+12. PERFORMANCE RULES
+avoid heavy computation in controllers
+use async workers for financial operations
+cache only non-financial data
+13. DATABASE RULES
+Prisma only
+no raw SQL in production code
+migrations mandatory for schema changes
+14. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass architecture layers
+ALWAYS respect module boundaries
+NEVER mix domain logic with infrastructure
+ALWAYS enforce ledger-first logic
+NEVER allow financial mutation outside ledger
+15. COMMON ANTI-PATTERNS (FORBIDDEN)
+
+❌ Mixing wallet + ledger logic
+❌ Updating financial records directly
+❌ Business logic in controllers
+❌ Hardcoded money values
+❌ Floating point arithmetic
+
+16. SUCCESS CRITERIA
+clean modular architecture
+fully testable system
+no tight coupling
+predictable financial logic
+scalable to millions of users

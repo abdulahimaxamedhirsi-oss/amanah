@@ -1,0 +1,206 @@
+12_ICAN_System.md (V2 — Global Financial Identity System)
+1. OBJECTIF DU SYSTÈME ICAN
+
+Le système ICAN (International Customer Account Number) est :
+
+Une identité financière universelle unique pour chaque utilisateur Amanah.
+
+Rôle principal
+
+ICAN permet de :
+
+identifier un utilisateur globalement
+connecter tous les rails financiers (mobile money, banque, card, crypto future)
+mapper un utilisateur à son Ledger Account
+simplifier les paiements internationaux
+2. PRINCIPLE OF ICAN DESIGN
+2.1 Universal identity layer
+ICAN = unique financial identity across all systems
+2.2 One user = one ICAN
+strict 1:1 mapping
+immutable once created
+never reused
+2.3 Country abstraction
+
+ICAN is independent of:
+
+country
+currency
+payment rail
+3. ICAN STRUCTURE
+3.1 Format
+AMH-XXXX-XXXX-XXXX
+
+Where:
+
+AMH = Amanah prefix
+XXXX = cryptographic segments
+3.2 Example
+AMH-7F3K-92LD-4PXA
+3.3 Properties
+globally unique
+non-guessable
+deterministic generation
+4. ICAN GENERATION SYSTEM
+4.1 Flow
+User created
+   ↓
+User verified (KYC required)
+   ↓
+Generate ICAN seed
+   ↓
+Hash + entropy generation
+   ↓
+Check uniqueness in DB
+   ↓
+Persist ICAN
+   ↓
+Link to Ledger Account
+4.2 Rules
+ICAN cannot be generated before KYC
+ICAN cannot be modified
+ICAN must be collision-proof
+5. ICAN ↔ LEDGER MAPPING
+5.1 Core mapping
+ICAN → Ledger Account (1:1)
+5.2 Ledger dependency
+
+Every ICAN is tied to:
+
+account_id (ledger)
+currency wallets
+transaction history
+6. ICAN USE CASES
+6.1 Send money
+
+Instead of:
+
+bank account
+phone number
+
+👉 user sends to ICAN
+
+6.2 Receive money
+
+ICAN acts as:
+
+payment address
+universal wallet ID
+6.3 Cross-border payments
+
+ICAN abstracts:
+
+FX complexity
+settlement rails
+banking systems
+7. ICAN SECURITY MODEL
+7.1 Non-guessable
+
+ICAN must be:
+
+cryptographically random
+not sequential
+not predictable
+7.2 Anti-fraud rules
+rate limiting on ICAN lookup
+anomaly detection on ICAN transfers
+7.3 No exposure of sensitive data
+
+ICAN reveals NOTHING about:
+
+user identity
+country
+balance
+account type
+8. ICAN LOOKUP SYSTEM
+8.1 API behavior
+GET /ican/:code
+
+Returns:
+
+masked identity
+account status
+validation status
+8.2 Security rule
+no full PII exposed
+only minimal metadata allowed
+9. ICAN IN PAYMENT SYSTEM
+9.1 Flow
+Sender enters ICAN
+   ↓
+Resolve ICAN → Ledger Account
+   ↓
+Validate recipient
+   ↓
+Execute payment engine
+   ↓
+Ledger update
+10. EDGE CASES
+10.1 Invalid ICAN
+return ICAN_NOT_FOUND
+10.2 Duplicate ICAN attempt
+system must block instantly
+10.3 ICAN disabled user
+payment rejected
+risk event triggered
+11. PERFORMANCE REQUIREMENTS
+ICAN lookup < 50ms
+ICAN generation < 200ms
+global indexing required
+12. DATABASE DESIGN
+id UUID
+user_id UUID UNIQUE
+ican_code TEXT UNIQUE
+status ENUM(active, blocked)
+created_at TIMESTAMP
+13. EVENTS SYSTEM
+
+Events:
+
+ican.created
+ican.linked
+ican.blocked
+14. ADMIN CONTROL
+
+Admins can:
+
+view ICAN mappings
+block ICAN
+audit ICAN activity
+
+BUT CANNOT:
+
+modify ICAN
+reuse ICAN
+15. FINTECH RULES
+15.1 ICAN is not a wallet
+
+ICAN = identity
+Wallet = ledger projection
+
+15.2 ICAN is permanent
+never deleted
+never reassigned
+15.3 ICAN is global routing key
+
+Used in:
+
+payments
+settlement
+mobile money
+banking rails
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow ICAN duplication
+ALWAYS enforce KYC before ICAN creation
+NEVER expose sensitive user data via ICAN
+ALWAYS map ICAN → ledger account
+ALWAYS ensure ICAN immutability
+17. SUCCESS CRITERIA
+100% unique ICAN generation
+zero collision possible
+instant lookup
+full ledger traceability
+global interoperability ready

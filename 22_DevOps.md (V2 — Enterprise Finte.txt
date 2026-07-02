@@ -1,0 +1,168 @@
+22_DevOps.md (V2 — Enterprise Fintech Infrastructure & DevOps System)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit toute l’infrastructure DevOps d’Amanah.
+
+👉 Objectif :
+
+infrastructure scalable mondialement
+automatisation totale
+sécurité maximale
+déploiement industriel
+tolérance aux pannes
+2. CORE PRINCIPLE
+2.1 Infrastructure as Code
+All infrastructure must be defined in code (no manual setup)
+2.2 Zero manual production changes
+aucun changement manuel en prod
+tout passe par CI/CD
+2.3 Immutable infrastructure
+servers are replaceable
+never modified in place
+3. KUBERNETES ARCHITECTURE
+3.1 Cluster design
+Frontend (CDN)
+   ↓
+API Gateway (Ingress)
+   ↓
+Kubernetes Cluster
+   ├── API Pods
+   ├── Worker Pods (Payments/Ledger)
+   ├── WebSocket Pods
+   └── Background Jobs
+3.2 Scaling rule
+horizontal pod autoscaling mandatory
+CPU + memory + request-based scaling
+4. TERRAFORM INFRASTRUCTURE
+4.1 Resources managed
+Kubernetes clusters
+databases
+load balancers
+networking
+storage
+4.2 Rule
+No infrastructure created outside Terraform
+5. CI/CD ADVANCED PIPELINE
+5.1 Flow
+Git push
+   ↓
+Lint + Typecheck
+   ↓
+Unit tests
+   ↓
+Ledger tests (critical)
+   ↓
+Security scan
+   ↓
+Build Docker images
+   ↓
+Push to registry
+   ↓
+Deploy to staging
+   ↓
+E2E tests
+   ↓
+Deploy to production
+5.2 Quality gates
+
+Deployment blocked if:
+
+tests fail
+ledger mismatch detected
+security scan fails
+6. AUTOSCALING SYSTEM
+6.1 Rules
+scale API on traffic
+scale workers on queue size
+scale websocket on connections
+6.2 Critical rule
+Payments system must never be throttled
+7. OBSERVABILITY STACK
+7.1 Tools
+Prometheus → metrics
+Grafana → dashboards
+ELK stack → logs
+Jaeger → tracing
+7.2 Metrics tracked
+payment latency
+ledger write time
+FX processing time
+API errors
+system load
+8. LOGGING SYSTEM
+8.1 Rules
+structured JSON logs only
+every log must contain traceId
+no sensitive data in logs
+8.2 Log types
+system logs
+financial logs
+security logs
+audit logs
+9. SECRETS MANAGEMENT
+9.1 Vault system
+HashiCorp Vault (or equivalent)
+all secrets encrypted
+9.2 Rules
+No secret in code, logs, or CI output
+10. NETWORK ARCHITECTURE
+10.1 Structure
+private subnets for backend
+public only for API gateway
+DB fully isolated
+10.2 Firewall rules
+only API gateway can access backend services
+DB access strictly internal
+11. RELIABILITY ENGINEERING
+11.1 Fault tolerance
+multi-zone deployment
+auto failover enabled
+redundant services
+11.2 Circuit breaker
+
+Used for:
+
+FX providers
+banking APIs
+mobile money APIs
+12. BACKUP STRATEGY
+daily DB snapshots
+continuous WAL archiving
+multi-region replication
+13. DISASTER RECOVERY
+Scenario handling
+region down → failover region
+DB failure → restore snapshot
+service crash → auto restart via Kubernetes
+14. PERFORMANCE ENGINEERING
+Targets
+API latency < 300ms
+payment execution < 2s
+ledger write < 100ms
+15. SECURITY DEVOPS
+container scanning
+dependency vulnerability scanning
+runtime monitoring
+16. DEPLOYMENT SAFETY
+blue/green deployment
+canary releases
+instant rollback
+17. COST OPTIMIZATION
+autoscaling down unused services
+caching strategies
+batch processing optimization
+18. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass CI/CD pipeline
+ALWAYS deploy via Kubernetes only
+NEVER modify production manually
+ALWAYS enforce observability
+ALWAYS ensure rollback capability
+19. SUCCESS CRITERIA
+zero downtime deployments
+fully automated infrastructure
+global scalability ready
+resilient under failure
+full observability coverage

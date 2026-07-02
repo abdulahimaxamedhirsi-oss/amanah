@@ -1,0 +1,192 @@
+8_Compliance_KYC_AML.md (V2 — Global Fintech Compliance Engine)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit le système de :
+
+vérification d’identité (KYC) + lutte contre le blanchiment (AML) + contrôle des sanctions
+
+Rôle principal
+vérifier l’identité des utilisateurs
+détecter les activités suspectes
+bloquer les transactions illégales
+respecter les régulations internationales
+sécuriser Amanah juridiquement
+2. CORE PRINCIPLE
+2.1 Compliance-first system
+No KYC = No financial activity
+No AML clearance = No transaction approval
+2.2 Risk-based access
+
+Chaque utilisateur a un risk score dynamique :
+
+low risk → full access
+medium risk → limits
+high risk → restrictions
+critical risk → blocked
+3. KYC SYSTEM
+3.1 KYC LEVELS
+LEVEL 0 → Unverified (no access)
+LEVEL 1 → Basic identity
+LEVEL 2 → Document verification
+LEVEL 3 → Enhanced verification (proof of address + biometric)
+3.2 KYC DATA COLLECTED
+full name
+date of birth
+country
+ID document
+selfie / biometric
+address proof (level 3)
+3.3 KYC FLOW
+User registration
+   ↓
+Upload documents
+   ↓
+AI verification
+   ↓
+Manual review (if needed)
+   ↓
+KYC approved
+   ↓
+ICAN activation
+4. AML SYSTEM (ANTI-MONEY LAUNDERING)
+4.1 AML ENGINE PURPOSE
+
+Detect and prevent:
+
+money laundering
+terrorism financing
+fraud patterns
+structured transactions (smurfing)
+4.2 AML CHECK POINTS
+
+Every transaction is analyzed at:
+
+payment initiation
+FX conversion
+settlement stage
+4.3 AML RULE ENGINE
+IF transaction_amount > threshold
+AND frequency_high
+THEN flag risk
+4.4 BEHAVIOR ANALYSIS
+
+AML system tracks:
+
+transaction velocity
+geographic anomalies
+unusual patterns
+device changes
+5. SANCTIONS SCREENING
+5.1 Watchlists
+
+System checks against:
+
+OFAC
+EU sanctions list
+UN sanctions list
+internal blacklist
+5.2 MATCHING PROCESS
+fuzzy name matching
+alias detection
+identity correlation
+5.3 ACTIONS
+allow
+block
+freeze account
+escalate to review
+6. RISK ENGINE
+6.1 Risk score model
+Risk Score = KYC level + behavior + geography + transaction history
+6.2 Risk levels
+0–30 → safe
+31–60 → monitored
+61–85 → restricted
+86–100 → blocked
+7. TRANSACTION MONITORING
+
+Every transaction is evaluated in real-time:
+
+before execution
+during processing
+after settlement
+8. BLOCKING SYSTEM
+8.1 Automatic blocks
+
+Triggered by:
+
+AML violation
+sanctions match
+suspicious velocity
+failed KYC
+8.2 Block types
+temporary freeze
+partial restriction
+full account suspension
+9. MANUAL REVIEW SYSTEM
+9.1 Compliance team dashboard
+flagged transactions
+risk alerts
+user review queue
+9.2 Decision outcomes
+approve
+reject
+escalate
+10. DATA STORAGE
+KYC database stores:
+encrypted identity data
+document hashes
+verification status
+AML logs store:
+risk scores
+decisions
+audit trail
+11. PRIVACY RULES
+11.1 Data minimization
+store only required data
+encrypt sensitive fields
+11.2 Access control
+only compliance role can access KYC data
+strict audit logs for access
+12. AUDIT SYSTEM
+
+Every compliance action generates:
+
+traceId
+timestamp
+decision log
+risk score snapshot
+13. API INTEGRATION
+KYC endpoints
+POST /kyc/submit
+GET /kyc/status
+AML endpoints
+internal only risk engine calls
+14. REAL-TIME MONITORING
+
+System must detect risk in:
+
+< 200ms for transactions
+real-time alerting via WebSockets
+15. ERROR SYSTEM
+{
+  "error": {
+    "code": "COMPLIANCE_003",
+    "message": "Transaction blocked due to AML risk",
+    "traceId": "uuid"
+  }
+}
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow transaction without KYC validation
+ALWAYS run AML checks before payment execution
+NEVER bypass sanctions screening
+ALWAYS log compliance decisions
+ALWAYS generate traceable audit logs
+17. SUCCESS CRITERIA
+zero illegal transaction possible
+full AML coverage
+real-time risk detection
+regulatory compliance globally
+fully auditable system

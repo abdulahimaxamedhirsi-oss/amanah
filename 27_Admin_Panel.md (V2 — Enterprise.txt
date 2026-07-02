@@ -1,0 +1,144 @@
+27_Admin_Panel.md (V2 — Enterprise Fintech Control Center)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit le tableau de bord administrateur d’Amanah.
+
+👉 Objectif :
+
+supervision totale du système
+contrôle des utilisateurs
+surveillance des transactions
+gestion conformité (KYC/AML)
+audit du Ledger
+gestion des incidents
+2. CORE PRINCIPLE
+2.1 Admin is observer + controller (not god)
+Admin can manage operations but NEVER modify financial truth (Ledger)
+2.2 Everything is traceable
+every admin action is logged
+every decision has traceId
+every change is auditable
+3. ADMIN DASHBOARD MODULES
+3.1 Overview Dashboard
+total users
+total transactions
+daily volume
+failed payments
+risk alerts
+3.2 Real-time system health
+API status
+payment engine status
+FX engine status
+ledger sync status
+4. USER MANAGEMENT PANEL
+4.1 Features
+search users
+view profile
+freeze/unfreeze account
+view wallet summary (read-only ledger projection)
+4.2 Rules
+Admin cannot directly edit wallet or ledger
+5. TRANSACTION MONITORING PANEL
+5.1 Features
+live transaction feed
+filter by status (success, failed, pending)
+view transaction trace
+5.2 Transaction drill-down
+
+Each transaction shows:
+
+user sender/receiver
+FX conversion details
+fees breakdown
+ledger batch reference
+6. LEDGER AUDIT PANEL (CRITICAL)
+6.1 Features
+view ledger batches
+verify double-entry consistency
+detect anomalies
+compare expected vs actual balances
+6.2 Rule
+Ledger is read-only in admin panel
+7. KYC / AML PANEL
+7.1 KYC review
+pending verifications
+approved users
+rejected users
+document inspection
+7.2 AML alerts
+suspicious transactions
+flagged users
+sanctions matches
+7.3 Actions
+approve KYC
+reject KYC
+escalate case
+8. RISK MANAGEMENT PANEL
+8.1 Risk overview
+risk distribution (low / medium / high)
+high-risk users list
+risk score history
+8.2 Actions
+increase monitoring
+restrict account
+freeze account
+9. INCIDENT MANAGEMENT
+9.1 Incident types
+payment failure spike
+ledger mismatch alert
+FX service failure
+security breach attempt
+9.2 Actions
+isolate service
+trigger rollback
+notify engineering team
+10. NOTIFICATION CENTER
+system alerts
+compliance alerts
+security alerts
+financial alerts
+11. ROLE-BASED ACCESS
+
+Admin panel respects RBAC:
+
+compliance admin ≠ system admin
+support admin ≠ financial admin
+12. REAL-TIME STREAMING
+
+Uses WebSockets:
+
+live transactions
+live alerts
+live ledger events
+13. SECURITY RULES
+no sensitive data exposure without permission
+all actions require authentication
+admin session timeout enforced
+14. AUDIT LOGGING
+
+Every admin action logs:
+
+adminId
+action performed
+target entity
+traceId
+timestamp
+15. PERFORMANCE REQUIREMENTS
+dashboard load < 2s
+live feed latency < 500ms
+search users < 300ms
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow ledger modification via admin panel
+ALWAYS enforce RBAC on admin actions
+ALWAYS log every admin action
+NEVER expose sensitive KYC data without permission
+ALWAYS use read-only ledger views
+17. SUCCESS CRITERIA
+full system observability
+zero unauthorized admin actions
+complete auditability
+real-time monitoring functional
+safe operational control

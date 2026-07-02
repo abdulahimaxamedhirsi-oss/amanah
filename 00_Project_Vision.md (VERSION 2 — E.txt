@@ -1,0 +1,232 @@
+00_Project_Vision.md (VERSION 2 — ENTERPRISE FINTECH SPEC)
+1. EXECUTIVE SUMMARY
+
+Amanah est une infrastructure financière globale de nouvelle génération conçue pour unifier :
+
+banques traditionnelles
+mobile money (M-Pesa, Orange Money, MTN)
+wallets digitaux (Google Wallet, Apple Wallet)
+systèmes fintech modernes
+rails blockchain (optionnels)
+
+dans un système unique basé sur un Ledger central immuable.
+
+🎯 Core Idea
+
+Amanah is NOT a wallet app.
+
+Amanah is a financial operating system.
+
+🧠 Definition
+
+Amanah = Distributed Financial Ledger System + Payment Orchestration Layer + Multi-rail Settlement Network
+
+2. PROBLEM STATEMENT
+
+Le système financier mondial est fragmenté en 5 couches incompatibles :
+
+2.1 Banks (slow, closed, expensive)
+APIs limitées
+settlement lent (T+1 / T+2)
+frais élevés
+2.2 Mobile Money (Africa/Asia fragmentation)
+systèmes isolés par pays
+pas d’interopérabilité
+manque de standard global
+2.3 Fintech Wallets
+systèmes fermés
+balances internes non auditables
+dépendance à des ledgers opaques
+2.4 Crypto
+volatilité
+UX complexe
+régulation instable
+2.5 Cross-border payments
+lenteur
+FX opaque
+coûts cachés
+3. AMANAH SOLUTION
+
+Amanah introduit une nouvelle architecture :
+
+🏦 Unified Financial Layer
+
+Tous les systèmes financiers deviennent des “rails” connectés à Amanah.
+
+🧾 Core Innovation
+
+The Ledger is the universal source of truth across all financial rails.
+
+4. SYSTEM DEFINITION
+
+Amanah est composé de 5 couches :
+
+4.1 Presentation Layer
+Mobile App
+Web App
+Agent App (M-Amanah)
+Merchant Dashboard
+4.2 API Layer
+REST APIs
+WebSockets
+Webhooks
+SDKs
+4.3 Orchestration Layer
+Payment Engine
+FX Engine
+Fee Engine
+Settlement Engine
+Treasury Engine
+4.4 Financial Core Layer
+Ledger System (CORE)
+Double-entry accounting
+Immutable transactions
+Audit system
+4.5 Integration Layer
+Banks
+Mobile Money (M-Pesa, Orange, MTN)
+Card networks (Visa, Mastercard)
+Google Wallet / Apple Pay
+Blockchain networks
+5. CORE PRINCIPLE (ABSOLUTE RULE)
+🧾 Ledger Supremacy Rule
+If Ledger ≠ Any System → Ledger wins
+🔒 Immutability Rule
+No delete
+No update of financial entries
+Only compensating entries
+⚖️ Balance Rule
+
+Every transaction MUST satisfy:
+
+SUM(debit) = SUM(credit)
+🧠 Deterministic Rule
+
+Same input → same ledger output
+
+🔍 Auditability Rule
+
+Every action must be traceable:
+
+traceId
+transactionId
+sourceSystem
+actor
+timestamp
+6. WHAT AMANAH IS NOT
+
+Amanah is NOT :
+
+a bank
+a crypto exchange
+a trading platform
+a lending system (v1)
+a speculative financial product
+7. TARGET USERS
+👤 Individuals
+money transfer
+savings
+payments
+FX conversion
+🏪 Merchants
+payment acceptance
+invoices
+QR payments
+subscriptions
+🤝 Agents (M-Amanah)
+cash-in
+cash-out
+liquidity operations
+commissions
+🏢 Enterprises
+payroll
+bulk transfers
+treasury operations
+8. CORE SYSTEMS OVERVIEW
+💰 Financial Core
+Ledger System
+Wallet Projection System
+ICAN (global account system)
+🔁 Payment Systems
+Payment Engine
+FX Engine
+Settlement Engine
+Fee Engine
+🌍 Ecosystem
+M-Amanah (Africa cash network)
+Google Wallet integration
+Card networks
+Mobile money rails
+🔐 Trust Systems
+KYC
+AML
+Fraud detection
+Risk scoring
+📡 Infrastructure
+WebSockets
+Event bus
+Notifications
+Observability
+9. BUSINESS INVARIANTS
+9.1 Money exists only in Ledger
+
+Wallet is a projection ONLY.
+
+9.2 No financial operation without Ledger entry
+
+EVERY operation must generate:
+
+at least 2 entries (double-entry)
+immutable record
+9.3 Failure rules
+no silent failure
+no partial commit
+no orphan transaction
+10. SYSTEM BEHAVIOR MODEL
+
+Flow example:
+
+User Action
+   ↓
+API Layer
+   ↓
+Payment Engine
+   ↓
+FX Engine (if needed)
+   ↓
+Ledger (source of truth)
+   ↓
+Wallet Projection Update
+   ↓
+Event Bus
+   ↓
+Notifications
+11. SUCCESS METRICS
+Business
+global transaction volume
+adoption in mobile money markets
+merchant adoption rate
+Technical
+99.99% ledger consistency
+zero orphan transactions
+< 2s transaction processing (internal)
+12. LONG TERM VISION
+
+Amanah becomes:
+
+A global financial interoperability layer
+
+Like:
+
+HTTP for finance
+Stripe for global rails
+SWIFT replacement layer (long term)
+13. CLAUDE CODE INSTRUCTIONS
+
+Any AI or engineer working on this system MUST:
+
+read this document first
+understand ledger supremacy rule
+never assume missing financial logic
+validate every operation against ledger consistency
+ensure deterministic behavior

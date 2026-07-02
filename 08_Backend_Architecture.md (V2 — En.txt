@@ -1,0 +1,267 @@
+08_Backend_Architecture.md (V2 — Enterprise Fintech Core System)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit l’architecture backend complète d’Amanah.
+
+👉 Il doit permettre de construire un système :
+
+fintech-grade
+ledger-safe
+scalable
+event-driven
+sans ambiguïté d’exécution
+2. ARCHITECTURE OVERVIEW
+
+Amanah backend est un :
+
+Modular Monolith Event-Driven System (phase 1)
+évolutif vers microservices (phase 2)
+
+2.1 Architecture globale
+API Layer (NestJS Controllers)
+        ↓
+Service Layer (Business Logic)
+        ↓
+Domain Layer (Ledger / FX / Payments)
+        ↓
+Event Bus (Redis / Kafka)
+        ↓
+Infrastructure Layer (DB / External APIs)
+3. CORE DESIGN PRINCIPLE
+3.1 Ledger-Centric Architecture
+ALL financial operations → MUST pass through Ledger Engine
+3.2 No direct wallet updates
+
+Wallet = projection only
+
+3.3 Event-driven system
+
+Every important action emits events:
+
+payment.created
+ledger.entry.created
+fx.rate.locked
+4. MODULE STRUCTURE (NESTJS)
+src/
+ ├── modules/
+ │    ├── auth/
+ │    ├── users/
+ │    ├── wallet/
+ │    ├── ledger/        ⭐ CORE SYSTEM
+ │    ├── payments/
+ │    ├── fx/
+ │    ├── treasury/
+ │    ├── settlement/
+ │    ├── risk/
+ │    ├── aml/
+ │    ├── notifications/
+ │    ├── websocket/
+ │    ├── merchant/
+ │    ├── agent/
+ │    ├── cards/
+ │    ├── kyc/
+ │    └── ican/
+5. LAYERED ARCHITECTURE
+5.1 Controller Layer
+receives HTTP requests
+validates DTOs
+calls services
+5.2 Service Layer
+business orchestration
+calls domain logic
+triggers events
+5.3 Domain Layer (CRITICAL)
+
+Contains:
+
+Ledger Engine
+FX Engine
+Payment Engine
+Fee Engine
+Treasury Logic
+5.4 Infrastructure Layer
+Prisma ORM
+Redis
+external APIs (banks, mobile money)
+event bus
+6. LEDGER ENGINE (CORE SYSTEM)
+6.1 Principle
+Ledger = SINGLE SOURCE OF FINANCIAL TRUTH
+6.2 Structure
+
+Each transaction produces:
+
+debit entries
+credit entries
+6.3 Entry format
+{
+  "id": "uuid",
+  "accountId": "string",
+  "type": "DEBIT | CREDIT",
+  "amount": 100,
+  "currency": "USD",
+  "transactionId": "uuid",
+  "timestamp": "ISO",
+  "traceId": "uuid"
+}
+6.4 Rule
+SUM(DEBIT) = SUM(CREDIT)
+6.5 Immutability
+no update
+no delete
+only append
+7. PAYMENT ENGINE
+7.1 Responsibility
+orchestrate payments
+call FX engine if needed
+calculate fees
+write to ledger
+7.2 Flow
+Validate request
+   ↓
+Check balance (via ledger)
+   ↓
+Call FX Engine (if needed)
+   ↓
+Calculate fees
+   ↓
+Write Ledger entries
+   ↓
+Emit events
+8. FX ENGINE
+8.1 Responsibility
+currency conversion
+rate locking
+spread calculation
+8.2 Rule
+FX rate is immutable per transaction
+8.3 Output
+conversion rate
+converted amount
+spread revenue
+9. TREASURY SYSTEM
+9.1 Role
+
+Manages system liquidity:
+
+internal accounts
+reserves
+settlement buffers
+9.2 Functions
+liquidity allocation
+reserve balancing
+cross-border settlement support
+10. SETTLEMENT ENGINE
+10.1 Role
+
+Handles external money movement:
+
+banks
+mobile money
+cards
+10.2 Flow
+Ledger transaction confirmed
+   ↓
+Settlement batch created
+   ↓
+External provider API call
+   ↓
+Confirmation received
+   ↓
+Final ledger update
+11. RISK ENGINE
+11.1 Responsibilities
+fraud detection
+velocity checks
+anomaly detection
+11.2 Actions
+allow
+block
+review
+freeze account
+12. EVENT SYSTEM
+12.1 Event bus
+Redis (initial)
+Kafka (scale phase)
+12.2 Events list
+payment.created
+payment.completed
+ledger.entry.created
+fx.rate.locked
+wallet.updated
+13. WEBSOCKET SYSTEM
+13.1 Channels
+user wallet updates
+transaction updates
+notifications
+13.2 Rule
+
+All financial updates MUST be real-time via events.
+
+14. DATABASE ARCHITECTURE
+14.1 PostgreSQL (primary)
+ledger tables
+transactions
+users
+wallets (projection only)
+14.2 Redis
+caching
+queues
+websocket pub/sub
+15. ERROR HANDLING SYSTEM
+Standard format
+{
+  "error": {
+    "code": "LEDGER_001",
+    "message": "Insufficient funds",
+    "traceId": "uuid"
+  }
+}
+16. SECURITY MODEL
+16.1 Authentication
+JWT
+refresh tokens
+session tracking
+16.2 Authorization
+RBAC mandatory
+admin cannot bypass ledger
+16.3 Financial security
+no direct balance updates
+all operations validated via ledger
+17. SCALABILITY MODEL
+17.1 Horizontal scaling
+stateless services
+load-balanced APIs
+17.2 Database scaling
+read replicas
+partitioned ledger tables
+18. OBSERVABILITY
+Required:
+logs (structured JSON)
+metrics
+tracing (traceId mandatory)
+19. FAILURE MODEL
+
+System must handle:
+
+provider downtime
+partial settlement
+FX failure
+Redis crash
+DB failover
+20. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER bypass ledger engine
+ALWAYS ensure double-entry accounting
+NEVER update wallet directly
+ALWAYS emit events for financial actions
+ALWAYS ensure idempotency
+NEVER assume external systems are reliable
+21. SUCCESS CRITERIA
+ledger consistency = 100%
+zero orphan transactions
+zero balance mismatch
+full event traceability
+deterministic replay possible

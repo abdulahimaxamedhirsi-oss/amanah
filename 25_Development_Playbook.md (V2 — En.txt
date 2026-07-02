@@ -1,0 +1,158 @@
+25_Development_Playbook.md (V2 — Enterprise Fintech Build Execution Plan)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit :
+
+l’ordre exact de construction d’Amanah, module par module, sans ambiguïté
+
+Objectif final
+éviter le chaos de développement
+garantir un MVP fonctionnel rapidement
+construire dans le bon ordre métier
+réduire les risques système (Ledger first)
+permettre à Claude Code de suivre un plan strict
+2. CORE PRINCIPLE
+2.1 Build order matters
+Wrong order = broken fintech system
+Correct order = stable financial core
+2.2 Dependency-first development
+
+Chaque module dépend du précédent :
+
+Ledger → base absolue
+Payment → dépend Ledger + FX + Risk
+Wallet → dépend Ledger
+Open Banking → dépend Payment
+3. PHASE 0 — FOUNDATION SETUP
+3.1 Infrastructure
+NestJS backend setup
+PostgreSQL + Prisma
+Redis
+Docker setup
+CI/CD pipeline
+3.2 Core rules implemented
+error system
+logging system
+traceId system
+RBAC skeleton
+4. PHASE 1 — LEDGER CORE (CRITICAL)
+4.1 Must build first
+Ledger System = foundation of entire Amanah
+Features
+double-entry system
+immutable transactions
+ledger accounts
+batch processing
+audit trail
+Exit criteria
+balance reconciliation works
+debit/credit always consistent
+zero corruption possible
+5. PHASE 2 — AUTH + USERS + ICAN
+5.1 Modules
+Authentication system
+User management
+ICAN generation system
+5.2 Output
+secure login system
+verified identity
+ICAN linked to ledger
+6. PHASE 3 — WALLET SYSTEM
+6.1 Build wallet as projection
+derived from ledger
+multi-currency support
+real-time sync
+6.2 Exit criteria
+wallet matches ledger 100%
+WebSocket updates working
+7. PHASE 4 — PAYMENT ENGINE (CORE PRODUCT)
+7.1 Features
+payment orchestration
+FX engine integration
+fee engine integration
+risk engine integration
+ledger commit
+7.2 Exit criteria
+successful money transfer
+rollback works
+idempotency guaranteed
+8. PHASE 5 — FX + FEE + RISK SYSTEMS
+8.1 FX Engine
+currency conversion
+rate locking
+8.2 Fee Engine
+dynamic fee calculation
+revenue routing
+8.3 Risk Engine
+AML checks
+fraud detection
+9. PHASE 6 — COMPLIANCE (KYC + AML)
+KYC onboarding
+identity verification
+sanctions screening
+risk scoring system
+10. PHASE 7 — OPEN BANKING + M-AMANAH
+bank integrations
+mobile money (Africa)
+agent system (M-Amanah)
+provider adapters
+11. PHASE 8 — REAL-TIME SYSTEM
+WebSockets
+event bus
+notifications system
+wallet sync live
+12. PHASE 9 — BLOCKCHAIN LAYER
+batch hashing system
+smart contract integration
+audit proof system
+13. PHASE 10 — FRONTEND (FINTECH UX)
+Pages
+login/register
+dashboard
+wallet
+send money
+transactions
+KYC onboarding
+settings
+Rule
+
+Frontend MUST NOT compute money logic.
+
+14. PHASE 11 — TESTING & HARDENING
+full unit tests
+integration tests
+ledger validation tests
+stress tests
+15. PHASE 12 — PRODUCTION DEPLOYMENT
+Kubernetes deployment
+CI/CD finalization
+monitoring setup
+rollback system
+16. MVP DEFINITION
+Amanah MVP is complete when:
+user can register
+user has ICAN
+wallet shows balance
+user can send money
+ledger updates correctly
+FX works
+compliance active
+17. CRITICAL RULES
+17.1 NEVER SKIP LEDGER
+Ledger must always be implemented first
+17.2 NO PAYMENT WITHOUT RISK CHECK
+17.3 NO WALLET WITHOUT LEDGER
+18. SUCCESS CRITERIA
+full system build order respected
+no module dependency errors
+stable fintech core
+production-ready MVP possible
+19. CLAUDE CODE EXECUTION RULE
+
+Claude Code must:
+
+FOLLOW phases strictly
+NEVER jump ahead
+VALIDATE dependencies before coding
+ENSURE ledger integrity always exists
+STOP if architecture is violated

@@ -1,0 +1,235 @@
+30_Cards_System.md (V2 — Enterprise Card Issuing System Ultra Detailed)
+1. OBJECTIF DU SYSTÈME
+
+Le Card System d’Amanah est une infrastructure complète permettant d’émettre, gérer et sécuriser des cartes de paiement liées directement au ledger financier central.
+
+👉 Objectif :
+
+permettre paiements globaux (Visa/Mastercard rails abstraction)
+connecter wallet ↔ card via ledger immutable
+sécuriser chaque transaction en temps réel
+gérer fraude, limites et conformité
+supporter scale fintech mondiale
+2. CORE PRINCIPLE (ABSOLUTE RULE)
+2.1 Card is NOT money storage
+A card is only a payment interface linked to wallet balance via ledger.
+No balance exists on the card itself.
+2.2 Ledger supremacy
+every card transaction MUST go through ledger validation
+no bypass possible
+no offline approval finality
+2.3 Authorization model
+
+Card system is:
+
+Wallet → Ledger → Card Authorization Layer → External Network
+3. CARD TYPES (FULL MODEL)
+3.1 Virtual Card
+Description
+
+Digital-only card for online payments.
+
+Use cases
+e-commerce
+subscriptions
+API payments
+Properties
+instant creation
+instant freeze/unfreeze
+limited lifespan optional
+3.2 Physical Card
+Description
+
+Real-world debit card linked to wallet.
+
+Use cases
+POS payments
+ATM withdrawals
+retail purchases
+Properties
+delivery required
+activation required
+PIN-based security
+3.3 Merchant Card
+Description
+
+Corporate-level card linked to merchant account.
+
+Use cases
+business expenses
+team spending
+vendor payments
+Properties
+multi-user control
+spending rules per employee
+advanced reporting
+4. CARD LIFECYCLE (FULL STATE MACHINE)
+CREATED
+  ↓
+TOKENIZATION_PENDING
+  ↓
+ACTIVE
+  ↓
+SUSPENDED (temporary block)
+  ↓
+FROZEN (security lock)
+  ↓
+TERMINATED (irreversible)
+4.1 State rules
+ACTIVE → usable
+SUSPENDED → retry possible
+FROZEN → security investigation
+TERMINATED → permanent disable
+5. CARD CREATION SYSTEM
+5.1 Flow
+User request card
+   ↓
+Wallet validation
+   ↓
+KYC verification check
+   ↓
+Risk engine check
+   ↓
+Card token generation
+   ↓
+Card issued
+5.2 Constraints
+max cards per user (configurable)
+risk score threshold required
+country rules applied
+6. CARD TOKENIZATION SYSTEM
+6.1 Security model
+PAN never stored in raw form
+token stored in secure vault
+vault encryption AES-256
+6.2 Flow
+Card data → Tokenization Service → Secure Vault → Payment Network
+6.3 Token properties
+single merchant restriction optional
+time-based expiration optional
+device binding optional
+7. CARD AUTHORIZATION ENGINE
+7.1 Full flow
+1. Merchant sends request
+2. Card token validated
+3. Risk engine evaluation
+4. Wallet balance checked via ledger
+5. Limits validated
+6. Approval or rejection returned
+7.2 Decision matrix
+Condition	Result
+insufficient balance	decline
+high risk score	decline
+limit exceeded	decline
+all valid	approve
+8. LIMIT SYSTEM (VERY IMPORTANT)
+8.1 Types of limits
+per transaction limit
+daily limit
+weekly limit
+merchant-specific limit
+country-based restriction
+8.2 Enforcement rule
+Limits are enforced BEFORE ledger authorization.
+9. FRAUD DETECTION SYSTEM
+9.1 Detection signals
+unusual spending velocity
+new merchant anomalies
+geo-location mismatch
+device change frequency
+card testing patterns
+9.2 Fraud scoring model
+0–30 → safe
+30–70 → monitored
+70–90 → restricted
+90–100 → blocked
+9.3 Actions
+reject transaction
+freeze card
+trigger alert
+require re-authentication
+10. TRANSACTION FLOW (FULL SYSTEM)
+User initiates payment
+   ↓
+Card gateway receives request
+   ↓
+Token validation
+   ↓
+Risk engine check
+   ↓
+Limit check
+   ↓
+Ledger verification
+   ↓
+FX engine (if needed)
+   ↓
+Final authorization
+   ↓
+Ledger commit
+   ↓
+Response returned
+11. REFUND SYSTEM
+11.1 Rules
+refunds ALWAYS generate new ledger entries
+original transaction never modified
+11.2 Flow
+Merchant refund request
+   ↓
+Validation
+   ↓
+Ledger reversal entry created
+   ↓
+Wallet updated
+12. SECURITY MODEL
+12.1 Data protection
+no raw card data stored
+encrypted vault storage mandatory
+PCI-DSS compliance required
+12.2 Authentication layers
+3DSecure mandatory for risky payments
+OTP for sensitive operations
+device fingerprinting
+13. WALLET ↔ CARD LINK
+13.1 Rule
+Card spending power is always derived from wallet ledger.
+13.2 No independent balance
+card cannot exist without wallet
+no standalone financial state
+14. REPORTING SYSTEM
+
+Users can view:
+
+card transactions
+declined attempts
+merchant breakdown
+fraud alerts
+15. PERFORMANCE REQUIREMENTS
+authorization latency < 300ms
+fraud check < 150ms
+full transaction < 2s max
+16. ERROR HANDLING
+
+All errors:
+
+{
+  "error": {
+    "code": "CARD_AUTH_FAILED",
+    "message": "Transaction declined",
+    "traceId": "uuid"
+  }
+}
+17. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER store PAN or raw card data
+ALWAYS enforce ledger validation
+NEVER bypass risk engine
+ALWAYS apply limits before approval
+NEVER allow card transaction without wallet check
+18. SUCCESS CRITERIA
+global card payment support
+zero fraud bypass possible
+ledger-consistent transactions
+PCI-DSS ready architecture
+real-time authorization system

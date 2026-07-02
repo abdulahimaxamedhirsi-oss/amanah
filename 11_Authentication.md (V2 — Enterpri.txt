@@ -1,0 +1,203 @@
+11_Authentication.md (V2 — Enterprise Fintech Security System)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit le système d’authentification complet d’Amanah.
+
+👉 Il garantit :
+
+sécurité bancaire grade
+anti-fraude
+protection contre takeover
+traçabilité complète des sessions
+contrôle des devices
+2. AUTHENTICATION PRINCIPLES
+2.1 Zero trust model
+Every request must be verified. Nothing is trusted by default.
+2.2 Multi-layer authentication
+
+Amanah utilise 3 couches :
+
+Identity layer (user/password/OTP)
+Session layer (JWT + refresh token)
+Device layer (trusted devices)
+2.3 Risk-based authentication
+
+Certain actions déclenchent une sécurité renforcée :
+
+new device login
+high-value transaction
+suspicious activity
+3. AUTHENTICATION FLOW
+3.1 LOGIN FLOW
+User credentials
+   ↓
+Password validation
+   ↓
+OTP challenge (if required)
+   ↓
+Device check
+   ↓
+JWT issuance
+   ↓
+Refresh token stored
+3.2 TRUSTED DEVICE FLOW
+Login success
+   ↓
+Device fingerprint created
+   ↓
+Stored in DB
+   ↓
+Marked as trusted after verification
+4. TOKEN SYSTEM
+4.1 ACCESS TOKEN (JWT)
+short-lived (15 min)
+contains:
+userId
+role
+sessionId
+traceId
+4.2 REFRESH TOKEN
+long-lived (7–30 days)
+stored hashed in DB
+rotated on each use
+4.3 TOKEN RULES
+- Access token = stateless
+- Refresh token = stateful
+- Refresh token rotation mandatory
+5. OTP SYSTEM
+5.1 USE CASES
+
+OTP required for:
+
+login from new device
+password reset
+high-value transfers
+5.2 FLOW
+Request OTP
+   ↓
+Generate OTP
+   ↓
+Store hashed OTP
+   ↓
+Send via SMS/email
+   ↓
+Validate OTP
+5.3 RULES
+OTP expires in 5 minutes
+max 3 attempts
+rate limited per user
+6. DEVICE MANAGEMENT
+6.1 DEVICE FINGERPRINT
+
+Stored fields:
+
+deviceId
+IP address
+location (approx)
+user agent
+trust status
+6.2 DEVICE STATES
+trusted
+untrusted
+blocked
+6.3 NEW DEVICE RULE
+New device → mandatory OTP verification
+7. SESSION MANAGEMENT
+7.1 SESSION STRUCTURE
+{
+  "sessionId": "uuid",
+  "userId": "uuid",
+  "deviceId": "uuid",
+  "createdAt": "timestamp",
+  "expiresAt": "timestamp",
+  "status": "active"
+}
+7.2 RULES
+one user = multiple sessions allowed
+session invalidation possible
+logout invalidates refresh token
+8. AUTHENTICATION SECURITY RULES
+8.1 Password security
+bcrypt hashing mandatory
+minimum 12 characters
+complexity required
+8.2 Brute force protection
+IP rate limiting
+account lock after failed attempts
+8.3 Suspicious activity detection
+
+Triggers:
+
+multiple failed logins
+geo-location change
+unusual transaction pattern
+9. ROLE-BASED ACCESS CONTROL (RBAC)
+9.1 Roles
+user
+merchant
+agent
+admin
+system
+9.2 RULE
+Every API must validate role before execution
+10. AUTH ERROR SYSTEM
+Standard format
+{
+  "error": {
+    "code": "AUTH_001",
+    "message": "Invalid credentials",
+    "traceId": "uuid"
+  }
+}
+Error categories
+AUTH_001 → invalid login
+AUTH_002 → user not found
+AUTH_003 → OTP expired
+AUTH_004 → device not trusted
+11. AUTH EVENT SYSTEM
+
+Events emitted:
+
+auth.login.success
+auth.login.failed
+auth.otp.sent
+auth.device.registered
+auth.session.created
+12. LOGOUT SYSTEM
+Flow
+User logout
+   ↓
+Invalidate refresh token
+   ↓
+Destroy session
+   ↓
+Notify device
+13. MULTI-DEVICE SECURITY
+
+Rules:
+
+each device tracked
+ability to revoke device
+admin can freeze all sessions
+14. SESSION REVOCATION
+
+Triggers:
+
+password change
+suspicious activity
+admin action
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER issue JWT without OTP validation when required
+ALWAYS enforce refresh token rotation
+ALWAYS track device fingerprints
+NEVER bypass session validation
+ALWAYS emit auth events
+16. SUCCESS CRITERIA
+zero unauthorized access possible
+full session traceability
+all devices tracked
+all logins auditable
+no session confusion across devices

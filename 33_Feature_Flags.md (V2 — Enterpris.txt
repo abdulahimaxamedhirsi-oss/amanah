@@ -1,0 +1,108 @@
+33_Feature_Flags.md (V2 — Enterprise Feature Flag & Rollout Control System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module permet de contrôler dynamiquement toutes les fonctionnalités d’Amanah en production, sans redéploiement.
+
+👉 Objectif :
+
+activer/désactiver features instantanément
+faire des rollouts progressifs
+tester des fonctionnalités en production (safe)
+protéger les systèmes critiques
+permettre kill switch global
+2. CORE PRINCIPLE
+2.1 Everything is dynamic
+No feature is permanently active without being controlled by Feature Flags.
+2.2 Production safety first
+aucune feature critique sans flag
+tout peut être désactivé instantanément
+3. FEATURE FLAG STRUCTURE
+3.1 Base schema
+{
+  "key": "cards_system",
+  "enabled": true,
+  "rolloutPercentage": 30,
+  "countries": ["SN", "FR"],
+  "userSegments": ["beta_testers"],
+  "killSwitch": false
+}
+4. FLAG TYPES
+4.1 Global flags
+apply system-wide
+ex: payments_enabled
+4.2 Country flags
+enable feature per country
+override global config
+4.3 User segment flags
+beta users
+internal testers
+high-value users
+4.4 Risk-based flags
+enable/disable based on fraud score
+5. ROLLOUT SYSTEM
+5.1 Progressive rollout
+0% → 1% → 5% → 10% → 50% → 100%
+5.2 Rule
+No feature goes to 100% without monitoring phase.
+6. KILL SWITCH SYSTEM
+6.1 Purpose
+
+Instantly disable a feature globally.
+
+6.2 Use cases
+fraud detected in cards system
+payment engine failure
+FX engine anomaly
+6.3 Rule
+Kill switch overrides ALL other conditions.
+7. FEATURE EVALUATION ENGINE
+7.1 Evaluation order
+1. Kill switch
+2. Country rules
+3. User segment rules
+4. Rollout percentage
+5. Default global flag
+8. REAL-TIME UPDATES
+feature flags updated without redeploy
+cached with TTL
+WebSocket sync optional
+9. AUDIT SYSTEM
+
+Every change logs:
+
+admin/user who changed flag
+timestamp
+previous state
+new state
+10. SAFETY RULES
+10.1 Critical systems
+
+NEVER fully disable:
+
+Ledger system
+Audit logs
+Security engine
+
+Only degrade or isolate.
+
+10.2 Dependency rule
+A feature cannot be enabled if dependencies are disabled.
+11. PERFORMANCE REQUIREMENTS
+flag evaluation < 10ms
+cache hit required for production
+fallback safe mode enabled
+12. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS check feature flags before enabling logic
+NEVER bypass kill switch
+ALWAYS respect rollout percentage
+NEVER assume feature is active globally
+ALWAYS validate dependencies before execution
+13. SUCCESS CRITERIA
+safe production feature rollout
+zero downtime feature activation
+instant feature disable capability
+controlled experimentation possible
+full audit trail of changes

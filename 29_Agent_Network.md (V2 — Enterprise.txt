@@ -1,0 +1,133 @@
+9_Agent_Network.md (V2 — Enterprise Hybrid Cash Network System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit le réseau d’agents physiques Amanah.
+
+👉 Objectif :
+
+permettre dépôts et retraits cash
+connecter économie digitale et physique
+étendre Amanah aux zones non-bancarisées
+créer un réseau type mobile money (Africa / emerging markets)
+2. CORE PRINCIPLE
+2.1 Hybrid finance model
+Digital wallet + physical cash network = full financial inclusion
+2.2 Agents are financial nodes
+
+Chaque agent :
+
+collecte du cash
+distribue du cash
+synchronise avec ledger central
+3. AGENT TYPES
+3.1 Type A — Retail Agent
+small shops
+mobile money points
+kiosks
+3.2 Type B — Professional Agent
+higher limits
+verified businesses
+higher liquidity
+3.3 Type C — Super Agent
+manages sub-agents
+regional liquidity control
+settlement aggregator
+4. AGENT ONBOARDING
+4.1 Steps
+Application
+   ↓
+KYC/KYB verification
+   ↓
+Risk scoring
+   ↓
+Hardware setup (if needed)
+   ↓
+Activation
+4.2 Requirements
+identity verification
+business proof (optional)
+liquidity capacity
+5. CASH FLOW SYSTEM
+5.1 Cash-in flow
+Customer gives cash → agent → wallet credit → ledger update
+5.2 Cash-out flow
+Wallet debit → ledger update → agent gives cash
+5.3 Rule
+Every cash movement MUST be mirrored in ledger
+6. AGENT WALLET SYSTEM
+each agent has liquidity wallet
+real-time balance tracking
+settlement reconciliation
+7. COMMISSION SYSTEM
+7.1 Fees structure
+per transaction commission
+volume-based bonuses
+tiered rewards
+7.2 Settlement of commissions
+daily or weekly payout
+ledger-backed calculation
+8. LIQUIDITY MANAGEMENT
+8.1 Problem
+
+Agents can run out of cash or digital balance.
+
+8.2 Solution
+liquidity monitoring system
+automatic top-up suggestions
+super-agent redistribution
+9. OFFLINE-FIRST SYSTEM
+9.1 Requirement
+
+Agents must work even with poor connectivity.
+
+9.2 Sync model
+Offline transaction → local storage → sync to server → ledger update
+9.3 Rule
+no sync = no final confirmation
+eventual consistency allowed only with safeguards
+10. FRAUD PREVENTION
+10.1 Risks
+fake cash deposits
+agent collusion
+double spending attempts
+10.2 Controls
+transaction limits
+real-time monitoring
+risk scoring per agent
+11. AGENT DASHBOARD
+
+Agents can see:
+
+balance
+transaction history
+commissions earned
+liquidity status
+12. SUPER AGENT SYSTEM
+manages sub-agents
+aggregates liquidity
+regional settlement authority
+13. SETTLEMENT SYSTEM
+agent balances reconciled daily
+commission payouts processed via ledger
+14. SECURITY MODEL
+agent authentication required
+device binding optional
+transaction signing required
+15. PERFORMANCE REQUIREMENTS
+transaction confirmation < 3s
+sync latency < 5s offline → online
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow cash movement without ledger entry
+ALWAYS sync offline transactions safely
+NEVER bypass agent risk controls
+ALWAYS enforce liquidity validation
+NEVER allow fake balance creation
+17. SUCCESS CRITERIA
+full cash-to-digital integration
+reliable agent network scaling
+zero liquidity inconsistencies
+fraud-resistant system
+real-time reconciliation

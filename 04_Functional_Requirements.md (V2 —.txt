@@ -1,0 +1,261 @@
+04_Functional_Requirements.md (V2 — Enterprise Fintech Specification)
+1. OBJECTIF DU DOCUMENT
+
+Ce document transforme :
+
+les user journeys
+les business rules
+les principes financiers
+
+en exigences fonctionnelles strictes et codables.
+
+👉 Chaque requirement doit pouvoir être transformé directement en :
+
+module NestJS
+service backend
+table Prisma
+endpoint API
+event system
+test case
+2. STRUCTURE GLOBALE DES REQUIREMENTS
+
+Chaque requirement suit ce format :
+
+FR-XXX
+Title
+
+Description
+
+Rules
+
+Ledger Impact
+
+API Impact
+
+Events
+
+Edge Cases
+
+Acceptance Criteria
+3. CORE FUNCTIONAL REQUIREMENTS
+3.1 FR-001 — USER REGISTRATION SYSTEM
+Description
+
+Le système doit permettre à un utilisateur de créer un compte Amanah.
+
+Rules
+email ou téléphone obligatoire
+OTP verification obligatoire
+utilisateur unique par identifiant
+création automatique ICAN
+Ledger Impact
+
+❌ Aucun impact financier direct
+
+API Impact
+POST /auth/register
+POST /auth/verify-otp
+Events
+user.created
+user.verified
+Edge Cases
+OTP expiré
+duplicate user
+rate limiting
+Acceptance Criteria
+utilisateur créé uniquement après OTP validé
+ICAN généré automatiquement
+3.2 FR-002 — ICAN CREATION SYSTEM
+Description
+
+Chaque utilisateur reçoit un identifiant financier global (ICAN).
+
+Rules
+ICAN est unique globalement
+ICAN est immutable
+ICAN mappe vers Ledger account
+Ledger Impact
+Create internal ledger account linked to ICAN
+API
+POST /ican/create
+GET /ican/:id
+Events
+ican.created
+Edge Cases
+ICAN collision (rare)
+retry safe generation
+Acceptance Criteria
+1 user = 1 ICAN
+ICAN toujours lié à un ledger account
+3.3 FR-003 — WALLET SYSTEM
+Description
+
+Le wallet est une projection du ledger.
+
+Rules
+balance calculée depuis ledger
+jamais stockée manuellement
+multi-currency support
+Ledger Impact
+wallet = projection layer only
+API
+GET /wallet/balance
+GET /wallet/transactions
+Events
+wallet.updated
+Edge Cases
+mismatch ledger/wallet → always fix via ledger
+Acceptance Criteria
+wallet = 100% consistent with ledger
+3.4 FR-004 — PAYMENT SYSTEM
+Description
+
+Permet d’envoyer de l’argent entre utilisateurs.
+
+Rules
+FX engine si devise différente
+fee engine obligatoire
+ledger double entry obligatoire
+Ledger Impact
+DEBIT sender wallet
+CREDIT receiver wallet
+DEBIT fee account
+CREDIT revenue account
+API
+POST /payments/send
+GET /payments/:id
+Events
+payment.created
+payment.completed
+payment.failed
+Edge Cases
+insufficient funds
+FX failure
+network timeout
+Acceptance Criteria
+transaction atomic
+ledger always balanced
+3.5 FR-005 — FX ENGINE
+Description
+
+Conversion de devises en temps réel.
+
+Rules
+rate must be locked at transaction time
+no post modification allowed
+Ledger Impact
+FX spread recorded as revenue
+API
+GET /fx/rate
+POST /fx/convert
+Events
+fx.rate.locked
+Edge Cases
+provider failure
+fallback rate
+Acceptance Criteria
+deterministic FX per transaction
+3.6 FR-006 — M-AMANAH CASH SYSTEM
+Description
+
+Cash-in / cash-out via agents.
+
+Rules
+agent must be KYC verified
+liquidity must be validated
+ledger always updated
+Ledger Impact
+DEBIT cash-in clearing
+CREDIT user wallet
+DEBIT agent cash account
+CREDIT agent liability
+API
+POST /cash/in
+POST /cash/out
+Events
+cash.in.created
+cash.out.completed
+Edge Cases
+agent offline
+fraud detection
+liquidity mismatch
+Acceptance Criteria
+every cash movement reflected in ledger
+3.7 FR-007 — MERCHANT PAYMENTS
+Description
+
+Allow merchants to accept payments.
+
+Rules
+instant settlement OR delayed settlement
+fee applied per transaction
+Ledger Impact
+merchant account credited
+fees separated
+API
+POST /merchant/pay
+GET /merchant/transactions
+Events
+merchant.payment.completed
+3.8 FR-008 — NOTIFICATIONS SYSTEM
+Description
+
+Real-time notifications system.
+
+Rules
+must be event-driven
+must support retry
+API
+WebSocket /notifications
+POST /notifications/send
+Events
+notification.sent
+3.9 FR-009 — WEBHOOK SYSTEM
+Description
+
+External integrations.
+
+Rules
+retry policy mandatory
+signed payloads
+Events
+webhook.delivered
+webhook.failed
+4. CROSS-CUTTING REQUIREMENTS
+4.1 Idempotency
+
+Every financial endpoint must support:
+
+idempotency key
+retry safety
+4.2 Consistency
+eventual consistency allowed only outside ledger
+ledger = strict consistency
+4.3 Observability
+
+Every request must include:
+
+traceId
+correlationId
+4.4 Security
+JWT authentication
+role-based access
+encrypted sensitive data
+5. SYSTEM-WIDE ACCEPTANCE CRITERIA
+
+Le système est considéré valide si :
+
+0 ledger imbalance
+0 orphan transaction
+100% payment traceability
+100% API coverage
+deterministic replay possible
+6. CLAUDE CODE RULES
+
+Claude Code MUST:
+
+map every feature to ledger impact
+never bypass FX or fee engines
+never mutate wallet directly
+ensure idempotency everywhere
+ensure test coverage per requirement

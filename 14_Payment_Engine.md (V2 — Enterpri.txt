@@ -1,0 +1,183 @@
+14_Payment_Engine.md (V2 — Enterprise Fintech Payment Orchestration System)
+1. OBJECTIF DU SYSTÈME
+
+Le Payment Engine est responsable de :
+
+Orchestrer tous les mouvements d’argent dans Amanah de manière atomique, traçable et sécurisée.
+
+Rôle principal
+exécuter les transferts entre utilisateurs
+déclencher FX si nécessaire
+appliquer les fees
+écrire dans le Ledger
+garantir atomicité complète
+gérer les erreurs et rollback
+2. CORE PRINCIPLE
+2.1 Payment = orchestrated workflow
+Payment ≠ simple transfer
+Payment = multi-step financial orchestration pipeline
+2.2 Ledger-first enforcement
+aucun paiement sans écriture ledger
+aucun paiement sans double-entry
+2.3 Atomicity rule
+Either ALL steps succeed OR NOTHING is committed
+3. PAYMENT ARCHITECTURE
+3.1 Flow global
+Validate request
+   ↓
+Check balance (Ledger)
+   ↓
+Risk Engine check
+   ↓
+FX Engine (if needed)
+   ↓
+Fee Engine calculation
+   ↓
+Ledger double-entry write
+   ↓
+Settlement trigger (if external)
+   ↓
+Event emission
+4. PAYMENT STATES
+4.1 States
+CREATED
+VALIDATED
+PROCESSING
+SUCCESS
+FAILED
+REVERSED
+4.2 State machine rule
+No skipping states allowed
+No direct transition to SUCCESS
+5. CORE PAYMENT PIPELINE
+5.1 Step 1 — Validation
+
+Checks:
+
+user exists
+ICAN valid
+account active
+amount > 0
+5.2 Step 2 — Balance verification
+
+From Ledger:
+
+available funds
+locked funds
+pending funds
+5.3 Step 3 — Risk check
+velocity limits
+fraud detection
+geo mismatch
+5.4 Step 4 — FX execution
+
+Only if currency mismatch:
+
+lock rate
+compute conversion
+store FX snapshot
+5.5 Step 5 — Fee computation
+fixed fee
+percentage fee
+hybrid model
+5.6 Step 6 — Ledger execution (CRITICAL)
+DEBIT sender account
+CREDIT receiver account
+DEBIT fee account
+CREDIT revenue account
+5.7 Step 7 — Settlement (optional)
+bank transfer
+mobile money (M-Amanah)
+card rails
+5.8 Step 8 — Event emission
+payment.completed
+wallet.updated
+ledger.entry.created
+6. IDENTITY RESOLUTION
+
+Payments can use:
+
+ICAN
+phone number
+merchant ID
+
+All resolved to:
+
+Ledger Account ID
+7. IDENTITY VALIDATION RULE
+invalid recipient → reject payment
+inactive ICAN → block
+frozen account → abort
+8. ROLLBACK SYSTEM
+8.1 Trigger conditions
+FX failure
+ledger write failure
+settlement rejection
+8.2 Rollback process
+Stop pipeline
+Reverse ledger entries
+Emit reversal event
+Restore state consistency
+9. CONCURRENCY CONTROL
+9.1 Idempotency
+Same Idempotency-Key = same result always
+9.2 Double-spend protection
+balance locked during processing
+ledger check before commit
+10. ERROR HANDLING
+Standard format
+{
+  "error": {
+    "code": "PAYMENT_003",
+    "message": "Insufficient funds",
+    "traceId": "uuid"
+  }
+}
+Error categories
+PAYMENT_001 → invalid request
+PAYMENT_002 → risk blocked
+PAYMENT_003 → insufficient funds
+PAYMENT_004 → FX failure
+PAYMENT_005 → ledger failure
+11. PERFORMANCE REQUIREMENTS
+validation < 50ms
+full payment < 2s
+ledger write < 100ms
+event emission < 300ms
+12. SETTLEMENT INTEGRATION
+12.1 External rails
+banks
+mobile money (M-Pesa / M-Amanah)
+cards (future)
+12.2 Settlement model
+Ledger is internal truth
+Settlement is external confirmation layer
+13. SECURITY RULES
+no bypass of risk engine
+no direct ledger manipulation
+no silent payment success
+strict audit trail required
+14. OBSERVABILITY
+
+Track:
+
+payment success rate
+failure reasons
+FX latency
+ledger write latency
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER skip ledger step
+ALWAYS enforce atomic execution
+NEVER allow partial payments
+ALWAYS emit events
+ALWAYS enforce idempotency
+ALWAYS validate FX + fees before commit
+16. SUCCESS CRITERIA
+zero lost transactions
+zero double spend
+full atomic consistency
+deterministic replay possible
+full audit trace per payment

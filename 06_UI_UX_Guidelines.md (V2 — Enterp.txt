@@ -1,0 +1,250 @@
+06_UI_UX_Guidelines.md (V2 — Enterprise Fintech Design System)
+1. OBJECTIF DU DOCUMENT
+
+Ce document définit toute l’expérience utilisateur d’Amanah :
+
+Mobile App (principal)
+Web App (dashboard)
+Agent App (M-Amanah)
+Merchant Dashboard
+
+👉 Ce n’est pas du “design”.
+👉 C’est une spécification d’interface financière exécutable par développeurs.
+
+2. UX PHILOSOPHY (FINTECH-FIRST DESIGN)
+
+Amanah UX repose sur 5 principes :
+
+2.1 Clarity over beauty
+
+Chaque écran doit répondre à :
+
+“Où est mon argent ?”
+
+2.2 Financial transparency
+
+L’utilisateur doit toujours voir :
+
+balance totale
+balance disponible
+transactions récentes
+2.3 Zero ambiguity
+
+Aucune action ne doit être interprétée.
+
+Exemple :
+
+“Send” = immédiatement clair
+pas de double sens
+pas de jargon bancaire complexe
+2.4 Instant feedback
+
+Toute action doit produire :
+
+loading state
+success state
+failure state
+2.5 Africa-first UX
+
+Optimisé pour :
+
+low bandwidth
+mobile-first
+offline resilience
+simple navigation
+3. DESIGN SYSTEM
+3.1 Colors
+Primary
+Deep Blue → trust / finance
+Secondary
+Green → success / money received
+Red → error / loss / failed transaction
+Neutral
+Grey scale for backgrounds
+3.2 Typography
+Sans-serif modern (Inter / SF Pro)
+Bold for amounts
+Medium for labels
+Light for metadata
+3.3 Spacing system
+4px grid system
+strict spacing consistency
+3.4 Components
+Cards
+Transaction rows
+Balance header
+Action buttons
+Bottom navigation
+4. CORE SCREENS (MOBILE APP)
+4.1 HOME DASHBOARD
+Structure
+[Total Balance]
+[Available Balance]
+
+[Quick Actions]
+- Send
+- Receive
+- Top up
+- Withdraw
+
+[Recent Transactions]
+Rules
+balance ALWAYS visible
+currency displayed clearly
+no hidden fees
+4.2 SEND MONEY SCREEN
+Flow
+Select recipient
+Enter amount
+Select currency
+Review fees
+Confirm
+UI rules
+show FX rate BEFORE confirmation
+show fees separately
+final amount must be explicit
+4.3 RECEIVE MONEY SCREEN
+QR code
+ICAN display
+share link
+4.4 TRANSACTION DETAILS
+
+Must include:
+
+status (pending/success/failed)
+ledger reference
+fees breakdown
+FX breakdown
+timestamp
+4.5 WALLET SCREEN
+Balance (computed from Ledger)
+Currency breakdown
+Transaction history
+4.6 KYC SCREEN
+document upload
+selfie verification
+status tracker
+4.7 SETTINGS
+profile
+security
+limits
+connected devices
+5. M-AMANAH (AGENT APP UX)
+5.1 Agent Dashboard
+cash in available
+cash out available
+liquidity status
+5.2 CASH IN SCREEN
+Enter user ICAN
+Enter amount
+Confirm cash received
+Submit
+5.3 CASH OUT SCREEN
+Enter user ICAN
+Check balance
+Dispense cash
+Confirm ledger update
+6. MERCHANT DASHBOARD UX
+Features
+total revenue
+transactions
+refunds
+payout status
+Payment page
+QR generator
+payment link
+webhook status
+7. GOOGLE WALLET UX
+Flow
+Add card to Google Wallet
+Tokenization success screen
+Payment confirmation screen
+8. UI STATES (CRITICAL)
+8.1 Loading state
+skeleton UI
+no blank screens
+8.2 Success state
+confirmation animation
+transaction ID visible
+8.3 Error state
+
+Must include:
+
+error code
+retry button
+support reference
+9. FINANCIAL UX RULES
+9.1 Never hide money movement
+
+User must always see:
+
+before amount
+fees
+FX rate
+final amount
+9.2 No ambiguous balance
+
+Always split:
+
+Available balance
+Pending balance
+Locked balance
+9.3 Real-time updates
+WebSockets update wallet instantly
+no manual refresh required
+10. NAVIGATION SYSTEM
+Mobile
+
+Bottom navigation:
+
+Home
+Wallet
+Send
+Activity
+Settings
+Web
+
+Sidebar navigation:
+
+Dashboard
+Transactions
+Users
+Merchants
+Agents
+Settings
+11. RESPONSIVENESS
+Mobile-first
+primary platform = mobile
+optimized for low-end devices
+Web adaptation
+desktop dashboards
+admin panels
+merchant tools
+12. ACCESSIBILITY
+contrast compliance
+large touch targets
+readable fonts
+simple language
+13. ANIMATION RULES
+only meaningful animations
+no decorative animations that reduce clarity
+transaction success animation allowed
+error shake animation allowed
+14. PERFORMANCE UX RULES
+screens must load < 1s (cached)
+transactions must update live
+no UI freeze during API calls
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+never break financial clarity in UI
+always display fees explicitly
+never hide FX conversions
+ensure wallet always matches ledger
+implement all states (loading/success/error)
+16. SUCCESS CRITERIA
+user always understands their money state
+zero ambiguous UI flows
+full real-time sync with backend
+no hidden financial operations

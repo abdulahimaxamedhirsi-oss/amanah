@@ -1,0 +1,183 @@
+20_Testing_Strategy.md (V2 — Enterprise Fintech Testing & Verification System)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit la stratégie de test complète d’Amanah.
+
+👉 Objectif :
+
+garantir zéro bug financier
+assurer la stabilité du Ledger
+valider chaque module critique
+simuler production réelle
+prévenir toute régression
+2. CORE TESTING PRINCIPLE
+2.1 Financial correctness > everything
+If Ledger is wrong → system is broken
+2.2 Test pyramid (fintech version)
+Unit tests (logic)
+Integration tests (services)
+System tests (full flows)
+Stress tests (scale)
+Chaos tests (failure simulation)
+3. BACKEND TESTING
+3.1 Unit tests
+
+Modules testés :
+
+Auth
+Users
+Wallet
+Ledger
+FX Engine
+Payment Engine
+Risk Engine
+3.2 Critical rule
+Ledger tests = MUST be 100% coverage
+3.3 Example tests
+double-entry consistency
+balance reconciliation
+FX conversion accuracy
+fee calculation correctness
+4. LEDGER TESTING (CRITICAL CORE)
+4.1 Test scenarios
+Scenario A — Valid transaction
+debit sender
+credit receiver
+fees applied correctly
+Scenario B — Failure rollback
+FX fails → no ledger commit
+Scenario C — Concurrency
+multiple payments same balance
+no double spending allowed
+4.2 Rule
+SUM(debits) MUST equal SUM(credits)
+5. PAYMENT ENGINE TESTING
+5.1 Test cases
+successful transfer
+insufficient funds
+FX mismatch
+fee validation
+retry idempotency
+5.2 Edge cases
+network failure mid-payment
+duplicate Idempotency-Key
+partial settlement failure
+6. FX ENGINE TESTING
+rate accuracy validation
+locked rate consistency
+cross-currency rounding precision
+7. FRONTEND TESTING
+7.1 Unit tests
+components rendering
+hooks logic
+state management
+7.2 Integration tests
+wallet display sync
+transaction history
+payment flow UI
+7.3 E2E tests
+
+Simulate:
+
+login → send money → receive update
+wallet update via websocket
+8. SMART CONTRACT TESTING
+8.1 Tools
+Hardhat / Foundry
+8.2 Tests
+batch submission
+hash validation
+duplicate prevention
+gas usage optimization
+9. DATABASE TESTING
+migrations integrity
+schema validation
+foreign key consistency
+ledger immutability enforcement
+10. INTEGRATION TESTS
+
+Full system flows:
+
+User login
+   ↓
+Wallet check
+   ↓
+Payment
+   ↓
+Ledger update
+   ↓
+FX + Fees
+   ↓
+WebSocket update
+11. STRESS TESTING
+Goals
+simulate 10k+ concurrent transactions
+test ledger consistency under load
+test FX engine bottlenecks
+Metrics
+latency
+failure rate
+throughput
+12. CHAOS TESTING
+
+Simulate failures:
+
+DB crash
+Redis failure
+FX provider downtime
+WebSocket disconnect
+
+System must:
+
+recover automatically
+maintain ledger integrity
+13. SECURITY TESTING
+brute force login attempts
+API abuse simulation
+injection attempts
+auth bypass attempts
+14. PERFORMANCE TESTING
+
+Targets:
+
+API < 300ms
+payment < 2s
+ledger write < 100ms
+wallet update < 500ms
+15. REGRESSION TESTING
+
+Every new feature must:
+
+not break ledger
+not break payments
+not break wallet sync
+16. TEST AUTOMATION PIPELINE
+
+CI/CD must:
+
+run unit tests
+run integration tests
+run ledger validation
+run contract tests
+17. MONITORING TEST VALIDATION
+
+Post-deployment checks:
+
+transaction success rate
+ledger balance integrity
+wallet sync accuracy
+18. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER deploy without ledger tests passing
+ALWAYS validate double-entry consistency
+ALWAYS simulate payment flows before release
+NEVER ignore failed tests
+ALWAYS enforce 100% critical module coverage
+19. SUCCESS CRITERIA
+zero ledger inconsistencies
+full payment reliability
+zero silent failures
+stable under high load
+full regression safety
