@@ -1,0 +1,268 @@
+49_Plugin_SDK.md (V3 — Enterprise Plugin & Extension System)
+1. OBJECTIF DU SYSTÈME
+
+Le Plugin SDK permet d’étendre Amanah sans modifier le cœur du système.
+
+Il autorise des modules externes à :
+
+ajouter des fonctionnalités
+écouter des événements
+enrichir les workflows
+créer des APIs additionnelles
+personnaliser les règles métier
+intégrer des systèmes externes
+
+Tout en respectant une isolation stricte du Core Banking.
+
+2. CORE PRINCIPLE
+2.1 Core is Immutable
+The core banking system must never be modified by plugins.
+
+Les plugins peuvent :
+
+✔ s’abonner
+✔ enrichir
+✔ observer
+✔ proposer
+
+Les plugins ne peuvent jamais :
+
+✖ modifier le Ledger
+✖ modifier les transactions
+✖ bypass compliance
+✖ accéder aux clés système
+
+2.2 Event-Driven Extensibility
+Plugins interact only through events and APIs.
+3. PLUGIN ARCHITECTURE
+                 Core Banking System
+                        │
+                        ▼
+                 Event Bus Layer
+                        │
+        ┌───────────────┼───────────────┐
+        ▼               ▼               ▼
+
+   Plugin A        Plugin B        Plugin C
+        │               │               │
+   Extension      Extension      Extension
+   Services       Services       Services
+4. PLUGIN TYPES
+4.1 Event Listener Plugins
+
+Écoutent les événements :
+
+PaymentCreated
+PaymentSettled
+UserKYCCompleted
+FraudDetected
+FXExecuted
+4.2 API Extension Plugins
+
+Ajoutent des endpoints :
+
+reporting
+analytics
+integrations
+dashboards
+4.3 Workflow Plugins
+
+Injectent des étapes dans les workflows :
+
+validation supplémentaire
+approbation externe
+scoring personnalisé
+4.4 UI Plugins
+
+Ajoutent des composants :
+
+dashboards
+widgets
+admin tools
+4.5 External Integration Plugins
+
+Connectent :
+
+ERP
+CRM
+accounting systems
+banking networks
+government APIs
+5. PLUGIN LIFECYCLE
+Installed
+
+↓
+
+Verified
+
+↓
+
+Sandboxed
+
+↓
+
+Activated
+
+↓
+
+Running
+
+↓
+
+Suspended
+
+↓
+
+Uninstalled
+6. SANDBOX ENVIRONMENT
+
+Chaque plugin s’exécute dans une sandbox isolée :
+
+CPU limitée
+mémoire limitée
+réseau contrôlé
+accès restreint
+
+Aucun plugin ne peut accéder directement :
+
+Ledger
+Treasury
+Secrets
+Keys
+7. EVENT SYSTEM
+7.1 Event Structure
+{
+  "eventId": "uuid",
+  "type": "PaymentCreated",
+  "tenantId": "uuid",
+  "entityId": "uuid",
+  "payload": {},
+  "timestamp": "ISO8601"
+}
+7.2 Delivery Guarantee
+at least once delivery
+retry automatique
+ordering optionnel par stream
+8. PLUGIN REGISTRY
+
+Tous les plugins sont enregistrés :
+
+{
+  "pluginId": "uuid",
+  "name": "FraudEnhancer",
+  "version": "1.2.0",
+  "status": "ACTIVE",
+  "permissions": []
+}
+9. PERMISSIONS SYSTEM
+
+Plugins peuvent demander :
+
+read-only access to events
+access to anonymized data
+API access
+analytics access
+
+Mais jamais :
+
+accès direct Ledger
+accès secrets
+accès clés privées
+10. SECURITY MODEL
+10.1 Isolation
+
+Chaque plugin est isolé :
+
+process-level isolation
+container-level isolation
+network policies
+token-based access
+10.2 Signature Requirement
+
+Tous les plugins doivent être :
+
+signés
+vérifiés
+validés avant déploiement
+11. RATE LIMITING
+
+Chaque plugin a :
+
+quota CPU
+quota mémoire
+quota API calls
+quota events
+12. ERROR HANDLING
+
+Un plugin défaillant :
+
+est isolé
+ne bloque pas le core
+est redémarré automatiquement
+peut être désactivé
+13. PLUGIN MARKETPLACE
+
+Amanah peut héberger un marketplace :
+
+plugins internes
+plugins partenaires
+plugins third-party
+
+Chaque plugin est soumis à validation sécurité.
+
+14. VERSIONING SYSTEM
+
+Plugins supportent :
+
+semantic versioning
+backward compatibility
+migration scripts
+rollback automatique
+15. OBSERVABILITY
+
+Chaque plugin journalise :
+
+pluginId
+eventId
+executionTime
+memory usage
+errors
+traceId
+16. PERFORMANCE OBJECTIVES
+
+Event dispatch :
+
+< 10 ms
+
+Plugin execution :
+
+< 100 ms (soft limit)
+
+Sandbox startup :
+
+< 200 ms
+
+17. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow plugins to modify Ledger or Treasury.
+ALWAYS enforce sandbox isolation for plugins.
+NEVER allow plugins to access secrets or private keys.
+ALWAYS validate plugin signatures before activation.
+NEVER allow plugins to bypass event bus.
+ALWAYS enforce rate limits per plugin.
+NEVER let a plugin failure impact core banking.
+ALWAYS require explicit permissions for data access.
+ALWAYS log all plugin executions with traceId.
+ALWAYS support plugin rollback and versioning.
+18. SUCCESS CRITERIA
+
+Le Plugin SDK est considéré comme complet lorsque :
+
+des fonctionnalités peuvent être ajoutées sans toucher au core banking ;
+les plugins sont totalement isolés du Ledger et des systèmes financiers critiques ;
+un système de sandbox sécurisé empêche toute escalade de privilèges ;
+les événements sont distribués de manière fiable et scalable ;
+un marketplace de plugins peut fonctionner en production ;
+le système supporte des centaines voire milliers de plugins simultanément sans impact sur le cœur du système.

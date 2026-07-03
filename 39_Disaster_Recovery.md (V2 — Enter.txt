@@ -1,0 +1,491 @@
+39_Disaster_Recovery.md (V2 — Enterprise Disaster Recovery & Business Continuity System)
+1. OBJECTIF DU SYSTÈME
+
+Le système de Disaster Recovery (DR) garantit qu'Amanah puisse continuer à fonctionner ou être restauré rapidement après une catastrophe, sans compromettre l'intégrité financière.
+
+Une catastrophe peut être :
+
+panne totale d'un datacenter
+corruption de base de données
+cyberattaque
+panne cloud
+erreur humaine
+catastrophe naturelle
+perte réseau majeure
+compromission d'une région entière
+
+L'objectif n'est pas seulement de restaurer les serveurs.
+
+L'objectif est de préserver l'intégrité financière absolue.
+
+2. CORE PRINCIPLE
+2.1 Money First
+Financial integrity always has higher priority than service availability.
+
+Si un choix doit être fait entre :
+
+continuer le service avec un risque de corruption
+
+ou
+
+arrêter temporairement les paiements
+
+Amanah choisit toujours :
+
+arrêter les paiements.
+
+2.2 No inconsistent recovery
+The system must never recover into an inconsistent financial state.
+3. BUSINESS CONTINUITY OBJECTIVES
+3.1 Recovery Time Objective (RTO)
+
+Temps maximal acceptable avant reprise.
+
+Objectifs :
+
+API publique
+
+≤ 10 minutes
+
+Paiements
+
+≤ 15 minutes
+
+Dashboard Admin
+
+≤ 30 minutes
+
+Notifications
+
+≤ 1 heure
+
+Analytics
+
+≤ 4 heures
+
+3.2 Recovery Point Objective (RPO)
+
+Perte maximale de données acceptable.
+
+Objectif Amanah :
+
+Ledger :
+
+0 seconde
+
+Paiements :
+
+0 seconde
+
+Wallet :
+
+0 seconde
+
+Logs :
+
+≤ 1 minute
+
+Analytics :
+
+≤ 15 minutes
+
+4. DISASTER LEVEL CLASSIFICATION
+Niveau 1 — Incident Mineur
+
+Exemples
+
+pod Kubernetes crash
+API lente
+worker arrêté
+
+Action
+
+Auto-redémarrage.
+
+Aucun impact utilisateur.
+
+Niveau 2 — Incident Moyen
+
+Exemples
+
+service Payment indisponible
+Redis indisponible
+queue saturée
+
+Action
+
+Failover local.
+
+Niveau 3 — Incident Majeur
+
+Exemples
+
+PostgreSQL primaire perdu
+corruption partielle
+cluster entier indisponible
+
+Action
+
+Basculer vers région secondaire.
+
+Niveau 4 — Catastrophe Totale
+
+Exemples
+
+région cloud entière détruite
+cyberattaque globale
+perte du datacenter principal
+
+Action
+
+Activation complète du Disaster Recovery Plan.
+
+5. MULTI-REGION ARCHITECTURE
+
+Architecture minimale :
+
+               Region A
+        (Primary Production)
+
+             │
+             │ Replication
+             ▼
+
+        Region B
+     (Hot Standby)
+
+             │
+             │ Snapshot
+             ▼
+
+        Region C
+      (Cold Recovery)
+Region A
+
+Production.
+
+Region B
+
+Toujours synchronisée.
+
+Peut devenir primaire en quelques secondes.
+
+Region C
+
+Recovery longue durée.
+
+Protection ultime.
+
+6. FAILOVER STRATEGY
+Automatic Failover
+
+Détection :
+
+Primary unavailable
+        ↓
+Health check failure
+        ↓
+Consensus validation
+        ↓
+Promote secondary
+        ↓
+Redirect traffic
+
+Conditions :
+
+Primary indisponible
+Ledger synchronisé
+Réplication validée
+Manual Failover
+
+Possible uniquement par :
+
+SYSTEM
+
+ou
+
+Disaster Recovery Team.
+
+Jamais par un administrateur standard.
+
+7. DATABASE RECOVERY
+PostgreSQL
+
+Protection :
+
+streaming replication
+WAL archiving
+Point-In-Time Recovery
+immutable backups
+Recovery
+Snapshot
+
+↓
+
+Replay WAL
+
+↓
+
+Integrity verification
+
+↓
+
+Open database
+8. LEDGER RECOVERY
+
+Le Ledger possède un protocole spécifique.
+
+Jamais une restauration SQL simple.
+
+Toujours :
+
+Snapshot
+
+↓
+
+Ledger replay
+
+↓
+
+Double-entry validation
+
+↓
+
+Hash verification
+
+↓
+
+Reconciliation
+
+↓
+
+Open system
+
+Si une seule écriture est invalide :
+
+Recovery arrêtée.
+
+9. EVENT REPLAY SYSTEM
+
+Tous les événements sont conservés.
+
+Exemple :
+
+Payment Created
+
+↓
+
+Risk Checked
+
+↓
+
+FX Locked
+
+↓
+
+Ledger Posted
+
+↓
+
+Settlement Created
+
+↓
+
+Notification Sent
+
+Le système peut rejouer chaque événement.
+
+10. WALLET RECONSTRUCTION
+
+Les wallets ne sont jamais restaurés directement.
+
+Ils sont reconstruits.
+
+Ledger
+
+↓
+
+Replay
+
+↓
+
+Balance calculation
+
+↓
+
+Wallet regenerated
+
+Ainsi :
+
+Aucune corruption de solde.
+
+11. PAYMENT RECOVERY
+
+Transactions interrompues.
+
+Exemple :
+
+INITIATED
+
+↓
+
+Crash
+
+Au redémarrage :
+
+Le State Engine décide :
+
+reprendre
+
+ou
+
+annuler
+
+Jamais :
+
+double exécution.
+
+12. FX RECOVERY
+
+Avant restauration :
+
+Tous les taux expirés sont invalidés.
+
+Les conversions incomplètes sont :
+
+recalculées
+
+ou
+
+annulées.
+13. CARD SYSTEM RECOVERY
+
+Les cartes restent :
+
+ACTIVE
+
+mais :
+
+les autorisations sont suspendues tant que :
+
+Ledger
+Risk
+Payment
+
+ne sont pas validés.
+
+14. SECURITY DURING DISASTER
+
+Pendant un incident majeur :
+
+Activation automatique :
+
+Emergency Security Mode
+
+Actions :
+
+MFA renforcée
+rotation des secrets
+blocage Admin critique
+suspension des changements d'infrastructure
+15. COMMUNICATION PLAN
+
+Ordre de notification :
+
+Monitoring
+
+↓
+
+Engineering
+
+↓
+
+Security
+
+↓
+
+Compliance
+
+↓
+
+Support
+
+↓
+
+Clients
+
+Jamais l'inverse.
+
+16. POST-DISASTER AUDIT
+
+Une fois le système restauré :
+
+Audit automatique.
+
+Checklist :
+
+✓ Ledger équilibré
+
+✓ Wallet cohérents
+
+✓ Paiements validés
+
+✓ FX cohérent
+
+✓ Cartes synchronisées
+
+✓ Aucun événement perdu
+
+✓ Hash Ledger identiques
+
+✓ Toutes les réplications synchronisées
+
+17. DISASTER RECOVERY TESTING
+
+Tests obligatoires.
+
+Mensuels :
+
+restauration snapshot
+failover
+replay Ledger
+
+Trimestriels :
+
+destruction simulée région entière
+restauration complète
+
+Annuels :
+
+Simulation catastrophe totale.
+
+Toutes les équipes participent.
+
+18. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER restore Wallet directly from backups.
+ALWAYS rebuild Wallet from Ledger.
+NEVER start Payment Engine before Ledger validation.
+ALWAYS verify hashes after recovery.
+NEVER ignore replication status.
+ALWAYS replay events in chronological order.
+NEVER allow recovery with reconciliation errors.
+ALWAYS stop recovery if Ledger integrity cannot be proven.
+NEVER prioritize uptime over financial integrity.
+ALWAYS execute post-recovery audit before reopening production.
+19. SUCCESS CRITERIA
+
+Le Disaster Recovery est considéré comme réussi uniquement si :
+
+aucune perte financière
+RPO du Ledger = 0
+RTO respecté
+aucune transaction dupliquée
+aucune transaction perdue
+Ledger 100 % cohérent
+Wallets reconstruits correctement
+Hash cryptographiques identiques
+Audit post-restauration validé
+système totalement opérationnel

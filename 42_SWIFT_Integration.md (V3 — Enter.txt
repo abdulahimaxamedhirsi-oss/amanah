@@ -1,0 +1,360 @@
+42_SWIFT_Integration.md (V3 — Enterprise SWIFT Network Integration)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit l'architecture complète permettant à Amanah de communiquer avec le réseau bancaire mondial via SWIFT.
+
+L'objectif est de rendre Amanah capable de :
+
+envoyer des paiements internationaux
+recevoir des paiements internationaux
+communiquer avec les banques partenaires
+suivre les paiements en temps réel
+respecter les standards SWIFT et ISO 20022
+intégrer SWIFT gpi
+assurer une traçabilité bancaire complète
+
+Le système ne remplace pas le Ledger.
+
+Le Ledger reste la source de vérité.
+
+SWIFT est uniquement un réseau de messagerie financière.
+
+2. CORE PRINCIPLE
+2.1 SWIFT is messaging, not settlement
+SWIFT transports financial instructions.
+It does not move money itself.
+
+L'argent est déplacé :
+
+via les comptes de règlement
+les banques correspondantes
+les banques centrales
+les systèmes de compensation
+
+SWIFT ne transporte que les messages.
+
+2.2 Ledger Independence
+The Ledger must never depend on SWIFT availability.
+
+Si SWIFT est indisponible :
+
+le Ledger continue de fonctionner
+les Wallets continuent
+les paiements internes continuent
+
+Seuls les paiements SWIFT sont suspendus.
+
+3. ARCHITECTURE GLOBALE
+                    Payment API
+                         │
+                         ▼
+                 Payment Engine
+                         │
+                         ▼
+               Canonical Payment Model
+                         │
+                         ▼
+                SWIFT Integration Layer
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+   MT Messages     ISO 20022 MX      SWIFT gpi
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                    SWIFT Gateway
+                         │
+                    SWIFT Network
+                         │
+              Correspondent Banks
+
+Le SWIFT Layer est totalement découplé du reste de la plateforme.
+
+4. SWIFT GATEWAY
+
+Le SWIFT Gateway est responsable de :
+
+connexion au réseau SWIFT
+authentification
+chiffrement
+signature
+transmission
+réception
+reprise sur erreur
+journalisation
+
+Il est le seul composant autorisé à communiquer avec SWIFT.
+
+5. BIC MANAGEMENT
+
+Chaque banque possède un :
+
+Business Identifier Code (BIC).
+
+Structure :
+
+AAAA BB CC DDD
+
+Exemple :
+
+BOFAUS3N
+
+Le système doit :
+
+valider le format
+maintenir un registre
+vérifier les banques partenaires
+6. MESSAGE TYPES
+
+Le système doit supporter progressivement :
+
+Legacy FIN :
+
+MT103
+MT202
+MT940
+MT950
+MT199
+
+ISO MX :
+
+pacs
+pain
+camt
+
+Le moteur doit pouvoir traduire entre les deux lorsqu'autorisé.
+
+7. SWIFT GPI SUPPORT
+
+Support complet de SWIFT gpi.
+
+Fonctionnalités :
+
+suivi temps réel
+statut de paiement
+banque actuelle
+temps de traitement
+confirmation finale
+
+Chaque paiement reçoit un :
+
+UETR
+
+(UUID universel).
+
+8. PAYMENT FLOW
+User initiates transfer
+
+↓
+
+Payment Engine
+
+↓
+
+Compliance
+
+↓
+
+Risk Engine
+
+↓
+
+Ledger Reservation
+
+↓
+
+SWIFT Message Generation
+
+↓
+
+Digital Signature
+
+↓
+
+SWIFT Gateway
+
+↓
+
+SWIFT Network
+
+↓
+
+Correspondent Bank
+
+↓
+
+Receiving Bank
+
+↓
+
+Settlement Confirmation
+
+↓
+
+Ledger Finalization
+9. CORRESPONDENT BANK MANAGEMENT
+
+Le système gère :
+
+banques correspondantes
+comptes Nostro
+comptes Vostro
+routes de paiement
+coûts
+délais
+
+Une route optimale est sélectionnée selon :
+
+coût
+rapidité
+disponibilité
+conformité
+10. ROUTING ENGINE
+
+Le moteur choisit automatiquement :
+
+Destination Country
+
+↓
+
+Available Correspondents
+
+↓
+
+Compliance Check
+
+↓
+
+Liquidity Check
+
+↓
+
+Lowest Risk Route
+
+↓
+
+Message Generation
+11. MESSAGE VALIDATION
+
+Avant émission :
+
+Validation :
+
+BIC
+IBAN
+devise
+montant
+sanctions
+signature
+pays
+correspondants
+
+Toute erreur bloque l'envoi.
+
+12. ACKNOWLEDGEMENT SYSTEM
+
+Chaque message possède :
+
+envoyé
+reçu
+accepté
+rejeté
+confirmé
+réglé
+
+Aucun paiement ne devient COMPLETED sans confirmation bancaire.
+
+13. ERROR MANAGEMENT
+
+Cas possibles :
+
+banque indisponible
+route indisponible
+BIC invalide
+compte fermé
+sanctions
+devises interdites
+
+Chaque erreur possède un code normalisé.
+
+14. SECURITY
+
+Toutes les communications utilisent :
+
+TLS
+mTLS
+certificats
+rotation automatique
+chiffrement
+signature
+
+Le Gateway ne stocke jamais les clés privées en clair.
+
+15. OBSERVABILITY
+
+Chaque message journalise :
+
+traceId
+UETR
+BIC expéditeur
+BIC destinataire
+banque correspondante
+statut
+durée
+réponse
+16. HIGH AVAILABILITY
+
+Le Gateway est :
+
+redondé
+multi-région
+sans état (stateless)
+
+Les messages en attente sont persistés dans une file durable.
+
+17. RETRY POLICY
+
+En cas d'échec temporaire :
+
+retry exponentiel
+limite configurable
+aucune duplication de message
+idempotence obligatoire
+18. AUDIT
+
+Toutes les opérations sont archivées :
+
+message original
+message signé
+réponse SWIFT
+horodatage
+utilisateur
+traceId
+hash
+
+Aucun message n'est supprimé.
+
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER connect directly to the SWIFT Network outside the SWIFT Gateway.
+ALWAYS validate BIC, IBAN and currency before message creation.
+NEVER mark a payment as settled without external confirmation.
+ALWAYS generate and preserve the UETR for every international payment.
+NEVER allow duplicate SWIFT message transmission.
+ALWAYS archive the original and signed message.
+NEVER expose private keys or certificates.
+ALWAYS maintain full traceability from Payment ID to SWIFT UETR.
+NEVER couple Ledger logic to SWIFT protocols.
+ALWAYS support migration from MT messages to ISO 20022 MX.
+20. SUCCESS CRITERIA
+
+Le module SWIFT est considéré comme terminé lorsque :
+
+les paiements internationaux sont entièrement compatibles avec le réseau SWIFT ;
+les messages MT et ISO 20022 peuvent être pris en charge selon les partenaires ;
+chaque paiement dispose d'un UETR et d'une traçabilité complète ;
+les validations BIC, IBAN, conformité et signatures sont systématiques ;
+le Ledger reste totalement indépendant du réseau SWIFT ;
+les communications sont sécurisées, auditables et hautement disponibles.

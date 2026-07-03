@@ -1,0 +1,285 @@
+50_Public_API_Platform.md (V3 — Enterprise Public API & Developer Platform)
+1. OBJECTIF DU SYSTÈME
+
+La Public API Platform transforme Amanah en plateforme ouverte permettant à des développeurs externes d’intégrer, construire et monétiser des services financiers.
+
+Elle permet :
+
+accès sécurisé aux fonctionnalités bancaires
+intégration tierce (fintech, ERP, apps)
+automatisation des paiements
+création de produits financiers externes
+webhooks en temps réel
+SDK multi-langage
+sandbox développeur
+marketplace d’API
+2. CORE PRINCIPLE
+2.1 API as a Product
+Every API endpoint is a product with usage, limits, pricing and lifecycle.
+2.2 Zero Trust API Access
+Every request must be authenticated, authorized and rate-limited.
+
+Aucune requête n’est fiable par défaut.
+
+2.3 Tenant + Entity Awareness
+Every API call is bound to tenantId and entityId.
+3. GLOBAL ARCHITECTURE
+Developer Client
+       │
+       ▼
+API Gateway
+       │
+       ▼
+Auth Layer (OAuth2 / API Keys)
+       │
+       ▼
+Rate Limiter
+       │
+       ▼
+Routing Engine
+       │
+       ▼
+Core Banking Services
+       │
+       ▼
+Ledger / Settlement / Treasury
+4. API GATEWAY
+
+Le API Gateway est le point d’entrée unique.
+
+Responsabilités :
+
+authentification
+validation
+routing
+throttling
+logging
+transformation
+versioning
+
+Aucune API ne contourne le Gateway.
+
+5. AUTHENTICATION SYSTEM
+5.1 API Keys
+{
+  "keyId": "uuid",
+  "tenantId": "uuid",
+  "permissions": ["payments:read","payments:write"],
+  "status": "ACTIVE"
+}
+5.2 OAuth2 Support
+Authorization Code Flow
+Client Credentials Flow
+Refresh Tokens
+Scope-based access
+5.3 JWT Internal Tokens
+
+Utilisés entre services uniquement.
+
+6. RATE LIMITING ENGINE
+6.1 Multi-Level Limits
+per API key
+per tenant
+per entity
+per endpoint
+global system limit
+6.2 Example
+100 requests / second per API key
+10,000 requests / minute per tenant
+6.3 Throttling Behavior
+soft limit → warning
+hard limit → block
+burst control → queue or reject
+7. API VERSIONING
+7.1 Version Model
+/v1/
+/v2/
+/v3/
+7.2 Backward Compatibility
+v1 remains supported
+deprecation notices
+migration guides
+8. CORE API CATEGORIES
+8.1 Payments API
+create payment
+cancel payment
+status
+history
+8.2 Accounts API
+balances
+transactions
+statements
+8.3 FX API
+convert currency
+get rates
+lock rates
+8.4 Treasury API
+liquidity view
+forecasts
+positions
+8.5 Compliance API
+KYC status
+AML checks
+risk scores
+9. WEBHOOK SYSTEM
+9.1 Event Delivery
+Event Triggered
+      ↓
+Webhook Dispatcher
+      ↓
+Retry Engine
+      ↓
+Client Endpoint
+9.2 Events
+payment.created
+payment.settled
+fraud.detected
+kyc.completed
+settlement.completed
+9.3 Reliability
+retry with exponential backoff
+dead letter queue
+signature verification
+10. SANDBOX ENVIRONMENT
+10.1 Purpose
+
+Allow developers to test without real money movement.
+
+10.2 Features
+fake ledger
+simulated FX
+test payments
+mocked banking responses
+10.3 Isolation
+
+Sandbox data is fully isolated from production.
+
+11. SDKs
+Supported Languages
+JavaScript / TypeScript
+Python
+Java
+Go
+PHP
+SDK Features
+auth handling
+retries
+webhook verification
+request signing
+typed models
+12. DOCUMENTATION SYSTEM
+Auto-generated docs
+OpenAPI spec
+interactive explorer
+code samples
+error catalog
+Developer Portal
+onboarding
+API keys
+usage dashboard
+billing
+logs
+13. BILLING ENGINE (API MONETIZATION)
+Pricing Models
+per request
+per transaction
+subscription
+tiered usage
+enterprise contract
+Billing Metrics
+API calls
+compute usage
+webhook events
+data volume
+14. SECURITY MODEL
+Controls
+IP whitelisting
+geo restrictions
+mTLS optional
+signature validation
+anomaly detection
+Threat Protection
+DDoS protection
+abuse detection
+replay attack prevention
+key rotation
+15. OBSERVABILITY
+
+Each request logs:
+
+requestId
+tenantId
+entityId
+endpoint
+latency
+status code
+error type
+cost
+rate limit status
+16. PERFORMANCE OBJECTIVES
+
+API Gateway latency:
+
+< 10 ms
+
+Routing:
+
+< 5 ms
+
+Auth validation:
+
+< 5 ms
+
+Total overhead:
+
+< 25 ms
+
+17. FAILURE HANDLING
+automatic retries (safe endpoints only)
+circuit breakers
+fallback routing
+graceful degradation
+18. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS require authentication for every API call.
+NEVER bypass API Gateway.
+ALWAYS enforce tenantId and entityId context.
+NEVER expose internal Ledger structures via API.
+ALWAYS enforce rate limiting before processing.
+NEVER allow API access to secrets or private keys.
+ALWAYS support versioning and backward compatibility.
+ALWAYS log every request with traceId.
+NEVER allow sandbox data leakage into production.
+ALWAYS apply zero-trust principles.
+19. SUCCESS CRITERIA
+
+La Public API Platform est considérée comme complète lorsque :
+
+des développeurs externes peuvent intégrer Amanah en quelques minutes ;
+les API sont sécurisées, versionnées et observables ;
+un système de sandbox permet le développement sans risque ;
+les API peuvent être monétisées ;
+les webhooks assurent une communication temps réel fiable ;
+la plateforme supporte des millions de requêtes par jour sans impact sur le core banking.
+✅ END OF 50_Public_API_Platform.md (V3 Enterprise Edition)
+🚀 NEXT STEP
+
+Le chapitre 51 sera :
+
+📖 51_Workflow_Engine.md
+
+Il définira un moteur central d’orchestration permettant de gérer tous les processus métier complexes :
+
+onboarding client
+KYC / KYB
+approbation de paiements
+crédit / scoring
+gestion des litiges
+conformité AML
+workflows multi-étapes
+règles conditionnelles
+exécution asynchrone
+
+Ce moteur sera le cerveau opérationnel d’Amanah, reliant tous les systèmes ensemble.

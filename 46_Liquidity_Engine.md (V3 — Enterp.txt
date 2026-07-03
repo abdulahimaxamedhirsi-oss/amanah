@@ -1,0 +1,334 @@
+46_Liquidity_Engine.md (V3 — Enterprise Real-Time Liquidity Management Engine)
+1. OBJECTIF DU SYSTÈME
+
+Le Liquidity Engine est responsable de la gestion en temps réel de toute la liquidité disponible dans Amanah.
+
+Il garantit que chaque opération financière dispose des fonds nécessaires avant son exécution.
+
+Le moteur pilote :
+
+la liquidité disponible
+la liquidité réservée
+la liquidité consommée
+la liquidité projetée
+les besoins futurs
+les limites réglementaires
+
+Le Liquidity Engine ne crée jamais d'argent.
+
+Il gère uniquement sa disponibilité.
+
+2. CORE PRINCIPLES
+2.1 Available Liquidity ≠ Ledger Balance
+Available liquidity must always be calculated independently from the accounting balance.
+
+Exemple :
+
+Ledger :
+
+100 000 €
+
+Réservations :
+
+40 000 €
+
+Liquidité disponible :
+
+60 000 €
+
+2.2 No Settlement Without Liquidity
+No settlement may start without sufficient available liquidity.
+2.3 Deterministic Calculations
+Liquidity calculations must always produce identical results from identical inputs.
+3. GLOBAL ARCHITECTURE
+Settlement Network
+          │
+          ▼
+Liquidity Engine
+          │
+ ┌────────┼────────┬──────────┐
+ │        │        │          │
+Reservation Limits Forecast Monitoring
+ │
+ ▼
+Treasury Management
+4. LIQUIDITY MODEL
+
+Chaque compte possède plusieurs soldes.
+
+{
+  "ledgerBalance": 12000000,
+  "availableLiquidity": 9500000,
+  "reservedLiquidity": 2000000,
+  "pendingSettlement": 500000,
+  "minimumReserve": 1000000
+}
+5. LIQUIDITY STATES
+
+Chaque unité de liquidité peut être :
+
+AVAILABLE
+
+RESERVED
+
+PENDING
+
+SETTLING
+
+SETTLED
+
+RELEASED
+6. FUND RESERVATION ENGINE
+
+Avant chaque paiement :
+
+Payment Request
+
+↓
+
+Liquidity Check
+
+↓
+
+Reserve Funds
+
+↓
+
+Execute Settlement
+
+↓
+
+Release or Consume Reservation
+
+Une réservation possède :
+
+{
+  "reservationId":"uuid",
+  "amount":50000,
+  "currency":"EUR",
+  "expiration":"ISO8601",
+  "status":"ACTIVE"
+}
+7. RESERVATION EXPIRATION
+
+Une réservation peut expirer :
+
+timeout
+annulation
+refus AML
+refus Risk
+expiration utilisateur
+
+À expiration :
+
+La liquidité est immédiatement libérée.
+
+8. LIQUIDITY PRIORITIES
+
+Les réservations utilisent une priorité.
+
+SYSTEM
+
+REGULATORY
+
+HIGH
+
+NORMAL
+
+LOW
+
+En cas de pénurie :
+
+Les priorités faibles sont libérées avant les autres.
+
+9. REAL-TIME LIQUIDITY CALCULATION
+
+Après chaque événement :
+
+paiement
+remboursement
+FX
+règlement
+dépôt
+retrait
+
+Le moteur recalcule immédiatement :
+
+disponible
+réservé
+projeté
+10. QUEUE MANAGEMENT
+
+Si la liquidité est insuffisante :
+
+Settlement
+
+↓
+
+Liquidity Missing
+
+↓
+
+Queued
+
+↓
+
+Retry
+
+↓
+
+Escalation
+
+↓
+
+Manual Intervention
+
+Aucune transaction n'est perdue.
+
+11. INTRADAY LIQUIDITY
+
+Le moteur suit :
+
+consommation par heure
+pics journaliers
+besoins futurs
+prévisions temps réel
+
+Objectif :
+
+Éviter toute rupture de liquidité.
+
+12. LIQUIDITY FORECASTING
+
+Prévisions :
+
+15 minutes
+1 heure
+6 heures
+24 heures
+7 jours
+
+Sources :
+
+paiements programmés
+règlements attendus
+historiques
+saisonnalité
+modèles IA
+13. LIMIT MANAGEMENT
+
+Limites configurables :
+
+par devise
+par banque
+par pays
+par entité
+par participant
+par type d'opération
+
+Tout dépassement déclenche une alerte.
+
+14. STRESS SCENARIOS
+
+Le moteur simule :
+
+bank run
+pic de virements
+perte d'une banque correspondante
+volatilité FX extrême
+panne de règlement
+crise de liquidité
+
+Les résultats alimentent le Treasury Management.
+
+15. LIQUIDITY OPTIMIZATION
+
+Le moteur peut recommander :
+
+transfert entre comptes
+conversion de devise
+activation d'une ligne de crédit
+report de règlements non urgents
+réallocation de liquidité
+
+Ces recommandations nécessitent une validation selon la politique définie.
+
+16. OBSERVABILITY
+
+Chaque calcul journalise :
+
+liquiditySnapshotId
+accountId
+availableBefore
+availableAfter
+reservedBefore
+reservedAfter
+operationType
+traceId
+calculationTime
+17. PERFORMANCE OBJECTIVES
+
+Calcul de liquidité :
+
+< 10 ms
+
+Création d'une réservation :
+
+< 20 ms
+
+Libération :
+
+< 10 ms
+
+Recalcul global :
+
+< 50 ms
+
+Projection :
+
+< 200 ms
+
+18. SECURITY
+
+Toutes les opérations doivent être :
+
+authentifiées
+autorisées
+immuables
+horodatées
+auditables
+
+Les réservations expirées ne peuvent jamais être réactivées.
+
+19. FAILURE MANAGEMENT
+
+En cas d'incident :
+
+les réservations actives sont restaurées depuis le journal d'événements ;
+les calculs sont rejoués de manière déterministe ;
+les incohérences déclenchent une réconciliation automatique ;
+aucune liquidité n'est marquée disponible tant que la reconstruction n'est pas terminée.
+20. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER calculate available liquidity from cached values.
+ALWAYS derive liquidity from Ledger, reservations and pending settlements.
+NEVER allow settlement without successful liquidity reservation.
+ALWAYS release expired reservations automatically.
+NEVER exceed configured liquidity limits.
+ALWAYS support real-time recalculation after every financial event.
+NEVER lose reservation state during failures.
+ALWAYS maintain deterministic liquidity calculations.
+NEVER allow negative available liquidity unless explicitly authorized by treasury policy.
+ALWAYS synchronize liquidity with Treasury, Settlement and Clearing engines.
+21. SUCCESS CRITERIA
+
+Le Liquidity Engine est considéré comme complet lorsque :
+
+la liquidité disponible est calculée en temps réel ;
+les réservations de fonds sont atomiques, traçables et expirent automatiquement ;
+les limites sont appliquées avant toute opération financière ;
+les scénarios de stress et les prévisions sont pris en charge ;
+les calculs restent déterministes après redémarrage ou reprise sur incident ;
+le moteur est entièrement intégré au Treasury Management, au Settlement Network et au Clearing House.

@@ -1,0 +1,138 @@
+37_Backup_Recovery.md (V2 — Enterprise Financial Backup & Disaster Recovery System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit comment Amanah garantit zéro perte de données financières, même en cas de crash total.
+
+👉 Objectif :
+
+garantir zéro perte du ledger
+permettre restauration complète du système
+survivre à des pannes globales
+restaurer les transactions à tout moment
+assurer continuité bancaire-grade
+2. CORE PRINCIPLE
+2.1 Zero data loss rule
+No financial data can ever be permanently lost.
+2.2 Ledger is sacred
+ledger = source of truth absolue
+backup = copie immuable du ledger
+aucune altération possible
+3. BACKUP ARCHITECTURE
+3.1 Multi-layer backup system
+Layer 1 → Real-time replication
+Layer 2 → Incremental backups
+Layer 3 → Daily snapshots
+Layer 4 → Cross-region backups
+Layer 5 → Cold storage archival
+3.2 Rule
+At least 3 independent backup copies must always exist.
+4. LEDGER BACKUP SYSTEM (CRITICAL)
+4.1 Strategy
+every ledger entry is instantly replicated
+append-only storage
+immutable snapshot chain
+4.2 Structure
+{
+  "ledgerBatchId": "uuid",
+  "entries": [],
+  "hash": "cryptographic_hash",
+  "timestamp": "ISO-8601"
+}
+4.3 Integrity check
+hash verification mandatory
+mismatch triggers emergency alert
+5. REAL-TIME REPLICATION
+5.1 Flow
+Primary DB write
+   ↓
+Streaming replication
+   ↓
+Secondary region sync
+   ↓
+Backup storage confirmation
+5.2 Rule
+No transaction is confirmed until replication acknowledgment.
+6. SNAPSHOT SYSTEM
+6.1 Types
+hourly snapshots
+daily full snapshots
+weekly compressed archives
+6.2 Use case
+disaster recovery
+forensic audit
+rollback system
+7. DISASTER RECOVERY SYSTEM
+7.1 Scenarios
+full region outage
+database corruption
+ledger inconsistency
+cyber attack
+7.2 Recovery flow
+Detect failure
+   ↓
+Isolate affected system
+   ↓
+Activate backup region
+   ↓
+Restore latest valid snapshot
+   ↓
+Replay event log
+   ↓
+Resume operations
+8. FAILOVER SYSTEM
+8.1 Multi-region setup
+primary region
+hot standby region
+cold backup region
+8.2 Rule
+System must switch regions automatically within seconds.
+9. EVENT REPLAY SYSTEM
+9.1 Purpose
+
+Rebuild system state from events.
+
+9.2 Flow
+replay ledger events
+reconstruct wallet balances
+rebuild transaction states
+10. DATA INTEGRITY SYSTEM
+10.1 Hash chaining
+
+Each ledger batch includes:
+
+previous hash
+current hash
+integrity proof
+10.2 Rule
+Any mismatch invalidates entire batch.
+11. ARCHIVAL SYSTEM
+long-term storage of financial history
+compressed immutable archives
+audit-ready retention
+12. SECURITY OF BACKUPS
+encrypted at rest
+encrypted in transit
+access restricted to SYSTEM role
+13. PERFORMANCE REQUIREMENTS
+backup write latency < 100ms
+replication lag < 1s
+failover < 30s
+14. MONITORING SYSTEM
+backup success rate
+replication lag monitoring
+snapshot integrity checks
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow ledger write without replication
+ALWAYS ensure backup consistency
+NEVER bypass snapshot validation
+ALWAYS use append-only strategy
+NEVER delete financial history
+16. SUCCESS CRITERIA
+zero data loss guaranteed
+full system recovery possible anytime
+multi-region resilience
+immutable financial history
+audit-grade backup system

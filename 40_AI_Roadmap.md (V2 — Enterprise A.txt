@@ -1,0 +1,412 @@
+40_AI_Roadmap.md (V2 — Enterprise Artificial Intelligence Architecture)
+1. OBJECTIF DU SYSTÈME
+
+L'objectif de ce document est de définir l'ensemble de l'architecture Intelligence Artificielle d'Amanah.
+
+Contrairement à une IA ajoutée après le développement du produit, Amanah intègre l'IA directement dans son architecture.
+
+L'IA n'est pas un produit.
+
+L'IA est une couche transversale.
+
+Elle assiste :
+
+les utilisateurs
+les équipes internes
+la conformité
+la lutte contre la fraude
+le support
+la trésorerie
+les marchands
+les agents
+les administrateurs
+2. CORE PRINCIPLE
+2.1 AI Never Controls Money
+Artificial Intelligence may recommend, detect and assist, but it must never execute financial operations autonomously.
+
+Une IA peut :
+
+proposer
+analyser
+détecter
+prédire
+classer
+recommander
+
+Une IA ne peut jamais :
+
+débiter un compte
+créditer un compte
+modifier un Ledger
+approuver un paiement
+contourner les règles métier
+2.2 Human Override
+
+Toutes les décisions critiques restent humaines.
+
+Exemples :
+
+fermeture de compte
+blocage définitif
+déclaration AML
+gel permanent
+sanctions
+3. AI ARCHITECTURE
+                    AI Gateway
+
+                        │
+
+        ┌───────────────┼────────────────┐
+
+        │               │                │
+
+ Fraud AI         Support AI       Compliance AI
+
+        │               │                │
+
+        ├───────────────┼────────────────┤
+
+        │               │                │
+
+ Treasury AI     Merchant AI      Analytics AI
+
+Toutes les IA sont indépendantes.
+
+Aucune IA n'accède directement au Ledger.
+
+4. AI GATEWAY
+
+Toutes les requêtes IA passent par un composant unique :
+
+AI Gateway.
+
+Responsabilités :
+
+routage
+authentification
+limitation de débit
+anonymisation
+journalisation
+sélection du modèle
+
+Aucun service ne contacte directement un LLM.
+
+5. AI FRAUD ENGINE
+Objectif
+
+Détecter les comportements frauduleux avant qu'ils ne deviennent critiques.
+
+Sources analysées :
+
+historique paiement
+appareils
+adresses IP
+géolocalisation
+fréquence
+horaires
+habitudes utilisateur
+
+Détection :
+
+Account Takeover
+Card Testing
+Bot Activity
+Velocity Fraud
+Fake Merchant
+Agent Fraud
+Money Mule
+Synthetic Identity
+
+Sortie :
+
+{
+  "riskScore":82,
+  "reason":"Velocity anomaly",
+  "recommendedAction":"Manual Review"
+}
+
+Jamais :
+
+Payment blocked automatically by AI
+
+L'IA recommande.
+
+Le Risk Engine décide.
+
+6. AI AML ENGINE
+
+Analyse :
+
+transactions
+bénéficiaires
+pays
+devises
+fréquence
+montants
+
+Détection :
+
+structuring
+smurfing
+layering
+mule networks
+sanctions exposure
+
+Résultat :
+
+Suspicion Score
+
+0 à 100.
+
+7. AI RISK SCORING
+
+L'IA calcule :
+
+User Risk Score.
+
+Variables :
+
+KYC
+AML
+historique
+appareil
+pays
+âge du compte
+comportement
+
+Score :
+
+0-20 Very Low
+
+20-40 Low
+
+40-60 Medium
+
+60-80 High
+
+80-100 Critical
+8. AI CUSTOMER SUPPORT
+
+Assistant intégré.
+
+Fonctions :
+
+répondre aux questions
+expliquer transactions
+guider KYC
+aider récupération compte
+guider cartes
+
+Restrictions.
+
+Ne peut jamais :
+
+modifier un compte
+changer mot de passe
+exécuter paiement
+9. AI COMPLIANCE ASSISTANT
+
+Aide les analystes conformité.
+
+Peut :
+
+résumer :
+
+dossiers KYC
+historique
+transactions
+alertes AML
+
+Peut proposer :
+
+accepter
+rejeter
+investiguer
+
+Jamais décider.
+
+10. AI TREASURY ENGINE
+
+Prévisions :
+
+liquidité
+besoins cash
+volumes
+FX
+agents
+
+Exemple :
+
+Tomorrow
+
+Expected liquidity needed
+
+Dakar
+
++18%
+
+Abidjan
+
++12%
+11. AI AGENT ANALYTICS
+
+Analyse :
+
+performances
+liquidité
+fraude
+activité
+
+Détection :
+
+agents anormaux.
+
+12. AI MERCHANT ANALYTICS
+
+Prévisions :
+
+chiffre d'affaires
+saisonnalité
+fraude
+remboursements
+chargebacks
+
+Suggestions :
+
+optimiser frais
+améliorer conversion
+13. AI PERSONAL FINANCE
+
+Assistant utilisateur.
+
+Peut :
+
+catégoriser dépenses
+générer budget
+prévoir dépenses
+détecter abonnements
+
+Jamais :
+
+investir automatiquement.
+
+14. AI OBSERVABILITY
+
+L'IA surveille :
+
+erreurs
+latence
+saturation
+incidents
+
+Peut :
+
+proposer :
+
+scaling
+optimisation
+investigation
+15. AI FOR DEVELOPERS
+
+Assistant interne.
+
+Peut :
+
+lire logs
+expliquer erreurs
+retrouver régressions
+proposer correctifs
+
+Accès :
+
+lecture uniquement.
+
+16. AI SECURITY
+
+Détection :
+
+attaques API
+brute force
+credential stuffing
+DDoS
+comportements inhabituels
+17. MODEL MANAGEMENT
+
+Tous les modèles sont versionnés.
+
+Fraud AI v3.2
+
+AML AI v2.7
+
+Support AI v4.1
+
+Rollback possible.
+
+18. PROMPT SECURITY
+
+Toutes les IA doivent :
+
+filtrer Prompt Injection
+empêcher Data Leakage
+empêcher Jailbreak
+masquer données sensibles
+journaliser les requêtes
+19. DATA GOVERNANCE
+
+Les modèles ne doivent jamais apprendre automatiquement à partir des données utilisateurs.
+
+Toute réutilisation nécessite :
+
+anonymisation
+validation juridique
+conformité réglementaire
+20. AI OBSERVABILITY
+
+Chaque requête IA journalise :
+
+modelId
+promptVersion
+latency
+tokens
+coût estimé
+utilisateur (si applicable)
+traceId
+résultat
+21. FUTURE AI MODULES
+
+Évolutions possibles :
+
+AI Financial Advisor
+AI Credit Scoring
+AI Islamic Finance Compliance Assistant
+AI Investment Advisor
+AI Business Intelligence
+AI Voice Banking
+AI Document OCR
+AI Contract Analysis
+AI Regulatory Change Monitoring
+AI Internal Copilot
+22. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow AI to modify Ledger entries.
+NEVER allow AI to approve or reject financial transactions autonomously.
+ALWAYS require deterministic business rules for money movement.
+ALWAYS isolate AI services behind the AI Gateway.
+NEVER expose confidential prompts or model credentials.
+ALWAYS log AI requests with traceId.
+ALWAYS support model versioning and rollback.
+NEVER train models directly on production customer data.
+ALWAYS provide human override for AI recommendations.
+ALWAYS fail safely if AI services are unavailable.
+23. SUCCESS CRITERIA
+
+L'architecture IA est considérée comme complète lorsque :
+
+toutes les IA sont indépendantes des services financiers critiques ;
+aucune décision monétaire n'est prise par un modèle ;
+les recommandations IA sont explicables et traçables ;
+chaque appel IA est observé, journalisé et versionné ;
+l'indisponibilité de l'IA n'empêche jamais le fonctionnement du cœur bancaire ;
+les exigences de sécurité, de confidentialité et de conformité sont respectées.

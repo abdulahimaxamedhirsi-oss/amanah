@@ -1,0 +1,294 @@
+45_Treasury_Management.md (V3 — Enterprise Treasury Management System)
+1. OBJECTIF DU SYSTÈME
+
+Le Treasury Management System (TMS) est responsable de la gestion centralisée de la trésorerie d'Amanah.
+
+Il supervise :
+
+la liquidité globale
+les positions par devise
+les positions par pays
+les comptes bancaires
+les comptes de règlement
+les comptes Nostro/Vostro
+les besoins de financement
+les réserves réglementaires
+les prévisions de trésorerie
+
+Le TMS ne traite jamais directement les paiements.
+
+Il fournit les ressources nécessaires aux autres moteurs financiers.
+
+2. CORE PRINCIPLES
+2.1 Liquidity is a Strategic Asset
+Every unit of liquidity must be visible, measurable and optimally allocated.
+2.2 Single Source of Treasury Truth
+All treasury positions must originate from reconciled Ledger balances.
+
+Le TMS ne maintient jamais un solde indépendant du Ledger.
+
+2.3 Capital Preservation
+Treasury operations must prioritize capital preservation over yield.
+3. GLOBAL ARCHITECTURE
+Settlement Network
+         │
+         ▼
+Treasury Engine
+         │
+ ┌───────┼────────┬────────┐
+ │       │        │        │
+Liquidity FX   Bank Accounts Forecast
+Engine    Engine Management Engine
+ │
+ ▼
+Treasury Dashboard
+4. TREASURY ACCOUNTS
+
+Chaque compte possède :
+
+{
+  "accountId": "uuid",
+  "institution": "Partner Bank",
+  "currency": "EUR",
+  "country": "FR",
+  "type": "NOSTRO",
+  "availableBalance": 125000000,
+  "reservedBalance": 15000000,
+  "status": "ACTIVE"
+}
+5. POSITION MANAGEMENT
+
+Le système maintient plusieurs niveaux de position.
+
+Global Position
+
+Liquidité totale.
+
+Country Position
+
+Liquidité par pays.
+
+Currency Position
+
+Liquidité par devise.
+
+Bank Position
+
+Liquidité par banque partenaire.
+
+Entity Position
+
+Liquidité par filiale juridique.
+
+6. LIQUIDITY ENGINE
+
+Le moteur calcule en temps réel :
+
+liquidité disponible
+liquidité réservée
+liquidité projetée
+liquidité minimale
+capacité de règlement
+
+Exemple :
+
+{
+  "currency":"USD",
+  "available":45000000,
+  "reserved":12000000,
+  "forecast24h":-5000000,
+  "minimumRequired":15000000
+}
+7. CASH POOLING
+
+Le système supporte :
+
+Physical Cash Pooling
+
+Transfert réel des fonds.
+
+Notional Cash Pooling
+
+Compensation virtuelle des soldes.
+
+Configuration :
+
+par groupe
+par devise
+par région
+8. LIQUIDITY OPTIMIZATION
+
+Objectifs :
+
+réduire les fonds dormants
+minimiser les coûts de financement
+optimiser les transferts internes
+limiter les besoins de crédit
+
+Le moteur peut proposer des réallocations.
+
+Les exécutions restent soumises à validation.
+
+9. TREASURY FORECASTING
+
+Prévisions :
+
+1 heure
+24 heures
+7 jours
+30 jours
+90 jours
+
+Basées sur :
+
+historiques
+paiements programmés
+règlements
+FX
+saisonnalité
+comportements clients
+10. BANK ACCOUNT MANAGEMENT
+
+Chaque compte bancaire possède :
+
+banque
+pays
+devise
+plafond
+disponibilité
+coût
+SLA
+statut
+
+Le TMS choisit le compte optimal selon des règles configurables.
+
+11. FUNDING MANAGEMENT
+
+Le système suit :
+
+lignes de crédit
+emprunts
+facilités de découvert
+financement intrajournalier
+
+Chaque source possède :
+
+limite
+coût
+disponibilité
+échéance
+12. RESERVE MANAGEMENT
+
+Gestion des réserves :
+
+réglementaires
+opérationnelles
+d'urgence
+de liquidité
+
+Ces réserves ne peuvent être utilisées sans autorisation explicite.
+
+13. FX EXPOSURE
+
+Le TMS calcule :
+
+exposition par devise
+risque de change
+couverture disponible
+besoins de conversion
+
+Les données sont synchronisées avec le FX Engine.
+
+14. LIMIT MANAGEMENT
+
+Le système applique des limites sur :
+
+banque partenaire
+pays
+devise
+entité juridique
+contrepartie
+
+Toute limite dépassée déclenche une alerte ou un blocage selon la politique définie.
+
+15. STRESS TESTING
+
+Le moteur simule :
+
+retraits massifs
+défaillance d'une banque partenaire
+volatilité FX
+hausse soudaine des règlements
+indisponibilité d'une région
+
+Les résultats alimentent le plan de continuité.
+
+16. OBSERVABILITY
+
+Chaque opération journalise :
+
+treasuryOperationId
+accountId
+entityId
+currency
+country
+availableBefore
+availableAfter
+forecastImpact
+traceId
+executionTime
+17. PERFORMANCE OBJECTIVES
+
+Calcul de position :
+
+< 50 ms
+
+Prévision de liquidité :
+
+< 500 ms
+
+Réallocation interne :
+
+< 200 ms
+
+Mise à jour des positions :
+
+< 20 ms
+
+18. SECURITY
+
+Toutes les opérations de trésorerie doivent être :
+
+authentifiées
+autorisées selon le principe des quatre yeux (Four-Eyes Principle) pour les opérations critiques
+signées si nécessaire
+journalisées
+auditables
+protégées contre les modifications non autorisées
+
+Aucune opération critique de trésorerie ne peut être exécutée par une seule personne.
+
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER calculate treasury balances independently from the Ledger.
+ALWAYS validate liquidity before funding decisions.
+NEVER execute treasury reallocations without policy validation.
+ALWAYS maintain positions by currency, country, entity and institution.
+NEVER allow treasury operations without audit logs.
+ALWAYS preserve regulatory reserves.
+NEVER exceed configured liquidity limits.
+ALWAYS synchronize treasury positions with the Settlement Network.
+NEVER expose sensitive banking account information.
+ALWAYS support forecasting, stress testing and scenario analysis.
+20. SUCCESS CRITERIA
+
+Le Treasury Management System est considéré comme complet lorsque :
+
+la liquidité est visible en temps réel à tous les niveaux (global, pays, devise, banque, entité) ;
+les positions sont dérivées du Ledger et réconciliées automatiquement ;
+les réserves réglementaires sont protégées ;
+les besoins futurs de liquidité sont anticipés ;
+les décisions de financement et de réallocation sont gouvernées par des politiques configurables ;
+toutes les opérations sont traçables, sécurisées et conformes aux exigences d'audit.

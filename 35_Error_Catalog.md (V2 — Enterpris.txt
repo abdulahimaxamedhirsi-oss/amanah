@@ -1,0 +1,130 @@
+35_Error_Catalog.md (V2 — Enterprise Fintech Error Standardization System)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit tous les codes d’erreurs standardisés d’Amanah.
+
+👉 Objectif :
+
+unifier toutes les erreurs système
+faciliter debugging et monitoring
+rendre les erreurs lisibles par machines et humains
+assurer auditabilité complète
+éviter les erreurs “fantômes”
+2. CORE PRINCIPLE
+2.1 No unstructured errors
+Every error must follow a structured, traceable format.
+2.2 No silent failures
+aucune erreur silencieuse
+aucun fallback non loggé
+tout doit être traçable
+3. ERROR FORMAT STANDARD
+3.1 Base schema
+{
+  "error": {
+    "code": "MODULE_ERROR_CODE",
+    "message": "Human readable message",
+    "module": "payment",
+    "severity": "low | medium | high | critical",
+    "traceId": "uuid",
+    "timestamp": "ISO-8601"
+  }
+}
+4. ERROR CATEGORIES
+4.1 AUTH MODULE (AUTH_XXX)
+AUTH_001 → invalid credentials
+AUTH_002 → token expired
+AUTH_003 → unauthorized access
+AUTH_004 → MFA required
+4.2 PAYMENT MODULE (PAY_XXX)
+PAY_001 → insufficient funds
+PAY_002 → payment declined
+PAY_003 → risk engine rejection
+PAY_004 → duplicate transaction
+4.3 LEDGER MODULE (LED_XXX)
+LED_001 → invalid entry
+LED_002 → imbalance detected
+LED_003 → commit failure
+LED_004 → reconciliation mismatch
+4.4 FX MODULE (FX_XXX)
+FX_001 → rate unavailable
+FX_002 → conversion failed
+FX_003 → rate locked expired
+4.5 CARD MODULE (CARD_XXX)
+CARD_001 → card inactive
+CARD_002 → token invalid
+CARD_003 → limit exceeded
+CARD_004 → fraud detected
+4.6 WALLET MODULE (WAL_XXX)
+WAL_001 → wallet locked
+WAL_002 → balance mismatch
+WAL_003 → projection error
+4.7 KYC MODULE (KYC_XXX)
+KYC_001 → verification pending
+KYC_002 → rejected identity
+KYC_003 → expired document
+4.8 RISK MODULE (RSK_XXX)
+RSK_001 → high fraud score
+RSK_002 → blocked transaction
+RSK_003 → suspicious pattern detected
+5. SEVERITY SYSTEM
+5.1 Levels
+LOW → warning only
+MEDIUM → user impact
+HIGH → operation blocked
+CRITICAL → system protection trigger
+6. GLOBAL ERROR HANDLING RULE
+Every error must be logged, traced, and mapped to a module.
+7. TRACEABILITY SYSTEM
+
+Each error MUST include:
+
+traceId (mandatory)
+userId or systemId
+module source
+request context
+8. ERROR LOGGING RULES
+structured JSON logs only
+no raw stack traces exposed to users
+internal logs include full debugging info
+9. USER-FACING vs SYSTEM ERRORS
+9.1 User-facing
+simplified message
+no internal codes exposed
+9.2 System-level
+full error detail
+debugging metadata included
+10. RETRY POLICY
+10.1 Retryable errors
+FX failure
+network timeout
+temporary ledger lock
+10.2 Non-retryable
+fraud detection
+invalid state
+authentication failure
+11. ALERTING SYSTEM
+
+Critical errors trigger:
+
+admin alert
+system log escalation
+monitoring dashboard update
+12. PERFORMANCE REQUIREMENTS
+error generation < 1ms
+logging < 5ms
+no blocking operations
+13. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS use standardized error codes
+NEVER throw unstructured errors
+ALWAYS attach traceId
+NEVER hide system errors silently
+ALWAYS map errors to module catalog
+14. SUCCESS CRITERIA
+full error consistency across system
+instant debugging capability
+zero silent failures
+full observability integration
+production-grade reliability

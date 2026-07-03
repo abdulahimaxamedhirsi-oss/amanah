@@ -1,0 +1,320 @@
+47_Multi_Entity_Banking.md (V3 — Enterprise Multi-Entity Core Banking Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Le Multi-Entity Banking Engine permet à Amanah d'exploiter plusieurs entités juridiques indépendantes au sein d'une seule plateforme.
+
+Une entité peut être :
+
+Banque
+Établissement de Monnaie Électronique (EME)
+PSP (Payment Service Provider)
+Filiale
+Succursale
+Holding
+Partenaire bancaire
+Sandbox réglementaire
+
+Chaque entité possède sa propre identité, ses propres actifs, ses propres obligations réglementaires et son propre Ledger.
+
+2. CORE PRINCIPLES
+2.1 Legal Entity Isolation
+Each legal entity must operate independently with complete financial isolation.
+
+Aucune entité ne peut accéder directement :
+
+aux comptes
+aux utilisateurs
+aux transactions
+au Ledger
+
+d'une autre entité.
+
+2.2 Shared Platform, Independent Banking
+Infrastructure may be shared.
+Financial ownership must never be shared.
+
+Infrastructure commune :
+
+APIs
+Monitoring
+Kubernetes
+Observability
+AI
+Security
+
+Données financières :
+
+Toujours isolées.
+
+2.3 Ledger per Entity
+Every legal entity owns its own immutable Ledger.
+
+Jamais de Ledger partagé.
+
+3. GLOBAL ARCHITECTURE
+                 Amanah Platform
+
+                        │
+
+      ┌─────────────────┼─────────────────┐
+
+      ▼                 ▼                 ▼
+
+ Entity A          Entity B          Entity C
+
+ Ledger A          Ledger B          Ledger C
+
+ Wallet A          Wallet B          Wallet C
+
+ Treasury A        Treasury B        Treasury C
+
+Chaque entité fonctionne comme une banque indépendante.
+
+4. ENTITY MODEL
+
+Chaque entité possède :
+
+{
+  "entityId": "uuid",
+  "legalName": "Amanah Sénégal SA",
+  "country": "SN",
+  "licenseType": "EME",
+  "currency": ["XOF"],
+  "status": "ACTIVE",
+  "parentEntity": "AMANAH_GROUP"
+}
+5. ENTITY HIERARCHY
+
+Le système supporte :
+
+Holding
+
+↓
+
+Regional Company
+
+↓
+
+Licensed Institution
+
+↓
+
+Branch
+
+↓
+
+Agency
+
+La hiérarchie est configurable.
+
+6. ENTITY CONFIGURATION
+
+Chaque entité définit indépendamment :
+
+devises autorisées
+pays autorisés
+règles KYC
+règles AML
+limites
+frais
+taxes
+horaires
+méthodes de paiement
+
+Aucune configuration n'est globale par défaut.
+
+7. CUSTOMER OWNERSHIP
+
+Chaque client appartient à une entité.
+
+Customer
+
+↓
+
+Legal Entity
+
+↓
+
+Accounts
+
+↓
+
+Wallets
+
+Le changement d'entité nécessite un processus de migration contrôlé.
+
+8. LEDGER ISOLATION
+
+Chaque entité possède :
+
+Chart of Accounts
+Ledger
+Journaux
+Balance Sheet
+Profit & Loss
+
+Aucune écriture comptable ne peut traverser deux Ledgers.
+
+9. INTER-ENTITY TRANSACTIONS
+
+Les transactions entre entités sont modélisées comme deux opérations distinctes :
+
+Entity A Ledger
+
+↓
+
+Settlement Account
+
+↓
+
+Entity B Ledger
+
+Jamais d'écriture directe entre deux Ledgers.
+
+10. TREASURY PER ENTITY
+
+Chaque entité possède :
+
+sa trésorerie
+ses comptes bancaires
+sa liquidité
+ses réserves réglementaires
+
+Le groupe peut consulter les positions consolidées sans modifier les données locales.
+
+11. REGULATORY ISOLATION
+
+Chaque entité applique :
+
+sa réglementation
+ses obligations AML
+ses obligations KYC
+ses plafonds
+ses règles fiscales
+
+Les moteurs métier chargent les politiques de l'entité concernée à chaque opération.
+
+12. CONSOLIDATED REPORTING
+
+Le groupe peut produire :
+
+bilan consolidé
+compte de résultat consolidé
+liquidité consolidée
+exposition consolidée
+risques consolidés
+
+La consolidation est en lecture seule et ne modifie jamais les Ledgers individuels.
+
+13. SHARED SERVICES
+
+Les services suivants peuvent être mutualisés :
+
+Identity Provider
+Notification Service
+Observability
+AI Gateway
+Feature Flags
+Monitoring
+Backup
+Disaster Recovery
+
+Ils restent entity-aware : chaque requête transporte un entityId.
+
+14. ENTITY CONTEXT PROPAGATION
+
+Chaque appel interne doit contenir :
+
+{
+  "entityId": "uuid",
+  "country": "SN",
+  "license": "EME",
+  "traceId": "uuid"
+}
+
+Aucun service ne doit traiter une requête sans contexte d'entité.
+
+15. ACCESS CONTROL
+
+Les rôles sont limités à leur périmètre.
+
+Exemple :
+
+Admin Sénégal → uniquement Sénégal
+Admin Côte d'Ivoire → uniquement Côte d'Ivoire
+Group Auditor → lecture multi-entités
+Super Admin Groupe → selon politiques de gouvernance
+
+Les privilèges inter-entités doivent être explicitement accordés.
+
+16. OBSERVABILITY
+
+Chaque événement journalise :
+
+entityId
+transactionId
+ledgerId
+treasuryId
+traceId
+userId
+service
+timestamp
+
+Les tableaux de bord permettent une vue :
+
+par entité
+par région
+consolidée
+17. PERFORMANCE OBJECTIVES
+
+Résolution du contexte d'entité :
+
+< 5 ms
+
+Chargement de la configuration :
+
+< 20 ms
+
+Validation réglementaire :
+
+< 50 ms
+
+Isolation logique :
+
+100 % garantie
+
+18. SECURITY
+
+Les données d'une entité sont protégées par :
+
+isolation logique stricte
+contrôles RBAC et ABAC
+chiffrement
+journaux d'audit
+politiques d'accès par juridiction
+
+Aucune requête ne peut accéder à une autre entité sans autorisation explicite.
+
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS require an entityId for financial operations.
+NEVER allow direct Ledger operations across entities.
+ALWAYS isolate customers, accounts and wallets by legal entity.
+NEVER share treasury balances between entities.
+ALWAYS apply entity-specific regulatory policies.
+NEVER execute cross-entity transactions without Settlement.
+ALWAYS propagate entity context across all services.
+NEVER expose data belonging to another legal entity.
+ALWAYS support consolidated reporting in read-only mode.
+ALWAYS maintain complete audit trails per entity.
+20. SUCCESS CRITERIA
+
+Le système Multi-Entity Banking est considéré comme complet lorsque :
+
+chaque entité dispose de son propre Ledger, de sa trésorerie et de sa configuration réglementaire ;
+les données sont isolées de manière stricte tout en partageant l'infrastructure technique ;
+les transactions inter-entités passent obligatoirement par le Settlement Network ;
+les rapports consolidés sont disponibles sans compromettre l'indépendance des entités ;
+chaque requête est contextualisée par un entityId et entièrement traçable.

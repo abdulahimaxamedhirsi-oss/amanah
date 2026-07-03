@@ -1,0 +1,346 @@
+43_Clearing_House.md (V3 — Enterprise Clearing House Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Le Clearing House Engine est responsable de la compensation des obligations financières entre plusieurs institutions avant leur règlement final.
+
+Il permet de :
+
+réduire le nombre de transactions réelles
+diminuer les besoins en liquidité
+calculer les positions nettes
+préparer les règlements
+garantir l'équilibre financier entre les participants
+
+Le Clearing House ne déplace pas l'argent.
+
+Il calcule les obligations.
+
+Le Settlement Engine exécutera ensuite les règlements.
+
+2. CORE PRINCIPLE
+2.1 Clearing before Settlement
+Every inter-institution payment must be cleared before being settled.
+2.2 Netting First
+Financial obligations should always be netted whenever regulations allow.
+3. GLOBAL ARCHITECTURE
+Payment Engine
+        │
+        ▼
+Clearing Intake
+        │
+        ▼
+Validation Engine
+        │
+        ▼
+Netting Engine
+        │
+        ▼
+Position Engine
+        │
+        ▼
+Settlement Queue
+        │
+        ▼
+Settlement Engine
+
+Chaque composant est indépendant.
+
+4. PARTICIPANTS
+
+Le Clearing House peut gérer :
+
+banques
+institutions financières
+fintechs
+PSP
+opérateurs Mobile Money
+chambres de compensation partenaires
+banques centrales
+
+Chaque participant possède :
+
+{
+  "participantId": "uuid",
+  "bic": "BANKSNDA",
+  "status": "ACTIVE",
+  "currency": ["XOF","EUR"],
+  "settlementAccount": "uuid"
+}
+5. CLEARING CYCLE
+
+Chaque paiement suit le cycle suivant :
+
+Received
+
+↓
+
+Validated
+
+↓
+
+Accepted
+
+↓
+
+Queued
+
+↓
+
+Netted
+
+↓
+
+Position Updated
+
+↓
+
+Ready for Settlement
+
+↓
+
+Settled
+
+↓
+
+Archived
+
+Aucun état ne peut être ignoré.
+
+6. VALIDATION ENGINE
+
+Avant d'accepter une opération :
+
+Validation :
+
+participant actif
+devise autorisée
+montant valide
+conformité
+doublon
+limites
+liquidité minimale
+
+Toute erreur rejette immédiatement l'opération.
+
+7. NETTING ENGINE
+
+Le Netting Engine réduit les flux financiers.
+
+Exemple :
+
+Banque A → Banque B
+
+100 €
+
+Banque B → Banque A
+
+80 €
+
+Résultat :
+
+Settlement
+
+A pays uniquement
+
+20 €
+
+Aucun transfert inutile.
+
+8. TYPES DE NETTING
+Bilateral Netting
+
+Entre deux participants.
+
+Multilateral Netting
+
+Entre plusieurs institutions.
+
+Exemple :
+
+A → B
+
+B → C
+
+C → A
+
+Le moteur calcule uniquement les positions finales.
+
+Deferred Net Settlement
+
+Compensation pendant une période.
+
+Puis règlement.
+
+Exemple :
+
+Toutes les heures.
+
+Toutes les nuits.
+
+Real-Time Clearing
+
+Chaque paiement est immédiatement compensé.
+
+9. POSITION ENGINE
+
+Le moteur maintient :
+
+Pour chaque participant :
+
+{
+  "participant":"BANK_A",
+  "grossDebit":1200000,
+  "grossCredit":980000,
+  "netPosition":-220000
+}
+
+La position est recalculée après chaque nouveau paiement.
+
+10. LIQUIDITY CHECK
+
+Avant Settlement :
+
+Le système vérifie :
+
+liquidité disponible
+limites
+réserves
+garanties
+
+Si insuffisant :
+
+Paiement :
+
+Queued.
+
+11. SETTLEMENT WINDOWS
+
+Le système supporte :
+
+Temps réel.
+
+Ou fenêtres :
+
+09:00
+
+12:00
+
+15:00
+
+18:00
+
+Configuration par pays.
+
+12. PRIORITY MANAGEMENT
+
+Chaque paiement possède une priorité.
+
+LOW
+
+NORMAL
+
+HIGH
+
+URGENT
+
+SYSTEM
+
+Les paiements SYSTEM passent toujours en premier.
+
+13. QUEUE MANAGEMENT
+
+Plusieurs files :
+
+Normal Queue
+High Priority Queue
+Settlement Queue
+Retry Queue
+Manual Review Queue
+14. FAILED CLEARING
+
+Motifs :
+
+participant suspendu
+devise interdite
+liquidité insuffisante
+erreur conformité
+sanctions
+
+Les paiements restent auditables.
+
+15. MULTI-CURRENCY CLEARING
+
+Chaque devise possède :
+
+sa propre position nette
+son propre cycle
+ses propres limites
+
+Jamais de compensation entre devises différentes sans passer par le FX Engine.
+
+16. OBSERVABILITY
+
+Chaque opération journalise :
+
+traceId
+clearingId
+participant
+montant brut
+montant net
+cycle
+statut
+durée
+17. PERFORMANCE OBJECTIVES
+
+Validation :
+
+< 20 ms
+
+Netting :
+
+< 50 ms
+
+Position Update :
+
+< 10 ms
+
+Compensation complète :
+
+< 100 ms
+
+18. SECURITY
+
+Toutes les opérations doivent être :
+
+authentifiées
+signées si nécessaire
+horodatées
+immuables
+auditables
+
+Aucune modification directe des positions n'est autorisée.
+
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER settle payments before successful clearing.
+ALWAYS validate participants before accepting transactions.
+NEVER modify net positions manually.
+ALWAYS recalculate positions after each accepted transaction.
+NEVER mix currencies during netting.
+ALWAYS preserve complete audit history.
+NEVER lose queued transactions.
+ALWAYS support bilateral and multilateral netting.
+NEVER bypass liquidity verification.
+ALWAYS guarantee deterministic clearing results.
+20. SUCCESS CRITERIA
+
+Le Clearing House est considéré comme conforme lorsque :
+
+toutes les obligations inter-institutions sont validées avant règlement ;
+le netting réduit correctement les flux financiers ;
+les positions nettes sont recalculées de manière déterministe ;
+les cycles de compensation sont configurables (temps réel ou différé) ;
+chaque opération est traçable, immuable et auditée ;
+le Settlement Engine ne traite que des positions validées par le Clearing House.

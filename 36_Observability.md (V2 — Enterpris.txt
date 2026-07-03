@@ -1,0 +1,150 @@
+36_Observability.md (V2 — Enterprise Fintech Observability System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit la visibilité totale du système Amanah en production.
+
+👉 Objectif :
+
+voir tout ce qui se passe dans le système en temps réel
+détecter anomalies instantanément
+tracer chaque transaction de bout en bout
+comprendre performance + erreurs + comportements utilisateurs
+assurer contrôle bancaire-grade
+2. CORE PRINCIPLE
+2.1 Full visibility requirement
+If it happens in the system, it must be observable.
+2.2 Three pillars
+Logs (what happened)
+Metrics (how much / how fast)
+Traces (end-to-end journey)
+3. LOGGING SYSTEM
+3.1 Structure
+{
+  "timestamp": "ISO-8601",
+  "level": "info | warn | error",
+  "service": "payment-service",
+  "traceId": "uuid",
+  "message": "Payment processed",
+  "metadata": {}
+}
+3.2 Rules
+structured logs only (JSON)
+no plaintext logs in production
+every log MUST include traceId
+4. METRICS SYSTEM
+4.1 Core metrics
+transaction volume
+payment success rate
+ledger commit latency
+FX conversion time
+fraud detection rate
+4.2 Performance metrics
+API latency < 300ms
+Payment processing < 2s
+Ledger commit < 100ms
+4.3 Infrastructure metrics
+CPU usage
+memory usage
+pod scaling events
+queue depth
+5. TRACING SYSTEM
+5.1 End-to-end trace model
+User request
+ → API Gateway
+ → Payment Service
+ → Risk Engine
+ → FX Engine
+ → Ledger Service
+ → Response
+5.2 Rule
+Every request must have a full trace across all services.
+6. DASHBOARD SYSTEM
+6.1 Real-time dashboards
+payments live feed
+ledger operations stream
+fraud alerts
+system health overview
+6.2 Admin visibility
+
+Admins can view:
+
+per-service health
+transaction flows
+failure rates
+latency spikes
+7. ALERTING SYSTEM
+7.1 Alert types
+critical system failure
+ledger imbalance detection
+fraud spike detection
+FX failure spike
+7.2 Severity levels
+LOW → info notification
+MEDIUM → team alert
+HIGH → engineering alert
+CRITICAL → system-wide alert + auto mitigation
+7.3 Rule
+Every critical anomaly must trigger real-time alerting.
+8. FRAUD OBSERVABILITY
+behavioral anomaly detection
+transaction pattern clustering
+velocity-based detection
+geo anomaly detection
+9. DISTRIBUTED SYSTEM VISIBILITY
+9.1 Cross-service tracking
+
+Every service must propagate:
+
+traceId
+userId
+transactionId
+9.2 Rule
+No service operates without trace propagation.
+10. ERROR VISIBILITY
+all errors mapped to error catalog
+grouped by module
+tracked in dashboards
+11. PERFORMANCE ANALYSIS
+latency distribution charts
+bottleneck detection
+slow query detection
+queue congestion monitoring
+12. DATA RETENTION
+logs stored for compliance period
+audit logs permanent storage
+metrics aggregated over time
+13. SECURITY OBSERVABILITY
+login attempts tracking
+unauthorized access detection
+API abuse detection
+token misuse detection
+14. SYSTEM HEALTH MODEL
+Healthy → Degraded → Critical → Emergency Mode
+15. EMERGENCY MODE
+
+Activated when:
+
+ledger inconsistency detected
+payment system failure spike
+fraud attack detected
+
+Actions:
+
+throttle traffic
+freeze risky operations
+enable fallback systems
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS ensure traceId propagation
+NEVER create unobservable processes
+ALWAYS log financial operations
+ALWAYS expose metrics for new services
+NEVER bypass observability hooks
+17. SUCCESS CRITERIA
+full system visibility in real time
+instant anomaly detection
+zero blind spots in production
+full traceability of all transactions
+banking-grade monitoring capability

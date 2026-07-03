@@ -1,0 +1,334 @@
+48_Multi_Tenant_Architecture.md (V3 — Enterprise Multi-Tenant SaaS Banking Platform)
+1. OBJECTIF DU SYSTÈME
+
+Le Multi-Tenant Engine permet à Amanah d'héberger plusieurs organisations indépendantes sur une infrastructure commune tout en garantissant une isolation complète des données, des configurations et des ressources.
+
+Un tenant peut être :
+
+une banque
+une fintech
+un PSP
+une institution de microfinance
+un opérateur Mobile Money
+une entreprise
+une administration
+un environnement Sandbox
+un partenaire OEM
+
+Chaque tenant fonctionne comme un environnement totalement indépendant.
+
+2. CORE PRINCIPLES
+2.1 Complete Tenant Isolation
+No tenant can access another tenant's resources.
+
+L'isolation concerne :
+
+données
+utilisateurs
+APIs
+stockage
+événements
+clés
+configurations
+journaux
+2.2 Shared Infrastructure
+Infrastructure is shared.
+Business data is never shared.
+
+Infrastructure commune :
+
+Kubernetes
+Monitoring
+CI/CD
+Observability
+AI Gateway
+Notification Engine
+Backup
+Disaster Recovery
+2.3 Tenant Context Everywhere
+Every request must include a tenant context.
+3. GLOBAL ARCHITECTURE
+                 Amanah Cloud
+
+                       │
+
+       ┌───────────────┼────────────────┐
+
+       ▼               ▼                ▼
+
+   Tenant A       Tenant B        Tenant C
+
+       │               │                │
+
+  Entity A1      Entity B1       Entity C1
+
+  Entity A2      Entity B2       Entity C2
+
+       │               │                │
+
+   Ledger        Ledger         Ledger
+
+Le Tenant contient une ou plusieurs entités juridiques.
+
+4. TENANT MODEL
+{
+  "tenantId":"uuid",
+  "name":"Bank ABC",
+  "plan":"Enterprise",
+  "region":"Africa-West",
+  "status":"ACTIVE",
+  "createdAt":"ISO8601"
+}
+5. TENANT HIERARCHY
+Tenant
+
+↓
+
+Legal Entities
+
+↓
+
+Business Units
+
+↓
+
+Departments
+
+↓
+
+Users
+6. TENANT CONFIGURATION
+
+Chaque tenant possède :
+
+branding
+logo
+domaine personnalisé
+langues
+devises
+fuseaux horaires
+fonctionnalités
+politiques métiers
+limites
+thèmes
+
+Les configurations sont totalement indépendantes.
+
+7. RESOURCE ISOLATION
+
+Chaque tenant possède :
+
+base logique
+stockage
+secrets
+cache
+files de messages
+journaux
+métriques
+
+Les ressources peuvent être mutualisées physiquement mais sont isolées logiquement.
+
+8. TENANT DATABASE STRATEGIES
+
+Le système doit supporter plusieurs modèles :
+
+Shared Database
+
+Une base.
+
+Plusieurs tenants.
+
+Isolation logique.
+
+Separate Schema
+
+Une base.
+
+Un schéma par tenant.
+
+Dedicated Database
+
+Une base dédiée par tenant.
+
+Utilisée pour :
+
+banques
+gouvernements
+grandes entreprises
+
+Le choix dépend du niveau de service (SLA) et des exigences réglementaires.
+
+9. TENANT ROUTING
+
+Chaque requête est résolue selon :
+
+Domain
+
+↓
+
+API Key
+
+↓
+
+JWT
+
+↓
+
+Tenant Resolver
+
+↓
+
+Tenant Context
+10. FEATURE MANAGEMENT
+
+Chaque tenant active :
+
+Wallet
+Cards
+FX
+Merchant
+Agents
+Loans
+Savings
+Crypto
+AI
+
+Les modules sont indépendants.
+
+11. API ISOLATION
+
+Chaque appel contient :
+
+{
+  "tenantId":"uuid",
+  "entityId":"uuid",
+  "userId":"uuid",
+  "traceId":"uuid"
+}
+
+Sans tenantId :
+
+Requête refusée.
+
+12. STORAGE ISOLATION
+
+Chaque tenant possède :
+
+documents
+pièces KYC
+exports
+rapports
+archives
+
+Les chemins de stockage sont séparés.
+
+13. SECRET MANAGEMENT
+
+Chaque tenant possède :
+
+clés API
+certificats
+secrets
+tokens
+clés de chiffrement
+
+Aucun secret n'est partagé.
+
+14. BILLING ENGINE
+
+Chaque tenant possède :
+
+abonnement
+consommation API
+stockage
+utilisateurs
+modules actifs
+coûts IA
+frais d'infrastructure
+
+Le moteur permet une facturation à l'usage ou au forfait.
+
+15. TENANT MIGRATION
+
+Le système supporte :
+
+changement de plan
+migration de région
+migration vers une base dédiée
+export complet
+import sécurisé
+
+Toutes les migrations sont traçables.
+
+16. OBSERVABILITY
+
+Chaque événement journalise :
+
+tenantId
+entityId
+traceId
+service
+région
+utilisateur
+latence
+coût
+
+Les tableaux de bord peuvent être filtrés par tenant.
+
+17. PERFORMANCE OBJECTIVES
+
+Résolution du tenant :
+
+< 5 ms
+
+Chargement de configuration :
+
+< 20 ms
+
+Création d'un nouveau tenant :
+
+< 5 minutes
+
+Provisionnement automatique :
+
+100 % automatisé
+
+18. SECURITY
+
+Chaque tenant est protégé par :
+
+isolation logique
+RBAC
+ABAC
+chiffrement
+audit
+quotas
+protection DDoS
+gestion indépendante des secrets
+
+Aucune donnée ne peut traverser la frontière d'un tenant.
+
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS require a tenantId before processing requests.
+NEVER expose resources across tenants.
+ALWAYS isolate secrets, storage and configurations.
+NEVER allow shared authentication contexts.
+ALWAYS propagate tenant context to downstream services.
+NEVER execute background jobs without tenant ownership.
+ALWAYS support multiple database isolation strategies.
+NEVER mix observability data between tenants.
+ALWAYS enforce tenant-aware RBAC and ABAC.
+ALWAYS support automated tenant provisioning and migration.
+20. SUCCESS CRITERIA
+
+Le système Multi-Tenant est considéré comme complet lorsque :
+
+chaque organisation fonctionne dans un environnement isolé ;
+les données, configurations et secrets sont strictement séparés ;
+plusieurs stratégies d'isolation des bases de données sont supportées ;
+le provisionnement et la migration des tenants sont automatisés ;
+toutes les requêtes sont contextualisées par tenantId et entityId ;
+la plateforme peut héberger des centaines ou des milliers de tenants sans compromettre la sécurité ou les performances.

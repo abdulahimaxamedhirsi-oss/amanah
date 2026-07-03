@@ -1,0 +1,152 @@
+34_State_Machines.md (V2 — Enterprise Financial State Machine System)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit tous les états possibles des objets financiers dans Amanah et les règles strictes de transition.
+
+👉 Objectif :
+
+éviter les incohérences système
+empêcher les états impossibles (bug fintech critique)
+garantir traçabilité complète
+standardiser lifecycle de toutes les entités
+sécuriser ledger + payment + card systems
+2. CORE PRINCIPLE
+2.1 No invalid state exists
+Every entity must always be in a valid, predefined state.
+2.2 State transitions are controlled
+aucune transition libre
+chaque changement doit être validé
+transitions auditables
+3. GENERIC STATE MACHINE MODEL
+3.1 Structure
+{
+  "entity": "payment",
+  "currentState": "PENDING",
+  "allowedTransitions": ["PROCESSING", "FAILED"]
+}
+3.2 Rule
+Only allowed transitions can be executed.
+4. PAYMENT STATE MACHINE
+4.1 States
+INITIATED
+PENDING
+PROCESSING
+AUTHORIZED
+COMPLETED
+FAILED
+REVERSED
+4.2 Transitions
+INITIATED → PENDING
+PENDING → PROCESSING
+PROCESSING → AUTHORIZED / FAILED
+AUTHORIZED → COMPLETED
+COMPLETED → REVERSED (only via refund)
+4.3 Rules
+no skipping states
+no direct COMPLETED assignment
+FAILED is terminal unless manual retry
+5. CARD STATE MACHINE
+5.1 States
+CREATED
+TOKENIZED
+ACTIVE
+SUSPENDED
+FROZEN
+TERMINATED
+5.2 Rules
+ACTIVE required for transactions
+FROZEN blocks all operations
+TERMINATED is irreversible
+6. WALLET STATE MACHINE
+6.1 States
+ACTIVE
+LOCKED
+SUSPENDED
+CLOSED
+6.2 Rules
+LOCKED → fraud or compliance trigger
+CLOSED → irreversible shutdown
+7. KYC STATE MACHINE
+7.1 States
+NOT_STARTED
+PENDING
+UNDER_REVIEW
+APPROVED
+REJECTED
+EXPIRED
+7.2 Rules
+APPROVED required for full financial access
+EXPIRED requires re-verification
+8. LEDGER STATE MACHINE (CRITICAL)
+8.1 States
+DRAFT
+PENDING
+COMMITTED
+RECONCILED
+AUDITED
+8.2 Rules
+COMMITTED is immutable
+RECONCILED required for financial integrity
+AUDITED required for compliance
+9. FX TRANSACTION STATES
+REQUESTED
+LOCKED_RATE
+EXECUTED
+SETTLED
+FAILED
+10. STATE VALIDATION ENGINE
+10.1 Responsibilities
+validate transitions
+block illegal transitions
+log state changes
+enforce consistency
+10.2 Rule
+Every state transition must be validated by the State Engine.
+11. EVENT LINKING
+
+Each transition must emit event:
+
+payment.state_changed
+card.state_changed
+wallet.state_changed
+kyc.state_changed
+12. AUDIT SYSTEM
+
+Every state change logs:
+
+entity ID
+previous state
+new state
+timestamp
+actor
+traceId
+13. ERROR HANDLING
+
+Invalid transition example:
+
+{
+  "error": {
+    "code": "INVALID_STATE_TRANSITION",
+    "message": "Cannot move from COMPLETED to PENDING",
+    "traceId": "uuid"
+  }
+}
+14. PERFORMANCE REQUIREMENTS
+state validation < 5ms
+transition logging < 10ms
+zero blocking latency in API flow
+15. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER force invalid state transitions
+ALWAYS use state machine engine
+NEVER bypass ledger/card/payment states
+ALWAYS emit state change events
+NEVER directly modify entity states
+16. SUCCESS CRITERIA
+zero invalid financial states possible
+full lifecycle control of all entities
+audit-ready state transitions
+deterministic system behavior
+no hidden state corruption

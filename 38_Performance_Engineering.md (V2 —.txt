@@ -1,0 +1,124 @@
+38_Performance_Engineering.md (V2 — Enterprise Fintech Performance & Scale Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Ce module définit comment Amanah maintient des performances ultra basses latences et haute scalabilité même sous charge massive.
+
+👉 Objectif :
+
+supporter millions de transactions/jour
+garantir latence ultra faible
+éviter saturation des services critiques
+optimiser ledger + payment engine
+assurer stabilité globale système
+2. CORE PRINCIPLE
+2.1 Performance is financial safety
+In fintech systems, performance failures become financial failures.
+2.2 No blocking critical path
+aucun blocage sur payment flow
+aucun calcul lourd dans request thread
+tout ce qui est lourd est async
+3. SYSTEM SCALING MODEL
+3.1 Horizontal scaling first
+stateless services
+autoscaling pods
+distributed load balancing
+3.2 Separation of concerns
+API Layer → Orchestration Layer → Execution Layer → Ledger Layer
+4. LEDGER PERFORMANCE ENGINE
+4.1 Constraints
+append-only writes
+batch processing preferred
+no real-time heavy computation inside ledger
+4.2 Optimization strategy
+write batching
+memory queue buffering
+async commit pipeline
+5. PAYMENT ENGINE PERFORMANCE
+5.1 Flow optimization
+Request → validation → async risk check → async FX → ledger commit → response
+5.2 Rule
+Payment response must not wait for non-critical processes.
+6. QUEUE-BASED ARCHITECTURE
+6.1 Purpose
+
+Decouple heavy operations.
+
+6.2 Queues used
+payment queue
+ledger queue
+FX queue
+notification queue
+audit queue
+6.3 Rule
+All non-blocking operations must go through queue system.
+7. CACHING STRATEGY
+7.1 Allowed caching
+country configs
+feature flags
+FX rates (short TTL)
+user session data
+7.2 Forbidden caching
+ledger balances (direct truth)
+financial commits
+transaction final state
+8. DATABASE OPTIMIZATION
+8.1 Strategies
+read replicas
+partitioning (by country / user)
+indexing for transactions
+event-based storage
+8.2 Rule
+Ledger database must remain write-optimized and immutable.
+9. LATENCY TARGETS
+9.1 API targets
+API response < 300ms
+payment auth < 2s total
+ledger write < 100ms
+9.2 Internal services
+FX engine < 150ms
+risk engine < 100ms
+feature flag check < 10ms
+10. HIGH LOAD STRATEGY
+10.1 Techniques
+request throttling
+circuit breakers
+graceful degradation
+queue backpressure
+10.2 Rule
+System must degrade safely, never fail catastrophically.
+11. PAYMENT BURST HANDLING
+spike detection system
+auto-scaling triggers
+queue buffering during overload
+12. OBSERVABILITY IN PERFORMANCE
+latency heatmaps
+bottleneck detection
+slow service tracking
+transaction timing breakdown
+13. FAILURE ISOLATION
+isolate failing microservice
+reroute traffic automatically
+fallback services enabled
+14. SECURITY VS PERFORMANCE BALANCE
+risk checks async when possible
+security never bypassed, only optimized
+critical checks always synchronous
+15. INFRASTRUCTURE MODEL
+Kubernetes-based scaling
+service mesh communication
+distributed tracing required
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER block payment flow with heavy computation
+ALWAYS use async processing for non-critical tasks
+NEVER cache financial truth (ledger)
+ALWAYS respect latency budgets
+ALWAYS design with horizontal scaling in mind
+17. SUCCESS CRITERIA
+system supports massive concurrent load
+no payment slowdown under stress
+ledger remains stable under peak traffic
+graceful degradation always active
+predictable performance under scale

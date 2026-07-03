@@ -1,0 +1,328 @@
+41_ISO20022_Payment_Standard.md (V3 — Enterprise Financial Messaging Architecture)
+1. OBJECTIF DU SYSTÈME
+
+Ce document définit l'intégration complète du standard ISO 20022 dans Amanah.
+
+ISO 20022 est le standard mondial utilisé par :
+
+banques centrales
+banques commerciales
+SWIFT
+SEPA
+FedNow
+TARGET
+instant payments
+infrastructures de règlement
+
+L'objectif est que tous les messages financiers produits par Amanah soient compatibles avec ISO 20022, même si certains partenaires utilisent encore d'autres formats.
+
+2. CORE PRINCIPLE
+2.1 ISO 20022 is the canonical language
+Every financial message inside Amanah must be representable as an ISO 20022 message.
+
+Autrement dit :
+
+Le modèle interne d'Amanah est plus riche que les API publiques.
+
+Toutes les API REST devront pouvoir être converties vers ISO 20022.
+
+2.2 Internal Canonical Model
+
+Toutes les données financières passent par un modèle interne unique.
+
+REST API
+      │
+      ▼
+Canonical Financial Model
+      │
+      ▼
+ISO 20022
+      │
+      ▼
+External Networks
+
+Aucun composant ne convertit directement REST → SWIFT.
+
+La conversion passe toujours par le modèle canonique.
+
+3. OBJECTIFS MÉTIER
+
+Le système doit permettre :
+
+virements bancaires
+paiements internationaux
+instant payments
+règlements interbancaires
+compensation
+confirmations
+retours
+annulations
+rapprochements
+
+sans modifier le cœur Ledger.
+
+4. SUPPORTED MESSAGE FAMILIES
+
+Le système doit prévoir au minimum :
+
+Payments
+pacs.008
+pacs.009
+pacs.002
+pacs.004
+Customer Payments
+pain.001
+pain.002
+pain.013
+Cash Management
+camt.052
+camt.053
+camt.054
+Investigation
+camt.029
+camt.056
+Administration
+head.*
+
+Le système doit être extensible aux futures versions ISO.
+
+5. CANONICAL PAYMENT MODEL
+
+Tous les paiements internes doivent utiliser un modèle indépendant du protocole.
+
+Exemple :
+
+{
+  "paymentId": "uuid",
+  "debtor": {},
+  "creditor": {},
+  "amount": {},
+  "currency": "EUR",
+  "executionDate": "",
+  "purpose": "",
+  "fees": {},
+  "settlement": {},
+  "compliance": {},
+  "risk": {}
+}
+
+Ce modèle est la seule source utilisée par :
+
+REST API
+GraphQL
+Webhooks
+ISO 20022
+futurs connecteurs
+6. MESSAGE CONVERSION ENGINE
+
+Le moteur de conversion possède quatre responsabilités.
+
+Input Parsing
+
+Convertir :
+
+REST
+JSON
+XML
+partenaires
+
+vers le modèle canonique.
+
+Validation
+
+Validation :
+
+schéma
+données obligatoires
+devise
+IBAN
+BIC
+identifiants
+pays
+Transformation
+
+Transformer le modèle canonique vers :
+
+pain
+pacs
+camt
+Serialization
+
+Exporter :
+
+XML ISO
+JSON interne
+formats partenaires
+7. VALIDATION RULES
+
+Chaque message doit être validé.
+
+Exemples :
+
+Montant positif.
+
+Devise valide.
+
+Compte valide.
+
+Référence unique.
+
+Date valide.
+
+Identifiants cohérents.
+
+Signature présente si requise.
+
+8. VERSION MANAGEMENT
+
+ISO évolue.
+
+Le système doit supporter plusieurs versions simultanément.
+
+Exemple :
+
+ISO20022 2019
+
+ISO20022 2022
+
+ISO20022 2025
+
+Une banque partenaire peut utiliser une ancienne version.
+
+Le moteur doit convertir automatiquement.
+
+9. MESSAGE LIFECYCLE
+
+Chaque message suit un cycle.
+
+CREATED
+
+↓
+
+VALIDATED
+
+↓
+
+TRANSFORMED
+
+↓
+
+SIGNED
+
+↓
+
+TRANSMITTED
+
+↓
+
+ACKNOWLEDGED
+
+↓
+
+SETTLED
+
+↓
+
+ARCHIVED
+
+Aucun état ne peut être sauté.
+
+10. ACKNOWLEDGEMENT MANAGEMENT
+
+Le système doit gérer :
+
+accusés de réception
+rejets
+erreurs
+confirmations
+confirmations finales
+
+Chaque message entrant ou sortant possède son propre statut.
+
+11. MESSAGE SIGNING
+
+Tous les messages critiques peuvent être signés.
+
+Support :
+
+signatures XML
+signatures numériques
+certificats
+
+Les signatures sont vérifiées avant traitement.
+
+12. MESSAGE STORAGE
+
+Tous les messages sont archivés.
+
+Jamais supprimés.
+
+Archivage :
+
+XML original
+modèle canonique
+réponse partenaire
+horodatage
+traceId
+13. OBSERVABILITY
+
+Chaque message journalise :
+
+traceId
+messageId
+version ISO
+banque partenaire
+durée
+statut
+erreurs éventuelles
+14. SECURITY
+
+Toutes les communications doivent utiliser :
+
+TLS
+authentification mutuelle (mTLS) lorsque nécessaire
+certificats
+rotation automatique des certificats
+15. PERFORMANCE
+
+Objectifs :
+
+Transformation :
+
+< 50 ms
+
+Validation :
+
+< 20 ms
+
+Sérialisation :
+
+< 20 ms
+
+Temps total :
+
+< 150 ms
+
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER couple business logic to ISO XML structures.
+ALWAYS use the Canonical Financial Model as the intermediary.
+NEVER process invalid ISO messages.
+ALWAYS validate mandatory fields before transformation.
+ALWAYS support multiple ISO versions simultaneously.
+NEVER lose the original source message.
+ALWAYS archive both canonical and original representations.
+ALWAYS generate deterministic message identifiers.
+NEVER bypass schema validation.
+ALWAYS preserve end-to-end traceability.
+17. SUCCESS CRITERIA
+
+Le système est considéré comme conforme lorsque :
+
+tous les paiements internes peuvent être représentés en ISO 20022 ;
+plusieurs versions du standard peuvent coexister ;
+les transformations sont réversibles et auditables ;
+les messages sont validés, signés, archivés et traçables ;
+le Ledger reste indépendant du protocole de messagerie.

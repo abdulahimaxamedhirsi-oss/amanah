@@ -1,0 +1,366 @@
+44_Settlement_Network.md (V3 — Enterprise Financial Settlement Network)
+1. OBJECTIF DU SYSTÈME
+
+Le Settlement Network est responsable de l'exécution définitive des règlements financiers entre institutions.
+
+Il garantit :
+
+la finalité des paiements
+l'absence de double règlement
+l'intégrité comptable
+la synchronisation avec le Ledger
+la gestion de la liquidité
+le règlement interbancaire sécurisé
+
+Le Settlement Engine ne décide jamais quels paiements régler.
+
+Il exécute uniquement les règlements validés par le Clearing House.
+
+2. CORE PRINCIPLES
+2.1 Settlement Finality
+Once a settlement is completed, it is final and irrevocable.
+
+Aucun rollback n'est autorisé.
+
+Toute correction passe par une nouvelle transaction comptable.
+
+2.2 Ledger Synchronization
+Every settlement must have a corresponding immutable Ledger entry.
+
+Le Ledger reste toujours la source de vérité.
+
+2.3 Atomic Settlement
+Settlement must either complete entirely or not execute at all.
+
+Jamais d'état intermédiaire.
+
+3. GLOBAL ARCHITECTURE
+Clearing House
+        │
+        ▼
+Settlement Queue
+        │
+        ▼
+Settlement Validator
+        │
+        ▼
+Liquidity Engine
+        │
+        ▼
+Settlement Engine
+        │
+        ▼
+Ledger Engine
+        │
+        ▼
+Confirmation Service
+4. SETTLEMENT TYPES
+
+Le système doit supporter :
+
+RTGS (Real-Time Gross Settlement)
+
+Chaque transaction est réglée individuellement.
+
+Utilisation :
+
+gros montants
+banques
+trésorerie
+DNS (Deferred Net Settlement)
+
+Les positions nettes sont réglées à intervalles réguliers.
+
+Utilisation :
+
+paiements de masse
+compensation
+faible coût
+Hybrid Settlement
+
+Le moteur choisit automatiquement RTGS ou DNS selon :
+
+montant
+urgence
+devise
+liquidité
+réglementation
+5. SETTLEMENT ACCOUNT MODEL
+
+Chaque participant possède un ou plusieurs comptes de règlement.
+
+{
+  "settlementAccountId": "uuid",
+  "participantId": "BANK_A",
+  "currency": "EUR",
+  "availableLiquidity": 125000000,
+  "reservedLiquidity": 5000000,
+  "status": "ACTIVE"
+}
+6. LIQUIDITY ENGINE
+
+Avant chaque règlement, le système vérifie :
+
+liquidité disponible
+réserves obligatoires
+limites réglementaires
+garanties
+positions nettes
+
+Si insuffisant :
+
+Settlement
+
+↓
+
+Queued
+
+↓
+
+Retry
+
+↓
+
+Manual Resolution
+7. SETTLEMENT LIFECYCLE
+CREATED
+
+↓
+
+VALIDATED
+
+↓
+
+LIQUIDITY_CHECK
+
+↓
+
+AUTHORIZED
+
+↓
+
+EXECUTED
+
+↓
+
+LEDGER_COMMITTED
+
+↓
+
+CONFIRMED
+
+↓
+
+ARCHIVED
+
+Chaque étape est obligatoire.
+
+8. SETTLEMENT FINALITY
+
+Une fois l'état CONFIRMED atteint :
+
+impossible d'annuler
+impossible de modifier
+impossible de supprimer
+
+Les corrections utilisent exclusivement :
+
+Reverse Entry
+Adjustment Entry
+Refund Transaction
+9. DVP (DELIVERY VERSUS PAYMENT)
+
+Le moteur doit supporter :
+
+Asset Transfer
+
+AND
+
+Payment Transfer
+
+↓
+
+Executed atomically
+
+Si l'un échoue :
+
+aucun des deux n'est exécuté.
+
+10. PVP (PAYMENT VERSUS PAYMENT)
+
+Utilisé pour le change.
+
+Exemple :
+
+EUR
+
+contre
+
+USD
+
+Les deux paiements doivent être exécutés simultanément.
+
+Aucune devise ne peut être livrée seule.
+
+11. NOSTRO / VOSTRO MANAGEMENT
+
+Le système gère :
+
+Nostro Accounts
+
+Compte détenu par Amanah auprès d'une banque étrangère.
+
+Vostro Accounts
+
+Compte détenu par une banque partenaire chez Amanah.
+
+Le moteur suit :
+
+solde
+devise
+banque
+disponibilité
+limites
+12. INTRADAY LIQUIDITY MANAGEMENT
+
+Le moteur calcule en permanence :
+
+liquidité disponible
+liquidité consommée
+prévisions
+pics de charge
+
+Objectif :
+
+Éviter tout blocage de règlement.
+
+13. PRIORITY ENGINE
+
+Priorités possibles :
+
+SYSTEM
+
+CENTRAL_BANK
+
+HIGH
+
+NORMAL
+
+LOW
+
+Les règlements SYSTEM sont toujours prioritaires.
+
+14. FAILURE MANAGEMENT
+
+En cas d'échec :
+
+Le moteur distingue :
+
+manque de liquidité
+erreur réseau
+rejet banque partenaire
+problème réglementaire
+panne système
+
+Chaque cas suit une stratégie dédiée.
+
+15. SETTLEMENT CONFIRMATION
+
+Le règlement est considéré terminé uniquement après :
+
+confirmation interne
+confirmation Ledger
+confirmation partenaire (si applicable)
+
+Avant cela :
+
+Le statut reste PENDING.
+
+16. OBSERVABILITY
+
+Chaque règlement journalise :
+
+settlementId
+clearingId
+participantId
+accountId
+amount
+currency
+liquidityBefore
+liquidityAfter
+traceId
+executionTime
+17. PERFORMANCE OBJECTIVES
+
+Validation :
+
+< 20 ms
+
+Liquidity Check :
+
+< 30 ms
+
+Settlement :
+
+< 100 ms
+
+Ledger Commit :
+
+< 50 ms
+
+Confirmation :
+
+< 20 ms
+
+Temps total RTGS cible :
+
+< 250 ms (hors délais des réseaux externes)
+
+18. SECURITY
+
+Toutes les opérations doivent être :
+
+authentifiées
+autorisées
+signées lorsque requis
+chiffrées en transit
+auditées
+immuables
+
+Le moteur n'accepte jamais de modification directe d'un règlement exécuté.
+
+19. RESILIENCE
+
+Le Settlement Engine doit être :
+
+stateless
+multi-région
+idempotent
+résistant aux pannes
+
+Les règlements en attente sont stockés dans une file persistante avec reprise automatique après incident.
+
+20. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER execute settlement without successful clearing.
+ALWAYS verify liquidity before settlement.
+NEVER modify a finalized settlement.
+ALWAYS commit the Ledger atomically with settlement execution.
+NEVER perform partial settlements unless explicitly supported by business rules.
+ALWAYS support RTGS and Deferred Net Settlement modes.
+NEVER allow duplicate settlement execution.
+ALWAYS preserve complete audit history.
+ALWAYS ensure settlement finality before confirmation.
+NEVER bypass regulatory or compliance validations.
+21. SUCCESS CRITERIA
+
+Le Settlement Network est considéré comme conforme lorsque :
+
+tous les règlements sont atomiques et irrévocables ;
+le Ledger est synchronisé avec chaque règlement ;
+la liquidité est vérifiée avant toute exécution ;
+les modèles RTGS, DNS, DvP et PvP sont pris en charge ;
+les comptes de règlement, Nostro et Vostro sont gérés de manière sécurisée ;
+chaque opération est entièrement traçable, auditée et résiliente.
