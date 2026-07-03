@@ -1,0 +1,278 @@
+51_Workflow_Engine.md (V3 — Enterprise Business Process Orchestration Engine)
+1. OBJECTIF DU SYSTÈME
+
+Le Workflow Engine est le cerveau opérationnel d’Amanah.
+
+Il permet de définir, exécuter et superviser tous les processus métier complexes :
+
+onboarding client (KYC/KYB)
+validation de paiements
+approbation multi-niveaux
+conformité AML
+gestion des litiges
+scoring de crédit
+activation de cartes
+création de comptes
+gestion des risques
+opérations internes bancaires
+
+Le Workflow Engine ne fait rien par lui-même.
+
+Il orchestre les autres systèmes.
+
+2. CORE PRINCIPLE
+2.1 Orchestration, not execution
+The Workflow Engine coordinates actions but never executes financial logic directly.
+2.2 Event-driven state machine
+All workflows are state machines driven by events.
+2.3 Deterministic execution
+Given the same inputs and events, a workflow must always produce the same result.
+3. GLOBAL ARCHITECTURE
+                Event Bus
+                    │
+                    ▼
+            Workflow Engine
+                    │
+     ┌──────────────┼──────────────┐
+     ▼              ▼              ▼
+ KYC Flow      Payment Flow   AML Flow
+     │              │              │
+     ▼              ▼              ▼
+Core Services (Ledger, Risk, Treasury, Compliance)
+4. WORKFLOW MODEL
+4.1 Definition
+{
+  "workflowId": "kyc_onboarding_v1",
+  "name": "KYC Onboarding",
+  "version": "1.0",
+  "steps": []
+}
+4.2 Step structure
+
+Chaque étape contient :
+
+{
+  "stepId": "verify_identity",
+  "type": "SERVICE_CALL",
+  "service": "KYC_ENGINE",
+  "action": "VERIFY",
+  "onSuccess": "next_step",
+  "onFailure": "reject",
+  "timeout": 5000
+}
+5. WORKFLOW TYPES
+5.1 Sequential Workflow
+
+Étapes linéaires.
+
+Ex :
+
+KYC → AML → Account Creation → Activation
+
+5.2 Parallel Workflow
+
+Étapes exécutées en parallèle.
+
+Ex :
+
+Risk check
+AML screening
+Fraud analysis
+5.3 Conditional Workflow
+
+Logique basée sur conditions.
+
+Ex :
+
+SI score > 80 → manual review
+
+SINON → auto approval
+
+5.4 Event-Based Workflow
+
+Déclenché par événements système :
+
+PaymentCreated
+UserRegistered
+CardRequested
+6. STATE MACHINE ENGINE
+6.1 States
+PENDING
+
+RUNNING
+
+WAITING
+
+COMPLETED
+
+FAILED
+
+RETRYING
+
+CANCELLED
+6.2 Transitions
+
+Chaque transition est enregistrée :
+
+eventId
+timestamp
+actor
+result
+7. WORKFLOW EXECUTION FLOW
+Event Triggered
+
+↓
+
+Workflow Instance Created
+
+↓
+
+Step Execution
+
+↓
+
+Service Call (KYC / AML / Risk / Ledger)
+
+↓
+
+State Update
+
+↓
+
+Next Step
+
+↓
+
+Completion
+8. RETRY & ERROR HANDLING
+8.1 Retry Policy
+exponential backoff
+max retries configurable
+idempotent steps required
+8.2 Failure Modes
+service unavailable
+timeout
+validation error
+compliance rejection
+8.3 Compensation
+
+Si une étape échoue après succès partiel :
+
+rollback logique (compensating transaction)
+ou blocage workflow
+9. WORKFLOW ORCHESTRATION RULES
+9.1 No business logic inside workflow
+Workflows must never contain financial logic.
+9.2 Delegation only
+
+Toutes les décisions sont déléguées à :
+
+Risk Engine
+AML Engine
+Ledger
+Treasury
+Compliance Engine
+10. LONG-RUNNING WORKFLOWS
+
+Certains workflows peuvent durer :
+
+heures
+jours
+semaines
+
+Ex :
+
+KYB entreprise
+audit AML
+investigation fraude
+
+Le système supporte :
+
+pause
+reprise
+suspension
+reprise après incident
+11. HUMAN-IN-THE-LOOP
+
+Certaines étapes nécessitent validation humaine :
+
+compliance officer
+risk analyst
+admin bancaire
+
+Workflow attend une décision externe.
+
+12. WORKFLOW VISIBILITY
+
+Chaque workflow possède :
+
+status global
+step status
+timeline complète
+logs détaillés
+audit trail
+13. VERSIONING
+
+Les workflows sont versionnés :
+
+kyc_v1
+kyc_v2
+kyc_v3
+
+Les anciennes versions restent exécutables pour compatibilité.
+
+14. OBSERVABILITY
+
+Chaque exécution journalise :
+
+workflowInstanceId
+tenantId
+entityId
+stepId
+duration
+status
+errorCode
+traceId
+15. PERFORMANCE OBJECTIVES
+
+Démarrage workflow :
+
+< 20 ms
+
+Exécution step :
+
+< 100 ms (hors services externes)
+
+Transition état :
+
+< 5 ms
+
+16. SECURITY
+workflows isolés par tenant
+accès contrôlé par RBAC/ABAC
+aucune modification dynamique non autorisée
+audit complet obligatoire
+17. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER execute financial logic inside workflows.
+ALWAYS delegate decisions to specialized engines.
+NEVER bypass AML, Risk or Compliance checks.
+ALWAYS ensure workflow steps are idempotent.
+NEVER allow unauthorized workflow modification.
+ALWAYS support event-driven execution.
+NEVER lose workflow state during failures.
+ALWAYS support human-in-the-loop steps.
+ALWAYS version workflows.
+ALWAYS maintain full audit traceability.
+18. SUCCESS CRITERIA
+
+Le Workflow Engine est considéré comme complet lorsque :
+
+tous les processus bancaires peuvent être modélisés en workflows ;
+les workflows sont déterministes et rejouables ;
+les systèmes externes sont correctement orchestrés ;
+les erreurs sont gérées via retry ou compensation ;
+les workflows supportent le long terme et les interventions humaines ;
+chaque étape est traçable, observable et versionnée.
