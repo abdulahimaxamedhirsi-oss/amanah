@@ -1,0 +1,368 @@
+52_Rule_Engine.md (V3 — Enterprise Business Rule Engine)
+1. OBJECTIF DU SYSTÈME
+
+Le Rule Engine est le moteur central des règles métier d'Amanah.
+
+Il permet de modifier le comportement de la plateforme sans redéploiement.
+
+Toutes les décisions métier doivent être pilotées par des règles configurables.
+
+Le Rule Engine ne contient aucune donnée métier.
+
+Il prend des décisions.
+
+2. CORE PRINCIPLES
+2.1 Configuration over Code
+Business behavior must be configurable without changing source code.
+2.2 Rules are Data
+Every business rule is stored as versioned configuration.
+2.3 Deterministic Decisions
+The same input must always produce the same decision.
+3. GLOBAL ARCHITECTURE
+                Workflow Engine
+                       │
+                       ▼
+                 Rule Engine
+                       │
+      ┌────────────────┼─────────────────┐
+      ▼                ▼                 ▼
+
+ Payment Rules     AML Rules      Risk Rules
+
+      ▼                ▼                 ▼
+
+ Feature Flags     Country Rules    Fee Rules
+4. RULE MODEL
+
+Chaque règle possède :
+
+{
+  "ruleId":"uuid",
+  "name":"Maximum Daily Transfer",
+  "version":"2.1",
+  "priority":100,
+  "status":"ACTIVE"
+}
+5. RULE COMPONENTS
+
+Une règle est composée de :
+
+Conditions
+Expressions
+Variables
+Actions
+Priorité
+Version
+Audit
+6. RULE TYPES
+
+Le moteur doit supporter :
+
+Payment Rules
+
+Exemple :
+
+Maximum journalier
+
+Minimum
+
+Maximum
+
+Heures autorisées
+
+AML Rules
+
+PEP
+
+Sanctions
+
+Pays interdits
+
+Blacklist
+
+KYC Rules
+
+Niveau 1
+
+Niveau 2
+
+Niveau 3
+
+Documents requis
+
+FX Rules
+
+Spread
+
+Conversion
+
+Devises autorisées
+
+Treasury Rules
+
+Liquidité minimale
+
+Réserves
+
+Funding
+
+Fee Rules
+
+Commission
+
+Taxes
+
+TVA
+
+Remises
+
+Merchant Rules
+
+Settlement
+
+Commission
+
+Remboursement
+
+Chargeback
+
+Card Rules
+
+Retrait
+
+Paiement
+
+Limites
+
+PIN
+
+AI Rules
+
+Escalade
+
+Score minimal
+
+Validation humaine
+
+7. CONDITION ENGINE
+
+Les conditions supportées :
+
+=
+
+!=
+
+>
+
+<
+
+>=
+
+<=
+
+IN
+
+NOT IN
+
+BETWEEN
+
+CONTAINS
+
+STARTS_WITH
+
+ENDS_WITH
+
+REGEX
+8. EXPRESSION ENGINE
+
+Exemple :
+
+Amount > 10000
+
+AND
+
+Country != "US"
+
+AND
+
+RiskScore > 80
+9. DECISION ENGINE
+
+Chaque règle retourne :
+
+ALLOW
+
+DENY
+
+REVIEW
+
+ESCALATE
+
+RETRY
+
+NOTIFY
+
+10. PRIORITY ENGINE
+
+Les règles sont exécutées selon :
+
+Priority 1000
+
+↓
+
+Priority 900
+
+↓
+
+Priority 800
+
+Une règle critique peut arrêter immédiatement l'évaluation.
+
+11. RULE CHAINING
+
+Une règle peut déclencher :
+
+une autre règle
+
+un workflow
+
+une notification
+
+un événement
+
+12. COUNTRY-SPECIFIC RULES
+
+Chaque pays peut définir :
+
+KYC
+AML
+Taxes
+Devises
+Horaires
+Limites
+Réglementation
+
+Sans modifier le code.
+
+13. VERSIONING
+
+Toutes les règles sont versionnées.
+
+TransferLimit_v1
+
+TransferLimit_v2
+
+TransferLimit_v3
+
+Les anciennes versions restent auditables.
+
+14. TEST MODE
+
+Chaque règle peut être :
+
+ACTIVE
+
+DISABLED
+
+SIMULATION
+
+En mode Simulation :
+
+La règle produit une décision sans impacter les utilisateurs.
+
+15. HOT RELOAD
+
+Le moteur recharge les règles :
+
+sans redémarrage
+
+sans interruption
+
+sans déploiement
+
+16. OBSERVABILITY
+
+Chaque décision journalise :
+
+ruleId
+version
+decision
+duration
+workflowId
+traceId
+tenantId
+entityId
+17. PERFORMANCE OBJECTIVES
+
+Évaluation d'une règle :
+
+< 2 ms
+
+100 règles :
+
+< 20 ms
+
+1000 règles :
+
+< 150 ms
+
+18. SECURITY
+
+Les règles :
+
+sont signées
+versionnées
+auditables
+protégées contre les modifications non autorisées
+
+Toute modification nécessite une autorisation.
+
+19. RULE ADMIN CONSOLE
+
+Le moteur fournit une interface permettant de :
+
+créer une règle
+modifier une règle
+tester une règle
+simuler une règle
+publier une règle
+revenir à une version précédente
+comparer deux versions
+rechercher des règles
+visualiser les dépendances
+
+Toutes les opérations sont historisées.
+
+20. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER hardcode business rules inside application code.
+ALWAYS evaluate rules through the Rule Engine.
+NEVER bypass critical regulatory rules.
+ALWAYS support rule versioning.
+NEVER modify active rules without audit logs.
+ALWAYS support simulation mode.
+ALWAYS evaluate rules deterministically.
+NEVER execute conflicting rules without priority resolution.
+ALWAYS support country-specific rule sets.
+ALWAYS maintain complete traceability for every decision.
+21. SUCCESS CRITERIA
+
+Le Rule Engine est considéré comme complet lorsque :
+
+toutes les décisions métier passent par des règles configurables ;
+les règles sont versionnées, auditables et rechargeables à chaud ;
+les politiques varient par pays, entité ou tenant sans modification du code ;
+les règles peuvent être testées en mode simulation avant publication ;
+chaque décision est traçable et reproductible.
+22. FUTURE EXTENSIONS (V4 READY)
+
+Le Rule Engine est conçu pour intégrer ultérieurement :
+
+DMN (Decision Model and Notation) pour des arbres de décision standardisés.
+Rule Marketplace pour distribuer des jeux de règles réglementaires par pays.
+AI-Assisted Rule Authoring permettant à l'IA de proposer de nouvelles règles à partir des évolutions réglementaires.
+A/B Testing des règles afin de mesurer leur impact avant un déploiement global.
+Policy-as-Code avec validation automatique dans les pipelines CI/CD.
+Natural Language Rule Builder, où un administrateur peut écrire une règle en langage naturel et le moteur la convertit en règle exécutable.

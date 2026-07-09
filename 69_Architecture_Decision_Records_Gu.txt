@@ -1,0 +1,334 @@
+70_Architecture_Decision_Records_Guide.md
+(V3 — Enterprise Architecture Governance & ADR Framework)
+1. OBJECTIF
+
+Ce document définit le processus officiel de gestion des décisions architecturales d'Amanah.
+
+Il décrit :
+
+comment prendre une décision technique ;
+comment documenter les choix ;
+comment analyser les compromis ;
+comment conserver l'historique ;
+comment maintenir la cohérence globale.
+2. POURQUOI LES ADR SONT NÉCESSAIRES
+
+Une architecture évolue constamment.
+
+Sans documentation :
+
+les raisons des choix disparaissent ;
+les équipes répètent les mêmes débats ;
+les décisions deviennent incohérentes ;
+la dette technique augmente.
+
+Les ADR permettent de conserver la mémoire architecturale.
+
+3. DÉFINITION D'UN ADR
+
+ADR signifie :
+
+Architecture Decision Record
+
+Un ADR documente :
+
+une décision importante ;
+le contexte ;
+les options étudiées ;
+le choix final ;
+les conséquences.
+4. QUAND CRÉER UN ADR
+
+Un ADR est obligatoire pour :
+
+changement d'architecture ;
+choix technologique majeur ;
+changement de base de données ;
+modification du Ledger ;
+changement sécurité ;
+nouveau protocole d'intégration ;
+changement cloud ;
+changement IA.
+5. ADR LIFECYCLE
+
+Cycle :
+
+Identification
+
+↓
+
+Analysis
+
+↓
+
+Review
+
+↓
+
+Approval
+
+↓
+
+Implementation
+
+↓
+
+Monitoring
+
+↓
+
+Superseded
+6. ADR TEMPLATE STANDARD
+
+Chaque ADR utilise ce format :
+
+# ADR-XXXX
+
+## Title
+
+## Status
+
+## Date
+
+## Context
+
+## Problem
+
+## Options Considered
+
+## Decision
+
+## Consequences
+
+## Risks
+
+## Implementation Plan
+
+## References
+7. ADR STATUS
+
+États possibles :
+
+Status	Signification
+Proposed	En discussion
+Accepted	Validé
+Rejected	Refusé
+Deprecated	Obsolète
+Superseded	Remplacé
+8. EXEMPLE ADR
+ADR-001
+Sujet
+
+Choix Event Bus Amanah
+
+Contexte
+
+Amanah nécessite une communication temps réel entre :
+
+Payment Service
+Ledger
+Compliance
+Notification
+Options
+Option 1
+
+Communication directe REST
+
+Avantage :
+
+Simple
+
+Inconvénient :
+
+Couplage fort
+
+Option 2
+
+Event Bus
+
+Avantage :
+
+Scalable
+
+Résilient
+
+Découplé
+
+Décision
+
+Utilisation d'une architecture Event-Driven.
+
+Conséquences
+
+Positives :
+
+meilleure scalabilité ;
+meilleure résilience.
+
+Négatives :
+
+complexité opérationnelle.
+9. ARCHITECTURE REVIEW BOARD
+
+Amanah possède un comité architecture.
+
+Membres :
+
+Chief Architect
+Security Architect
+Cloud Architect
+Data Architect
+Domain Architects
+Compliance Representative
+10. RESPONSABILITÉS
+
+Le comité valide :
+
+nouveaux frameworks ;
+nouvelles architectures ;
+changements critiques ;
+impacts sécurité ;
+impacts conformité.
+11. PRINCIPES DE DÉCISION
+
+Les décisions sont évaluées selon :
+
+Business Value
+
+Impact métier.
+
+Security
+
+Impact sécurité.
+
+Compliance
+
+Impact réglementaire.
+
+Scalability
+
+Capacité de croissance.
+
+Maintainability
+
+Facilité de maintenance.
+
+Cost
+
+Impact financier.
+
+12. ARCHITECTURE TRADE-OFF ANALYSIS
+
+Chaque décision doit analyser :
+
+Performance
+
+vs
+
+Complexity
+
+vs
+
+Cost
+
+vs
+
+Security
+
+vs
+
+Time
+
+Aucune décision n'est parfaite.
+
+Le compromis doit être documenté.
+
+13. TECHNOLOGY GOVERNANCE
+
+Avant d'ajouter une technologie :
+
+Questions obligatoires :
+
+Pourquoi ?
+Quel problème résout-elle ?
+Existe-t-il déjà une solution Amanah ?
+Quel impact maintenance ?
+Quel risque fournisseur ?
+14. STANDARD TECHNOLOGY STACK
+
+Toute nouvelle technologie doit être comparée avec :
+
+stack existante ;
+compétences internes ;
+sécurité ;
+support long terme.
+15. ARCHITECTURE PRINCIPLES ENFORCEMENT
+
+Les ADR doivent respecter :
+
+Domain Driven Design ;
+Zero Trust ;
+API First ;
+Event Driven ;
+Cloud Native ;
+Security by Design.
+16. ADR STORAGE
+
+Les ADR sont stockés dans :
+
+/docs/architecture/adr/
+
+Structure :
+
+ADR-0001-event-bus.md
+
+ADR-0002-ledger-storage.md
+
+ADR-0003-cloud-provider.md
+17. ADR REVIEW PROCESS
+
+Chaque ADR est revu :
+
+avant implémentation ;
+après mise en production ;
+lors d'évolution majeure.
+18. ARCHITECTURE DEBT MANAGEMENT
+
+Les décisions temporaires doivent avoir :
+
+propriétaire ;
+date d'expiration ;
+plan de remplacement.
+19. CLAUDE CODE ARCHITECTURE RULES
+
+Claude Code must:
+
+NEVER change architecture without an ADR.
+ALWAYS respect existing ADR decisions.
+ALWAYS identify architectural impact.
+ALWAYS propose alternatives for major changes.
+NEVER introduce unnecessary technologies.
+ALWAYS maintain domain boundaries.
+ALWAYS document significant decisions.
+ALWAYS consider security and compliance impact.
+ALWAYS preserve long-term maintainability.
+ALWAYS follow Enterprise Architecture Governance.
+20. SUCCESS CRITERIA
+
+La gouvernance architecture est réussie lorsque :
+
+chaque décision importante possède une justification ;
+l'architecture reste cohérente dans le temps ;
+les équipes comprennent les choix historiques ;
+les évolutions sont contrôlées ;
+la dette technique est maîtrisée.
+21. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Architecture Review Agent
+Automated ADR Generation
+Architecture Compliance Scanner
+Technology Radar
+Enterprise Architecture Knowledge Graph
+AI Impact Analysis

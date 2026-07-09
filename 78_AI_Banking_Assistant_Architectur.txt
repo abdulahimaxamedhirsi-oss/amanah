@@ -1,0 +1,473 @@
+78_AI_Banking_Assistant_Architecture.md
+(V3 — Enterprise AI Banking Assistant, Agentic AI & MCP Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture officielle de l'intelligence artificielle Amanah.
+
+Il couvre :
+
+AI Assistant ;
+LLM Orchestration ;
+RAG ;
+AI Agents ;
+MCP (Model Context Protocol) ;
+Tool Calling ;
+AI Security ;
+Prompt Governance ;
+AI Memory ;
+AI Audit ;
+Human-in-the-Loop.
+
+L'objectif est de créer un assistant bancaire capable d'assister les clients et les collaborateurs tout en respectant les exigences de sécurité et de conformité d'une banque.
+
+2. CORE PRINCIPLES
+2.1 AI Is An Assistant, Not The Ledger
+AI may recommend.
+AI never becomes the financial source of truth.
+
+Les décisions financières sont toujours exécutées par les services métier.
+
+2.2 Human Oversight
+High-risk financial actions require human approval when required by policy.
+2.3 Explainable AI
+Every AI decision must be explainable and auditable.
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+AI Gateway
+
+↓
+
+Prompt Security
+
+↓
+
+LLM Orchestrator
+
+↓
+
+AI Agent Manager
+
+↓
+
+MCP Server
+
+↓
+
+Business Tools
+
+↓
+
+Core Banking Services
+
+↓
+
+Ledger
+
+4. AI COMPONENTS
+AI Gateway
+
+Responsable :
+
+authentification ;
+quota ;
+audit ;
+sécurité.
+Prompt Firewall
+
+Responsable :
+
+détection Prompt Injection ;
+filtrage ;
+validation.
+LLM Orchestrator
+
+Responsable :
+
+sélection du modèle ;
+gestion du contexte ;
+fallback ;
+optimisation des coûts.
+AI Agent Manager
+
+Responsable :
+
+coordination multi-agents ;
+exécution outils ;
+supervision.
+MCP Server
+
+Responsable :
+
+exposer les outils bancaires ;
+sécuriser les appels ;
+gérer le contexte.
+5. AI ARCHITECTURE LAYERS
+
+Presentation Layer
+
+↓
+
+Conversation Layer
+
+↓
+
+Agent Layer
+
+↓
+
+Tool Layer
+
+↓
+
+Core Banking
+
+↓
+
+Ledger
+
+6. SUPPORTED AI MODELS
+
+Architecture indépendante.
+
+Compatible avec :
+
+OpenAI
+Anthropic
+Google Gemini
+Mistral
+Azure OpenAI
+modèles privés
+
+Aucun fournisseur n'est imposé.
+
+7. RAG ARCHITECTURE
+
+L'IA ne répond jamais uniquement à partir du modèle.
+
+Architecture :
+
+
+User Question
+
+↓
+
+Retriever
+
+↓
+
+Vector Database
+
+↓
+
+Relevant Documents
+
+↓
+
+LLM
+
+↓
+
+Response
+
+8. KNOWLEDGE SOURCES
+
+Le RAG peut accéder à :
+
+documentation interne ;
+politiques bancaires ;
+procédures ;
+FAQ ;
+réglementations ;
+documentation API ;
+ADR.
+9. VECTOR DATABASE
+
+Compatible avec :
+
+Pinecone
+Weaviate
+Qdrant
+pgvector
+Milvus
+
+Les embeddings sont versionnés.
+
+10. MCP (MODEL CONTEXT PROTOCOL)
+
+Tous les outils Amanah sont exposés via MCP.
+
+Architecture :
+
+
+LLM
+
+↓
+
+MCP Client
+
+↓
+
+MCP Server
+
+↓
+
+Banking Tools
+
+11. MCP TOOLS
+
+Exemples :
+
+
+GetAccountBalance
+
+CreateTransfer
+
+SearchTransactions
+
+GenerateStatement
+
+CreateSupportTicket
+
+
+Chaque outil possède :
+
+schéma ;
+permissions ;
+validation ;
+audit.
+12. TOOL EXECUTION
+
+Cycle :
+
+
+Prompt
+
+↓
+
+Intent Detection
+
+↓
+
+Tool Selection
+
+↓
+
+Authorization
+
+↓
+
+Execution
+
+↓
+
+Response
+
+13. AI AGENTS
+
+Agents spécialisés :
+
+Customer Agent
+
+Support client.
+
+Compliance Agent
+
+AML/KYC.
+
+Risk Agent
+
+Analyse risque.
+
+Fraud Agent
+
+Détection fraude.
+
+Financial Advisor Agent
+
+Conseils personnalisés.
+
+Developer Agent
+
+Documentation technique.
+
+14. MULTI-AGENT COLLABORATION
+
+Architecture :
+
+
+Supervisor Agent
+
+↓
+
+Customer Agent
+
+↓
+
+Compliance Agent
+
+↓
+
+Payment Agent
+
+↓
+
+Risk Agent
+
+
+Le Supervisor orchestre les autres agents.
+
+15. AI MEMORY
+
+Mémoire divisée en :
+
+Conversation Memory
+
+Session courante.
+
+Customer Memory
+
+Préférences utilisateur.
+
+Enterprise Knowledge
+
+Documentation RAG.
+
+Temporary Working Memory
+
+Contexte d'exécution.
+
+16. PROMPT SECURITY
+
+Protection contre :
+
+Prompt Injection ;
+Jailbreak ;
+Data Exfiltration ;
+Tool Abuse ;
+Context Poisoning.
+17. AI PERMISSIONS
+
+Chaque outil exige :
+
+authentification ;
+autorisation ;
+consentement ;
+audit.
+
+L'IA ne possède jamais de privilèges implicites.
+
+18. HUMAN-IN-THE-LOOP
+
+Actions sensibles :
+
+virement important ;
+clôture compte ;
+changement KYC ;
+suppression données.
+
+Nécessitent une validation selon la politique métier.
+
+19. AI AUDIT LOG
+
+Chaque interaction enregistre :
+
+{
+  "conversationId":"uuid",
+  "userId":"uuid",
+  "model":"Claude",
+  "agent":"CustomerAgent",
+  "tools":["GetAccountBalance"],
+  "timestamp":"2026-01-01T10:00:00Z",
+  "traceId":"uuid"
+}
+20. AI OBSERVABILITY
+
+Surveillance :
+
+latence ;
+coût ;
+tokens ;
+taux d'erreur ;
+hallucinations détectées ;
+utilisation outils.
+21. AI SAFETY
+
+Contrôles :
+
+filtrage contenu ;
+validation réponses ;
+vérification outils ;
+limitation actions.
+
+Les réponses financières critiques doivent être validées par les services métier.
+
+22. COST MANAGEMENT
+
+Suivi :
+
+coût par modèle ;
+coût par client ;
+coût par agent ;
+coût par outil.
+
+Possibilité de router automatiquement vers le modèle le plus adapté.
+
+23. PRIVACY
+
+Respect :
+
+GDPR ;
+confidentialité bancaire ;
+minimisation des données ;
+chiffrement ;
+politiques de rétention.
+24. AI GOVERNANCE
+
+Le comité IA valide :
+
+nouveaux modèles ;
+nouveaux agents ;
+nouveaux outils ;
+changements de prompts système ;
+politiques de sécurité.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER execute financial operations without proper authorization.
+ALWAYS use MCP for banking tool access.
+ALWAYS separate AI reasoning from business execution.
+NEVER expose confidential banking data.
+ALWAYS use RAG for enterprise knowledge.
+ALWAYS log AI actions.
+ALWAYS validate tool permissions.
+ALWAYS protect against prompt injection.
+ALWAYS keep the Ledger as the financial source of truth.
+ALWAYS follow Enterprise AI Governance Standards.
+26. SUCCESS CRITERIA
+
+L'architecture IA est conforme lorsque :
+
+l'IA peut assister clients et collaborateurs de manière sécurisée ;
+toutes les actions passent par les services métier ;
+les connaissances proviennent d'un RAG contrôlé ;
+les outils sont exposés via MCP ;
+chaque décision est auditée et explicable.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Banking Agents
+AI Portfolio Management
+Voice Banking Assistant
+Multi-Modal Banking (texte, voix, image, vidéo)
+AI Financial Copilot
+Federated AI Models
+On-Premise Sovereign LLMs
+Continuous AI Evaluation Platform
+AI Regulatory Compliance Engine
+AI-to-AI Banking Protocols

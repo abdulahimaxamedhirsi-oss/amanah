@@ -1,0 +1,423 @@
+64_Database_Design_Standards.md
+(V3 — Enterprise Database Architecture & Governance Standards)
+1. OBJECTIF
+
+Ce document définit les standards obligatoires pour la conception, l'utilisation et la maintenance des bases de données Amanah.
+
+Il garantit :
+
+intégrité financière ;
+haute disponibilité ;
+performance ;
+sécurité ;
+auditabilité ;
+évolutivité.
+2. CORE PRINCIPLES
+2.1 Data Integrity First
+Financial data must always remain accurate and consistent.
+
+Aucune optimisation ne doit compromettre l'intégrité des données.
+
+2.2 Database Per Domain
+Each business domain owns its data.
+
+Un service ne doit jamais accéder directement à la base d'un autre domaine.
+
+2.3 Immutable Financial Records
+Financial history must never be modified or deleted.
+
+Les transactions financières sont immuables.
+
+3. DATABASE ARCHITECTURE
+
+Architecture standard :
+
+                 Applications
+
+                      │
+
+                Domain Services
+
+                      │
+
+        ┌─────────────┼─────────────┐
+
+        ▼             ▼             ▼
+
+     Accounts      Payments      Ledger
+
+        │             │             │
+
+   Database      Database      Database
+
+4. DATABASE TYPES
+
+Amanah utilise plusieurs types de stockage.
+
+4.1 OLTP DATABASE
+
+Pour les opérations temps réel :
+
+comptes
+paiements
+clients
+cartes
+transactions
+
+Technologies possibles :
+
+PostgreSQL
+MySQL Enterprise
+CockroachDB
+4.2 LEDGER DATABASE
+
+Base spécialisée pour :
+
+écritures comptables
+balances
+journal financier
+double entrée
+
+Exigences :
+
+immutabilité
+haute précision
+audit complet
+4.3 ANALYTICS DATABASE
+
+Séparée du système transactionnel.
+
+Utilisée pour :
+
+BI
+reporting
+IA
+data science
+
+Technologies :
+
+Data Warehouse
+Lakehouse
+Columnar Storage
+5. DATABASE NAMING CONVENTION
+
+Tables :
+
+customers
+
+accounts
+
+payments
+
+transactions
+
+Toujours :
+
+minuscules
+pluriel
+snake_case
+
+Colonnes :
+
+Correct :
+
+customer_id
+
+created_at
+
+transaction_status
+
+Incorrect :
+
+CustomerID
+
+DateCreated
+6. PRIMARY KEYS
+
+Standard :
+
+UUID obligatoire.
+
+Exemple :
+
+7f8a92d4-xxxx-xxxx
+
+Pourquoi :
+
+distribution mondiale ;
+multi-tenant ;
+sécurité ;
+réplication.
+7. TENANT ISOLATION
+
+Toutes les tables multi-tenant contiennent :
+
+tenant_id
+
+Exemple :
+
+accounts
+
+id
+
+tenant_id
+
+customer_id
+
+balance
+8. FINANCIAL PRECISION
+
+Jamais utiliser :
+
+FLOAT
+DOUBLE
+
+Pour l'argent.
+
+Utiliser :
+
+DECIMAL
+NUMERIC
+
+Exemple :
+
+amount DECIMAL(18,2)
+9. TRANSACTION MANAGEMENT
+
+Les opérations financières utilisent :
+
+ACID transactions ;
+isolation appropriée ;
+verrouillage contrôlé ;
+idempotency keys.
+10. DATABASE MIGRATIONS
+
+Toutes les modifications passent par :
+
+migrations versionnées ;
+scripts automatisés ;
+validation CI/CD.
+
+Interdit :
+
+Modification manuelle en production.
+
+11. INDEXING STANDARDS
+
+Chaque table critique possède :
+
+index primaire ;
+index recherche ;
+index tenant ;
+index temporel.
+
+Exemple :
+
+INDEX(customer_id)
+
+INDEX(created_at)
+
+INDEX(tenant_id)
+12. PARTITIONING
+
+Les grandes tables utilisent le partitionnement.
+
+Exemple :
+
+Transactions :
+
+transactions_2026_01
+
+transactions_2026_02
+
+transactions_2026_03
+
+Objectifs :
+
+performance ;
+archivage ;
+maintenance.
+13. REPLICATION
+
+Support :
+
+réplication synchrone ;
+réplication asynchrone ;
+read replicas.
+
+Architecture :
+
+Primary Database
+
+↓
+
+Replica 1
+
+↓
+
+Replica 2
+
+14. HIGH AVAILABILITY
+
+Les bases critiques doivent supporter :
+
+failover automatique ;
+backup continu ;
+monitoring ;
+restauration point-in-time.
+15. BACKUP STRATEGY
+
+Sauvegardes :
+
+complètes ;
+incrémentales ;
+snapshots ;
+backups chiffrés.
+
+Tests de restauration obligatoires.
+
+16. DATABASE SECURITY
+
+Obligatoire :
+
+chiffrement au repos ;
+TLS ;
+rotation des credentials ;
+accès minimum ;
+audit database.
+17. ACCESS CONTROL
+
+Les accès sont séparés :
+
+application user ;
+analyst user ;
+admin user ;
+auditor user.
+
+Jamais partager les comptes.
+
+18. AUDIT TABLES
+
+Les tables sensibles possèdent :
+
+created_at
+
+created_by
+
+updated_at
+
+updated_by
+
+version
+19. SOFT DELETE
+
+Les données métier importantes ne sont pas supprimées.
+
+Utiliser :
+
+deleted_at
+
+ou :
+
+status = CLOSED
+20. LEDGER DATABASE RULES
+
+Le Ledger doit respecter :
+
+double entrée ;
+append-only ;
+balance dérivée des écritures ;
+aucune modification historique ;
+correction par nouvelle écriture.
+
+Exemple :
+
+Erreur :
+
+Transaction incorrecte
+
+Correction :
+
+Reversal Transaction
+
+Jamais :
+
+UPDATE transaction
+21. PERFORMANCE STANDARDS
+
+Objectifs :
+
+Lecture simple :
+
+<50 ms
+
+Écriture transactionnelle :
+
+<200 ms
+
+Requête analytique :
+
+hors OLTP
+
+22. DATABASE OBSERVABILITY
+
+Surveillance :
+
+CPU
+mémoire
+connexions
+locks
+slow queries
+réplication
+erreurs
+23. DATA RETENTION
+
+Chaque domaine définit :
+
+durée légale ;
+archivage ;
+suppression ;
+anonymisation.
+24. DISASTER RECOVERY
+
+Les bases critiques possèdent :
+
+réplication régionale ;
+backups géographiques ;
+procédures de restauration ;
+tests réguliers.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER directly access another domain database.
+ALWAYS respect database ownership.
+NEVER store financial amounts using floating types.
+ALWAYS use migrations.
+ALWAYS include tenant isolation where required.
+NEVER modify immutable financial records.
+ALWAYS create proper indexes.
+ALWAYS consider scalability before schema design.
+ALWAYS encrypt sensitive database fields.
+ALWAYS follow Enterprise Database Standards.
+26. SUCCESS CRITERIA
+
+Le standard Database est respecté lorsque :
+
+les données financières restent exactes et immuables ;
+chaque domaine possède son propre contrôle des données ;
+les bases peuvent évoluer à grande échelle ;
+les performances restent constantes ;
+les audits et restaurations sont possibles à tout moment.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Distributed SQL Database
+Global Ledger Federation
+Database Sharding automatique
+AI Database Optimization
+Autonomous Index Management
+Zero Downtime Schema Migration
+Confidential Database Computing
+Quantum Resistant Encryption

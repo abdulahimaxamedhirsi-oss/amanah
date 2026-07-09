@@ -1,0 +1,388 @@
+79_Islamic_Banking_Sharia_Compliance_Architecture.md
+(V3 — Enterprise Islamic Banking & Sharia Compliance Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de finance islamique d'Amanah.
+
+Il couvre :
+
+gouvernance Sharia ;
+contrats islamiques ;
+moteur de conformité ;
+workflows d'approbation ;
+Zakat ;
+purification des revenus ;
+Sukuk ;
+investissements ;
+audit Sharia ;
+conformité AAOIFI et IFSB.
+
+L'objectif est de permettre à Amanah d'opérer comme une plateforme bancaire conforme aux principes de la finance islamique.
+
+2. CORE PRINCIPLES
+2.1 Sharia by Design
+Islamic compliance must be enforced by the platform architecture.
+
+La conformité est intégrée dans les règles métier.
+
+2.2 No Riba
+Interest-based financial operations are prohibited.
+
+Toute opération impliquant des intérêts est bloquée ou signalée selon la politique de l'institution.
+
+2.3 Ethical Finance
+Financial products must promote fairness, transparency and shared risk.
+3. SHARIA GOVERNANCE ARCHITECTURE
+
+Customer
+
+↓
+
+Islamic Product Engine
+
+↓
+
+Sharia Rule Engine
+
+↓
+
+Sharia Approval Workflow
+
+↓
+
+Core Banking Services
+
+↓
+
+Ledger
+
+↓
+
+Sharia Audit
+
+4. SHARIA GOVERNANCE
+
+Chaque institution peut définir :
+
+son Sharia Board ;
+ses politiques internes ;
+ses interprétations juridiques ;
+ses exceptions documentées.
+
+Le système ne remplace jamais les décisions du Sharia Board.
+
+5. SHARIA BOARD
+
+Composition :
+
+Chairman
+Sharia Scholars
+Compliance Officer
+Internal Auditor
+Product Representatives
+
+Responsabilités :
+
+validation des produits ;
+validation des contrats ;
+revue des exceptions ;
+audits périodiques.
+6. SHARIA RULE ENGINE
+
+Le moteur applique automatiquement les règles.
+
+Exemple :
+
+
+Transaction
+
+↓
+
+Rule Validation
+
+↓
+
+Compliant ?
+
+↓
+
+YES → Continue
+
+NO → Reject / Review
+
+7. PRINCIPAL PROHIBITIONS
+
+Le moteur contrôle notamment :
+
+Riba
+
+Interdiction des intérêts.
+
+Gharar
+
+Interdiction d'une incertitude excessive.
+
+Maisir
+
+Interdiction de la spéculation assimilable au jeu.
+
+Haram Activities
+
+Interdiction des secteurs non conformes.
+
+Exemples :
+
+alcool ;
+jeux d'argent ;
+pornographie ;
+armes interdites selon la politique de l'institution ;
+autres secteurs définis par le Sharia Board.
+8. ISLAMIC PRODUCT ENGINE
+
+Produits supportés :
+
+Murabaha
+Mudarabah
+Musharakah
+Ijarah
+Salam
+Istisna
+Wakalah
+Tawarruq (si autorisé par la politique de l'institution)
+Qard Hasan
+Sukuk
+
+Chaque produit possède son propre workflow métier.
+
+9. MURABAHA
+
+Cycle :
+
+
+Customer Request
+
+↓
+
+Asset Purchase
+
+↓
+
+Bank Ownership
+
+↓
+
+Sale To Customer
+
+↓
+
+Installments
+
+
+Le prix de vente est fixé contractuellement.
+
+10. IJARAH
+
+Cycle :
+
+
+Asset Purchase
+
+↓
+
+Lease Contract
+
+↓
+
+Rental Payments
+
+↓
+
+Contract Completion
+
+11. MUSHARAKAH
+
+Gestion :
+
+partenaires ;
+répartition du capital ;
+partage des profits ;
+partage des pertes selon le contrat.
+12. MUDARABAH
+
+Gestion :
+
+investisseur ;
+entrepreneur ;
+partage des bénéfices ;
+pertes selon les règles du contrat.
+13. SALAM
+
+Support :
+
+paiement anticipé ;
+livraison future.
+14. ISTISNA
+
+Support :
+
+fabrication ;
+construction ;
+livraison différée.
+15. SUKUK MANAGEMENT
+
+Gestion :
+
+émission ;
+souscription ;
+paiements ;
+échéances ;
+actifs sous-jacents.
+16. QARD HASAN
+
+Gestion :
+
+prêt sans intérêt ;
+remboursement ;
+suivi.
+
+Le système interdit automatiquement tout calcul d'intérêt sur ces contrats.
+
+17. ZAKAT ENGINE
+
+Le moteur peut calculer :
+
+actifs éligibles ;
+seuil (Nisab) configurable ;
+montant de Zakat ;
+historique ;
+rapports.
+
+Les paramètres doivent être configurables afin de refléter les avis juridiques retenus par l'institution.
+
+18. CHARITY MANAGEMENT
+
+Support :
+
+Sadaqah ;
+dons ;
+distributions ;
+historique.
+19. PURIFICATION ENGINE
+
+Lorsque des revenus non conformes doivent être isolés selon la politique de l'institution :
+
+Le moteur :
+
+identifie les montants concernés ;
+calcule les montants à traiter ;
+produit les rapports nécessaires.
+
+Les règles exactes sont configurables et validées par le Sharia Board.
+
+20. SHARIA WORKFLOW
+
+Chaque nouveau produit suit :
+
+
+Draft
+
+↓
+
+Compliance Review
+
+↓
+
+Sharia Review
+
+↓
+
+Board Approval
+
+↓
+
+Publication
+
+21. SHARIA AUDIT
+
+Chaque produit conserve :
+
+version ;
+décision ;
+documents ;
+approbateurs ;
+historique.
+22. SHARIA REPORTING
+
+Rapports :
+
+conformité produits ;
+audits ;
+exceptions ;
+décisions du Board ;
+calculs Zakat ;
+indicateurs de conformité.
+23. CONFIGURABLE JURISPRUDENCE
+
+Le moteur permet de configurer :
+
+différentes écoles juridiques lorsque pertinent ;
+politiques propres à chaque institution ;
+interprétations validées par le Sharia Board.
+
+Aucune interprétation unique n'est imposée par la plateforme.
+
+24. COMPLIANCE STANDARDS
+
+Architecture compatible avec :
+
+AAOIFI
+IFSB
+réglementations locales
+exigences des banques centrales concernées
+25. INTEGRATION WITH CORE BANKING
+
+Toutes les opérations islamiques utilisent :
+
+le Ledger ;
+le moteur de paiement ;
+le moteur documentaire ;
+le moteur de conformité ;
+le moteur d'audit.
+
+Il n'existe qu'un seul Core Banking.
+
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS enforce configurable Sharia compliance rules.
+NEVER calculate interest for Islamic financial products.
+ALWAYS preserve complete audit trails.
+ALWAYS separate Sharia policies from business implementation.
+ALWAYS support institution-specific configuration.
+ALWAYS integrate Islamic products with the Ledger.
+ALWAYS maintain immutable contract history.
+ALWAYS support configurable Zakat calculations.
+ALWAYS require governance workflows where configured.
+ALWAYS follow Enterprise Islamic Banking Standards.
+27. SUCCESS CRITERIA
+
+Le framework de finance islamique est conforme lorsque :
+
+les produits sont gérés par des workflows dédiés ;
+les règles de conformité sont configurables et appliquées automatiquement ;
+toutes les décisions sont auditables ;
+les calculs et rapports requis sont disponibles ;
+la gouvernance du Sharia Board est intégrée à la plateforme.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Sharia Compliance Assistant
+Automated Contract Validation
+Global Islamic Finance Marketplace
+Digital Sukuk Platform
+Smart Islamic Contract Templates
+Cross-Border Islamic Banking Network
+AI Regulatory Monitoring for Islamic Finance
+Islamic Embedded Finance APIs

@@ -1,0 +1,380 @@
+72_Compliance_Regulatory_Framework.md
+(V3 — Enterprise Compliance, Regulatory & Governance Framework)
+1. OBJECTIF
+
+Ce document définit le framework de conformité réglementaire obligatoire pour Amanah.
+
+Il couvre :
+
+KYC (Know Your Customer) ;
+AML (Anti Money Laundering) ;
+sanctions screening ;
+protection des données ;
+reporting réglementaire ;
+audit ;
+gouvernance ;
+gestion des risques.
+2. CORE PRINCIPLES
+2.1 Compliance by Design
+Regulatory requirements must be built into the platform architecture.
+
+La conformité n'est pas un contrôle ajouté après développement.
+
+2.2 Risk-Based Approach
+Controls must adapt to customer and transaction risk.
+
+Tous les clients et transactions ne présentent pas le même niveau de risque.
+
+2.3 Complete Auditability
+Every critical action must be traceable.
+3. COMPLIANCE ARCHITECTURE
+
+Customer
+
+↓
+
+Identity Verification
+
+↓
+
+Risk Assessment
+
+↓
+
+KYC Engine
+
+↓
+
+AML Monitoring
+
+↓
+
+Transaction Screening
+
+↓
+
+Regulatory Reporting
+
+4. KYC FRAMEWORK
+Objectif
+
+Vérifier l'identité des utilisateurs avant accès aux services financiers.
+
+5. CUSTOMER IDENTIFICATION
+
+Informations possibles :
+
+identité ;
+date de naissance ;
+adresse ;
+documents officiels ;
+justificatifs ;
+informations entreprise.
+6. IDENTITY VERIFICATION
+
+Support :
+
+document verification ;
+biométrie ;
+selfie verification ;
+validation adresse ;
+vérification gouvernementale.
+7. KYC LEVELS
+
+Amanah utilise des niveaux.
+
+Level 0
+
+Utilisateur non vérifié.
+
+Accès limité.
+
+Level 1
+
+Identité basique vérifiée.
+
+Level 2
+
+KYC complet.
+
+Accès aux services financiers principaux.
+
+Level 3
+
+Client premium / entreprise.
+
+Contrôles renforcés.
+
+8. CUSTOMER RISK SCORE
+
+Chaque client possède un score de risque.
+
+Facteurs :
+
+pays ;
+activité ;
+historique ;
+transactions ;
+comportement.
+
+Exemple :
+
+{
+"customer":"123",
+"risk":"MEDIUM",
+"score":45
+}
+9. AML FRAMEWORK
+
+Anti Money Laundering.
+
+Objectif :
+
+Détecter :
+
+blanchiment ;
+financement illégal ;
+fraude financière.
+10. TRANSACTION MONITORING
+
+Surveillance :
+
+montant ;
+fréquence ;
+destination ;
+comportement inhabituel.
+
+Exemple :
+
+Normal :
+
+5 transactions mensuelles
+
+Anormal :
+
+500 transactions internationales en 1 heure
+11. AML RULE ENGINE
+
+Support :
+
+règles configurables ;
+scoring automatique ;
+investigations ;
+alertes.
+
+Exemple :
+
+
+IF
+
+Amount > Threshold
+
+AND
+
+High Risk Country
+
+THEN
+
+Create AML Alert
+
+12. SANCTIONS SCREENING
+
+Vérification contre :
+
+listes internationales ;
+personnes politiquement exposées ;
+organisations interdites.
+
+Sources possibles :
+
+OFAC ;
+UN ;
+EU sanctions ;
+listes nationales.
+13. PEP MANAGEMENT
+
+Politically Exposed Persons.
+
+Détection :
+
+responsables publics ;
+familles proches ;
+associés.
+
+Contrôles renforcés :
+
+validation supplémentaire ;
+surveillance continue.
+14. FRAUD & COMPLIANCE INTEGRATION
+
+Architecture :
+
+
+Transaction
+
+↓
+
+Fraud Engine
+
+↓
+
+AML Engine
+
+↓
+
+Decision
+
+↓
+
+Approve / Review / Block
+
+15. REGULATORY REPORTING
+
+Amanah doit pouvoir produire :
+
+rapports AML ;
+rapports transactions ;
+rapports audit ;
+rapports autorités.
+16. AUDIT TRAIL
+
+Chaque action critique conserve :
+
+{
+"user":"admin",
+"action":"APPROVE_PAYMENT",
+"time":"2026-01-01",
+"traceId":"uuid"
+}
+17. DATA PROTECTION
+
+Conformité :
+
+GDPR ;
+lois locales ;
+privacy regulations.
+
+Principes :
+
+minimisation des données ;
+droit d'accès ;
+droit de suppression lorsque applicable ;
+consentement.
+18. DATA CLASSIFICATION
+
+Catégories :
+
+Niveau	Exemple
+Public	Informations générales
+Internal	Données opérationnelles
+Confidential	Données clients
+Restricted	Données financières critiques
+19. PCI DSS
+
+Pour les cartes :
+
+Obligatoire :
+
+protection données carte ;
+segmentation réseau ;
+contrôle accès ;
+monitoring.
+20. REGULATORY CHANGE MANAGEMENT
+
+Les changements réglementaires sont suivis.
+
+Processus :
+
+
+New Regulation
+
+↓
+
+Impact Analysis
+
+↓
+
+Implementation
+
+↓
+
+Testing
+
+↓
+
+Deployment
+
+21. COMPLIANCE GOVERNANCE
+
+Équipe :
+
+Chief Compliance Officer ;
+Risk Team ;
+Security Team ;
+Legal Team ;
+Engineering.
+22. COMPLIANCE DASHBOARD
+
+Surveillance :
+
+KYC completion rate ;
+AML alerts ;
+investigations ;
+sanctions hits ;
+regulatory deadlines.
+23. AUDIT MANAGEMENT
+
+Support :
+
+audits internes ;
+audits externes ;
+inspections régulateurs.
+
+Chaque contrôle possède :
+
+preuve ;
+responsable ;
+date ;
+résultat.
+24. COMPLIANCE AUTOMATION
+
+Automatisation :
+
+collecte preuves ;
+génération rapports ;
+contrôle règles ;
+surveillance continue.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS consider regulatory impact.
+NEVER bypass compliance controls.
+ALWAYS preserve audit trails.
+NEVER remove KYC/AML validations.
+ALWAYS protect customer data.
+ALWAYS implement regulatory logging.
+ALWAYS separate compliance logic from business logic.
+ALWAYS support configurable rules.
+ALWAYS document compliance-related changes.
+ALWAYS follow Enterprise Compliance Standards.
+26. SUCCESS CRITERIA
+
+Le framework conformité est respecté lorsque :
+
+chaque client est correctement identifié ;
+les transactions sont surveillées ;
+les risques sont détectés automatiquement ;
+les audits peuvent être réalisés rapidement ;
+les obligations réglementaires sont respectées.
+27. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Compliance Monitoring
+Automated Regulatory Intelligence
+Real-Time Global Sanctions Updates
+AI AML Investigation Assistant
+Continuous Compliance Monitoring
+Regulatory Reporting Automation
+Privacy-Preserving Compliance Analytics

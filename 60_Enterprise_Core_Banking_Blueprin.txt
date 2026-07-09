@@ -1,0 +1,381 @@
+60_Enterprise_Core_Banking_Blueprint.md (V3 — Enterprise Core Banking Blueprint)
+1. PURPOSE
+
+Le Enterprise Core Banking Blueprint définit l'architecture globale d'Amanah.
+
+Il constitue la référence unique décrivant :
+
+la vision du Core Banking ;
+les principes d'architecture ;
+les composants ;
+les interactions ;
+les standards ;
+les exigences de sécurité ;
+les exigences réglementaires ;
+les exigences de performance ;
+la feuille de route.
+
+Toute évolution du système doit respecter ce document.
+
+2. VISION
+
+Amanah est une plateforme Core Banking Cloud Native, AI-Native, API-First, Event-Driven, Multi-Tenant, conçue pour servir :
+
+banques commerciales
+banques islamiques
+institutions de microfinance
+opérateurs Mobile Money
+fintechs
+gouvernements
+grandes entreprises
+
+sur une infrastructure mondiale hautement disponible.
+
+3. ARCHITECTURAL PRINCIPLES
+
+Les principes fondamentaux sont :
+
+Domain-Driven Design (DDD)
+Clean Architecture
+Hexagonal Architecture
+Event-Driven Architecture
+CQRS
+Event Sourcing (là où pertinent)
+API First
+Security by Design
+Zero Trust
+Cloud Native
+Configuration over Code
+Immutable Infrastructure
+Compliance by Design
+AI by Design
+Observability by Default
+4. HIGH-LEVEL ARCHITECTURE
+                        Channels
+          ┌────────────────────────────────┐
+          │ Web │ Mobile │ API │ Partners │
+          └────────────────────────────────┘
+                        │
+                        ▼
+                  API Gateway
+                        │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+ Authentication    Workflow Engine   AI Gateway
+        │               │                │
+        ▼               ▼                ▼
+  Business Services  Rule Engine   Policy Engine
+        │               │                │
+        └───────────────┼────────────────┘
+                        ▼
+                 Core Banking Domain
+                        │
+ ┌────────────────────────────────────────────────────┐
+ │ Ledger │ Payments │ Treasury │ Cards │ FX │ Loans │
+ └────────────────────────────────────────────────────┘
+                        │
+                        ▼
+       Compliance • Audit • Notifications
+                        │
+                        ▼
+       Integration Platform • External Networks
+                        │
+                        ▼
+     Data Platform • Analytics • AI • Reporting
+5. CORE DOMAINS
+
+Les domaines métiers principaux sont :
+
+Customer Management
+Identity & Access
+Accounts
+Ledger
+Payments
+Cards
+Treasury
+FX
+Loans
+Savings
+Compliance
+Fraud
+Risk
+Accounting
+Reporting
+AI Services
+
+Chaque domaine est indépendant.
+
+6. CROSS-CUTTING PLATFORMS
+
+Les plateformes transverses comprennent :
+
+Workflow Engine
+Rule Engine
+Policy Engine
+AI Platform
+Notification Platform
+Audit Platform
+Monitoring Platform
+Data Governance Platform
+Integration Platform
+Identity Platform
+
+Tous les domaines utilisent ces plateformes communes.
+
+7. DATA FLOW
+
+Cycle de vie d'une transaction :
+
+Client
+
+↓
+
+Authentication
+
+↓
+
+Policy Evaluation
+
+↓
+
+Business Validation
+
+↓
+
+Workflow Engine
+
+↓
+
+Rule Engine
+
+↓
+
+Compliance Checks
+
+↓
+
+Risk Assessment
+
+↓
+
+Ledger Posting
+
+↓
+
+Settlement
+
+↓
+
+Notification
+
+↓
+
+Audit
+
+↓
+
+Analytics
+
+Chaque étape est traçable.
+
+8. SECURITY MODEL
+
+Amanah applique :
+
+Zero Trust
+RBAC
+ABAC
+MFA
+OAuth2
+OpenID Connect
+TLS 1.3
+AES-256
+HSM
+Secret Management
+Audit Logging
+
+Toutes les communications sont sécurisées.
+
+9. OBSERVABILITY
+
+Tous les composants produisent :
+
+logs
+métriques
+traces distribuées
+événements métier
+audits
+
+Chaque opération possède un Trace ID unique.
+
+10. SCALABILITY
+
+La plateforme est conçue pour supporter :
+
+plusieurs millions d'utilisateurs
+plusieurs milliers de tenants
+plusieurs milliards de transactions
+montée en charge horizontale
+déploiement multi-régions
+11. RESILIENCE
+
+Le système garantit :
+
+haute disponibilité
+réplication
+failover automatique
+reprise après sinistre
+sauvegardes continues
+continuité d'activité
+
+Les services critiques restent disponibles même en cas de panne majeure.
+
+12. COMPLIANCE
+
+Conformité intégrée :
+
+AML
+KYC
+KYB
+FATCA
+CRS
+Travel Rule
+PCI DSS
+ISO 27001
+ISO 22301
+SOC 2
+GDPR
+DORA
+PSD2
+Open Banking
+13. AI STRATEGY
+
+L'intelligence artificielle est intégrée via :
+
+AI Gateway
+LLM Router
+AI Agents
+RAG
+MCP
+AI Governance
+Prompt Management
+Model Registry
+
+Aucune décision bancaire critique n'est entièrement automatisée par l'IA.
+
+14. ENTERPRISE INTEGRATIONS
+
+Connecteurs natifs :
+
+SWIFT
+SEPA
+ACH
+Fedwire
+Visa
+Mastercard
+Mobile Money
+Modern Treasury
+ERP
+CRM
+Banques centrales
+Open Banking
+ISO 20022
+
+Tous les connecteurs sont remplaçables sans modifier le code métier.
+
+15. DEVELOPMENT STANDARDS
+
+Tous les développements respectent :
+
+Clean Code
+SOLID
+Test-Driven Development
+API Versioning
+Semantic Versioning
+Infrastructure as Code
+CI/CD
+Feature Flags
+Code Reviews obligatoires
+16. QUALITY ATTRIBUTES
+
+Objectifs principaux :
+
+disponibilité : 99.99 %
+faible latence
+haute sécurité
+observabilité complète
+évolutivité horizontale
+maintenabilité
+extensibilité
+conformité réglementaire
+17. GOVERNANCE
+
+La gouvernance repose sur :
+
+Architecture Review Board
+Change Management
+Release Management
+Risk Management
+Security Committee
+Compliance Committee
+AI Governance Board
+
+Toutes les évolutions majeures sont validées avant mise en production.
+
+18. REFERENCE DOCUMENTS
+
+Cette architecture repose sur les documents suivants :
+
+00_Project_Vision.md
+01 à 60 Architecture Documents
+API Specifications
+Security Standards
+Compliance Standards
+UX Design System
+Coding Standards
+Infrastructure Standards
+Testing Standards
+Deployment Standards
+19. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS comply with this Enterprise Core Banking Blueprint.
+NEVER introduce architectural inconsistencies.
+ALWAYS preserve domain boundaries.
+ALWAYS use shared enterprise platforms instead of duplicating functionality.
+ALWAYS enforce security, compliance and audit requirements.
+NEVER bypass the Ledger, Workflow, Rule Engine or Policy Engine.
+ALWAYS design new features as modular, reusable services.
+ALWAYS maintain backward compatibility unless a documented migration exists.
+ALWAYS document architectural decisions (ADR) for significant changes.
+ALWAYS prioritize maintainability, resilience and regulatory compliance over short-term implementation speed.
+20. SUCCESS CRITERIA
+
+L'Enterprise Core Banking Blueprint est considéré comme complet lorsque :
+
+tous les composants de la plateforme sont définis et leurs interactions documentées ;
+les principes architecturaux sont appliqués de manière cohérente dans tous les domaines ;
+la sécurité, la conformité, la résilience et l'observabilité sont intégrées par conception ;
+la plateforme est capable d'évoluer sans remise en cause de son architecture ;
+ce document sert de référence unique pour les architectes, développeurs, intégrateurs et auditeurs.
+21. EVOLUTION ROADMAP
+V3
+Core Banking Enterprise
+AI Platform
+Multi-Tenant
+Compliance Platform
+Enterprise Integrations
+V4
+Autonomous AI Agents supervisés
+CBDC & Tokenized Assets
+Enterprise Knowledge Graph
+Cross-Border Settlement Orchestration
+Open Finance
+V5
+Global Banking Operating System
+AI-assisted autonomous operations
+Multi-cloud active-active worldwide
+Embedded Finance Marketplace
+Regulatory-as-Code
+Real-time digital financial ecosystem

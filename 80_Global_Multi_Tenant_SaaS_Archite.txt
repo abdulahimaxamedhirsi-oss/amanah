@@ -1,0 +1,410 @@
+80_Global_Multi_Tenant_SaaS_Architecture.md
+(V3 — Enterprise Global Multi-Tenant SaaS Banking Platform Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture SaaS multi-tenant d'Amanah.
+
+Il couvre :
+
+Multi-Tenant ;
+White Label ;
+Data Isolation ;
+Regional Deployment ;
+Sovereign Cloud ;
+Tenant Provisioning ;
+Feature Management ;
+Licensing ;
+Billing ;
+Global Operations.
+
+L'objectif est de permettre à Amanah d'opérer comme une plateforme bancaire mondiale pouvant servir plusieurs institutions simultanément.
+
+2. CORE PRINCIPLES
+2.1 Tenant Isolation
+Every tenant must be logically and securely isolated.
+
+Aucune banque ne peut accéder aux données d'une autre.
+
+2.2 Configuration Over Customization
+Business differences should be implemented through configuration rather than custom code.
+2.3 One Platform, Many Banks
+A single platform can securely serve multiple financial institutions.
+3. HIGH LEVEL ARCHITECTURE
+
+Global Platform
+
+        │
+
+        ▼
+
+Tenant Management
+
+        │
+
+ ┌──────┼────────┬────────┐
+
+ ▼      ▼        ▼        ▼
+
+Bank A  Bank B   Bank C   Bank D
+
+        │
+
+        ▼
+
+Shared Platform Services
+
+        │
+
+        ▼
+
+Ledger / Payments / AI / Compliance
+
+4. TENANT MODEL
+
+Chaque tenant représente une organisation indépendante.
+
+Exemples :
+
+Banque
+Banque Islamique
+Fintech
+Néobanque
+Institution de Microfinance
+Corporate Treasury
+5. TENANT IDENTIFIER
+
+Chaque requête contient :
+
+
+Tenant ID
+
+Environment
+
+Region
+
+Organization ID
+
+
+Toutes les opérations sont exécutées dans ce contexte.
+
+6. TENANT ISOLATION LEVELS
+
+Support :
+
+Shared Infrastructure
+
+Infrastructure commune.
+
+Dedicated Database
+
+Base dédiée par banque.
+
+Dedicated Cluster
+
+Cluster Kubernetes dédié.
+
+Dedicated Region
+
+Région cloud dédiée.
+
+Le niveau est configurable selon les exigences réglementaires.
+
+7. DATA ISOLATION
+
+Toutes les données sont filtrées par :
+
+
+Tenant ID
+
+↓
+
+Authorization
+
+↓
+
+Database Query
+
+↓
+
+Result
+
+
+Une requête sans contexte de tenant est automatiquement rejetée.
+
+8. TENANT PROVISIONING
+
+Création automatique :
+
+
+Create Tenant
+
+↓
+
+Allocate Resources
+
+↓
+
+Provision Database
+
+↓
+
+Provision Identity
+
+↓
+
+Deploy Configuration
+
+↓
+
+Activate
+
+9. CONFIGURATION ENGINE
+
+Chaque banque peut configurer :
+
+logo ;
+couleurs ;
+domaine ;
+langues ;
+devises ;
+produits ;
+workflows ;
+limites ;
+règles métier.
+
+Sans modifier le code source.
+
+10. WHITE LABEL
+
+Chaque institution peut personnaliser :
+
+Mobile App ;
+Web Banking ;
+Portail Administrateur ;
+Emails ;
+Notifications ;
+Documents PDF.
+11. FEATURE FLAGS
+
+Chaque fonctionnalité est activable :
+
+Exemple :
+
+
+Islamic Banking
+
+ON
+
+AI Banking
+
+OFF
+
+Cards
+
+ON
+
+Crypto
+
+OFF
+
+12. MODULE CATALOG
+
+Modules disponibles :
+
+Core Banking
+Payments
+Cards
+Wallet
+Islamic Banking
+Lending
+Treasury
+CRM
+AI Assistant
+Compliance
+Risk
+Analytics
+
+Chaque banque active uniquement les modules souscrits.
+
+13. REGIONAL DEPLOYMENT
+
+Déploiement possible :
+
+Europe
+Middle East
+North America
+Asia
+Africa
+Local Sovereign Cloud
+
+Chaque région respecte ses contraintes réglementaires.
+
+14. DATA SOVEREIGNTY
+
+Les données peuvent être limitées à :
+
+un pays ;
+une région ;
+un cloud souverain.
+
+Le moteur applique les politiques de résidence des données.
+
+15. IDENTITY MANAGEMENT
+
+Chaque tenant possède :
+
+utilisateurs ;
+rôles ;
+permissions ;
+politiques MFA ;
+fournisseurs SSO.
+
+Les identités sont isolées entre tenants.
+
+16. LICENSING ENGINE
+
+Licences possibles :
+
+Community
+Professional
+Enterprise
+Government
+Islamic Banking Edition
+
+Le moteur vérifie les fonctionnalités autorisées.
+
+17. BILLING ENGINE
+
+Facturation configurable :
+
+par utilisateur ;
+par compte ;
+par transaction ;
+par API ;
+par module ;
+par consommation IA.
+18. RESOURCE MANAGEMENT
+
+Chaque tenant possède des quotas :
+
+stockage ;
+CPU ;
+mémoire ;
+appels API ;
+espace documentaire ;
+utilisation IA.
+19. TENANT OBSERVABILITY
+
+Surveillance par tenant :
+
+disponibilité ;
+performances ;
+erreurs ;
+consommation ;
+coûts.
+
+Les métriques sont isolées.
+
+20. TENANT BACKUP
+
+Chaque banque possède :
+
+sauvegardes indépendantes ;
+politiques de rétention ;
+restauration sélective.
+21. TENANT SECURITY
+
+Protection :
+
+chiffrement dédié ;
+clés KMS ;
+secrets isolés ;
+politiques Zero Trust ;
+audit indépendant.
+22. TENANT LIFECYCLE
+
+Cycle :
+
+
+Provisioning
+
+↓
+
+Active
+
+↓
+
+Suspended
+
+↓
+
+Maintenance
+
+↓
+
+Archived
+
+↓
+
+Deleted (according to retention policies)
+
+23. PLATFORM OPERATIONS
+
+Le Platform Operations Center supervise :
+
+santé globale ;
+incidents ;
+consommation cloud ;
+mises à jour ;
+sécurité.
+
+Les équipes ne peuvent accéder aux données clients qu'au travers de procédures d'accès contrôlées et auditées.
+
+24. COMPLIANCE
+
+Compatible avec :
+
+ISO 27001
+SOC 2
+GDPR
+PCI DSS
+DORA
+NIST
+exigences locales de souveraineté des données
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS preserve tenant isolation.
+NEVER execute queries without tenant context.
+ALWAYS implement configuration before customization.
+ALWAYS support white-label branding.
+ALWAYS isolate identities between tenants.
+ALWAYS enforce feature flags.
+ALWAYS support regional deployment.
+ALWAYS respect data sovereignty rules.
+ALWAYS audit tenant administration actions.
+ALWAYS follow Enterprise Multi-Tenant SaaS Standards.
+26. SUCCESS CRITERIA
+
+L'architecture SaaS est conforme lorsque :
+
+plusieurs banques peuvent utiliser la même plateforme sans partage de données ;
+chaque tenant est entièrement configurable ;
+les exigences de résidence des données sont respectées ;
+les ressources et coûts sont isolés ;
+la plateforme peut évoluer horizontalement vers des centaines d'institutions.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Global Banking Marketplace
+Self-Service Tenant Provisioning
+AI Tenant Optimization
+Cross-Tenant Analytics (anonymisées et agrégées)
+Sovereign AI per Tenant
+Marketplace de modules partenaires
+Multi-Cloud Tenant Mobility
+Autonomous Platform Operations (AIOps)
+Banking-as-a-Service Marketplace
+No-Code Banking Product Studio

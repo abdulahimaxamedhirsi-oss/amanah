@@ -1,0 +1,380 @@
+71_Disaster_Recovery_Business_Continuity.md
+(V3 — Enterprise Disaster Recovery & Business Continuity Framework)
+1. OBJECTIF
+
+Ce document définit les standards de continuité d'activité et de reprise après sinistre pour Amanah.
+
+Il garantit :
+
+disponibilité permanente des services financiers ;
+protection des données ;
+récupération rapide après incident ;
+continuité des opérations critiques ;
+conformité réglementaire.
+2. CORE PRINCIPLES
+2.1 Banking Never Stops
+Critical financial services must remain available.
+
+Les fonctions essentielles doivent continuer même en situation de crise.
+
+2.2 Resilience By Design
+Failures are expected and prepared for.
+
+Une panne n'est pas une exception : elle fait partie de la conception.
+
+2.3 Recovery Is Tested
+An untested recovery plan is not a recovery plan.
+
+Toutes les procédures doivent être testées régulièrement.
+
+3. BUSINESS CONTINUITY ARCHITECTURE
+
+Primary Region
+
+        │
+
+        │ Replication
+
+        ▼
+
+Secondary Region
+
+        │
+
+        ▼
+
+Disaster Recovery Environment
+
+        │
+
+        ▼
+
+Backup Storage
+
+4. CRITICAL SERVICE CLASSIFICATION
+
+Les services sont classés par criticité.
+
+Tier 0 — Financial Core
+
+Critique absolu :
+
+Ledger
+Account Balance
+Payment Processing
+Transaction Engine
+
+Objectif :
+
+Disponibilité maximale.
+
+Tier 1 — Customer Services
+
+Exemples :
+
+Mobile Banking
+Web Banking
+Customer Profile
+Tier 2 — Supporting Services
+
+Exemples :
+
+Reporting
+Analytics
+Internal Tools
+5. RTO / RPO STANDARDS
+RTO
+
+Recovery Time Objective.
+
+Temps maximum acceptable pour restaurer un service.
+
+RPO
+
+Recovery Point Objective.
+
+Quantité maximale de données pouvant être perdue.
+
+Standards Amanah :
+
+Service	RTO	RPO
+Ledger	minutes	proche de zéro
+Payments	minutes	quasi zéro
+Customer Platform	heures	faible
+Analytics	jours	acceptable
+6. HIGH AVAILABILITY DESIGN
+
+Chaque service critique possède :
+
+plusieurs instances ;
+plusieurs zones ;
+health checks ;
+failover automatique.
+
+Architecture :
+
+
+Service Instance A
+
+        +
+
+Service Instance B
+
+        +
+
+Service Instance C
+
+7. MULTI-REGION STRATEGY
+
+Amanah supporte :
+
+Active-Passive
+
+Une région principale.
+
+Une région secours prête.
+
+Active-Active
+
+Deux régions fonctionnent simultanément.
+
+Utilisé pour :
+
+grandes plateformes internationales ;
+faible latence mondiale.
+8. DATABASE DISASTER RECOVERY
+
+Les bases critiques utilisent :
+
+réplication ;
+snapshots ;
+backups chiffrés ;
+restauration point-in-time.
+9. LEDGER RECOVERY STRATEGY
+
+Le Ledger possède des protections supplémentaires :
+
+réplication temps réel ;
+journal immuable ;
+validation d'équilibre ;
+reconstruction possible depuis les événements.
+10. BACKUP POLICY
+
+Types :
+
+Full Backup
+
+Sauvegarde complète.
+
+Incremental Backup
+
+Changements uniquement.
+
+Continuous Backup
+
+Pour données critiques.
+
+Les backups sont :
+
+chiffrés ;
+testés ;
+géographiquement séparés.
+11. DISASTER SCENARIOS
+
+Amanah teste :
+
+Cloud Provider Failure
+
+Exemple :
+
+Indisponibilité complète d'une région.
+
+Réponse :
+
+Migration automatique vers région secondaire.
+
+Database Failure
+
+Réponse :
+
+Failover base secondaire.
+
+Cyber Attack
+
+Réponse :
+
+isolation ;
+analyse ;
+restauration propre.
+Data Corruption
+
+Réponse :
+
+rollback ;
+restauration ;
+validation intégrité.
+Human Error
+
+Réponse :
+
+audit ;
+récupération version précédente.
+12. CYBER RECOVERY PLAN
+
+En cas d'attaque :
+
+Étapes :
+
+
+Detect
+
+↓
+
+Contain
+
+↓
+
+Investigate
+
+↓
+
+Recover
+
+↓
+
+Validate
+
+↓
+
+Resume Operations
+
+13. INCIDENT COMMAND STRUCTURE
+
+Pendant une crise :
+
+Incident Commander
+
+Responsable global.
+
+Technical Lead
+
+Responsable restauration système.
+
+Security Lead
+
+Responsable cyber.
+
+Business Lead
+
+Responsable impact client.
+
+Compliance Lead
+
+Responsable réglementaire.
+
+14. COMMUNICATION PLAN
+
+Pendant un incident :
+
+Communication vers :
+
+équipes internes ;
+partenaires ;
+régulateurs ;
+clients.
+15. BACKUP RESTORE TESTING
+
+Obligatoire :
+
+tests réguliers ;
+simulation réelle ;
+validation métier.
+16. DISASTER RECOVERY DRILLS
+
+Exercices :
+
+panne région cloud ;
+perte database ;
+attaque ransomware ;
+surcharge massive.
+17. BUSINESS CONTINUITY PLAN
+
+Inclut :
+
+personnel critique ;
+fournisseurs ;
+partenaires ;
+opérations manuelles temporaires.
+18. OPERATIONAL RUNBOOKS
+
+Chaque incident possède un guide :
+
+Exemple :
+
+
+Payment Service Down
+
+1. Detect
+
+2. Validate
+
+3. Failover
+
+4. Recover
+
+5. Verify Transactions
+
+19. COMPLIANCE REQUIREMENTS
+
+Aligné avec :
+
+ISO 22301 Business Continuity
+ISO 27001
+SOC 2
+PCI DSS
+DORA Operational Resilience
+NIST
+20. MONITORING RECOVERY
+
+Pendant une récupération :
+
+Surveiller :
+
+transactions ;
+erreurs ;
+synchronisation ;
+intégrité données ;
+performances.
+21. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS consider disaster recovery impact.
+NEVER create single points of failure.
+ALWAYS design recoverable systems.
+ALWAYS protect financial data during recovery.
+NEVER bypass backup requirements.
+ALWAYS document failure scenarios.
+ALWAYS create operational runbooks.
+ALWAYS test recovery procedures.
+ALWAYS preserve transaction integrity.
+ALWAYS follow Enterprise Disaster Recovery Standards.
+22. SUCCESS CRITERIA
+
+Le plan Disaster Recovery est conforme lorsque :
+
+les services critiques peuvent être restaurés rapidement ;
+les données financières restent cohérentes ;
+les procédures de crise sont documentées ;
+les équipes savent intervenir ;
+les tests de récupération sont réalisés régulièrement.
+23. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Disaster Prediction
+Autonomous Failover
+Global Active-Active Banking Mesh
+Automated Recovery Testing
+Digital Twin Disaster Simulation
+Self-Healing Financial Infrastructure

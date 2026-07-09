@@ -1,0 +1,445 @@
+62_Enterprise_Security_Standards.md (V3 — Enterprise Security Standards)
+1. OBJECTIF
+
+Ce document définit les standards de sécurité obligatoires pour l'ensemble de la plateforme Amanah.
+
+Il couvre :
+
+l'authentification ;
+
+l'autorisation ;
+
+le chiffrement ;
+
+la gestion des secrets ;
+
+la sécurité API ;
+
+la sécurité des données ;
+
+la sécurité cloud ;
+
+la sécurité IA ;
+
+la réponse aux incidents.
+
+Tous les composants Amanah doivent respecter ce standard.
+
+2. CORE PRINCIPLES
+Security by Design
+Mandatory
+
+La sécurité est intégrée dès la conception.
+
+Elle n'est jamais ajoutée après coup.
+
+Zero Trust
+Always Verify
+
+Never trust. Always verify.
+
+Least Privilege
+Minimum Access
+
+Every user, service and AI agent receives only the minimum required access.
+
+3. IDENTITY & AUTHENTICATION
+
+Standards obligatoires :
+
+OAuth2 + OpenID Connect
+
+MFA obligatoire pour les opérations sensibles
+
+WebAuthn / Passkeys supportés
+
+Sessions courtes et renouvelables
+
+Détection d'anomalies de connexion
+
+Exigence critique
+Obligatoire
+
+Aucun accès administrateur sans MFA.
+
+4. AUTHORIZATION
+
+Le système combine :
+
+RBAC
+
+Role-Based Access Control
+
+Rôles, groupes, héritage et permissions standardisées.
+
+Exemple : Admin → Manager → Operator → Viewer
+
+ABAC
+
+Attribute-Based Access Control
+
+Décisions basées sur l'utilisateur, la ressource, le pays, l'heure, le risque et le tenant.
+
+Exemple : accès autorisé uniquement depuis le pays de résidence
+
+5. ENCRYPTION
+
+Contexte
+
+	
+
+Standard
+
+
+
+
+Données au repos
+
+	
+
+AES-256
+
+
+
+
+Données en transit
+
+	
+
+TLS 1.3
+
+
+
+
+Clés critiques
+
+	
+
+HSM / KMS
+
+
+
+
+Secrets applicatifs
+
+	
+
+Vault / Secrets Manager
+
+Interdiction absolue
+
+Aucune clé API ou mot de passe dans le code source.
+
+6. API SECURITY
+
+Toutes les API doivent :
+
+passer par l'API Gateway ;
+
+être authentifiées ;
+
+être autorisées ;
+
+être rate-limit ;
+
+être journalisées ;
+
+supporter la rotation des clés ;
+
+valider toutes les entrées.
+
+7. SECRET MANAGEMENT
+
+Les secrets sont :
+
+stockés dans un gestionnaire dédié ;
+
+chiffrés ;
+
+rotés automatiquement ;
+
+auditables ;
+
+isolés par tenant et environnement.
+
+8. NETWORK SECURITY
+
+Architecture :
+
+Règles :
+
+aucune base de données exposée publiquement ;
+
+mTLS entre services ;
+
+Network Policies Kubernetes ;
+
+segmentation par environnement.
+
+9. DATA PROTECTION
+
+Données sensibles :
+
+Donnée
+
+	
+
+Protection
+
+
+
+
+PIN
+
+	
+
+Jamais stocké en clair
+
+
+
+
+CVV
+
+	
+
+Jamais conservé
+
+
+
+
+Mot de passe
+
+	
+
+Argon2id / bcrypt
+
+
+
+
+PII
+
+	
+
+Chiffrement + masquage
+
+
+
+
+Documents KYC
+
+	
+
+Stockage chiffré isolé
+
+10. APPLICATION SECURITY
+
+Protection obligatoire contre :
+
+Injection SQL
+
+XSS
+
+CSRF
+
+SSRF
+
+RCE
+
+Path Traversal
+
+Broken Authentication
+
+Broken Access Control
+
+Insecure Deserialization
+
+Référence : OWASP Top 10.
+
+11. AI SECURITY
+
+L'IA doit :
+
+passer par l'AI Gateway ;
+
+masquer les données sensibles ;
+
+journaliser tous les prompts ;
+
+appliquer des guardrails ;
+
+interdire les actions critiques sans validation humaine.
+
+12. AUDIT LOGGING
+
+Chaque événement de sécurité journalise :
+
+Les journaux sont immutables.
+
+13. INCIDENT RESPONSE
+
+Niveaux de sévérité :
+
+Niveau
+
+	
+
+Exemple
+
+
+
+
+P1
+
+	
+
+Compromission critique
+
+
+
+
+P2
+
+	
+
+Fuite potentielle de données
+
+
+
+
+P3
+
+	
+
+Service dégradé
+
+
+
+
+P4
+
+	
+
+Incident mineur
+
+Temps de réponse P1 : < 15 minutes.
+
+14. SECURITY TESTING
+
+Obligatoire avant production :
+
+SAST (analyse statique)
+
+DAST (analyse dynamique)
+
+Scan dépendances
+
+Scan conteneurs
+
+Secrets scanning
+
+Penetration testing
+
+Threat modeling
+
+15. COMPLIANCE
+
+Le standard est aligné sur :
+
+ISO 27001
+
+PCI DSS
+
+SOC 2
+
+GDPR
+
+DORA
+
+OWASP ASVS
+
+NIST Cybersecurity Framework
+
+16. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS enforce Zero Trust authentication.
+
+NEVER store secrets in source code.
+
+ALWAYS encrypt sensitive data.
+
+NEVER bypass RBAC or ABAC checks.
+
+ALWAYS validate all external input.
+
+ALWAYS log security-relevant events.
+
+NEVER expose internal errors to users.
+
+ALWAYS rotate credentials and tokens.
+
+ALWAYS require MFA for privileged access.
+
+ALWAYS follow these Enterprise Security Standards.
+
+17. SUCCESS CRITERIA
+
+Le standard est respecté lorsque :
+
+toutes les communications sont chiffrées ;
+
+aucun secret n'est présent dans le code ;
+
+RBAC et ABAC sont appliqués partout ;
+
+les audits sont complets et immuables ;
+
+les contrôles OWASP, PCI DSS et ISO 27001 sont satisfaits ;
+
+les incidents de sécurité peuvent être détectés, investigués et traités rapidement.
+
+18. FUTURE EXTENSIONS
+
+Confidential Computing (TEE)
+
+Post-Quantum Cryptography
+
+Continuous Threat Exposure Management (CTEM)
+
+AI-Powered SOC
+
+Behavioral Biometrics
+
+Passwordless Enterprise Access
+
+Hardware-backed Transaction Signing
+
+✅ END OF 62_Enterprise_Security_Standards.md
+NEXT STEP
+Chapter 63
+📖 63_API_Design_Standards.md
+
+Le prochain document définira toutes les règles de conception API d'Amanah :
+
+REST & GraphQL conventions ;
+
+versioning ;
+
+pagination ;
+
+idempotency ;
+
+error model ;
+
+webhooks ;
+
+OpenAPI ;
+
+SDK generation ;
+
+API governance ;
+
+backward compatibility.
+
+C'est le document qui garantira qu'une API créée aujourd'hui sera encore compatible dans 10 ans.

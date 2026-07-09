@@ -1,0 +1,497 @@
+74_Payment_Processing_Architecture.md
+(V3 — Enterprise Payment Processing & Orchestration Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture standard du moteur de paiement Amanah.
+
+Il couvre :
+
+cycle de vie des paiements ;
+orchestration ;
+routing ;
+intégrations bancaires ;
+réseaux de paiement ;
+autorisation ;
+settlement ;
+retry management ;
+fraude ;
+conformité.
+
+Le Payment Engine est responsable de transformer une intention de paiement en mouvement financier sécurisé.
+
+2. CORE PRINCIPLES
+2.1 Payment Reliability First
+Every payment must have a predictable and traceable outcome.
+
+Un paiement ne doit jamais être perdu ou ambigu.
+
+2.2 Exactly Once Financial Processing
+A payment must never be processed twice.
+2.3 Payment Orchestration
+Payment logic must be separated from payment providers.
+
+Amanah ne dépend pas d'un seul réseau.
+
+3. PAYMENT ARCHITECTURE
+
+Customer
+
+↓
+
+Payment API
+
+↓
+
+Payment Orchestrator
+
+↓
+
+Risk Engine
+
+↓
+
+Compliance Engine
+
+↓
+
+Payment Router
+
+↓
+
+External Network
+
+↓
+
+Settlement
+
+↓
+
+Ledger
+
+4. PAYMENT COMPONENTS
+Payment API Layer
+
+Responsable :
+
+réception des demandes ;
+validation ;
+authentification ;
+idempotency.
+Payment Orchestrator
+
+Responsable :
+
+workflow ;
+état paiement ;
+coordination services.
+Payment Router
+
+Responsable :
+
+choix du meilleur canal ;
+optimisation coût ;
+disponibilité.
+Settlement Engine
+
+Responsable :
+
+finalisation financière ;
+rapprochement.
+5. PAYMENT TYPES
+
+Amanah supporte :
+
+Internal Transfer
+
+Entre comptes Amanah.
+
+Exemple :
+
+Amanah Account A
+
+↓
+
+Amanah Account B
+Bank Transfer
+
+Vers banques externes.
+
+Card Payments
+débit ;
+crédit ;
+autorisation ;
+capture.
+International Payments
+
+Support :
+
+SWIFT ;
+correspondent banking ;
+cross-border.
+Instant Payments
+
+Support :
+
+RTP ;
+Faster Payments ;
+SEPA Instant.
+6. PAYMENT LIFECYCLE
+
+Chaque paiement suit :
+
+
+INITIATED
+
+↓
+
+VALIDATING
+
+↓
+
+RISK_CHECK
+
+↓
+
+COMPLIANCE_CHECK
+
+↓
+
+AUTHORIZED
+
+↓
+
+PROCESSING
+
+↓
+
+SETTLED
+
+↓
+
+COMPLETED
+
+7. PAYMENT STATES
+INITIATED
+
+Demande reçue.
+
+VALIDATING
+
+Contrôle :
+
+format ;
+compte ;
+devise ;
+montant.
+RISK_CHECK
+
+Analyse :
+
+fraude ;
+comportement ;
+limites.
+COMPLIANCE_CHECK
+
+Contrôle :
+
+AML ;
+sanctions ;
+restrictions.
+AUTHORIZED
+
+Paiement autorisé.
+
+PROCESSING
+
+Envoyé au réseau externe.
+
+SETTLED
+
+Argent transféré.
+
+COMPLETED
+
+Paiement terminé.
+
+8. PAYMENT FAILURE MANAGEMENT
+
+Un paiement peut échouer :
+
+réseau indisponible ;
+fonds insuffisants ;
+contrôle fraude ;
+erreur partenaire.
+
+Chaque échec doit avoir :
+
+{
+ "status":"FAILED",
+ "reason":"INSUFFICIENT_FUNDS",
+ "retryable":false
+}
+9. IDEMPOTENCY MANAGEMENT
+
+Chaque paiement possède :
+
+payment_id
+
++
+
+idempotency_key
+
+Exemple :
+
+Même requête envoyée deux fois :
+
+Résultat :
+
+1 Payment
+
+NOT
+
+2 Payments
+10. PAYMENT ROUTING ENGINE
+
+Le Router choisit :
+
+réseau ;
+fournisseur ;
+méthode ;
+coût ;
+vitesse.
+
+Critères :
+
+Cost
+
+Speed
+
+Availability
+
+Risk
+
+Currency
+
+Destination
+11. SMART ROUTING
+
+Exemple :
+
+Paiement EUR :
+
+Option A :
+
+SEPA Instant
+
+Option B :
+
+SWIFT
+
+Le moteur choisit selon :
+
+délai ;
+prix ;
+disponibilité.
+12. EXTERNAL PAYMENT CONNECTORS
+
+Architecture :
+
+
+Payment Engine
+
+↓
+
+Adapter Layer
+
+↓
+
+Providers
+
+
+Connecteurs possibles :
+
+banques ;
+SWIFT ;
+Visa ;
+Mastercard ;
+PSP ;
+fintech partners.
+13. CONNECTOR STANDARD
+
+Chaque connecteur possède :
+
+authentication ;
+mapping format ;
+retry policy ;
+monitoring ;
+reconciliation.
+14. RETRY MANAGEMENT
+
+Les retries sont contrôlés.
+
+Exemple :
+
+Erreur temporaire :
+
+Retry
+
+↓
+
+30 sec
+
+↓
+
+5 min
+
+↓
+
+30 min
+
+Erreur permanente :
+
+STOP
+
+↓
+
+Manual Review
+15. PAYMENT FRAUD CHECK
+
+Avant validation :
+
+Analyse :
+
+montant ;
+fréquence ;
+localisation ;
+appareil ;
+comportement.
+16. PAYMENT LIMIT ENGINE
+
+Gestion :
+
+limites journalières ;
+limites mensuelles ;
+limites pays ;
+limites clients.
+
+Exemple :
+
+Daily Transfer Limit
+
+=
+
+10,000 USD
+17. PAYMENT SECURITY
+
+Protection :
+
+MFA ;
+encryption ;
+tokenization ;
+device verification ;
+transaction signing.
+18. PAYMENT EVENTS
+
+Chaque étape produit un événement :
+
+Exemples :
+
+payment.created
+
+payment.authorized
+
+payment.failed
+
+payment.completed
+
+payment.settled
+19. PAYMENT RECONCILIATION
+
+Compare :
+
+Amanah Ledger
+
+=
+
+External Provider Statement
+
+Détecte :
+
+différences ;
+paiements manquants ;
+doublons.
+20. SETTLEMENT PROCESS
+
+Settlement peut être :
+
+Instant
+
+Finalisation immédiate.
+
+Batch
+
+Traitement groupé.
+
+Deferred
+
+Traitement ultérieur.
+
+21. PAYMENT OBSERVABILITY
+
+Surveillance :
+
+volume ;
+latence ;
+erreurs ;
+taux réussite ;
+coût réseau.
+22. HIGH AVAILABILITY
+
+Le Payment Engine utilise :
+
+plusieurs instances ;
+queues résilientes ;
+failover ;
+event replay.
+23. COMPLIANCE INTEGRATION
+
+Chaque paiement passe par :
+
+AML ;
+sanctions ;
+KYC ;
+reporting.
+24. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER process payments without idempotency.
+ALWAYS preserve payment history.
+NEVER bypass compliance checks.
+ALWAYS separate payment orchestration from providers.
+ALWAYS implement retry policies.
+ALWAYS maintain payment state transitions.
+ALWAYS integrate with Ledger correctly.
+ALWAYS support reconciliation.
+ALWAYS protect financial precision.
+ALWAYS follow Enterprise Payment Architecture Standards.
+25. SUCCESS CRITERIA
+
+Le Payment Engine Amanah est conforme lorsque :
+
+aucun paiement n'est perdu ;
+aucun paiement n'est exécuté deux fois ;
+toutes les étapes sont traçables ;
+les réseaux externes peuvent être remplacés ;
+les transactions sont correctement enregistrées dans le Ledger.
+26. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Payment Routing Optimization
+Autonomous Fraud Decisioning
+Global Instant Payment Network
+CBDC Payment Rails
+Programmable Payment Rules
+Real-Time Cross-Border Settlement
+AI Payment Failure Prediction

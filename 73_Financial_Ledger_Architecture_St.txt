@@ -1,0 +1,471 @@
+73_Financial_Ledger_Architecture_Standards.md
+(V3 — Enterprise Financial Ledger & Accounting Engine Standards)
+1. OBJECTIF
+
+Ce document définit les standards obligatoires du Ledger financier Amanah.
+
+Il couvre :
+
+architecture comptable ;
+double-entry accounting ;
+journal financier immuable ;
+cycle de vie transactionnel ;
+calcul des balances ;
+réconciliation ;
+settlement ;
+corrections financières ;
+audit ;
+haute disponibilité.
+
+Le Ledger est considéré comme le source of truth financier.
+
+2. CORE PRINCIPLES
+2.1 Money Must Never Disappear
+Every unit of money must always be accounted for.
+
+Chaque mouvement financier doit avoir une origine et une destination.
+
+2.2 Immutable Financial History
+Financial records are append-only.
+
+Une transaction validée ne peut jamais être modifiée ou supprimée.
+
+2.3 Double Entry Accounting
+Every debit has an equal credit.
+3. LEDGER ARCHITECTURE
+
+Architecture générale :
+
+
+Payment Request
+
+        │
+
+        ▼
+
+Transaction Engine
+
+        │
+
+        ▼
+
+Ledger Service
+
+        │
+
+        ▼
+
+Immutable Journal
+
+        │
+
+        ▼
+
+Balance Engine
+
+        │
+
+        ▼
+
+Reporting / Reconciliation
+
+4. LEDGER COMPONENTS
+
+Le Ledger Amanah est composé de :
+
+Transaction Engine
+
+Responsable :
+
+validation ;
+orchestration ;
+règles métier.
+Journal Engine
+
+Responsable :
+
+stockage des écritures ;
+immutabilité ;
+historique.
+Balance Engine
+
+Responsable :
+
+calcul des soldes ;
+snapshots ;
+projections.
+Reconciliation Engine
+
+Responsable :
+
+vérification ;
+rapprochement ;
+correction.
+5. DOUBLE ENTRY MODEL
+
+Chaque transaction crée au minimum deux écritures.
+
+Exemple :
+
+Client A envoie 100 USD à Client B.
+
+Débit :
+
+Account A
+
+-100 USD
+
+Crédit :
+
+Account B
+
++100 USD
+
+Validation :
+
+Total Debit = Total Credit
+6. LEDGER DATA MODEL
+
+Structure minimale :
+
+{
+ "entryId":"uuid",
+
+ "transactionId":"uuid",
+
+ "accountId":"uuid",
+
+ "direction":"DEBIT",
+
+ "amount":"100.00",
+
+ "currency":"USD",
+
+ "timestamp":"2026-01-01",
+
+ "status":"POSTED"
+}
+7. ACCOUNT MODEL
+
+Un compte possède :
+
+
+Account ID
+
+Owner
+
+Currency
+
+Status
+
+Balance
+
+Created Date
+
+8. TRANSACTION LIFECYCLE
+
+Chaque transaction suit :
+
+
+CREATED
+
+↓
+
+VALIDATED
+
+↓
+
+AUTHORIZED
+
+↓
+
+POSTED
+
+↓
+
+SETTLED
+
+↓
+
+COMPLETED
+
+9. TRANSACTION STATES
+CREATED
+
+Transaction reçue.
+
+VALIDATED
+
+Les règles métier sont vérifiées.
+
+AUTHORIZED
+
+Les contrôles :
+
+risque ;
+AML ;
+limites.
+
+sont validés.
+
+POSTED
+
+Écriture définitive dans le Ledger.
+
+SETTLED
+
+Transaction finalisée avec le système externe.
+
+10. IMMUTABILITY RULES
+
+Interdit :
+
+UPDATE ledger_entry
+
+Interdit :
+
+DELETE ledger_entry
+
+Correction :
+
+Créer une nouvelle écriture.
+
+Exemple :
+
+Original Transaction
+
+↓
+
+Reversal Transaction
+
+↓
+
+Correct Transaction
+11. REVERSAL MANAGEMENT
+
+Une annulation n'efface jamais une transaction.
+
+Elle crée :
+
+
+Original:
+
+-100 USD
+
+
+Reversal:
+
++100 USD
+
+12. BALANCE CALCULATION
+
+La balance est dérivée :
+
+
+Opening Balance
+
++
+
+Credits
+
+-
+
+Debits
+
+=
+
+Current Balance
+
+13. BALANCE SNAPSHOTS
+
+Pour performance :
+
+Le système conserve :
+
+snapshots journaliers ;
+snapshots horaires ;
+historique complet.
+14. MULTI-CURRENCY SUPPORT
+
+Le Ledger supporte :
+
+USD ;
+EUR ;
+GBP ;
+monnaies locales.
+
+Chaque écriture contient :
+
+amount
+
+currency
+
+exchange_rate
+15. EXCHANGE RATE MANAGEMENT
+
+Les taux sont :
+
+versionnés ;
+horodatés ;
+sourcés ;
+auditables.
+16. TRANSACTION IDEMPOTENCY
+
+Chaque opération possède :
+
+idempotency_key
+
+Objectif :
+
+Empêcher :
+
+Payment
+
+Payment
+
+Payment
+
+au lieu d'un seul paiement.
+
+17. LEDGER PERFORMANCE
+
+Objectifs :
+
+millions d'écritures/jour ;
+traitement temps réel ;
+faible latence.
+18. RECONCILIATION ENGINE
+
+Vérifie :
+
+Ledger interne ;
+banques partenaires ;
+réseaux paiement ;
+comptes correspondants.
+
+Exemple :
+
+Amanah Ledger
+
+=
+
+External Bank Statement
+
+19. AUDIT REQUIREMENTS
+
+Chaque écriture conserve :
+
+auteur ;
+service ;
+timestamp ;
+origine ;
+transaction source ;
+trace ID.
+20. LEDGER SECURITY
+
+Protection :
+
+chiffrement ;
+accès limité ;
+signatures ;
+audit permanent.
+21. HIGH AVAILABILITY
+
+Le Ledger utilise :
+
+réplication ;
+backups continus ;
+failover ;
+validation intégrité.
+22. EVENT SOURCING COMPATIBILITY
+
+Le Ledger peut fonctionner avec :
+
+Events
+
+↓
+
+Ledger Entries
+
+↓
+
+Balances
+
+Chaque événement financier peut être rejoué.
+
+23. EXTERNAL LEDGER INTEGRATION
+
+Amanah peut intégrer :
+
+TigerBeetle ;
+Modern Treasury ;
+FinLego ;
+systèmes bancaires partenaires.
+
+Architecture :
+
+Amanah Transaction Engine
+
+↓
+
+Ledger Adapter Layer
+
+↓
+
+External Ledger Provider
+
+24. SETTLEMENT ENGINE
+
+Responsable :
+
+compensation ;
+clearing ;
+finalisation ;
+rapprochement.
+
+Support :
+
+instant settlement ;
+batch settlement ;
+international settlement.
+25. FINANCIAL AUDIT MODE
+
+Mode spécial :
+
+lecture seule ;
+historique complet ;
+export réglementaire.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER modify posted ledger entries.
+ALWAYS use double-entry accounting.
+ALWAYS preserve transaction history.
+NEVER delete financial records.
+ALWAYS implement idempotency.
+ALWAYS validate debit/credit balance.
+ALWAYS maintain audit trails.
+ALWAYS protect monetary precision.
+ALWAYS support reconciliation.
+ALWAYS follow Enterprise Ledger Standards.
+27. SUCCESS CRITERIA
+
+Le Ledger Amanah est conforme lorsque :
+
+chaque transaction est équilibrée ;
+aucune écriture financière n'est perdue ;
+toutes les corrections sont traçables ;
+les balances sont exactes ;
+les audits peuvent reconstruire toute l'histoire financière.
+28. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+Global Distributed Ledger Mesh
+AI Ledger Anomaly Detection
+Real-Time Financial Reconciliation
+Programmable Money Rules
+CBDC Integration Layer
+Blockchain Settlement Bridges
+Quantum-Safe Financial Signatures

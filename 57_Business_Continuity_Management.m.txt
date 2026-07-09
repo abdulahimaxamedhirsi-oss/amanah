@@ -1,0 +1,310 @@
+57_Business_Continuity_Management.md (V3 — Enterprise Business Continuity & Operational Resilience)
+1. OBJECTIF DU SYSTÈME
+
+Le Business Continuity Management (BCM) garantit qu'Amanah peut continuer à fournir ses services critiques malgré une interruption majeure.
+
+Le système couvre :
+
+continuité d'activité
+reprise après sinistre
+haute disponibilité
+résilience opérationnelle
+gestion de crise
+communication d'incident
+
+L'objectif est de protéger :
+
+les clients
+les données
+les transactions
+les opérations
+la réputation de l'entreprise
+2. CORE PRINCIPLES
+2.1 Business First
+Critical banking services must remain operational under adverse conditions.
+2.2 Resilience by Design
+Every critical system must tolerate failures without service interruption.
+2.3 Continuous Recovery
+Recovery capabilities must be continuously tested and improved.
+3. BUSINESS IMPACT ANALYSIS (BIA)
+
+Chaque service est classifié selon son importance.
+
+Service	Criticité
+Ledger Engine	Critical
+Payment Engine	Critical
+Authentication	Critical
+Treasury	High
+KYC	High
+Notifications	Medium
+Analytics	Low
+4. RECOVERY OBJECTIVES
+
+Définition des objectifs :
+
+RPO (Recovery Point Objective)
+
+Perte maximale de données acceptable.
+
+Objectif :
+
+≤ 1 minute
+
+RTO (Recovery Time Objective)
+
+Temps maximal de reprise.
+
+Objectif :
+
+≤ 15 minutes
+5. HIGH AVAILABILITY
+
+Architecture :
+
+Users
+
+↓
+
+Global Load Balancer
+
+↓
+
+Region A      Region B
+
+↓
+
+Multiple Availability Zones
+
+↓
+
+Replicated Databases
+
+Chaque composant critique est redondé.
+
+6. MULTI-REGION DEPLOYMENT
+
+Les services critiques sont déployés dans plusieurs régions cloud.
+
+Objectifs :
+
+faible latence
+tolérance aux pannes régionales
+reprise automatique
+7. DATABASE RESILIENCE
+
+Les bases de données utilisent :
+
+réplication synchrone
+réplication asynchrone
+sauvegardes continues
+point-in-time recovery
+
+Le Ledger reste cohérent en toutes circonstances.
+
+8. BACKUP STRATEGY
+
+Sauvegardes :
+
+incrémentales
+complètes
+chiffrées
+géo-répliquées
+
+Fréquences :
+
+Ledger : continu
+Transactions : continu
+Configurations : quotidien
+Documents : quotidien
+9. DISASTER RECOVERY
+
+Scénarios couverts :
+
+perte d'une VM
+panne de cluster
+perte d'une région cloud
+corruption de base
+ransomware
+erreur humaine
+indisponibilité d'un fournisseur externe
+10. FAILOVER STRATEGY
+Primary Region
+
+↓
+
+Health Check Failure
+
+↓
+
+Automatic Failover
+
+↓
+
+Secondary Region
+
+↓
+
+Recovery
+
+↓
+
+Failback (Optional)
+
+Le basculement est automatique pour les services critiques.
+
+11. INCIDENT MANAGEMENT
+
+Chaque incident possède :
+
+identifiant
+niveau de sévérité
+propriétaire
+chronologie
+actions
+impact
+résolution
+post-mortem
+12. CRISIS MANAGEMENT
+
+En cas de crise :
+
+activation de la cellule de crise
+responsables identifiés
+procédures documentées
+communication interne
+communication clients
+communication réglementaire
+13. COMMUNICATION PLAN
+
+Canaux :
+
+email
+SMS
+notifications push
+page de statut
+support client
+
+Les messages sont préapprouvés pour accélérer la communication.
+
+14. OPERATIONAL RESILIENCE
+
+Le système surveille :
+
+disponibilité
+latence
+erreurs
+saturation
+dépendances externes
+
+Des mécanismes de dégradation contrôlée permettent de maintenir les fonctions essentielles.
+
+15. CONTINUOUS TESTING
+
+Tests obligatoires :
+
+restauration de sauvegarde
+basculement régional
+simulation de panne
+perte de base de données
+coupure réseau
+indisponibilité d'un fournisseur
+
+Les tests sont réalisés régulièrement.
+
+16. SUPPLIER RESILIENCE
+
+Chaque fournisseur critique est évalué :
+
+disponibilité
+SLA
+localisation
+plan de reprise
+sécurité
+conformité
+
+Des fournisseurs alternatifs sont prévus lorsque possible.
+
+17. OBSERVABILITY
+
+Chaque événement BCM journalise :
+
+incidentId
+service
+région
+type d'incident
+durée
+impact
+action entreprise
+résultat
+traceId
+18. SECURITY DURING RECOVERY
+
+Pendant une reprise :
+
+les politiques RBAC restent actives
+les audits continuent
+les clés sont protégées
+les accès d'urgence sont journalisés
+aucune donnée sensible n'est exposée
+19. PERFORMANCE OBJECTIVES
+
+Disponibilité annuelle :
+
+99.99 %
+
+Détection d'incident :
+
+< 30 secondes
+
+Basculement automatique :
+
+< 5 minutes
+
+Restauration critique :
+
+< 15 minutes
+
+20. COMPLIANCE
+
+Le BCM est conçu pour répondre aux exigences de :
+
+ISO 22301
+DORA
+ISO 27001
+SOC 2
+PCI DSS
+réglementations des banques centrales
+21. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design critical services for high availability.
+NEVER introduce single points of failure.
+ALWAYS support automated backups and recovery.
+ALWAYS implement multi-region resilience for critical workloads.
+NEVER bypass disaster recovery procedures.
+ALWAYS maintain immutable backup integrity.
+ALWAYS test recovery plans regularly.
+ALWAYS log every continuity and recovery event.
+NEVER compromise security during failover or recovery.
+ALWAYS prioritize customer-facing banking services during incidents.
+22. SUCCESS CRITERIA
+
+Le Business Continuity Management est considéré comme complet lorsque :
+
+les services critiques restent disponibles malgré les défaillances ;
+les objectifs RPO et RTO sont atteints ;
+les sauvegardes sont fiables et restaurables ;
+les scénarios de reprise sont documentés et testés ;
+la plateforme satisfait aux exigences des normes internationales en matière de continuité d'activité.
+23. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Chaos Engineering (tests automatisés de résilience)
+Active-Active Multi-Cloud (AWS + Azure + GCP)
+Self-Healing Infrastructure basée sur l'IA
+Predictive Failure Detection grâce au Machine Learning
+Automated Crisis Playbooks
+Digital Twin de l'infrastructure pour simuler les incidents
+Continuous Resilience Scoring des services critiques

@@ -1,0 +1,447 @@
+65_Event_Driven_Architecture_Standards.md
+(V3 — Enterprise Event-Driven Architecture & Messaging Standards)
+1. OBJECTIF
+
+Ce document définit les standards pour l'architecture événementielle d'Amanah.
+
+Il couvre :
+
+Event Bus ;
+événements métier ;
+CQRS ;
+Event Sourcing ;
+traitement asynchrone ;
+messages financiers ;
+résilience ;
+intégration temps réel.
+2. CORE PRINCIPLES
+2.1 Events Are Business Facts
+An event represents something that already happened.
+
+Un événement est immuable.
+
+Exemple :
+
+Correct :
+
+PaymentCompleted
+
+Incorrect :
+
+CompletePayment
+2.2 Loose Coupling
+
+Les services ne s'appellent pas directement lorsque l'asynchrone est préférable.
+
+Architecture :
+
+Service A
+
+↓
+
+Event Bus
+
+↓
+
+Service B
+Service C
+Service D
+2.3 Immutable Events
+
+Un événement publié ne doit jamais être modifié.
+
+Une correction crée un nouvel événement.
+
+3. GLOBAL EVENT ARCHITECTURE
+                    Amanah Services
+
+                          │
+
+                          ▼
+
+                    Event Gateway
+
+                          │
+
+                          ▼
+
+                    Event Bus
+
+                          │
+
+        ┌─────────────────┼─────────────────┐
+
+        ▼                 ▼                 ▼
+
+   Payments          Compliance          Analytics
+
+        ▼                 ▼                 ▼
+
+   Notifications      Fraud Engine       Data Platform
+4. EVENT BUS
+
+La plateforme supporte :
+
+Apache Kafka
+Redpanda
+AWS EventBridge
+Azure Event Grid
+Google Pub/Sub
+
+Le choix dépend du déploiement.
+
+5. EVENT CATEGORIES
+
+Les événements sont divisés en :
+
+Domain Events
+
+Événements métier.
+
+Exemples :
+
+CustomerCreated
+
+AccountOpened
+
+PaymentCompleted
+
+LoanApproved
+Integration Events
+
+Pour systèmes externes.
+
+Exemples :
+
+SwiftPaymentSent
+
+CardAuthorizationReceived
+Technical Events
+
+Infrastructure :
+
+ServiceStarted
+
+DatabaseRecovered
+
+DeploymentCompleted
+6. EVENT NAMING STANDARD
+
+Format obligatoire :
+
+domain.entity.action
+
+Exemples :
+
+payment.transaction.completed
+
+customer.profile.updated
+
+account.balance.changed
+
+loan.application.approved
+7. EVENT STRUCTURE
+
+Chaque événement possède :
+
+{
+ "eventId":"uuid",
+
+ "eventType":"payment.completed",
+
+ "version":"1.0",
+
+ "timestamp":"2026-01-01T10:00:00Z",
+
+ "tenantId":"uuid",
+
+ "source":"payment-service",
+
+ "data":{}
+}
+8. EVENT VERSIONING
+
+Les événements sont versionnés.
+
+Exemple :
+
+payment.completed.v1
+
+payment.completed.v2
+
+Une ancienne version doit rester supportée pendant la migration.
+
+9. EVENT SCHEMA REGISTRY
+
+Tous les événements sont enregistrés dans un Schema Registry.
+
+Fonctions :
+
+validation ;
+compatibilité ;
+documentation ;
+contrôle des changements.
+10. MESSAGE DELIVERY
+
+Amanah supporte :
+
+At Least Once
+
+Le message peut être reçu plusieurs fois.
+
+Exactly Once Processing
+
+Pour opérations financières critiques.
+
+At Most Once
+
+Pour événements non critiques.
+
+11. IDEMPOTENT CONSUMERS
+
+Chaque consommateur doit gérer les doublons.
+
+Exemple :
+
+Message reçu deux fois :
+
+PaymentCompleted
+PaymentCompleted
+
+Résultat :
+
+Une seule opération métier.
+
+12. EVENT ORDERING
+
+Pour les domaines financiers :
+
+L'ordre est critique.
+
+Exemple :
+
+Incorrect :
+
+PaymentSettled
+
+PaymentCreated
+
+Correct :
+
+PaymentCreated
+
+PaymentApproved
+
+PaymentSettled
+13. CQRS ARCHITECTURE
+
+Amanah sépare :
+
+Command Side
+
+Responsable des écritures.
+
+Exemple :
+
+CreatePaymentCommand
+Query Side
+
+Responsable des lectures.
+
+Exemple :
+
+GetAccountBalanceQuery
+
+Architecture :
+
+Command
+
+↓
+
+Domain Model
+
+↓
+
+Event
+
+↓
+
+Read Model
+
+↓
+
+Query
+14. EVENT SOURCING
+
+Utilisé pour les domaines nécessitant un historique complet.
+
+Principalement :
+
+Ledger
+Transactions
+Audit financier
+
+Le système conserve :
+
+AccountCreated
+
+MoneyDeposited
+
+MoneyTransferred
+
+MoneyWithdrawn
+
+La balance est reconstruite à partir des événements.
+
+15. DEAD LETTER QUEUE (DLQ)
+
+Tout message impossible à traiter est envoyé dans :
+
+Dead Letter Queue
+
+Contient :
+
+message original ;
+erreur ;
+timestamp ;
+service concerné.
+16. RETRY STRATEGY
+
+Politique standard :
+
+Premier échec :
+
+Retry 5 seconds
+
+Deuxième :
+
+Retry 30 seconds
+
+Troisième :
+
+Retry 5 minutes
+
+Puis :
+
+Dead Letter Queue
+17. TRANSACTIONAL OUTBOX PATTERN
+
+Pour garantir qu'une transaction et son événement sont cohérents :
+
+Database Transaction
+
+↓
+
+Save Business Data
+
+↓
+
+Save Event
+
+↓
+
+Publish Event
+18. EVENT SECURITY
+
+Les événements utilisent :
+
+chiffrement ;
+authentification ;
+contrôle d'accès ;
+validation de schéma.
+19. EVENT AUDITING
+
+Chaque événement conserve :
+
+eventId ;
+origine ;
+utilisateur ;
+tenant ;
+service ;
+timestamp ;
+version.
+20. REAL-TIME PROCESSING
+
+Utilisé pour :
+
+fraude temps réel ;
+notifications ;
+monitoring ;
+paiements ;
+scoring risque.
+21. PERFORMANCE OBJECTIVES
+
+Objectifs :
+
+Publication événement :
+
+<10 ms
+
+Traitement standard :
+
+<500 ms
+
+Disponibilité Event Bus :
+
+99.99%
+
+22. MONITORING
+
+Surveillance :
+
+nombre d'événements ;
+latence ;
+erreurs ;
+consumer lag ;
+partitions ;
+débit.
+23. EVENT RETENTION
+
+Politique :
+
+Ledger Events :
+
+Long terme
+
+Business Events :
+
+Selon réglementation
+
+Technical Events :
+
+Selon besoin opérationnel
+
+24. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS use events for asynchronous communication.
+NEVER create tightly coupled service dependencies.
+ALWAYS version event schemas.
+NEVER modify published events.
+ALWAYS implement idempotent consumers.
+ALWAYS use transactional outbox for critical events.
+NEVER lose financial events.
+ALWAYS validate event schemas.
+ALWAYS monitor event processing.
+ALWAYS follow Enterprise Event Standards.
+25. SUCCESS CRITERIA
+
+Le standard Event-Driven est respecté lorsque :
+
+les services communiquent de manière découplée ;
+les événements financiers sont fiables et auditables ;
+les messages peuvent être rejoués ;
+les erreurs sont récupérables ;
+la plateforme peut évoluer horizontalement.
+26. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Global Event Mesh
+AI Event Intelligence
+Event Replay Platform
+Real-Time Fraud Stream Processing
+Blockchain Event Bridges
+Cross-Border Payment Event Orchestration
+Autonomous Event Healing

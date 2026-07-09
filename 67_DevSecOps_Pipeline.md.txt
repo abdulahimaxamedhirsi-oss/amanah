@@ -1,0 +1,403 @@
+67_DevSecOps_Pipeline.md
+(V3 — Enterprise DevSecOps & Continuous Delivery Framework)
+1. OBJECTIF
+
+Ce document définit les standards DevSecOps obligatoires pour Amanah.
+
+Il couvre :
+
+gestion du code source ;
+CI/CD ;
+automatisation ;
+sécurité intégrée ;
+déploiement cloud ;
+gestion des environnements ;
+contrôle des releases.
+
+L'objectif est de permettre des livraisons :
+
+rapides ;
+sécurisées ;
+traçables ;
+réversibles.
+2. CORE PRINCIPLES
+2.1 Everything as Code
+Infrastructure, configuration and deployment must be version controlled.
+
+Tout doit être défini dans le code :
+
+infrastructure ;
+pipelines ;
+configurations ;
+politiques ;
+règles sécurité.
+2.2 Security Everywhere
+Security checks must run throughout the delivery lifecycle.
+
+La sécurité n'est pas une étape finale.
+
+2.3 Automated Delivery
+Humans approve critical changes.
+Machines execute repeatable processes.
+3. DEVSECOPS ARCHITECTURE
+Developer
+
+↓
+
+Git Repository
+
+↓
+
+CI Pipeline
+
+↓
+
+Security Scans
+
+↓
+
+Build
+
+↓
+
+Container Registry
+
+↓
+
+Deployment Pipeline
+
+↓
+
+Kubernetes
+
+↓
+
+Production
+
+↓
+
+Monitoring
+4. SOURCE CONTROL STANDARDS
+
+Amanah utilise :
+
+Git ;
+branches protégées ;
+pull requests ;
+reviews obligatoires ;
+tags de release.
+5. BRANCH STRATEGY
+
+Standard :
+
+main
+
+↓
+
+release
+
+↓
+
+feature branches
+
+Branches :
+
+main
+
+Production stable.
+
+develop
+
+Intégration continue.
+
+feature/*
+
+Nouvelles fonctionnalités.
+
+Exemple :
+
+feature/payment-limit-engine
+6. CODE REVIEW PROCESS
+
+Chaque changement nécessite :
+
+description claire ;
+tests associés ;
+revue technique ;
+validation sécurité.
+
+Interdit :
+
+push direct en production ;
+modification sans historique.
+7. CI PIPELINE
+
+Chaque commit déclenche :
+
+Checkout Code
+
+↓
+
+Dependency Install
+
+↓
+
+Build
+
+↓
+
+Unit Tests
+
+↓
+
+Static Analysis
+
+↓
+
+Security Scan
+
+↓
+
+Container Build
+
+↓
+
+Artifact Publishing
+8. STATIC APPLICATION SECURITY TESTING (SAST)
+
+Analyse automatique :
+
+Détection :
+
+vulnérabilités ;
+mauvaises pratiques ;
+secrets exposés ;
+code dangereux.
+9. SOFTWARE COMPOSITION ANALYSIS (SCA)
+
+Analyse des dépendances :
+
+CVE ;
+licences ;
+versions obsolètes.
+10. SECRET SCANNING
+
+Le pipeline détecte :
+
+clés API ;
+tokens ;
+passwords ;
+certificats.
+
+Une fuite bloque automatiquement le déploiement.
+
+11. CONTAINER SECURITY
+
+Chaque image Docker est analysée :
+
+vulnérabilités OS ;
+packages ;
+permissions ;
+configuration.
+12. ARTIFACT MANAGEMENT
+
+Tous les artefacts sont stockés dans un registre sécurisé.
+
+Contient :
+
+images Docker ;
+packages ;
+versions ;
+signatures.
+13. INFRASTRUCTURE AS CODE
+
+Toute infrastructure est déclarative.
+
+Support :
+
+Terraform ;
+Kubernetes YAML ;
+Helm Charts ;
+CloudFormation.
+
+Exemple :
+
+Infrastructure
+
+=
+
+Code Versionné
+14. ENVIRONMENT MANAGEMENT
+
+Environnements :
+
+Development
+
+↓
+
+Testing
+
+↓
+
+Staging
+
+↓
+
+Production
+
+Chaque environnement possède :
+
+configuration propre ;
+secrets propres ;
+accès contrôlés.
+15. CONTAINER ORCHESTRATION
+
+Amanah utilise :
+
+Kubernetes ;
+autoscaling ;
+health checks ;
+rolling updates.
+16. DEPLOYMENT STRATEGIES
+
+Support :
+
+Rolling Deployment
+
+Remplacement progressif.
+
+Blue/Green Deployment
+
+Deux environnements parallèles.
+
+Blue
+
+↓
+
+Green
+
+Canary Deployment
+
+Déploiement limité avant généralisation.
+
+17. DATABASE DEPLOYMENT
+
+Les migrations :
+
+versionnées ;
+testées ;
+réversibles ;
+automatisées.
+
+Jamais :
+
+Modification manuelle production.
+
+18. FEATURE FLAGS
+
+Permettent :
+
+activation progressive ;
+tests A/B ;
+rollback rapide.
+19. ROLLBACK STRATEGY
+
+Chaque release doit avoir :
+
+version précédente disponible ;
+procédure rollback ;
+validation automatique.
+20. RELEASE MANAGEMENT
+
+Chaque release contient :
+
+numéro version ;
+changelog ;
+risques ;
+migrations ;
+validation sécurité.
+21. SECURITY GATES
+
+Avant production :
+
+Obligatoire :
+
+✅ Tests passés
+✅ Scan sécurité OK
+✅ Vulnérabilités critiques = 0
+✅ Approbation requise
+✅ Monitoring actif
+
+22. OBSERVABILITY INTEGRATION
+
+Chaque déploiement génère :
+
+version déployée ;
+commit hash ;
+auteur ;
+timestamp ;
+environnement.
+23. SUPPLY CHAIN SECURITY
+
+Protection contre :
+
+dépendances compromises ;
+images malveillantes ;
+attaques CI/CD.
+
+Mesures :
+
+signature d'artefacts ;
+SBOM ;
+provenance du code.
+24. DISASTER RECOVERY PIPELINE
+
+Les pipelines doivent supporter :
+
+reconstruction complète ;
+restauration infrastructure ;
+redéploiement automatique.
+25. COMPLIANCE
+
+Le DevSecOps respecte :
+
+ISO 27001
+SOC 2
+PCI DSS
+DORA
+NIST
+OWASP
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS generate production-ready code.
+ALWAYS include automated tests.
+NEVER expose secrets.
+ALWAYS respect CI/CD requirements.
+NEVER bypass security gates.
+ALWAYS create migration scripts.
+ALWAYS document deployment changes.
+ALWAYS maintain backward compatibility.
+ALWAYS consider rollback scenarios.
+ALWAYS follow Enterprise DevSecOps Standards.
+27. SUCCESS CRITERIA
+
+Le pipeline DevSecOps est complet lorsque :
+
+chaque changement passe par une chaîne automatisée ;
+les vulnérabilités sont détectées avant production ;
+les déploiements sont reproductibles ;
+les releases peuvent être annulées rapidement ;
+toute modification est traçable.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Code Review Agents
+Autonomous Security Testing
+Self-Healing CI/CD
+Policy-as-Code
+Zero Trust Deployment
+Software Supply Chain Intelligence
+Automated Compliance Evidence Collection

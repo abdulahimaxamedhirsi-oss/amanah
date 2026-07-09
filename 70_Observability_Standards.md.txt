@@ -1,0 +1,452 @@
+69_Observability_Standards.md
+(V3 — Enterprise Observability, Monitoring & Operational Intelligence Framework)
+1. OBJECTIF
+
+Ce document définit les standards d'observabilité obligatoires pour tous les composants Amanah.
+
+Il couvre :
+
+logs ;
+métriques ;
+traces distribuées ;
+monitoring infrastructure ;
+monitoring métier ;
+alerting ;
+SLI/SLO/SLA ;
+gestion des incidents ;
+dashboards opérationnels.
+
+L'objectif :
+
+Détecter, comprendre et résoudre les problèmes avant qu'ils n'affectent les clients.
+
+2. CORE PRINCIPLES
+2.1 Observability by Default
+Every service must be observable from day one.
+
+Aucun service ne peut être déployé sans instrumentation.
+
+2.2 Three Pillars of Observability
+
+Amanah utilise trois piliers :
+
+Logs
+
+Metrics
+
+Traces
+2.3 Business + Technical Observability
+
+Une banque ne surveille pas seulement les serveurs.
+
+Elle surveille aussi :
+
+paiements ;
+transactions ;
+soldes ;
+risques ;
+conformité ;
+expérience client.
+3. OBSERVABILITY ARCHITECTURE
+                 Amanah Services
+
+                       │
+
+        ┌──────────────┼──────────────┐
+
+        ▼              ▼              ▼
+
+      Logs          Metrics        Traces
+
+        │              │              │
+
+        └──────────────┼──────────────┘
+
+                       ▼
+
+             Observability Platform
+
+                       │
+
+        ┌──────────────┼──────────────┐
+
+        ▼              ▼              ▼
+
+    Dashboards      Alerts       Analytics
+4. DISTRIBUTED TRACING
+
+Tous les appels inter-services utilisent un :
+
+Trace ID
+
+Exemple :
+
+Customer Request
+
+↓
+
+API Gateway
+
+↓
+
+Payment Service
+
+↓
+
+Compliance Engine
+
+↓
+
+Ledger
+
+↓
+
+Notification
+
+Toutes les étapes partagent le même identifiant.
+
+5. OPENTELEMETRY STANDARD
+
+Amanah utilise :
+
+OpenTelemetry ;
+traces distribuées ;
+métriques standardisées ;
+instrumentation automatique.
+
+Chaque service doit exporter :
+
+traces ;
+métriques ;
+logs structurés.
+6. LOGGING STANDARDS
+
+Tous les logs sont structurés.
+
+Format :
+
+{
+ "timestamp":"2026-01-01T10:00:00Z",
+ "level":"INFO",
+ "service":"payment-service",
+ "tenantId":"uuid",
+ "traceId":"uuid",
+ "message":"Payment completed"
+}
+7. LOG LEVELS
+
+Niveaux :
+
+Niveau	Usage
+ERROR	Erreur nécessitant action
+WARN	Situation anormale
+INFO	Événement normal
+DEBUG	Développement uniquement
+8. SECURITY LOGGING
+
+Les logs ne doivent jamais contenir :
+
+mot de passe ;
+PIN ;
+CVV ;
+clé privée ;
+données personnelles non nécessaires.
+9. METRICS STANDARD
+
+Chaque service expose :
+
+Golden Signals
+Latency
+
+Temps de réponse.
+
+Traffic
+
+Volume de requêtes.
+
+Errors
+
+Taux d'échec.
+
+Saturation
+
+Utilisation des ressources.
+
+10. BUSINESS METRICS
+
+Amanah surveille :
+
+Payments
+nombre de paiements ;
+montant total ;
+échecs ;
+délais.
+Ledger
+écritures/seconde ;
+erreurs comptables ;
+équilibrage.
+Compliance
+alertes AML ;
+dossiers en attente ;
+délais KYC.
+11. INFRASTRUCTURE MONITORING
+
+Surveillance :
+
+CPU ;
+mémoire ;
+stockage ;
+réseau ;
+Kubernetes ;
+bases de données.
+12. DATABASE OBSERVABILITY
+
+Mesures :
+
+connexions ;
+locks ;
+slow queries ;
+réplication ;
+transactions longues.
+13. API MONITORING
+
+Surveillance :
+
+disponibilité ;
+latence ;
+erreurs HTTP ;
+consommation ;
+rate limits.
+14. DASHBOARD STRATEGY
+
+Dashboards obligatoires :
+
+Executive Dashboard
+
+Pour :
+
+direction ;
+CIO ;
+COO.
+
+Contient :
+
+disponibilité globale ;
+volume transactions ;
+incidents majeurs.
+Operations Dashboard
+
+Pour :
+
+équipes support.
+
+Contient :
+
+services ;
+erreurs ;
+alertes.
+Security Dashboard
+
+Pour :
+
+SOC.
+
+Contient :
+
+événements sécurité ;
+anomalies ;
+attaques.
+Business Dashboard
+
+Pour :
+
+métiers.
+
+Contient :
+
+revenus ;
+transactions ;
+clients actifs.
+15. ALERTING RULES
+
+Les alertes doivent être :
+
+actionnables ;
+documentées ;
+prioritaires.
+
+Exemple :
+
+Mauvaise alerte :
+
+CPU élevé
+
+Bonne alerte :
+
+Payment Service latency >500ms for 5 minutes affecting 20% transactions
+16. INCIDENT SEVERITY
+
+Classification :
+
+Niveau	Description
+P1	Critique bancaire
+P2	Impact majeur
+P3	Dégradation
+P4	Mineur
+17. SLI / SLO / SLA
+SLI
+
+Mesure réelle.
+
+Exemple :
+
+Temps réponse API.
+
+SLO
+
+Objectif interne.
+
+Exemple :
+
+99.95% disponibilité.
+
+SLA
+
+Engagement client.
+
+Exemple :
+
+99.9% uptime contractuel.
+
+18. ERROR BUDGET
+
+Chaque service possède un budget d'erreur.
+
+Exemple :
+
+SLO :
+
+99.9%
+
+Budget :
+
+0.1% indisponibilité.
+
+19. INCIDENT MANAGEMENT
+
+Processus :
+
+Detection
+
+↓
+
+Alert
+
+↓
+
+Investigation
+
+↓
+
+Resolution
+
+↓
+
+Postmortem
+20. POST INCIDENT REVIEW
+
+Chaque incident majeur produit :
+
+cause racine ;
+impact ;
+correction ;
+prévention future.
+21. REAL-TIME OPERATIONS CENTER
+
+Amanah peut supporter un :
+
+Financial Operations Center
+
+Surveille :
+
+transactions mondiales ;
+disponibilité ;
+fraude ;
+risques.
+22. OBSERVABILITY SECURITY
+
+Protection :
+
+accès contrôlé ;
+chiffrement ;
+rétention ;
+audit.
+23. DATA RETENTION
+
+Les logs respectent :
+
+réglementation locale ;
+exigences audit ;
+politiques internes.
+24. TOOLS COMPATIBILITY
+
+Solutions compatibles :
+
+OpenTelemetry
+Prometheus
+Grafana
+Loki
+Jaeger
+Elastic Stack
+Datadog
+New Relic
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS add observability to new services.
+ALWAYS include structured logging.
+ALWAYS propagate Trace IDs.
+ALWAYS expose health metrics.
+NEVER log sensitive information.
+ALWAYS define meaningful alerts.
+ALWAYS monitor business and technical metrics.
+ALWAYS support distributed tracing.
+ALWAYS document operational dashboards.
+ALWAYS follow Enterprise Observability Standards.
+26. SUCCESS CRITERIA
+
+Le standard Observability est respecté lorsque :
+
+chaque service est visible en production ;
+les incidents sont détectés rapidement ;
+les causes racines peuvent être identifiées ;
+les performances métier et techniques sont surveillées ;
+les opérations bancaires restent transparentes et contrôlées.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Operations Center (AIOps)
+Predictive Incident Detection
+Autonomous Root Cause Analysis
+Self-Healing Services
+Digital Twin Monitoring
+Financial System Simulation
+AI-Based Capacity Forecasting
+✅ END OF 69_Observability_Standards.md
+🚀 NEXT STEP
+
+Le prochain chapitre :
+
+📖 70_Architecture_Decision_Records_Guide.md
+
+Il définira la gouvernance architecturale Amanah :
+
+ADR (Architecture Decision Records) ;
+comment prendre des décisions techniques ;
+validation architecture ;
+gestion des compromis ;
+historique des choix ;
+comité architecture ;
+règles pour Claude Code afin qu'il ne modifie jamais l'architecture sans justification.

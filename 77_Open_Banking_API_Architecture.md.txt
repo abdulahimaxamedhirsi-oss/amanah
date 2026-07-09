@@ -1,0 +1,419 @@
+77_Open_Banking_API_Architecture.md
+(V3 — Enterprise Open Banking & API Ecosystem Framework)
+1. OBJECTIF
+
+Ce document définit les standards Open Banking d'Amanah.
+
+Il couvre :
+
+Open Banking ;
+PSD2 ;
+API Gateway ;
+OAuth2 ;
+OpenID Connect ;
+Consent Management ;
+Third Party Providers (TPP) ;
+API Security ;
+API Governance ;
+Developer Platform.
+2. CORE PRINCIPLES
+2.1 API First Banking
+Every banking capability must be available through secure APIs.
+
+Toutes les fonctionnalités bancaires doivent être accessibles via des APIs documentées.
+
+2.2 Customer Owns The Data
+Customers control who can access their financial data.
+
+Le consentement du client est obligatoire.
+
+2.3 Zero Trust API Security
+Every API request must be authenticated, authorized and audited.
+3. OPEN BANKING ARCHITECTURE
+
+Customer
+
+↓
+
+Third Party Application
+
+↓
+
+Developer Portal
+
+↓
+
+API Gateway
+
+↓
+
+Identity Provider
+
+↓
+
+Consent Service
+
+↓
+
+Amanah APIs
+
+↓
+
+Core Banking Services
+
+↓
+
+Ledger
+
+4. OPEN BANKING COMPONENTS
+API Gateway
+
+Responsable :
+
+authentification ;
+rate limiting ;
+monitoring ;
+routing ;
+sécurité.
+Identity Provider
+
+Responsable :
+
+OAuth2 ;
+OpenID Connect ;
+MFA ;
+JWT.
+Consent Service
+
+Responsable :
+
+création ;
+validation ;
+révocation ;
+expiration.
+Developer Portal
+
+Responsable :
+
+documentation ;
+sandbox ;
+API keys ;
+monitoring.
+5. API CATEGORIES
+Account Information APIs
+
+Permettent :
+
+consultation comptes ;
+soldes ;
+historique.
+Payment APIs
+
+Permettent :
+
+initiation paiement ;
+statut ;
+annulation.
+Customer APIs
+
+Permettent :
+
+profil ;
+préférences ;
+consentements.
+Card APIs
+
+Permettent :
+
+cartes ;
+tokenisation ;
+statut.
+6. PSD2 SUPPORT
+
+Compatible avec :
+
+AIS (Account Information Service)
+PIS (Payment Initiation Service)
+Confirmation of Funds
+Strong Customer Authentication (SCA)
+7. API AUTHENTICATION
+
+Support :
+
+OAuth2 Authorization Code
+Client Credentials
+PKCE
+OpenID Connect
+
+Architecture :
+
+
+Client
+
+↓
+
+Authorization Server
+
+↓
+
+Access Token
+
+↓
+
+API Gateway
+
+↓
+
+API
+
+8. ACCESS TOKENS
+
+Chaque token contient :
+
+{
+ "sub":"customer",
+
+ "scope":"payments",
+
+ "exp":"timestamp",
+
+ "client":"partner"
+}
+9. SCOPES
+
+Exemples :
+
+
+accounts.read
+
+payments.write
+
+cards.read
+
+wallet.read
+
+transactions.read
+
+
+Les permissions sont limitées au strict nécessaire.
+
+10. CONSENT MANAGEMENT
+
+Cycle :
+
+
+Request
+
+↓
+
+Customer Approval
+
+↓
+
+Consent Created
+
+↓
+
+API Access
+
+↓
+
+Expiration
+
+↓
+
+Revocation
+
+11. CONSENT DATA MODEL
+{
+ "consentId":"uuid",
+
+ "customerId":"uuid",
+
+ "scope":"accounts.read",
+
+ "status":"ACTIVE",
+
+ "expiresAt":"2026-12-31"
+}
+12. THIRD PARTY PROVIDERS (TPP)
+
+Types :
+
+AISP
+
+Lecture comptes.
+
+PISP
+
+Initiation paiements.
+
+CBPII
+
+Confirmation disponibilité fonds.
+
+Chaque TPP est enregistré et validé.
+
+13. API SECURITY
+
+Mesures :
+
+TLS 1.3 ;
+mTLS ;
+JWT signé ;
+OAuth2 ;
+DPoP (optionnel) ;
+IP Filtering ;
+WAF.
+14. RATE LIMITING
+
+Protection :
+
+Exemple :
+
+
+100 requests/minute
+
+↓
+
+429 Too Many Requests
+
+15. API VERSIONING
+
+Format :
+
+
+/api/v1/accounts
+
+/api/v2/accounts
+
+
+Les anciennes versions restent supportées pendant la période de migration.
+
+16. API ERROR STANDARD
+
+Exemple :
+
+{
+ "code":"PAYMENT_LIMIT_EXCEEDED",
+
+ "message":"Daily transfer limit reached",
+
+ "traceId":"uuid"
+}
+17. SANDBOX ENVIRONMENT
+
+Le portail développeur fournit :
+
+comptes fictifs ;
+transactions simulées ;
+Ledger simulé ;
+paiements simulés.
+18. WEBHOOKS
+
+Événements :
+
+
+payment.completed
+
+payment.failed
+
+consent.revoked
+
+account.updated
+
+
+Chaque webhook est signé numériquement.
+
+19. API MONITORING
+
+Surveillance :
+
+latence ;
+erreurs ;
+consommation ;
+clients ;
+quotas.
+20. DEVELOPER PORTAL
+
+Fonctions :
+
+documentation OpenAPI ;
+exemples ;
+SDK ;
+sandbox ;
+gestion applications ;
+clés API ;
+statistiques.
+21. API GOVERNANCE
+
+Chaque API possède :
+
+propriétaire ;
+version ;
+SLA ;
+documentation ;
+tests ;
+monitoring.
+22. AUDIT
+
+Chaque appel API enregistre :
+
+client ;
+utilisateur ;
+IP ;
+scope ;
+timestamp ;
+traceId.
+23. COMPLIANCE
+
+Conformité :
+
+PSD2 ;
+GDPR ;
+Open Banking Standards ;
+OAuth2 RFC ;
+OpenID Connect ;
+FAPI (Financial-grade API) lorsque requis.
+24. HIGH AVAILABILITY
+
+Le Gateway supporte :
+
+plusieurs instances ;
+autoscaling ;
+failover ;
+cache sécurisé.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS expose banking capabilities through secure APIs.
+NEVER bypass consent validation.
+ALWAYS implement OAuth2 and OpenID Connect.
+ALWAYS protect customer financial data.
+ALWAYS version APIs.
+ALWAYS document OpenAPI specifications.
+ALWAYS implement rate limiting.
+ALWAYS support audit logging.
+ALWAYS validate scopes before executing requests.
+ALWAYS follow Enterprise Open Banking Standards.
+26. SUCCESS CRITERIA
+
+Le framework Open Banking est conforme lorsque :
+
+les APIs sont sécurisées ;
+les consentements sont gérés correctement ;
+les partenaires peuvent intégrer Amanah facilement ;
+les données clients restent protégées ;
+toutes les opérations sont auditables.
+27. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+Open Finance APIs
+Embedded Finance Platform
+Banking-as-a-Service (BaaS)
+GraphQL Banking Gateway
+AI Developer Assistant
+Event-Driven Open Banking
+Global Financial API Marketplace

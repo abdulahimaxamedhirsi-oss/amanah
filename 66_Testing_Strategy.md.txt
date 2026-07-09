@@ -1,0 +1,436 @@
+66_Testing_Strategy.md
+(V3 — Enterprise Quality Assurance & Testing Framework)
+1. OBJECTIF
+
+Ce document définit la stratégie de tests obligatoire pour tous les composants Amanah.
+
+Il garantit :
+
+qualité logicielle ;
+stabilité ;
+sécurité ;
+conformité ;
+performance ;
+fiabilité financière.
+
+Aucun composant critique ne peut être déployé sans validation complète.
+
+2. CORE PRINCIPLES
+2.1 Quality by Design
+Testing begins during architecture and development, not after coding.
+
+La qualité est intégrée dans tout le cycle de vie.
+
+2.2 Automation First
+Critical tests must run automatically in CI/CD.
+
+Les tests manuels complètent l'automatisation mais ne la remplacent pas.
+
+2.3 Risk-Based Testing
+
+Les tests sont prioritaires selon le risque métier.
+
+Exemple :
+
+Ledger :
+
+★★★★★ Critical
+
+Notifications :
+
+★★ Medium
+
+3. TESTING PYRAMID
+
+Architecture :
+
+
+             E2E Tests
+
+          Integration Tests
+
+       Contract/API Tests
+
+      Unit Tests
+
+
+La majorité des tests sont des tests unitaires.
+
+4. UNIT TESTING
+
+Objectif :
+
+Tester la logique métier isolée.
+
+Obligatoire pour :
+
+services ;
+règles ;
+calculs financiers ;
+validations ;
+workflows.
+
+Exemple :
+
+Tester :
+
+PaymentLimitRule
+
+InterestCalculation
+
+FeeCalculation
+
+BalanceValidation
+5. DOMAIN TESTING
+
+Les domaines financiers nécessitent des tests spécifiques.
+
+Exemples :
+
+Ledger :
+
+double entrée ;
+balance correcte ;
+journal immuable.
+
+Payments :
+
+création ;
+validation ;
+settlement ;
+reversal.
+
+Loans :
+
+intérêts ;
+échéances ;
+pénalités.
+6. INTEGRATION TESTING
+
+Teste les interactions entre composants.
+
+Exemples :
+
+Payment Service
+
+↓
+
+Ledger Service
+
+↓
+
+Notification Service
+7. API CONTRACT TESTING
+
+Toutes les APIs publiques doivent avoir des tests de contrat.
+
+Validation :
+
+schéma ;
+format réponse ;
+version ;
+compatibilité.
+8. END-TO-END TESTING
+
+Simule un utilisateur réel.
+
+Exemple :
+
+
+Login
+
+↓
+
+Create Payment
+
+↓
+
+AML Check
+
+↓
+
+Approval
+
+↓
+
+Ledger Posting
+
+↓
+
+Notification
+
+9. UI TESTING
+
+Tests frontend :
+
+navigation ;
+formulaires ;
+responsive design ;
+accessibilité ;
+compatibilité navigateur.
+10. MOBILE TESTING
+
+Applications :
+
+iOS
+Android
+
+Tests :
+
+authentification ;
+biométrie ;
+paiements ;
+notifications ;
+offline handling.
+11. SECURITY TESTING
+
+Obligatoire :
+
+SAST
+
+Analyse du code source.
+
+DAST
+
+Tests applicatifs dynamiques.
+
+Dependency Scanning
+
+Détection des vulnérabilités bibliothèques.
+
+Penetration Testing
+
+Tests d'intrusion réguliers.
+
+12. PERFORMANCE TESTING
+
+Tests :
+
+charge normale ;
+pic utilisateur ;
+stress test ;
+endurance ;
+montée en charge.
+
+Objectifs :
+
+Support :
+
+millions d'utilisateurs ;
+milliers de transactions/seconde.
+13. LOAD TESTING
+
+Scénarios :
+
+
+100 000 utilisateurs connectés
+
+↓
+
+50 000 paiements/minute
+
+↓
+
+Ledger Processing
+
+14. CHAOS TESTING
+
+La plateforme doit tester volontairement les pannes.
+
+Exemples :
+
+arrêt d'un service ;
+perte réseau ;
+panne base de données ;
+indisponibilité région cloud.
+
+Objectif :
+
+Vérifier la résilience.
+
+15. DATA TESTING
+
+Validation :
+
+intégrité ;
+cohérence ;
+migration ;
+qualité ;
+duplication.
+16. DATABASE TESTING
+
+Tests :
+
+migrations ;
+rollback ;
+performance SQL ;
+index ;
+réplication.
+17. EVENT TESTING
+
+Validation :
+
+publication événement ;
+consommation ;
+ordre ;
+duplication ;
+replay.
+18. AI TESTING
+
+Tests spécifiques IA :
+
+qualité des réponses ;
+hallucinations ;
+sécurité prompts ;
+fuite données ;
+coût ;
+performance.
+19. REGRESSION TESTING
+
+Chaque nouvelle version exécute automatiquement :
+
+tests existants ;
+scénarios critiques ;
+parcours utilisateurs.
+20. TEST ENVIRONMENTS
+
+Environnements :
+
+
+Development
+
+↓
+
+Testing
+
+↓
+
+Staging
+
+↓
+
+Production
+
+
+Chaque environnement est isolé.
+
+21. TEST DATA MANAGEMENT
+
+Les données de test :
+
+ne contiennent jamais de données réelles ;
+sont anonymisées ;
+sont générées automatiquement.
+22. CI/CD TEST PIPELINE
+
+Pipeline :
+
+
+Code Commit
+
+↓
+
+Build
+
+↓
+
+Unit Tests
+
+↓
+
+Security Scan
+
+↓
+
+Integration Tests
+
+↓
+
+Performance Tests
+
+↓
+
+Approval
+
+↓
+
+Deployment
+
+23. TEST COVERAGE
+
+Objectifs :
+
+Services critiques :
+
+90%
+
+Services standards :
+
+80%
+
+Code critique financier :
+
+100%
+
+24. RELEASE VALIDATION
+
+Avant production :
+
+Checklist :
+
+tests passés ;
+sécurité validée ;
+performance validée ;
+rollback disponible ;
+monitoring actif.
+25. PRODUCTION TESTING
+
+Techniques :
+
+synthetic monitoring ;
+health checks ;
+canary deployment ;
+feature flags.
+26. TEST REPORTING
+
+Chaque campagne produit :
+
+résultats ;
+couverture ;
+erreurs ;
+risques ;
+approbations.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS generate tests with new features.
+NEVER deliver untested financial logic.
+ALWAYS test edge cases.
+ALWAYS protect Ledger correctness.
+ALWAYS include integration tests for critical workflows.
+ALWAYS validate API contracts.
+ALWAYS consider security testing.
+NEVER ignore failed tests.
+ALWAYS maintain regression coverage.
+ALWAYS follow Enterprise Testing Standards.
+28. SUCCESS CRITERIA
+
+La stratégie de tests est respectée lorsque :
+
+chaque fonctionnalité possède une couverture adaptée ;
+les flux financiers critiques sont validés ;
+les régressions sont détectées automatiquement ;
+la sécurité et la performance sont testées avant production ;
+les releases sont prévisibles et contrôlées.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Test Generation
+Autonomous QA Agents
+Production Digital Twin Testing
+Predictive Bug Detection
+Self-Healing Test Automation
+Continuous Compliance Testing
+Automated Regulatory Test Suites

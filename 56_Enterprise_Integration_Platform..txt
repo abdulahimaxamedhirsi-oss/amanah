@@ -1,0 +1,339 @@
+56_Enterprise_Integration_Platform.md (V3 — Enterprise Integration & Connectivity Platform)
+1. OBJECTIF DU SYSTÈME
+
+L'Enterprise Integration Platform (EIP) est la couche d'intégration universelle d'Amanah.
+
+Elle permet de connecter Amanah à :
+
+banques
+banques centrales
+réseaux de paiement
+Mobile Money
+Open Banking
+ERP
+CRM
+fournisseurs KYC
+fournisseurs AML
+fournisseurs FX
+systèmes internes
+plateformes partenaires
+
+Aucun service métier ne communique directement avec un système externe.
+
+Toutes les intégrations transitent par l'EIP.
+
+2. CORE PRINCIPLES
+2.1 Integration by Abstraction
+Business services never communicate directly with external providers.
+2.2 Provider Independence
+External providers can be replaced without changing business logic.
+2.3 Event Driven Integration
+Integrations are triggered by business events whenever possible.
+3. GLOBAL ARCHITECTURE
+Core Banking Services
+        │
+        ▼
+Enterprise Integration Platform
+        │
+ ┌──────┼────────┬────────┬─────────┐
+ ▼      ▼        ▼        ▼
+
+Banks  Cards   Mobile    Open Banking
+               Money
+
+ ▼      ▼        ▼        ▼
+
+ERP   CRM   Compliance   External APIs
+4. INTEGRATION CATEGORIES
+
+La plateforme supporte :
+
+Banking Networks
+Payment Networks
+Card Networks
+Mobile Money
+Open Banking
+Accounting
+ERP
+CRM
+Messaging
+Identity Providers
+Government APIs
+Compliance Providers
+5. BANKING CONNECTORS
+
+Support natif :
+
+SWIFT
+SEPA
+ACH
+Fedwire
+Faster Payments
+RTP
+Local Clearing Systems
+
+Tous les connecteurs utilisent un modèle interne commun.
+
+6. CARD NETWORKS
+
+Support :
+
+Visa
+Mastercard
+UnionPay
+American Express
+Discover
+
+Fonctionnalités :
+
+autorisation
+compensation
+règlement
+chargeback
+tokenisation
+7. MOBILE MONEY CONNECTORS
+
+Architecture compatible avec :
+
+M-Pesa
+Zaad
+EVC Plus
+Airtel Money
+MTN Mobile Money
+Orange Money
+Wave
+Telesom
+
+Chaque fournisseur implémente la même interface.
+
+8. OPEN BANKING
+
+Support :
+
+PSD2
+Open Banking UK
+Berlin Group
+STET
+FDX
+
+Fonctionnalités :
+
+Account Information
+Payment Initiation
+Consent Management
+Strong Customer Authentication (SCA)
+9. ERP CONNECTORS
+
+Connecteurs disponibles :
+
+SAP
+Oracle ERP
+Microsoft Dynamics
+Odoo
+NetSuite
+
+Synchronisation :
+
+comptes
+paiements
+factures
+écritures comptables
+10. CRM CONNECTORS
+
+Support :
+
+Salesforce
+HubSpot
+Microsoft Dynamics CRM
+
+Synchronisation :
+
+clients
+entreprises
+interactions
+tickets
+11. COMPLIANCE PROVIDERS
+
+Intégration avec :
+
+ComplyAdvantage
+World-Check
+Dow Jones
+Sumsub
+Onfido
+Veriff
+
+Le changement de fournisseur ne modifie jamais le code métier.
+
+12. FX PROVIDERS
+
+Support :
+
+Currencycloud
+Wise Platform
+Open Exchange Rates
+XE
+OANDA
+Banques partenaires
+13. GOVERNMENT SERVICES
+
+Connexion possible avec :
+
+administrations fiscales
+registres des entreprises
+registres nationaux
+banques centrales
+autorités financières
+14. API CONNECTORS
+
+Chaque connecteur supporte :
+
+REST
+GraphQL
+gRPC
+SOAP
+Webhooks
+15. ISO 20022
+
+Tous les messages financiers peuvent être convertis vers :
+
+ISO 20022
+MT103
+MT202
+PACS
+CAMT
+PAIN
+
+Conversion bidirectionnelle.
+
+16. CONNECTOR LIFECYCLE
+
+Chaque connecteur possède :
+
+version
+état
+configuration
+monitoring
+historique
+métriques
+17. FAILOVER
+
+Si un fournisseur devient indisponible :
+
+Primary Provider
+
+↓
+
+Failure
+
+↓
+
+Secondary Provider
+
+↓
+
+Automatic Recovery
+
+Le basculement est automatique si configuré.
+
+18. RETRY ENGINE
+
+Support :
+
+retries exponentiels
+circuit breaker
+dead-letter queue
+timeout intelligent
+19. OBSERVABILITY
+
+Chaque appel externe journalise :
+
+connectorId
+provider
+endpoint
+requestId
+latency
+réponse
+erreur
+coût
+traceId
+20. SECURITY
+
+Toutes les communications utilisent :
+
+TLS 1.3
+OAuth2
+mTLS (si requis)
+Signature HMAC
+Rotation automatique des secrets
+Chiffrement des credentials
+
+Les secrets sont stockés dans un gestionnaire de secrets (Vault, AWS Secrets Manager, etc.).
+
+21. PERFORMANCE OBJECTIVES
+
+Temps de routage interne :
+
+< 10 ms
+
+Temps d'appel au connecteur :
+
+selon le fournisseur
+
+Disponibilité :
+
+99.99 %
+
+Failover :
+
+< 5 secondes
+
+22. CONNECTOR SDK
+
+Chaque connecteur implémente une interface standard :
+
+interface IntegrationConnector {
+  connect(): Promise<void>;
+  authenticate(): Promise<void>;
+  execute(request): Promise<Response>;
+  healthCheck(): Promise<Status>;
+  disconnect(): Promise<void>;
+}
+
+Cette interface garantit l'interchangeabilité des fournisseurs.
+
+23. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow business services to call external providers directly.
+ALWAYS route external communication through the Enterprise Integration Platform.
+ALWAYS support provider abstraction.
+NEVER hardcode provider-specific logic in business services.
+ALWAYS implement retry and circuit breaker mechanisms.
+ALWAYS encrypt credentials and API keys.
+ALWAYS log external interactions with traceability.
+ALWAYS support connector versioning.
+NEVER expose provider-specific errors directly to end users.
+ALWAYS design connectors to be replaceable without affecting business workflows.
+24. SUCCESS CRITERIA
+
+L'Enterprise Integration Platform est considérée comme complète lorsque :
+
+toutes les communications externes transitent par une couche d'intégration unique ;
+les fournisseurs peuvent être remplacés sans modifier les services métier ;
+les principaux réseaux bancaires, cartes, Mobile Money, ERP et CRM sont supportés ;
+les intégrations sont sécurisées, observables et résilientes ;
+les connecteurs sont standardisés, versionnés et facilement extensibles.
+25. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Open Finance (au-delà de l'Open Banking)
+CBDC Gateways (Central Bank Digital Currencies)
+FedNow et nouveaux rails de paiement temps réel
+Stablecoin Networks (USDC, EURC, etc.)
+Blockchain Bridges pour les actifs tokenisés
+Enterprise Service Bus (ESB) avancé
+API Marketplace pour partenaires
+Low-Code Connector Builder permettant de créer de nouveaux connecteurs sans écrire de code.

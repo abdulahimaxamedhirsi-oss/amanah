@@ -1,0 +1,336 @@
+54_Compliance_Orchestration.md (V3 — Enterprise Compliance Orchestration Platform)
+1. OBJECTIF DU SYSTÈME
+
+La Compliance Orchestration Platform est le centre de contrôle réglementaire d'Amanah.
+
+Elle orchestre tous les moteurs de conformité afin de garantir que chaque client, paiement et opération respecte les exigences réglementaires internationales.
+
+Le moteur ne remplace pas les systèmes KYC ou AML.
+
+Il les coordonne.
+
+2. CORE PRINCIPLES
+2.1 Compliance by Design
+Every financial operation must be compliant before execution.
+2.2 Centralized Compliance
+
+Tous les contrôles passent par une seule plateforme.
+
+Aucun microservice ne réalise ses propres vérifications AML.
+
+2.3 Event Driven Compliance
+
+Chaque événement déclenche automatiquement les contrôles nécessaires.
+
+3. GLOBAL ARCHITECTURE
+                Workflow Engine
+                      │
+                      ▼
+         Compliance Orchestration Engine
+                      │
+ ┌──────────┬──────────┬──────────┬──────────┐
+ ▼          ▼          ▼          ▼
+
+KYC      AML      Sanctions    Travel Rule
+
+ ▼          ▼          ▼          ▼
+
+Risk      PEP      Fraud      Regulatory Reporting
+
+          ▼
+
+      Decision Engine
+4. COMPLIANCE MODULES
+
+Le moteur orchestre :
+
+KYC Engine
+KYB Engine
+AML Engine
+Sanctions Screening
+PEP Screening
+Adverse Media Screening
+Fraud Engine
+Transaction Monitoring
+FATCA
+CRS
+Travel Rule
+Regulatory Reporting
+Audit Engine
+5. COMPLIANCE WORKFLOW
+
+Exemple :
+
+User Registration
+
+↓
+
+KYC
+
+↓
+
+Sanctions Screening
+
+↓
+
+PEP Screening
+
+↓
+
+Risk Scoring
+
+↓
+
+Approval
+
+↓
+
+Account Creation
+6. PAYMENT COMPLIANCE FLOW
+Payment Initiated
+
+↓
+
+AML Rules
+
+↓
+
+Sanctions Check
+
+↓
+
+Travel Rule
+
+↓
+
+Fraud Engine
+
+↓
+
+Risk Engine
+
+↓
+
+Compliance Decision
+
+↓
+
+Settlement
+7. DECISION ENGINE
+
+Chaque contrôle retourne :
+
+ALLOW
+
+DENY
+
+MANUAL REVIEW
+
+BLOCK
+
+ESCALATE
+
+REPORT
+
+8. SANCTIONS SCREENING
+
+Support :
+
+OFAC
+UN
+EU
+UK
+Local Authorities
+
+Mise à jour automatique des listes.
+
+9. PEP SCREENING
+
+Détection :
+
+Politically Exposed Persons
+Family Members
+Close Associates
+
+Réévaluation périodique.
+
+10. ADVERSE MEDIA
+
+Recherche automatique :
+
+corruption
+fraude
+blanchiment
+terrorisme
+criminalité financière
+
+Score de réputation.
+
+11. AML ENGINE
+
+Le moteur AML analyse :
+
+fréquence
+montants
+géographie
+bénéficiaires
+comportement
+anomalies
+
+Déclenche :
+
+alertes
+enquêtes
+blocages
+12. TRAVEL RULE
+
+Support :
+
+FATF Travel Rule
+IVMS101
+échange sécurisé des données VASP
+
+Applicable selon les juridictions.
+
+13. FATCA & CRS
+
+Gestion automatique :
+
+résidence fiscale
+déclarations
+obligations de reporting
+14. TRANSACTION MONITORING
+
+Analyse en temps réel :
+
+structuration (smurfing)
+transactions inhabituelles
+vélocité
+pays à risque
+comportements anormaux
+15. CASE MANAGEMENT
+
+Chaque alerte crée automatiquement un dossier.
+
+Le dossier contient :
+
+client
+transactions
+preuves
+historique
+analyste assigné
+statut
+décisions
+16. REGULATORY REPORTING
+
+Production automatique de rapports :
+
+STR/SAR
+CTR
+FATCA
+CRS
+rapports Banque Centrale
+rapports internes
+17. CONTINUOUS MONITORING
+
+Même après validation KYC :
+
+rescanning quotidien
+nouvelles sanctions
+nouveaux PEP
+nouvelles alertes médias
+
+Les clients sont surveillés en continu.
+
+18. AI ASSISTED COMPLIANCE
+
+L'IA peut :
+
+prioriser les dossiers
+résumer les enquêtes
+détecter des schémas
+recommander des actions
+
+L'IA ne peut jamais prendre seule une décision réglementaire définitive.
+
+19. AUDITABILITY
+
+Chaque décision journalise :
+
+complianceId
+workflowId
+userId
+analystId
+moteur utilisé
+décision
+justification
+timestamp
+traceId
+
+Aucune décision n'est supprimée.
+
+20. PERFORMANCE OBJECTIVES
+
+Screening sanctions :
+
+< 300 ms
+
+Décision AML :
+
+< 500 ms
+
+Orchestration complète :
+
+< 2 s
+
+Disponibilité :
+
+99.99 %
+
+21. SECURITY
+
+Toutes les données de conformité sont :
+
+chiffrées
+compartimentées
+accessibles uniquement aux rôles autorisés
+auditées
+
+Les informations sensibles ne sont jamais exposées aux utilisateurs finaux.
+
+22. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS orchestrate compliance checks through the Compliance Orchestration Platform.
+NEVER bypass AML, KYC or sanctions screening.
+ALWAYS execute mandatory regulatory checks before settlement.
+NEVER allow AI to make final compliance decisions without human approval where required.
+ALWAYS support jurisdiction-specific compliance workflows.
+ALWAYS maintain immutable audit logs.
+ALWAYS support continuous monitoring after onboarding.
+NEVER allow outdated sanctions lists.
+ALWAYS generate regulatory reports when required.
+ALWAYS ensure every compliance decision is traceable and reproducible.
+23. SUCCESS CRITERIA
+
+La Compliance Orchestration Platform est considérée comme complète lorsque :
+
+tous les moteurs de conformité sont centralisés et orchestrés ;
+les contrôles sont exécutés automatiquement selon les événements métier ;
+les réglementations internationales (KYC, AML, PEP, Sanctions, FATCA, CRS, Travel Rule) sont prises en charge ;
+les dossiers d'enquête sont gérés de bout en bout ;
+toutes les décisions sont auditables, versionnées et reproductibles ;
+la plateforme peut être adaptée à chaque juridiction sans modifier le code.
+24. FUTURE EXTENSIONS (V4 READY)
+
+Le moteur est conçu pour intégrer :
+
+World-Check One (Refinitiv/LSEG)
+Dow Jones Risk & Compliance
+ComplyAdvantage
+Chainalysis (crypto AML)
+TRISA / OpenVASP pour la Travel Rule
+AI Compliance Copilot pour assister les analystes
+Real-Time Regulatory Updates par pays
+Cross-Border Compliance Federation pour les groupes bancaires internationaux

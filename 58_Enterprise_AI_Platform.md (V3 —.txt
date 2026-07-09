@@ -1,0 +1,373 @@
+58_Enterprise_AI_Platform.md (V3 — Enterprise AI Platform)
+1. OBJECTIF DU SYSTÈME
+
+L'Enterprise AI Platform est la couche d'intelligence artificielle centralisée d'Amanah.
+
+Elle fournit une infrastructure sécurisée permettant d'utiliser plusieurs modèles d'IA sans impacter les services métiers.
+
+Tous les services IA transitent par cette plateforme.
+
+Aucun microservice n'appelle directement un LLM.
+
+2. CORE PRINCIPLES
+2.1 AI by Design
+Every AI capability must be secure, explainable and governed.
+2.2 Provider Agnostic
+Business services never depend on a specific AI provider.
+2.3 Human in the Loop
+Critical banking decisions always require human validation.
+3. GLOBAL ARCHITECTURE
+Applications
+
+↓
+
+AI Gateway
+
+↓
+
+LLM Router
+
+↓
+
+Prompt Engine
+
+↓
+
+RAG Engine
+
+↓
+
+AI Agents
+
+↓
+
+Model Providers
+
+↓
+
+OpenAI
+Claude
+Gemini
+Llama
+Mistral
+Azure OpenAI
+Local Models
+4. AI COMPONENTS
+
+La plateforme comprend :
+
+AI Gateway
+LLM Router
+Prompt Engine
+AI Agents
+RAG Engine
+Embedding Service
+Vector Database
+Model Registry
+AI Guardrails
+AI Governance
+AI Audit
+AI Monitoring
+MCP Server
+5. AI GATEWAY
+
+Tous les appels IA passent par :
+
+Application
+
+↓
+
+AI Gateway
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Guardrails
+
+↓
+
+LLM Router
+
+Le Gateway :
+
+authentifie
+journalise
+contrôle les coûts
+applique les politiques
+protège les données
+6. LLM ROUTER
+
+Le Router choisit automatiquement le meilleur modèle.
+
+Exemple :
+
+Support Client
+
+↓
+
+Claude
+
+Analyse AML
+
+↓
+
+GPT-5
+
+Traduction
+
+↓
+
+Gemini
+
+Résumé
+
+↓
+
+Llama
+
+OCR
+
+↓
+
+Vision Model
+
+7. MULTI-MODEL SUPPORT
+
+Support natif :
+
+OpenAI
+Anthropic Claude
+Google Gemini
+Meta Llama
+Mistral
+DeepSeek
+Azure OpenAI
+AWS Bedrock
+modèles internes
+
+Le changement de fournisseur ne modifie jamais le code métier.
+
+8. PROMPT MANAGEMENT
+
+Tous les prompts sont :
+
+versionnés
+testés
+approuvés
+audités
+réutilisables
+
+Aucun prompt critique n'est codé en dur.
+
+9. MODEL REGISTRY
+
+Chaque modèle possède :
+
+version
+propriétaire
+coût
+latence
+précision
+date de validation
+niveau de risque
+10. RAG ENGINE
+
+Le moteur RAG permet d'interroger :
+
+documentation Amanah
+procédures internes
+politiques
+guides utilisateurs
+réglementations
+FAQ
+spécifications techniques
+
+Les réponses sont fondées sur les données internes, pas uniquement sur les connaissances du modèle.
+
+11. VECTOR DATABASE
+
+Stockage :
+
+embeddings
+documents
+FAQ
+politiques
+procédures
+guides techniques
+
+Support :
+
+Pinecone
+Weaviate
+Qdrant
+pgvector
+12. AI AGENTS
+
+Agents spécialisés :
+
+Banking Copilot
+Compliance Agent
+Treasury Agent
+Support Agent
+Developer Agent
+Fraud Analyst
+Risk Analyst
+Operations Agent
+Reporting Agent
+Finance Agent
+
+Chaque agent possède son propre contexte, ses permissions et ses outils.
+
+13. MODEL CONTEXT PROTOCOL (MCP)
+
+La plateforme expose un serveur MCP permettant aux IA d'accéder de manière sécurisée aux outils internes.
+
+Exemples :
+
+consulter un compte
+rechercher une transaction
+générer un rapport
+lancer un workflow
+interroger le Ledger
+
+Chaque outil est protégé par les politiques de sécurité.
+
+14. AI GUARDRAILS
+
+Les Guardrails empêchent :
+
+fuite de données
+hallucinations critiques
+génération de contenu interdit
+divulgation de secrets
+actions non autorisées
+
+Les réponses sont validées avant d'être renvoyées.
+
+15. AI GOVERNANCE
+
+Toutes les utilisations de l'IA sont :
+
+approuvées
+versionnées
+surveillées
+documentées
+conformes aux politiques internes
+16. AI SECURITY
+
+Protection :
+
+chiffrement des requêtes
+anonymisation des données sensibles
+masquage des PII
+authentification forte
+contrôle des accès
+
+Aucune donnée confidentielle n'est envoyée à un fournisseur sans autorisation.
+
+17. AI OBSERVABILITY
+
+Chaque appel journalise :
+
+requestId
+model
+agent
+utilisateur
+coût
+latence
+tokens
+résultat
+traceId
+18. AI COST MANAGEMENT
+
+Suivi en temps réel :
+
+coût par modèle
+coût par équipe
+coût par utilisateur
+coût par agent
+coût par fonctionnalité
+
+Des budgets et alertes sont configurables.
+
+19. AI MONITORING
+
+Surveillance :
+
+disponibilité des modèles
+temps de réponse
+taux d'erreur
+qualité des réponses
+dérive des performances
+utilisation
+20. AI AUDIT
+
+Chaque interaction est historisée :
+
+prompt
+contexte utilisé
+modèle
+réponse
+utilisateur
+version du prompt
+version du modèle
+timestamp
+
+Les journaux sont immuables.
+
+21. PERFORMANCE OBJECTIVES
+
+Temps moyen de routage :
+
+< 20 ms
+
+Temps moyen de réponse IA :
+
+< 2 secondes
+
+Disponibilité :
+
+99.9 %
+
+22. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER call AI providers directly from business services.
+ALWAYS route AI requests through the AI Gateway.
+ALWAYS support multiple AI providers.
+NEVER hardcode prompts inside application code.
+ALWAYS version prompts and models.
+ALWAYS protect sensitive data before sending requests.
+ALWAYS log AI interactions for auditability.
+NEVER allow AI to execute critical financial actions without approval.
+ALWAYS support MCP-compatible tools.
+ALWAYS monitor AI quality, latency and cost.
+23. SUCCESS CRITERIA
+
+L'Enterprise AI Platform est considérée comme complète lorsque :
+
+tous les services IA utilisent une passerelle centralisée ;
+plusieurs fournisseurs de modèles sont supportés sans dépendance au code métier ;
+les prompts, modèles et agents sont gouvernés et versionnés ;
+les données sensibles sont protégées avant tout traitement IA ;
+chaque interaction est traçable, auditée et conforme aux politiques de sécurité.
+24. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Banking Agents capables d'exécuter des workflows complexes sous supervision.
+Fine-Tuned Internal Models entraînés sur la documentation Amanah.
+Voice Banking AI avec compréhension multilingue.
+Real-Time Fraud Copilot pour assister les analystes en direct.
+AI Workflow Composer permettant de créer des chaînes d'agents IA.
+Federated AI pour exploiter des données distribuées sans les déplacer.
+AI Explainability Dashboard détaillant les raisons des recommandations.
+Enterprise Knowledge Graph reliant clients, comptes, transactions, politiques et documents pour enrichir le RAG.

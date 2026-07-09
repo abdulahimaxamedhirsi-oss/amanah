@@ -1,0 +1,361 @@
+68_Cloud_Infrastructure_Standards.md
+(V3 — Enterprise Cloud Infrastructure & Platform Standards)
+1. OBJECTIF
+
+Ce document définit les standards d'infrastructure cloud obligatoires pour Amanah.
+
+Il couvre :
+
+architecture Cloud Native ;
+Kubernetes ;
+multi-cloud ;
+réseau ;
+stockage ;
+calcul ;
+observabilité ;
+résilience ;
+sécurité ;
+FinOps.
+
+Tous les environnements Amanah doivent respecter ces standards.
+
+2. CORE PRINCIPLES
+2.1 Cloud Native First
+Applications must be designed for cloud-native environments.
+
+Les services sont conteneurisés, stateless lorsque possible et orchestrés.
+
+2.2 High Availability
+No single point of failure is acceptable.
+2.3 Infrastructure as Code
+All infrastructure must be version controlled and reproducible.
+3. REFERENCE ARCHITECTURE
+Users
+
+↓
+
+CDN + WAF
+
+↓
+
+Load Balancer
+
+↓
+
+API Gateway
+
+↓
+
+Kubernetes Cluster
+
+↓
+
+Microservices
+
+↓
+
+Databases
+
+↓
+
+Storage
+
+↓
+
+Monitoring
+4. CLOUD PROVIDERS
+
+Amanah est compatible avec :
+
+Amazon Web Services (AWS)
+Microsoft Azure
+Google Cloud Platform (GCP)
+OpenShift
+VMware Tanzu
+Kubernetes On-Premise
+
+Aucun fournisseur ne doit être imposé par l'architecture.
+
+5. MULTI-CLOUD STRATEGY
+
+Objectifs :
+
+éviter le verrouillage fournisseur ;
+assurer la continuité d'activité ;
+respecter les réglementations locales ;
+optimiser les coûts.
+
+Modes supportés :
+
+Single Cloud
+Active / Passive Multi-Cloud
+Active / Active Multi-Cloud
+6. KUBERNETES STANDARDS
+
+Tous les services sont déployés sous Kubernetes.
+
+Exigences :
+
+Deployments
+StatefulSets
+Services
+Ingress
+ConfigMaps
+Secrets
+Network Policies
+7. CLUSTER ARCHITECTURE
+
+Architecture standard :
+
+Control Plane
+
+↓
+
+Worker Nodes
+
+↓
+
+Namespaces
+
+↓
+
+Pods
+
+↓
+
+Containers
+
+Isolation par environnement et par tenant si nécessaire.
+
+8. NETWORK ARCHITECTURE
+
+Segmentation obligatoire :
+
+Public Zone
+DMZ
+Application Zone
+Data Zone
+Management Zone
+
+Communication contrôlée par politiques réseau.
+
+9. LOAD BALANCING
+
+Support :
+
+Layer 4
+Layer 7
+Global Load Balancer
+
+Fonctions :
+
+Health Checks
+Session Affinity (si nécessaire)
+Failover automatique
+10. STORAGE
+
+Types de stockage :
+
+Block Storage
+Object Storage
+File Storage
+
+Toutes les données critiques sont chiffrées.
+
+11. COMPUTE
+
+Les workloads utilisent :
+
+CPU Requests/Limits
+Memory Requests/Limits
+Horizontal Pod Autoscaler
+Vertical Pod Autoscaler (si validé)
+12. AUTOSCALING
+
+Déclencheurs :
+
+CPU
+Mémoire
+Nombre de requêtes
+Files de messages
+Métriques métier
+
+L'autoscaling ne doit jamais compromettre les performances du Ledger.
+
+13. HIGH AVAILABILITY
+
+Toutes les applications critiques doivent fonctionner sur plusieurs zones de disponibilité.
+
+Objectifs :
+
+aucune interruption lors de la perte d'un nœud ;
+redémarrage automatique ;
+réplication des données.
+14. DISASTER RECOVERY
+
+Chaque environnement définit :
+
+RPO
+RTO
+région de secours
+stratégie de restauration
+
+Tests DR obligatoires au minimum une fois par an.
+
+15. BACKUP STRATEGY
+
+Sauvegardes :
+
+quotidiennes ;
+incrémentales ;
+chiffrées ;
+géo-répliquées.
+
+Les restaurations sont testées régulièrement.
+
+16. OBSERVABILITY
+
+Infrastructure surveillée via :
+
+métriques ;
+logs ;
+traces ;
+alertes.
+
+Outils compatibles :
+
+Prometheus
+Grafana
+OpenTelemetry
+Loki
+Jaeger
+17. SECURITY
+
+Mesures obligatoires :
+
+WAF
+DDoS Protection
+mTLS
+TLS 1.3
+Secrets Manager
+IAM
+Network Policies
+Image Signing
+18. CONTAINER STANDARDS
+
+Chaque image :
+
+minimale ;
+signée ;
+analysée ;
+sans privilèges root ;
+versionnée.
+19. SERVICE MESH
+
+Support :
+
+Istio
+Linkerd
+
+Fonctions :
+
+mTLS
+Traffic Management
+Circuit Breaking
+Retry
+Observabilité
+20. FINOPS
+
+Suivi des coûts :
+
+par environnement ;
+par tenant ;
+par domaine ;
+par service ;
+par équipe.
+
+Alertes sur dépassement de budget.
+
+21. ENVIRONMENT ISOLATION
+
+Environnements indépendants :
+
+Development
+
+↓
+
+Testing
+
+↓
+
+Staging
+
+↓
+
+Production
+
+Aucune ressource n'est partagée entre Production et les autres environnements.
+
+22. COMPLIANCE
+
+L'infrastructure est conçue pour respecter :
+
+ISO 27001
+ISO 22301
+PCI DSS
+SOC 2
+GDPR
+DORA
+NIST
+23. CAPACITY PLANNING
+
+Objectifs :
+
+croissance annuelle prévue ;
+réserves de capacité ;
+tests de montée en charge ;
+planification des ressources.
+24. PLATFORM GOVERNANCE
+
+Chaque composant possède :
+
+propriétaire ;
+documentation ;
+SLA ;
+monitoring ;
+plan de maintenance.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design cloud-native services.
+NEVER introduce single points of failure.
+ALWAYS deploy workloads through Kubernetes.
+ALWAYS encrypt infrastructure communications.
+ALWAYS support Infrastructure as Code.
+NEVER hardcode infrastructure configuration.
+ALWAYS define resource requests and limits.
+ALWAYS consider disaster recovery.
+ALWAYS optimize for scalability and resilience.
+ALWAYS follow Enterprise Cloud Infrastructure Standards.
+26. SUCCESS CRITERIA
+
+Le standard Cloud Infrastructure est respecté lorsque :
+
+l'infrastructure est entièrement automatisée ;
+les services sont hautement disponibles ;
+les déploiements sont reproductibles ;
+la plateforme peut évoluer horizontalement ;
+les coûts, la sécurité et la conformité sont maîtrisés.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Global Active-Active Multi-Cloud
+Confidential Computing
+Kubernetes Fleet Management
+AI-Driven Infrastructure Optimization
+GreenOps & Carbon Footprint Monitoring
+Edge Computing pour agences bancaires
+Autonomous Infrastructure Healing
+Policy-as-Code pour toute l'infrastructure

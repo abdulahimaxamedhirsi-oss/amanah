@@ -1,0 +1,523 @@
+75_Card_Processing_Architecture.md
+(V3 — Enterprise Card Issuing, Processing & Payment Network Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture complète du système cartes Amanah.
+
+Il couvre :
+
+émission de cartes ;
+gestion du cycle de vie ;
+autorisation ;
+tokenisation ;
+intégration réseaux cartes ;
+clearing ;
+settlement ;
+chargebacks ;
+sécurité ;
+wallets digitaux.
+2. CORE PRINCIPLES
+2.1 Card Security First
+Card data must always be protected.
+
+Les données cartes sont considérées comme hautement sensibles.
+
+2.2 Real-Time Authorization
+Every card transaction must receive a fast and reliable decision.
+2.3 Tokenization Everywhere
+Sensitive card information should be replaced with secure tokens.
+3. CARD ARCHITECTURE
+
+Customer
+
+↓
+
+Card Management Platform
+
+↓
+
+Card Processor
+
+↓
+
+Authorization Engine
+
+↓
+
+Card Network
+
+↓
+
+Merchant
+
+↓
+
+Settlement
+
+↓
+
+Ledger
+
+4. CARD PLATFORM COMPONENTS
+Card Management System (CMS)
+
+Responsable :
+
+création cartes ;
+statut ;
+paramètres ;
+limites ;
+lifecycle.
+Authorization Engine
+
+Responsable :
+
+décision temps réel ;
+règles fraude ;
+disponibilité fonds.
+Tokenization Service
+
+Responsable :
+
+remplacement PAN ;
+tokens wallets ;
+sécurité.
+Settlement Engine
+
+Responsable :
+
+clearing ;
+rapprochement ;
+comptabilité.
+5. CARD TYPES
+
+Amanah supporte :
+
+Physical Cards
+
+Cartes physiques :
+
+débit ;
+crédit ;
+prépayées.
+Virtual Cards
+
+Utilisation :
+
+achats online ;
+abonnements ;
+paiements temporaires.
+Disposable Virtual Cards
+
+Pour sécurité renforcée.
+
+Exemple :
+
+Une carte virtuelle différente pour chaque achat.
+
+Corporate Cards
+
+Gestion :
+
+employés ;
+dépenses ;
+politiques.
+6. CARD LIFECYCLE
+
+Cycle complet :
+
+
+REQUESTED
+
+↓
+
+APPROVED
+
+↓
+
+ISSUED
+
+↓
+
+ACTIVATED
+
+↓
+
+ACTIVE
+
+↓
+
+BLOCKED
+
+↓
+
+EXPIRED
+
+↓
+
+CLOSED
+
+7. CARD ISSUING PROCESS
+
+Processus :
+
+
+Customer Request
+
+↓
+
+Eligibility Check
+
+↓
+
+Risk Assessment
+
+↓
+
+Card Creation
+
+↓
+
+Personalization
+
+↓
+
+Delivery
+
+↓
+
+Activation
+
+8. CARD DATA MODEL
+
+Exemple :
+
+{
+ "cardId":"uuid",
+
+ "customerId":"uuid",
+
+ "type":"VIRTUAL",
+
+ "status":"ACTIVE",
+
+ "network":"VISA",
+
+ "createdAt":"2026-01-01"
+}
+9. PAN SECURITY
+
+Le PAN (Primary Account Number) est protégé.
+
+Règles :
+
+jamais stocké en clair ;
+chiffrement fort ;
+accès limité ;
+audit complet.
+10. CARD TOKENIZATION
+
+Architecture :
+
+
+Card Number
+
+↓
+
+Token Service
+
+↓
+
+Digital Token
+
+↓
+
+Wallet / Merchant
+
+
+Utilisations :
+
+Apple Pay ;
+Google Pay ;
+paiements mobiles ;
+e-commerce.
+11. CARD AUTHORIZATION FLOW
+
+Exemple :
+
+Client paie 50 USD.
+
+
+Merchant
+
+↓
+
+Card Network
+
+↓
+
+Amanah Authorization Engine
+
+↓
+
+Fraud Check
+
+↓
+
+Balance Check
+
+↓
+
+Approve / Decline
+
+12. AUTHORIZATION DECISION ENGINE
+
+Analyse :
+
+solde disponible ;
+limites ;
+pays ;
+marchand ;
+comportement ;
+risque.
+13. CARD LIMIT MANAGEMENT
+
+Gestion :
+
+limite quotidienne ;
+limite retrait ;
+limite online ;
+limite internationale.
+
+Exemple :
+
+
+Online Purchase Limit
+
+=
+
+5000 USD/day
+
+14. FRAUD PREVENTION
+
+Signaux analysés :
+
+localisation ;
+appareil ;
+historique ;
+montant ;
+commerçant ;
+fréquence.
+
+Décisions :
+
+
+APPROVE
+
+↓
+
+CHALLENGE
+
+↓
+
+DECLINE
+
+15. 3D SECURE
+
+Support :
+
+3DS 2.x ;
+authentification forte ;
+biométrie ;
+OTP.
+
+Flux :
+
+
+Merchant
+
+↓
+
+3DS Server
+
+↓
+
+Risk Engine
+
+↓
+
+Customer Authentication
+
+↓
+
+Approval
+
+16. CARD NETWORK INTEGRATION
+
+Support :
+
+Visa ;
+Mastercard ;
+réseaux régionaux.
+
+Couche abstraction :
+
+
+Card Platform
+
+↓
+
+Network Adapter
+
+↓
+
+Visa / Mastercard / Local Network
+
+17. CLEARING PROCESS
+
+Après autorisation :
+
+Les transactions sont regroupées.
+
+Étapes :
+
+
+Authorization
+
+↓
+
+Clearing File
+
+↓
+
+Validation
+
+↓
+
+Settlement
+
+18. SETTLEMENT
+
+Le settlement effectue :
+
+transfert financier ;
+rapprochement Ledger ;
+frais ;
+commissions.
+19. CHARGEBACK MANAGEMENT
+
+Gestion :
+
+contestation client ;
+preuve transaction ;
+décision ;
+remboursement.
+
+Cycle :
+
+
+Customer Dispute
+
+↓
+
+Investigation
+
+↓
+
+Network Review
+
+↓
+
+Decision
+
+↓
+
+Settlement Adjustment
+
+20. CARD RECONCILIATION
+
+Compare :
+
+
+Card Network Records
+
+=
+
+Amanah Ledger
+
+=
+
+Processor Records
+
+21. PCI DSS COMPLIANCE
+
+Obligatoire :
+
+segmentation réseau ;
+chiffrement ;
+contrôle accès ;
+monitoring ;
+audits.
+22. WALLET INTEGRATION
+
+Support :
+
+Apple Pay ;
+Google Pay ;
+wallets partenaires.
+
+Fonctions :
+
+provisioning ;
+token lifecycle ;
+device verification.
+23. CARD SECURITY MONITORING
+
+Surveillance :
+
+transactions suspectes ;
+accès CMS ;
+changements paramètres ;
+tentatives fraude.
+24. HIGH AVAILABILITY
+
+Le système cartes utilise :
+
+réplication ;
+plusieurs instances ;
+failover automatique ;
+monitoring temps réel.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER store raw card data insecurely.
+ALWAYS respect PCI DSS requirements.
+ALWAYS tokenize sensitive information.
+ALWAYS validate authorization rules.
+NEVER bypass fraud checks.
+ALWAYS maintain card lifecycle states.
+ALWAYS integrate card transactions with Ledger.
+ALWAYS preserve audit trails.
+ALWAYS protect customer payment data.
+ALWAYS follow Enterprise Card Processing Standards.
+26. SUCCESS CRITERIA
+
+Le système cartes Amanah est conforme lorsque :
+
+les cartes peuvent être émises et gérées automatiquement ;
+les paiements sont autorisés en temps réel ;
+les données sensibles sont protégées ;
+les transactions sont correctement comptabilisées ;
+les exigences PCI DSS sont respectées.
+27. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Card Fraud Prevention
+Biometric Card Authentication
+Metal Premium Cards
+Smart Wearable Payments
+CBDC Card Integration
+Autonomous Chargeback Resolution
+Global Card Network Optimization

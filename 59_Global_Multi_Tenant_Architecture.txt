@@ -1,0 +1,331 @@
+59_Global_Multi_Tenant_Architecture.md (V3 — Enterprise Multi-Tenant Core Banking Platform)
+1. OBJECTIF DU SYSTÈME
+
+Le Global Multi-Tenant Architecture permet à Amanah d'héberger plusieurs organisations indépendantes sur une infrastructure unique.
+
+Chaque tenant fonctionne comme s'il disposait de sa propre plateforme bancaire.
+
+Les données, configurations, utilisateurs, politiques, clés de chiffrement et ressources sont totalement isolés.
+
+2. CORE PRINCIPLES
+2.1 Complete Tenant Isolation
+Each tenant must operate as an independent financial institution.
+2.2 Shared Infrastructure
+Infrastructure is shared.
+Data is never shared.
+2.3 Configuration over Customization
+Tenant differences are configuration-driven, never hardcoded.
+3. GLOBAL ARCHITECTURE
+                    Amanah Cloud
+
+                         │
+
+         ┌───────────────┼────────────────┐
+
+         ▼               ▼                ▼
+
+      Tenant A       Tenant B        Tenant C
+
+         ▼               ▼                ▼
+
+   Bank Alpha      Microfinance      Mobile Money
+
+         ▼               ▼                ▼
+
+  Independent Data  Independent Data  Independent Data
+4. TENANT TYPES
+
+Support :
+
+Commercial Banks
+Islamic Banks
+Microfinance Institutions
+Mobile Money Operators
+Fintechs
+Payment Institutions
+Governments
+NGOs
+Corporate Treasury
+Embedded Finance Providers
+5. TENANT MODEL
+
+Chaque tenant possède :
+
+{
+  "tenantId":"uuid",
+  "tenantCode":"AMANAH_BANK",
+  "name":"Amanah Bank Somalia",
+  "country":"SO",
+  "currency":"SOS",
+  "timezone":"Africa/Mogadishu",
+  "status":"ACTIVE"
+}
+6. TENANT ISOLATION
+
+Chaque tenant possède :
+
+utilisateurs
+clients
+comptes
+Ledger
+règles
+politiques
+workflows
+clés de chiffrement
+stockage documentaire
+paramètres
+
+Aucun accès croisé n'est autorisé.
+
+7. DATA ISOLATION
+
+Toutes les données contiennent :
+
+tenantId
+
+Les requêtes sont automatiquement filtrées.
+
+Un service ne peut jamais accéder aux données d'un autre tenant.
+
+8. DATABASE STRATEGIES
+
+Support :
+
+Option 1
+
+Shared Database
+
+Shared Schema
+
+Tenant Filter
+
+Option 2
+
+Shared Database
+
+Dedicated Schema
+
+Option 3
+
+Dedicated Database
+
+Option 4
+
+Dedicated Infrastructure
+
+Le choix dépend des exigences réglementaires.
+
+9. TENANT CONFIGURATION
+
+Chaque tenant configure :
+
+devises
+langues
+fuseaux horaires
+produits
+frais
+limites
+règles AML
+KYC
+workflows
+branding
+
+Sans modifier le code.
+
+10. BRANDING
+
+Chaque tenant possède :
+
+logo
+couleurs
+police
+favicon
+domaine
+emails
+templates PDF
+notifications
+
+White-label complet.
+
+11. MULTI-COUNTRY SUPPORT
+
+Chaque tenant définit :
+
+pays
+réglementations
+taxes
+formats
+IBAN
+SWIFT
+Mobile Money
+Banque Centrale
+12. MULTI-CURRENCY
+
+Chaque tenant choisit :
+
+devise principale
+devises secondaires
+fournisseurs FX
+règles de conversion
+13. MULTI-LANGUAGE
+
+Support :
+
+English
+Français
+العربية
+Soomaali
+Kiswahili
+Español
+
+Le moteur d'internationalisation est entièrement configurable.
+
+14. SECURITY
+
+Chaque tenant possède :
+
+clés de chiffrement
+secrets
+certificats
+politiques d'accès
+RBAC
+ABAC
+
+Les clés sont isolées.
+
+15. TENANT LIFECYCLE
+
+Étapes :
+
+Provisioning
+
+↓
+
+Configuration
+
+↓
+
+Activation
+
+↓
+
+Production
+
+↓
+
+Suspension
+
+↓
+
+Archive
+
+↓
+
+Deletion (si autorisée)
+16. TENANT PROVISIONING
+
+Création automatique :
+
+base de données
+rôles
+stockage
+clés
+politiques
+monitoring
+dashboards
+
+Temps cible :
+
+< 5 minutes
+
+17. RESOURCE QUOTAS
+
+Chaque tenant possède :
+
+stockage maximal
+utilisateurs maximum
+API quota
+IA quota
+nombre de comptes
+volume de transactions
+18. OBSERVABILITY
+
+Toutes les métriques sont séparées.
+
+Par tenant :
+
+CPU
+mémoire
+API
+coûts
+erreurs
+transactions
+disponibilité
+19. BILLING
+
+Facturation possible selon :
+
+nombre d'utilisateurs
+transactions
+stockage
+IA
+API
+modules activés
+
+Support SaaS complet.
+
+20. DISASTER RECOVERY
+
+Chaque tenant peut avoir :
+
+politique de sauvegarde
+région cloud
+RPO
+RTO
+stratégie de reprise
+
+Indépendamment des autres.
+
+21. COMPLIANCE
+
+Chaque tenant applique :
+
+ses règles AML
+ses politiques KYC
+ses réglementations locales
+ses durées de conservation
+ses exigences de confidentialité
+22. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS isolate tenant data.
+NEVER allow cross-tenant access.
+ALWAYS filter every query by tenantId.
+NEVER hardcode tenant configuration.
+ALWAYS support white-label branding.
+ALWAYS isolate encryption keys.
+ALWAYS support country-specific regulations.
+NEVER mix audit logs between tenants.
+ALWAYS enforce tenant quotas.
+ALWAYS design services to scale horizontally across thousands of tenants.
+23. SUCCESS CRITERIA
+
+Le Global Multi-Tenant Architecture est considéré comme complet lorsque :
+
+plusieurs institutions financières peuvent partager la même plateforme sans partage de données ;
+chaque tenant est entièrement configurable et personnalisable ;
+l'isolation des données, des politiques et des clés est garantie ;
+la plateforme supporte plusieurs pays, devises et langues ;
+le provisionnement d'un nouveau tenant est automatisé et rapide.
+24. FUTURE EXTENSIONS (V4 READY)
+
+L'architecture est conçue pour intégrer :
+
+Multi-Tenant Ledger Federation avec isolation cryptographique des journaux.
+Cross-Tenant Analytics anonymisées pour les groupes bancaires.
+Regional Data Residency conforme aux lois de souveraineté des données.
+Tenant Marketplace permettant d'activer des modules et connecteurs à la demande.
+Multi-Cloud Tenant Placement (AWS, Azure, GCP) selon les exigences réglementaires.
+Hierarchical Tenants (groupe bancaire → filiale → agence).
+Tenant Migration Engine pour déplacer un tenant entre régions ou infrastructures sans interruption de service.

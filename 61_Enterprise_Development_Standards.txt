@@ -1,0 +1,231 @@
+61_Enterprise_Development_Standards.md (V3)
+1. OBJECTIF
+
+Ce document définit les standards de développement obligatoires pour tous les composants d'Amanah.
+
+Aucun code ne peut être fusionné (merge) s'il ne respecte pas ces standards.
+
+Ces standards garantissent :
+
+cohérence
+qualité
+maintenabilité
+sécurité
+évolutivité
+2. CORE PRINCIPLES
+2.1 Clean Code
+
+Chaque fonction doit avoir une seule responsabilité.
+
+2.2 SOLID
+
+Tous les services doivent respecter les principes SOLID.
+
+2.3 Domain Driven Design
+
+Chaque service appartient à un seul domaine métier.
+
+2.4 Hexagonal Architecture
+
+Le domaine métier ne dépend jamais des frameworks.
+
+3. PROJECT STRUCTURE
+
+Tous les services suivent la même structure :
+
+src/
+
+domain/
+
+application/
+
+infrastructure/
+
+interfaces/
+
+tests/
+
+config/
+4. NAMING CONVENTIONS
+
+Classes :
+
+CustomerService
+
+Interfaces :
+
+ICustomerRepository
+
+Events :
+
+CustomerCreatedEvent
+
+Commands :
+
+CreatePaymentCommand
+
+Queries :
+
+GetCustomerQuery
+
+DTO :
+
+PaymentDTO
+5. API STANDARDS
+
+Toutes les API :
+
+RESTful
+OpenAPI
+Versionnées
+Idempotentes
+Documentées
+6. DATABASE STANDARDS
+
+Interdictions :
+
+SELECT *
+SQL en dur
+suppression physique des données critiques
+
+Toutes les migrations sont versionnées.
+
+7. EVENT STANDARDS
+
+Tous les événements :
+
+versionnés
+immuables
+documentés
+compatibles rétroactivement
+8. LOGGING STANDARDS
+
+Tous les logs contiennent :
+
+TraceId
+TenantId
+UserId
+RequestId
+Timestamp
+
+Jamais :
+
+mot de passe
+PIN
+CVV
+clés API
+9. ERROR HANDLING
+
+Les erreurs sont normalisées.
+
+Exemple :
+
+{
+  "code":"PAYMENT_LIMIT_EXCEEDED",
+  "message":"Transfer exceeds daily limit.",
+  "traceId":"..."
+}
+10. TESTING
+
+Minimum :
+
+90 % de couverture sur le domaine métier
+tests unitaires
+tests d'intégration
+tests de contrat
+tests E2E
+11. SECURITY
+
+Obligatoire :
+
+validation des entrées
+protection OWASP Top 10
+chiffrement
+RBAC
+audit
+12. PERFORMANCE
+
+Objectifs :
+
+API :
+
+< 200 ms
+
+Lecture :
+
+< 100 ms
+
+Écriture :
+
+< 300 ms
+
+13. DOCUMENTATION
+
+Chaque module possède :
+
+README
+ADR
+diagrammes
+API
+événements
+modèles de données
+14. CI/CD
+
+Chaque Pull Request :
+
+compile
+lance les tests
+vérifie la sécurité
+vérifie la qualité
+exécute le linting
+
+Aucun merge sans validation.
+
+15. CODE REVIEW
+
+Chaque PR est relue.
+
+Checklist :
+
+architecture
+sécurité
+performance
+tests
+documentation
+16. DEPENDENCY MANAGEMENT
+
+Toutes les dépendances :
+
+sont approuvées
+analysées
+surveillées
+mises à jour
+17. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER violate the architecture.
+ALWAYS generate production-ready code.
+ALWAYS include tests.
+NEVER hardcode secrets.
+ALWAYS document public APIs.
+ALWAYS respect DDD boundaries.
+NEVER duplicate business logic.
+ALWAYS use dependency injection.
+ALWAYS keep backward compatibility.
+ALWAYS follow these Enterprise Development Standards.
+18. SUCCESS CRITERIA
+
+Le standard est respecté lorsque :
+
+tous les services utilisent la même architecture ;
+le code est cohérent et maintenable ;
+les tests et la documentation sont systématiques ;
+les exigences de sécurité et de performance sont appliquées à chaque livraison.
+19. FUTURE EXTENSIONS
+Secure SDLC
+AI-assisted Code Review
+Automated Architecture Validation
+Enterprise Coding Metrics
+Continuous Technical Debt Analysis
+Developer Scorecards

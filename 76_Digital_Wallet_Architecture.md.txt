@@ -1,0 +1,486 @@
+76_Digital_Wallet_Architecture.md
+(V3 — Enterprise Digital Wallet & Stored Value Platform Standards)
+1. OBJECTIF
+
+Ce document définit l'architecture complète du Digital Wallet Amanah.
+
+Il couvre :
+
+wallet accounts ;
+balances ;
+transferts instantanés ;
+paiements QR ;
+intégration wallets externes ;
+tokenisation ;
+sécurité ;
+Ledger integration ;
+multi-currency ;
+conformité.
+
+Le Wallet représente l'expérience financière quotidienne du client.
+
+2. CORE PRINCIPLES
+2.1 Wallet Is Not The Ledger
+Wallet provides user experience.
+Ledger remains the financial source of truth.
+
+Le Wallet ne remplace jamais le Ledger.
+
+2.2 Instant Financial Experience
+Wallet operations must feel immediate.
+
+Les utilisateurs doivent voir leurs opérations en temps réel.
+
+2.3 Security By Default
+Every wallet action must be authenticated and protected.
+3. WALLET ARCHITECTURE
+
+Customer Application
+
+        │
+
+        ▼
+
+Wallet API Gateway
+
+        │
+
+        ▼
+
+Wallet Service
+
+        │
+
+        ├───────────────┐
+
+        ▼               ▼
+
+Balance Service    Payment Service
+
+        │               │
+
+        ▼               ▼
+
+        Ledger Integration Layer
+
+        │
+
+        ▼
+
+Financial Ledger
+
+4. WALLET COMPONENTS
+Wallet Service
+
+Responsable :
+
+création wallet ;
+statut ;
+paramètres ;
+préférences.
+Balance Service
+
+Responsable :
+
+affichage solde ;
+historique ;
+disponibilité fonds.
+Transfer Engine
+
+Responsable :
+
+transferts internes ;
+transferts externes ;
+validation.
+QR Payment Engine
+
+Responsable :
+
+création QR ;
+lecture QR ;
+paiement marchand.
+5. WALLET TYPES
+
+Amanah supporte :
+
+Personal Wallet
+
+Pour particuliers.
+
+Fonctions :
+
+paiement ;
+transfert ;
+épargne ;
+cartes.
+Business Wallet
+
+Pour entreprises.
+
+Fonctions :
+
+employés ;
+permissions ;
+reporting.
+Merchant Wallet
+
+Pour commerçants.
+
+Fonctions :
+
+encaissement ;
+settlement ;
+paiements QR.
+6. WALLET CREATION FLOW
+
+Processus :
+
+
+Customer Registration
+
+↓
+
+KYC Verification
+
+↓
+
+Wallet Creation
+
+↓
+
+Ledger Account Mapping
+
+↓
+
+Wallet Activation
+
+7. WALLET DATA MODEL
+
+Exemple :
+
+{
+ "walletId":"uuid",
+
+ "customerId":"uuid",
+
+ "currency":"EUR",
+
+ "status":"ACTIVE",
+
+ "ledgerAccountId":"uuid",
+
+ "createdAt":"2026-01-01"
+}
+8. WALLET BALANCE MANAGEMENT
+
+Le solde affiché provient du Ledger.
+
+Architecture :
+
+
+Ledger Entries
+
+↓
+
+Balance Calculation
+
+↓
+
+Wallet Display
+
+9. MULTI-CURRENCY WALLET
+
+Un utilisateur peut posséder :
+
+
+EUR Wallet
+
+USD Wallet
+
+GBP Wallet
+
+AED Wallet
+
+
+Chaque devise possède son propre compte Ledger.
+
+10. INTERNAL TRANSFERS
+
+Exemple :
+
+Utilisateur A :
+
+-50 EUR
+
+Utilisateur B :
+
++50 EUR
+
+Traitement :
+
+
+Wallet A
+
+↓
+
+Ledger
+
+↓
+
+Wallet B
+
+11. INSTANT PAYMENTS
+
+Objectifs :
+
+confirmation immédiate ;
+disponibilité temps réel ;
+notifications instantanées.
+12. QR PAYMENT ARCHITECTURE
+
+Flux :
+
+
+Customer Scans QR
+
+↓
+
+Merchant Validation
+
+↓
+
+Risk Check
+
+↓
+
+Payment Authorization
+
+↓
+
+Ledger Posting
+
+↓
+
+Confirmation
+
+13. QR TYPES
+
+Support :
+
+Static QR
+
+Montant entré par client.
+
+Dynamic QR
+
+Montant inclus.
+
+Merchant QR
+
+Identité marchand intégrée.
+
+14. WALLET SECURITY
+
+Protection :
+
+MFA ;
+biométrie ;
+device binding ;
+transaction signing ;
+session management.
+15. DEVICE MANAGEMENT
+
+Chaque appareil possède :
+
+device ID ;
+confiance ;
+historique ;
+dernière connexion.
+16. WALLET TRANSACTION STATES
+
+Cycle :
+
+
+CREATED
+
+↓
+
+AUTHORIZED
+
+↓
+
+PROCESSING
+
+↓
+
+COMPLETED
+
+↓
+
+SETTLED
+
+17. WALLET LIMIT ENGINE
+
+Contrôles :
+
+montant maximum ;
+nombre transactions ;
+pays ;
+type utilisateur.
+18. FRAUD PROTECTION
+
+Analyse :
+
+comportement ;
+vitesse ;
+localisation ;
+appareil ;
+habitudes.
+19. WALLET NOTIFICATIONS
+
+Événements :
+
+
+wallet.created
+
+wallet.deposit.completed
+
+wallet.payment.completed
+
+wallet.transfer.failed
+
+20. EXTERNAL WALLET INTEGRATION
+
+Support :
+
+Apple Pay ;
+Google Pay ;
+partenaires fintech ;
+wallets régionaux.
+
+Architecture :
+
+
+Amanah Wallet
+
+↓
+
+Tokenization Layer
+
+↓
+
+External Wallet Provider
+
+21. TOKEN MANAGEMENT
+
+Les tokens remplacent :
+
+informations sensibles ;
+identifiants paiement.
+
+Cycle :
+
+
+Created
+
+↓
+
+Active
+
+↓
+
+Suspended
+
+↓
+
+Revoked
+
+22. MERCHANT SETTLEMENT
+
+Pour marchands :
+
+
+Customer Payment
+
+↓
+
+Merchant Wallet
+
+↓
+
+Settlement Account
+
+↓
+
+Bank Account
+
+23. WALLET RECONCILIATION
+
+Validation :
+
+
+Wallet Balance
+
+=
+
+Ledger Balance
+
+24. WALLET ANALYTICS
+
+Mesures :
+
+utilisateurs actifs ;
+volume paiement ;
+fréquence ;
+rétention ;
+fraude.
+25. WALLET COMPLIANCE
+
+Respect :
+
+KYC ;
+AML ;
+limites réglementaires ;
+protection données.
+26. HIGH AVAILABILITY
+
+Le Wallet utilise :
+
+architecture distribuée ;
+cache contrôlé ;
+réplication ;
+failover.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER use wallet balance as financial truth.
+ALWAYS integrate wallet operations with Ledger.
+ALWAYS protect wallet credentials.
+ALWAYS implement transaction security.
+NEVER bypass KYC requirements.
+ALWAYS maintain wallet transaction history.
+ALWAYS support multi-currency design.
+ALWAYS validate wallet limits.
+ALWAYS implement fraud controls.
+ALWAYS follow Enterprise Wallet Architecture Standards.
+28. SUCCESS CRITERIA
+
+Le Digital Wallet Amanah est conforme lorsque :
+
+les clients peuvent gérer leur argent instantanément ;
+toutes les opérations sont enregistrées dans le Ledger ;
+les paiements sont sécurisés ;
+les soldes restent exacts ;
+les intégrations externes sont possibles.
+29. FUTURE EXTENSIONS (V4 READY)
+
+Prévu :
+
+AI Personal Finance Assistant
+Programmable Wallet Rules
+CBDC Wallet Support
+Offline Wallet Payments
+Biometric Wallet Authorization
+Global Wallet Interoperability
+Embedded Finance APIs

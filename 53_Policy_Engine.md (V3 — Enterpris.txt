@@ -1,0 +1,347 @@
+53_Policy_Engine.md (V3 — Enterprise Policy & Governance Engine)
+1. OBJECTIF DU SYSTÈME
+
+Le Policy Engine est le moteur central de gouvernance d'Amanah.
+
+Il applique toutes les politiques organisationnelles, réglementaires et de sécurité.
+
+Toutes les autorisations passent par lui.
+
+Le Policy Engine garantit que chaque action est conforme :
+
+aux politiques internes ;
+aux exigences réglementaires ;
+aux contraintes de sécurité ;
+aux règles de gouvernance.
+2. CORE PRINCIPLES
+2.1 Policy Before Action
+Every sensitive action must be evaluated against organizational policies before execution.
+2.2 Zero Trust
+Never trust.
+Always verify.
+
+Aucun utilisateur.
+
+Aucune API.
+
+Aucun service.
+
+Tout est systématiquement vérifié.
+
+2.3 Centralized Governance
+
+Toutes les politiques sont centralisées.
+
+Aucun microservice ne possède ses propres règles d'autorisation.
+
+3. GLOBAL ARCHITECTURE
+             API Gateway
+                  │
+                  ▼
+            Policy Engine
+                  │
+      ┌───────────┼────────────┐
+      ▼           ▼            ▼
+
+ RBAC Engine   ABAC Engine   Compliance
+
+      ▼           ▼            ▼
+
+     Decision (ALLOW / DENY / REVIEW)
+4. POLICY TYPES
+
+Le moteur supporte :
+
+Security Policies
+Compliance Policies
+Data Policies
+Privacy Policies
+AI Policies
+Treasury Policies
+Approval Policies
+Access Policies
+Geographic Policies
+Operational Policies
+5. POLICY MODEL
+{
+  "policyId":"uuid",
+  "name":"High Value Payment",
+  "version":"3.2",
+  "priority":900,
+  "status":"ACTIVE"
+}
+6. ACCESS POLICIES
+
+Exemples :
+
+Un agent ne peut voir que ses clients.
+
+Un commerçant ne peut voir que ses paiements.
+
+Un administrateur régional ne voit que sa région.
+
+Le CEO peut consulter les tableaux de bord globaux.
+
+7. DATA GOVERNANCE
+
+Chaque donnée possède :
+
+propriétaire
+classification
+durée de conservation
+niveau de confidentialité
+niveau de chiffrement
+8. DATA CLASSIFICATION
+PUBLIC
+
+↓
+
+INTERNAL
+
+↓
+
+CONFIDENTIAL
+
+↓
+
+HIGHLY CONFIDENTIAL
+
+↓
+
+RESTRICTED
+
+Chaque niveau applique automatiquement :
+
+chiffrement
+audit
+restrictions d'accès
+9. APPROVAL POLICIES
+
+Exemple :
+
+Paiement > 50 000 USD
+
+↓
+
+Validation Manager
+
+↓
+
+Validation Compliance
+
+↓
+
+Validation Treasury
+
+↓
+
+Exécution
+
+10. SEGREGATION OF DUTIES (SoD)
+
+Le moteur interdit :
+
+La même personne :
+
+crée un paiement
+valide le paiement
+exécute le paiement
+
+Les rôles doivent être séparés.
+
+11. RBAC
+
+Le moteur applique :
+
+rôles
+groupes
+permissions
+héritage
+
+Exemple :
+
+Admin
+
+↓
+
+Manager
+
+↓
+
+Operator
+
+↓
+
+Viewer
+12. ABAC
+
+Décision basée sur :
+
+Utilisateur
+
+Ressource
+
+Contexte
+
+Heure
+
+Pays
+
+Devise
+
+Niveau de risque
+
+13. GEO POLICIES
+
+Exemple :
+
+Paiements interdits depuis certains pays.
+
+Connexion refusée hors zone autorisée.
+
+Restrictions selon les sanctions internationales.
+
+14. DEVICE POLICIES
+
+Le moteur peut imposer :
+
+appareil connu
+appareil enregistré
+chiffrement actif
+version minimale de l'application
+biométrie obligatoire
+15. SESSION POLICIES
+
+Les sessions sont contrôlées selon :
+
+durée
+localisation
+risque
+activité
+type d'utilisateur
+16. AI GOVERNANCE
+
+L'IA ne peut jamais :
+
+approuver un paiement critique seule ;
+modifier une politique ;
+supprimer un audit ;
+accéder aux clés cryptographiques.
+
+Les décisions sensibles exigent une validation humaine.
+
+17. COMPLIANCE POLICIES
+
+Support des exigences :
+
+PCI DSS
+ISO 27001
+SOC 2
+GDPR
+AML
+FATF
+PSD2
+Open Banking
+réglementations locales
+18. POLICY VERSIONING
+
+Toutes les politiques sont :
+
+versionnées ;
+historisées ;
+comparables ;
+restaurables.
+19. POLICY SIMULATION
+
+Avant publication :
+
+Simulation sur des données réelles.
+
+Mesure de l'impact.
+
+Détection des conflits.
+
+Aucune modification en production.
+
+20. POLICY CONFLICT RESOLUTION
+
+Le moteur détecte :
+
+conflits ;
+doublons ;
+incohérences ;
+politiques incompatibles.
+
+La politique ayant la priorité la plus élevée est appliquée, sauf si une politique réglementaire impose un refus absolu.
+
+21. OBSERVABILITY
+
+Chaque décision journalise :
+
+policyId
+userId
+tenantId
+entityId
+resource
+décision
+justification
+timestamp
+traceId
+22. PERFORMANCE OBJECTIVES
+
+Évaluation d'une politique :
+
+< 2 ms
+
+100 politiques :
+
+< 20 ms
+
+Disponibilité :
+
+99.99 %
+
+23. SECURITY
+
+Les politiques sont :
+
+signées ;
+chiffrées ;
+auditées ;
+protégées contre toute modification non autorisée.
+
+Les changements nécessitent une approbation et sont tracés.
+
+24. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS evaluate policies before executing sensitive operations.
+NEVER bypass the Policy Engine.
+ALWAYS enforce Zero Trust principles.
+NEVER allow users to approve their own critical operations.
+ALWAYS support RBAC and ABAC together.
+ALWAYS version and audit every policy change.
+NEVER expose confidential data outside authorized contexts.
+ALWAYS simulate policies before production deployment.
+ALWAYS resolve policy conflicts deterministically.
+ALWAYS maintain complete governance traceability.
+25. SUCCESS CRITERIA
+
+Le Policy Engine est considéré comme complet lorsque :
+
+toutes les opérations sensibles passent par une évaluation de politiques ;
+les politiques sont centralisées, versionnées et auditables ;
+RBAC, ABAC, SoD et Zero Trust fonctionnent conjointement ;
+les politiques réglementaires, de sécurité et de confidentialité sont appliquées de manière cohérente ;
+les simulations permettent de tester les changements avant leur mise en production.
+26. FUTURE EXTENSIONS (V4 READY)
+
+Le Policy Engine est conçu pour intégrer :
+
+OPA (Open Policy Agent) comme moteur de politiques standard.
+Rego Policy Support pour exprimer des politiques complexes.
+Policy Marketplace avec des modèles réglementaires par pays.
+AI Policy Advisor pour détecter automatiquement les conflits ou les faiblesses.
+Continuous Compliance Monitoring avec alertes en temps réel.
+Cross-Tenant Governance pour les groupes bancaires internationaux.

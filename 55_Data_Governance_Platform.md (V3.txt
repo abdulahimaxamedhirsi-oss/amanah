@@ -1,0 +1,357 @@
+55_Data_Governance_Platform.md (V3 — Enterprise Data Governance Platform)
+1. OBJECTIF DU SYSTÈME
+
+La Data Governance Platform est responsable de la qualité, de la gouvernance, de la sécurité et du cycle de vie de toutes les données d'Amanah.
+
+Elle garantit que chaque donnée est :
+
+unique
+fiable
+traçable
+conforme
+sécurisée
+versionnée
+gouvernée
+
+Toutes les données passent par cette plateforme.
+
+2. CORE PRINCIPLES
+2.1 Single Source of Truth
+Every business entity must have one authoritative source.
+2.2 Data Ownership
+Every dataset must have a clearly defined owner.
+2.3 Data Lifecycle
+Every piece of data has a lifecycle from creation to secure destruction.
+3. GLOBAL ARCHITECTURE
+Applications
+
+↓
+
+API Platform
+
+↓
+
+Master Data Platform
+
+↓
+
+Data Governance
+
+↓
+
+Data Lake
+
+↓
+
+Analytics
+
+↓
+
+AI Platform
+4. MASTER DATA MANAGEMENT (MDM)
+
+Le MDM gère les données de référence.
+
+Entités principales :
+
+Clients
+Comptes
+Cartes
+Agents
+Marchands
+Banques
+Pays
+Devises
+Produits
+Organisations
+
+Chaque entité possède un identifiant global unique.
+
+5. DATA OWNERSHIP
+
+Chaque donnée possède :
+
+propriétaire métier
+propriétaire technique
+responsable conformité
+niveau de confidentialité
+politique de rétention
+6. DATA CLASSIFICATION
+
+Toutes les données sont classifiées.
+
+PUBLIC
+
+↓
+
+INTERNAL
+
+↓
+
+CONFIDENTIAL
+
+↓
+
+HIGHLY CONFIDENTIAL
+
+↓
+
+RESTRICTED
+
+Le niveau détermine automatiquement :
+
+chiffrement
+accès
+journalisation
+conservation
+7. DATA QUALITY ENGINE
+
+Chaque donnée est contrôlée.
+
+Critères :
+
+complétude
+exactitude
+cohérence
+unicité
+validité
+fraîcheur
+
+Les anomalies génèrent des alertes.
+
+8. DATA LINEAGE
+
+Chaque donnée est traçable.
+
+Exemple :
+
+Customer Registration
+
+↓
+
+KYC
+
+↓
+
+Account Creation
+
+↓
+
+Ledger
+
+↓
+
+Reporting
+
+↓
+
+Analytics
+
+↓
+
+AI
+
+On connaît toujours :
+
+l'origine
+les transformations
+les consommateurs
+9. METADATA CATALOG
+
+Toutes les tables, API et événements sont documentés.
+
+Pour chaque élément :
+
+description
+propriétaire
+classification
+schéma
+version
+dépendances
+10. DATA RETENTION
+
+Exemple de politiques :
+
+Transactions : 10 ans
+
+Logs : 2 ans
+
+Sessions : 90 jours
+
+Documents KYC : selon la réglementation locale
+
+Les suppressions sont automatiques lorsque la loi le permet.
+
+11. DATA PRIVACY
+
+Support :
+
+GDPR
+CCPA
+LGPD
+réglementations locales
+
+Fonctionnalités :
+
+droit d'accès
+droit de rectification
+droit à l'effacement (si autorisé)
+portabilité des données
+gestion des consentements
+12. DATA MASKING
+
+Les données sensibles sont masquées.
+
+Exemples :
+
+Carte :
+
+**** **** **** 1234
+
+Email :
+
+j***@example.com
+
+Téléphone :
+
++252 ******45
+13. DATA ENCRYPTION
+
+Toutes les données sensibles sont :
+
+chiffrées au repos (AES-256)
+chiffrées en transit (TLS 1.3)
+protégées par rotation de clés
+14. DATA VERSIONING
+
+Les schémas évoluent sans casser la compatibilité.
+
+Support :
+
+version des entités
+version des API
+version des événements
+migration contrôlée
+15. DATA LAKE
+
+Toutes les données historisées sont envoyées vers un Data Lake.
+
+Utilisations :
+
+BI
+Machine Learning
+Audit
+Reporting
+Prévisions
+Détection de fraude
+
+Le Data Lake ne modifie jamais les données opérationnelles.
+
+16. DATA MESH
+
+Chaque domaine métier est responsable de ses données :
+
+Paiements
+Ledger
+Cartes
+Trésorerie
+KYC
+AML
+Marchands
+Agents
+
+Les données restent interopérables via des standards communs.
+
+17. DATA OBSERVABILITY
+
+Surveillance continue :
+
+qualité
+volume
+dérive
+anomalies
+retards
+disponibilité
+
+Des alertes sont générées automatiquement.
+
+18. AUDITABILITY
+
+Chaque modification journalise :
+
+dataId
+ancien état
+nouvel état
+utilisateur
+service
+timestamp
+traceId
+
+Les journaux sont immuables.
+
+19. PERFORMANCE OBJECTIVES
+
+Recherche MDM :
+
+< 50 ms
+
+Validation qualité :
+
+< 100 ms
+
+Propagation des métadonnées :
+
+< 500 ms
+
+Disponibilité :
+
+99.99 %
+
+20. SECURITY
+
+La plateforme applique :
+
+RBAC
+ABAC
+chiffrement
+tokenisation
+masquage
+journalisation complète
+
+L'accès est contrôlé par le Policy Engine.
+
+21. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS use the Master Data Management system as the authoritative source.
+NEVER duplicate business entities across services.
+ALWAYS classify sensitive data before storage.
+ALWAYS enforce data retention policies.
+NEVER expose restricted data to unauthorized users.
+ALWAYS maintain complete data lineage.
+ALWAYS validate data quality before persistence.
+ALWAYS encrypt sensitive information at rest and in transit.
+NEVER bypass the Data Governance Platform.
+ALWAYS keep metadata synchronized with schema changes.
+22. SUCCESS CRITERIA
+
+La Data Governance Platform est considérée comme complète lorsque :
+
+toutes les données sont gouvernées de manière centralisée ;
+les entités critiques disposent d'une source unique de vérité (MDM) ;
+la qualité, la confidentialité et la traçabilité sont garanties ;
+les politiques de conservation et de confidentialité sont appliquées automatiquement ;
+les données sont exploitables de manière fiable pour l'analytique, l'IA et les obligations réglementaires.
+23. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Enterprise Data Catalog (DataHub, Collibra, Atlan)
+Apache Atlas pour le Data Lineage
+Great Expectations pour la qualité des données
+OpenMetadata pour la gouvernance
+Data Contracts entre microservices
+Privacy-Preserving Analytics (confidential computing)
+Federated Data Mesh pour les groupes bancaires internationaux
+AI Data Governance pour contrôler les jeux de données utilisés par les modèles d'IA

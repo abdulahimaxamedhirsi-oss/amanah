@@ -1,0 +1,445 @@
+63_API_Design_Standards.md
+(V3 — Enterprise API Architecture & Governance Standards)
+1. OBJECTIF
+
+Ce document définit les standards obligatoires pour toutes les APIs Amanah.
+
+Il garantit :
+
+cohérence entre les services ;
+compatibilité long terme ;
+sécurité ;
+facilité d'intégration ;
+expérience développeur professionnelle.
+
+Toutes les APIs internes et externes doivent respecter ces règles.
+
+2. CORE PRINCIPLES
+2.1 API First
+Every capability must be designed as an API before implementation.
+
+L'API est le contrat principal.
+
+Le frontend, les applications mobiles, les partenaires et les services internes utilisent les mêmes contrats.
+
+2.2 Backward Compatibility
+Existing clients must continue working.
+
+Une nouvelle version ne doit jamais casser les intégrations existantes sans migration planifiée.
+
+2.3 Security by Default
+
+Chaque API doit être sécurisée dès sa création.
+
+3. API ARCHITECTURE
+
+Architecture standard :
+
+Client
+
+↓
+
+API Gateway
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Rate Limiting
+
+↓
+
+Business Service
+
+↓
+
+Database / Event Bus
+
+Aucune application cliente ne contacte directement les services internes.
+
+4. API TYPES
+
+Amanah supporte :
+
+REST API
+
+Pour :
+
+applications mobiles
+web applications
+partenaires externes
+GraphQL
+
+Pour :
+
+interfaces complexes
+dashboards
+analytics
+gRPC
+
+Pour :
+
+communication interne haute performance
+microservices
+Webhooks
+
+Pour :
+
+événements temps réel
+notifications partenaires
+5. URL CONVENTIONS
+
+Format obligatoire :
+
+https://api.amanah.com/v1/resource
+
+Exemples :
+
+Créer un client :
+
+POST /v1/customers
+
+Consulter un compte :
+
+GET /v1/accounts/{accountId}
+
+Créer un paiement :
+
+POST /v1/payments
+6. VERSIONING
+
+Toutes les APIs publiques utilisent un versionnement.
+
+Exemple :
+
+/api/v1/
+
+
+Nouvelle évolution majeure :
+
+/api/v2/
+7. HTTP METHODS
+
+Standards :
+
+Action	Méthode
+Création	POST
+Lecture	GET
+Modification complète	PUT
+Modification partielle	PATCH
+Suppression logique	DELETE
+8. RESOURCE NAMING
+
+Toujours utiliser des noms pluriels.
+
+Correct :
+
+/customers
+/accounts
+/payments
+/cards
+
+Incorrect :
+
+/customer
+/getAccount
+/createPayment
+9. REQUEST FORMAT
+
+Format standard :
+
+{
+  "data": {
+    "amount":100,
+    "currency":"USD"
+  },
+  "metadata":{
+    "requestId":"uuid"
+  }
+}
+10. RESPONSE FORMAT
+
+Toutes les réponses utilisent :
+
+Succès :
+
+{
+ "success":true,
+ "data":{},
+ "traceId":"uuid"
+}
+
+Erreur :
+
+{
+ "success":false,
+ "error":{
+    "code":"INSUFFICIENT_FUNDS",
+    "message":"Balance too low"
+ },
+ "traceId":"uuid"
+}
+11. ERROR STANDARDIZATION
+
+Codes d'erreur obligatoires :
+
+Exemples :
+
+AUTH_INVALID_TOKEN
+
+ACCOUNT_NOT_FOUND
+
+PAYMENT_FAILED
+
+LIMIT_EXCEEDED
+
+COMPLIANCE_REVIEW_REQUIRED
+
+Les messages utilisateurs et techniques sont séparés.
+
+12. IDEMPOTENCY
+
+Toutes les opérations financières doivent supporter l'idempotence.
+
+Obligatoire pour :
+
+paiements
+transferts
+remboursements
+virements
+création de transactions
+
+Exemple :
+
+Header :
+
+Idempotency-Key: uuid
+
+Une même requête ne doit jamais créer deux transactions.
+
+13. PAGINATION
+
+Toutes les listes utilisent la pagination.
+
+Exemple :
+
+GET /payments?page=1&limit=50
+
+Réponse :
+
+{
+"items":[],
+"page":1,
+"total":500
+}
+14. FILTERING & SEARCH
+
+Support :
+
+filtres
+recherche
+tri
+dates
+statuts
+
+Exemple :
+
+GET /transactions?
+status=COMPLETED&
+from=2026-01-01
+15. RATE LIMITING
+
+Chaque API possède des limites :
+
+Exemple :
+
+Utilisateur :
+
+100 requêtes/minute
+
+Partenaire :
+
+10 000 requêtes/minute
+
+Service interne :
+
+selon criticité
+
+16. API SECURITY
+
+Obligatoire :
+
+OAuth2
+OpenID Connect
+JWT sécurisé
+TLS 1.3
+API Keys pour partenaires
+Signature HMAC pour webhooks
+mTLS pour connexions critiques
+17. WEBHOOK STANDARDS
+
+Les webhooks utilisent :
+
+Signature :
+
+X-Amanah-Signature
+
+Payload :
+
+{
+ "event":"payment.completed",
+ "timestamp":"2026-01-01",
+ "data":{}
+}
+18. EVENT NAMING
+
+Format :
+
+domain.entity.action
+
+Exemples :
+
+payment.completed
+
+customer.created
+
+account.closed
+
+card.blocked
+19. API DOCUMENTATION
+
+Chaque API possède :
+
+OpenAPI Specification
+exemples
+guides développeurs
+changelog
+SDK disponibles
+20. SDK GENERATION
+
+Les SDK peuvent être générés automatiquement :
+
+Support :
+
+JavaScript
+TypeScript
+Python
+Java
+Kotlin
+Swift
+Go
+21. API GOVERNANCE
+
+Chaque API possède :
+
+propriétaire
+version
+SLA
+documentation
+monitoring
+politique de sécurité
+22. API OBSERVABILITY
+
+Chaque appel journalise :
+
+requestId
+traceId
+utilisateur
+tenantId
+endpoint
+latence
+résultat
+23. PERFORMANCE OBJECTIVES
+
+Objectifs :
+
+API lecture :
+
+<100 ms
+
+API écriture :
+
+<300 ms
+
+Disponibilité :
+
+99.99%
+
+24. API LIFECYCLE
+
+Cycle :
+
+Design
+
+↓
+
+Review
+
+↓
+
+Development
+
+↓
+
+Security Testing
+
+↓
+
+Release
+
+↓
+
+Monitoring
+
+↓
+
+Deprecation
+25. DEPRECATION POLICY
+
+Une API abandonnée doit :
+
+être annoncée ;
+avoir une date de fin ;
+proposer une migration ;
+rester disponible pendant une période définie.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design APIs API-First.
+NEVER break backward compatibility.
+ALWAYS version public APIs.
+ALWAYS implement idempotency for financial operations.
+ALWAYS use standardized error responses.
+NEVER expose internal database models directly.
+ALWAYS document APIs using OpenAPI.
+ALWAYS secure APIs through the API Gateway.
+ALWAYS implement rate limiting.
+ALWAYS maintain API governance metadata.
+27. SUCCESS CRITERIA
+
+Le standard API est respecté lorsque :
+
+toutes les APIs suivent une convention commune ;
+les intégrations partenaires sont simples et stables ;
+les opérations financières sont protégées contre les doublons ;
+les API sont documentées et versionnées ;
+les changements peuvent évoluer sans casser les clients existants.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+API Marketplace pour partenaires Amanah ;
+Developer Portal complet ;
+Self-Service API Keys ;
+GraphQL Federation ;
+AsyncAPI pour événements financiers ;
+API Quality Scoring automatique ;
+AI API Documentation Generator ;
+Contract Testing automatisé.
