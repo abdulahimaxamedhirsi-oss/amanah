@@ -1,0 +1,350 @@
+118_Enterprise_Treasury_Liquidity_Management_Framework.md
+(V3 — Treasury Management System, Liquidity, ALM, Funding, FX, Investments & Islamic Treasury Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Treasury & Liquidity Management d'Amanah.
+
+Il couvre :
+
+Treasury Management System (TMS) ;
+Liquidity Management ;
+Asset Liability Management (ALM) ;
+Cash Positioning ;
+Funding Management ;
+Foreign Exchange (FX) ;
+Investment Portfolio ;
+Sukuk Management ;
+Islamic Treasury ;
+Liquidity Intelligence.
+
+L'objectif est d'assurer une gestion optimale de la liquidité bancaire tout en contrôlant les risques financiers.
+
+2. CORE PRINCIPLES
+2.1 Liquidity First
+
+The bank must maintain sufficient liquidity under normal and stressed conditions.
+
+2.2 Real-Time Treasury
+
+Treasury decisions should rely on accurate real-time financial data.
+
+2.3 Risk Controlled Optimization
+
+Treasury optimization must always respect regulatory and internal risk limits.
+
+3. TREASURY GOVERNANCE
+
+Board
+
+↓
+
+Asset Liability Committee (ALCO)
+
+↓
+
+Chief Treasury Officer
+
+↓
+
+Treasury Operations
+
+↓
+
+Risk Management
+
+↓
+
+Finance
+
+4. TREASURY MANAGEMENT SYSTEM (TMS)
+
+Le TMS centralise :
+
+positions financières ;
+liquidité ;
+investissements ;
+financements ;
+devises ;
+risques.
+5. CASH POSITION MANAGEMENT
+
+Suivi :
+
+soldes bancaires ;
+réserves ;
+liquidités disponibles ;
+flux entrants ;
+flux sortants.
+
+Vision :
+
+temps réel ;
+intraday ;
+prévisionnelle.
+6. LIQUIDITY MANAGEMENT ENGINE
+
+Le moteur analyse :
+
+besoins de liquidité ;
+disponibilité ;
+échéances ;
+scénarios futurs.
+7. LIQUIDITY FORECASTING
+
+Prévisions basées sur :
+
+historiques ;
+saisonnalité ;
+comportements clients ;
+obligations financières.
+
+L'IA améliore les prévisions.
+
+8. ASSET LIABILITY MANAGEMENT (ALM)
+
+Gestion :
+
+actifs ;
+passifs ;
+maturités ;
+taux ;
+liquidité.
+
+Objectif :
+
+équilibrer rendement et risque.
+
+9. ALM ENGINE
+
+Analyse :
+
+gap de maturité ;
+duration ;
+sensibilité taux ;
+scénarios.
+10. LIQUIDITY RISK MANAGEMENT
+
+Surveillance :
+
+LCR ;
+NSFR ;
+concentration dépôts ;
+dépendance financement.
+11. LIQUIDITY STRESS TESTING
+
+Simulation :
+
+retrait massif dépôts ;
+crise marché ;
+fermeture financement ;
+choc économique.
+12. FUNDING MANAGEMENT
+
+Gestion :
+
+sources financement ;
+coût financement ;
+échéances ;
+diversification.
+13. WHOLESALE FUNDING
+
+Support :
+
+marchés financiers ;
+institutions financières ;
+accords interbancaires.
+14. ISLAMIC LIQUIDITY MANAGEMENT
+
+Support :
+
+Murabaha placements ;
+Wakala investissements ;
+Sukuk ;
+Commodity Murabaha (selon juridiction).
+
+Les instruments doivent être validés Shariah.
+
+15. SUKUK PORTFOLIO MANAGEMENT
+
+Gestion :
+
+acquisition ;
+valorisation ;
+revenus ;
+maturité ;
+risque émetteur.
+16. INVESTMENT PORTFOLIO MANAGEMENT
+
+Gestion :
+
+portefeuille ;
+allocation ;
+rendement ;
+limites ;
+risques.
+17. MARKET RISK INTEGRATION
+
+Surveillance :
+
+taux ;
+devises ;
+prix actifs ;
+volatilité.
+18. FOREIGN EXCHANGE (FX) MANAGEMENT
+
+Fonctions :
+
+positions FX ;
+couverture ;
+conversion ;
+règlement.
+19. FX RISK CONTROL
+
+Contrôles :
+
+limites par devise ;
+exposition nette ;
+scénarios.
+20. INTRADAY LIQUIDITY MANAGEMENT
+
+Surveillance :
+
+paiements entrants ;
+paiements sortants ;
+chambres de compensation ;
+besoins immédiats.
+21. PAYMENT LIQUIDITY OPTIMIZATION
+
+Optimisation :
+
+timing paiements ;
+priorités ;
+réserves.
+22. CENTRAL BANK INTEGRATION
+
+Support :
+
+réserves obligatoires ;
+reporting ;
+opérations monétaires ;
+règlement.
+23. TREASURY ANALYTICS
+
+Indicateurs :
+
+liquidité disponible ;
+coût financement ;
+rendement portefeuille ;
+exposition risque.
+24. AI TREASURY INTELLIGENCE
+
+L'IA analyse :
+
+prévisions liquidité ;
+optimisation portefeuille ;
+anomalies ;
+scénarios.
+25. TREASURY DASHBOARD
+
+Vue :
+
+position globale ;
+liquidité ;
+investissements ;
+risques ;
+alertes.
+26. AUTOMATED TREASURY WORKFLOWS
+
+Automatisation :
+
+alertes ;
+rapprochements ;
+validations ;
+rapports.
+27. ACCOUNTING INTEGRATION
+
+Connexion avec :
+
+Enterprise Ledger ;
+Finance ;
+Reporting réglementaire.
+
+Chaque opération possède une trace comptable.
+
+28. RISK CONTROLS
+
+Contrôles :
+
+limites ;
+approbations ;
+séparation des tâches ;
+surveillance continue.
+29. SECURITY
+
+Protection :
+
+accès privilégiés ;
+chiffrement ;
+audit ;
+surveillance fraude.
+30. INTEGRATION
+
+Le Treasury Framework s'intègre avec :
+
+Core Banking ;
+Enterprise Ledger ;
+Payments ;
+Risk Engine ;
+Market Data Platform ;
+Data Platform ;
+AI Platform ;
+Regulatory Reporting ;
+Islamic Finance Engine.
+31. COMPLIANCE
+
+Compatible avec :
+
+Basel III Liquidity Standards ;
+LCR ;
+NSFR ;
+ALCO Governance ;
+IFRS ;
+AAOIFI (pour activités islamiques) ;
+réglementations banques centrales.
+32. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS preserve accurate treasury positions.
+NEVER execute treasury operations without authorization controls.
+ALWAYS maintain real-time liquidity visibility.
+ALWAYS enforce treasury risk limits.
+ALWAYS integrate treasury operations with the Enterprise Ledger.
+ALWAYS support Islamic Treasury rules where applicable.
+ALWAYS maintain complete transaction audit trails.
+ALWAYS validate market and liquidity risk impacts.
+ALWAYS protect treasury-sensitive information.
+ALWAYS follow Amanah Enterprise Treasury Standards.
+33. SUCCESS CRITERIA
+
+Le framework Treasury & Liquidity est conforme lorsque :
+
+la banque possède une vision temps réel de sa liquidité ;
+les risques de financement sont anticipés ;
+les investissements sont optimisés ;
+les limites réglementaires sont respectées ;
+les opérations de trésorerie sont entièrement traçables.
+34. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Treasury Officer
+Autonomous Liquidity Optimization
+Real-Time Global Cash Network
+Predictive Liquidity Crisis Engine
+AI ALM Advisor
+Tokenized Treasury Assets
+CBDC Treasury Management
+Autonomous Sukuk Portfolio Manager
+Quantum Financial Simulation Engine
+Global Islamic Treasury Network

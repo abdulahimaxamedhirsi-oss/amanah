@@ -1,0 +1,419 @@
+113_Enterprise_Data_Platform_AI_Analytics_Framework.md
+(V3 — Enterprise Data Platform, AI/ML, Analytics, Data Governance & Responsible AI Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Data & Artificial Intelligence d'Amanah.
+
+Il couvre :
+
+Enterprise Data Platform ;
+Data Lakehouse ;
+Data Warehouse ;
+Real-Time Analytics ;
+Customer 360 ;
+Artificial Intelligence ;
+Machine Learning ;
+Feature Store ;
+Model Governance ;
+Data Governance ;
+Responsible AI.
+
+L'objectif est de transformer les données Amanah en intelligence opérationnelle tout en maintenant sécurité, confidentialité et conformité.
+
+2. CORE PRINCIPLES
+2.1 Data as a Strategic Asset
+
+Data is a critical banking asset and must be governed accordingly.
+
+2.2 Trusted Data
+
+All decisions must rely on accurate, complete and validated data.
+
+2.3 Responsible AI
+
+AI systems must be transparent, explainable and ethically governed.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Applications
+
+↓
+
+Event Streaming
+
+↓
+
+Data Platform
+
+↓
+
+Lakehouse
+
+↓
+
+Data Warehouse
+
+↓
+
+AI/ML Platform
+
+↓
+
+Analytics
+
+↓
+
+Business Users
+
+4. ENTERPRISE DATA PLATFORM
+
+La plateforme centralise :
+
+données clients ;
+transactions ;
+Ledger ;
+paiements ;
+cartes ;
+investissements ;
+risques ;
+conformité ;
+interactions digitales.
+5. DATA LAKEHOUSE
+
+Architecture hybride :
+
+Data Lake pour données brutes ;
+Data Warehouse pour données structurées ;
+Lakehouse pour analytics avancés.
+
+Support :
+
+données financières ;
+documents ;
+événements ;
+logs ;
+données temps réel.
+6. DATA INGESTION
+
+Sources :
+
+Core Banking ;
+Ledger ;
+APIs ;
+Applications mobiles ;
+Cartes ;
+Blockchain ;
+CRM ;
+AML ;
+Fraud Engine.
+
+Modes :
+
+Batch ;
+Streaming ;
+Real-Time Events.
+7. EVENT STREAMING PLATFORM
+
+Support :
+
+transactions temps réel ;
+événements clients ;
+événements opérationnels.
+
+Exemples :
+
+
+TransactionPosted
+
+PaymentCompleted
+
+CustomerCreated
+
+FraudDetected
+
+CardActivated
+
+8. CUSTOMER 360 PLATFORM
+
+Création d'une vue complète :
+
+identité ;
+comptes ;
+comportements ;
+produits ;
+préférences ;
+risques ;
+interactions.
+9. MASTER DATA MANAGEMENT (MDM)
+
+Gestion des données principales :
+
+Customer ID ;
+Account ID ;
+Product ID ;
+Organization ID.
+
+Objectif :
+
+éviter les doublons et maintenir une source fiable.
+
+10. DATA QUALITY ENGINE
+
+Contrôles :
+
+complétude ;
+exactitude ;
+cohérence ;
+fraîcheur ;
+duplication.
+
+Les anomalies créent des alertes.
+
+11. DATA GOVERNANCE
+
+Gouvernance :
+
+Data Owners ;
+Data Stewards ;
+Data Policies ;
+Classification ;
+Catalogue de données.
+12. DATA CATALOG
+
+Chaque donnée possède :
+
+définition ;
+propriétaire ;
+origine ;
+niveau de sensibilité ;
+règles d'utilisation.
+13. DATA SECURITY
+
+Protection :
+
+chiffrement ;
+anonymisation ;
+pseudonymisation ;
+contrôle d'accès ;
+séparation des environnements.
+14. ARTIFICIAL INTELLIGENCE PLATFORM
+
+La plateforme AI supporte :
+
+Machine Learning ;
+Deep Learning ;
+NLP ;
+Computer Vision ;
+Generative AI.
+15. MACHINE LEARNING PLATFORM
+
+Composants :
+
+Feature Store ;
+Model Registry ;
+Training Pipeline ;
+Evaluation Engine ;
+Deployment Pipeline.
+16. FEATURE STORE
+
+Centralise :
+
+variables clients ;
+signaux comportementaux ;
+indicateurs financiers.
+
+Exemples :
+
+fréquence de transactions ;
+habitudes de dépenses ;
+risque client.
+17. AI USE CASES
+
+Applications :
+
+Fraud AI
+
+Détection :
+
+anomalies ;
+fraude ;
+réseaux suspects.
+AML AI
+
+Analyse :
+
+transactions ;
+relations ;
+comportements.
+Credit AI
+
+Analyse :
+
+solvabilité ;
+risque ;
+capacité de remboursement.
+Personal Finance AI
+
+Assistance :
+
+budgets ;
+recommandations ;
+objectifs.
+18. AI BANKING ASSISTANT
+
+Assistant intelligent :
+
+répond aux questions clients ;
+explique les transactions ;
+aide à gérer les finances ;
+guide les opérations.
+
+Il respecte :
+
+confidentialité ;
+permissions ;
+contexte utilisateur.
+19. GENERATIVE AI PLATFORM
+
+Utilisations :
+
+résumé de dossiers ;
+assistance employés ;
+génération de rapports ;
+recherche documentaire.
+20. MODEL GOVERNANCE
+
+Chaque modèle possède :
+
+propriétaire ;
+version ;
+données utilisées ;
+performance ;
+risques ;
+validation.
+21. MODEL MONITORING
+
+Surveillance :
+
+dérive ;
+précision ;
+biais ;
+performance ;
+stabilité.
+22. EXPLAINABLE AI (XAI)
+
+Les décisions IA doivent fournir :
+
+facteurs importants ;
+justification ;
+niveau de confiance.
+
+Particulièrement important pour :
+
+crédit ;
+fraude ;
+conformité.
+23. RESPONSIBLE AI
+
+Principes :
+
+équité ;
+transparence ;
+sécurité ;
+supervision humaine.
+
+Les décisions critiques nécessitent une gouvernance appropriée.
+
+24. ANALYTICS PLATFORM
+
+Support :
+
+Business Intelligence ;
+Executive Dashboards ;
+Risk Analytics ;
+Customer Analytics ;
+Operational Analytics.
+25. REAL-TIME ANALYTICS
+
+Cas :
+
+surveillance fraude ;
+liquidité ;
+paiements ;
+comportement client.
+26. DATA PRODUCTS
+
+Création de produits internes :
+
+Customer Risk Profile ;
+Fraud Intelligence ;
+Liquidity Intelligence ;
+Financial Insights.
+27. PRIVACY ENGINEERING
+
+Support :
+
+consent management ;
+droit d'accès ;
+suppression ;
+minimisation des données.
+28. INTEGRATION
+
+La Data Platform s'intègre avec :
+
+Core Banking ;
+Ledger ;
+API Platform ;
+AML ;
+Fraud ;
+CRM ;
+Mobile App ;
+Backoffice ;
+Blockchain Platform.
+29. COMPLIANCE
+
+Compatible avec :
+
+GDPR ;
+ISO 27001 ;
+ISO 27701 ;
+SOC 2 ;
+AI Governance Frameworks ;
+réglementations financières locales.
+30. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS treat banking data as highly sensitive.
+ALWAYS enforce data access policies.
+NEVER expose customer information without authorization.
+ALWAYS maintain data lineage.
+ALWAYS version AI models.
+ALWAYS monitor AI performance and drift.
+ALWAYS provide explainability for critical AI decisions.
+ALWAYS protect training data.
+ALWAYS separate development, testing and production AI environments.
+ALWAYS follow Amanah Enterprise Data & AI Standards.
+31. SUCCESS CRITERIA
+
+Le framework Data & AI est conforme lorsque :
+
+les données Amanah sont centralisées et gouvernées ;
+les décisions métiers utilisent des données fiables ;
+les modèles IA sont sécurisés et explicables ;
+la confidentialité client est protégée ;
+l'intelligence artificielle améliore l'expérience bancaire sans remplacer la gouvernance humaine.
+32. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Autonomous Banking Brain
+Enterprise Knowledge Graph
+Quantum Machine Learning
+Real-Time Financial Digital Twin
+Autonomous Compliance AI
+AI Treasury Intelligence
+AI Shariah Advisor
+Predictive Customer Life Events
+Global Financial Intelligence Network
+Self-Optimizing Banking Platform

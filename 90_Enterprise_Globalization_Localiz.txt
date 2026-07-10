@@ -1,0 +1,334 @@
+90_Enterprise_Globalization_Localization_MultiCountry_Framework.md
+(V3 — Enterprise Globalization, Localization, Multi-Country & Internationalization Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de mondialisation d'Amanah.
+
+Il couvre :
+
+Multi-Country ;
+Multi-Tenant ;
+Multi-Language ;
+Multi-Currency ;
+Multi-Timezone ;
+Internationalization (i18n) ;
+Localization (l10n) ;
+Réglementation locale ;
+Fiscalité ;
+Calendriers bancaires.
+
+L'objectif est de permettre à une seule plateforme de fonctionner dans plusieurs pays tout en respectant les spécificités locales.
+
+2. CORE PRINCIPLES
+2.1 Country Configuration Over Custom Code
+Country-specific behavior must be driven by configuration rather than code changes.
+2.2 Global Core, Local Compliance
+Maintain one global platform while supporting local legal and regulatory requirements.
+2.3 Localization by Design
+Every customer-facing interface must support localization.
+3. HIGH LEVEL ARCHITECTURE
+
+Global Platform
+
+↓
+
+Country Configuration
+
+↓
+
+Regional Services
+
+↓
+
+Localization Engine
+
+↓
+
+Customer Experience
+
+4. COUNTRY MODEL
+
+Chaque pays possède :
+
+code ISO ;
+devise par défaut ;
+langue(s) ;
+fuseau horaire ;
+calendrier bancaire ;
+réglementation applicable.
+5. MULTI-COUNTRY ARCHITECTURE
+
+Global Core
+
+↓
+
+Country A
+
+Country B
+
+Country C
+
+↓
+
+Local Configuration
+
+
+Le Core reste identique pour tous les pays.
+
+6. INTERNATIONALIZATION (i18n)
+
+Le système supporte :
+
+séparation du contenu et du code ;
+catalogues de traduction ;
+formats régionaux ;
+pluralisation ;
+chaînes dynamiques.
+7. LOCALIZATION (l10n)
+
+Éléments localisés :
+
+textes ;
+dates ;
+heures ;
+monnaies ;
+adresses ;
+formats téléphoniques ;
+documents.
+8. LANGUAGE SUPPORT
+
+Support natif :
+
+Français ;
+English ;
+العربية ;
+Español ;
+Deutsch ;
+Italiano ;
+Português.
+
+Le framework est extensible à toute langue Unicode.
+
+9. RIGHT-TO-LEFT (RTL)
+
+Support complet :
+
+arabe ;
+persan ;
+ourdou.
+
+Le Design System adapte automatiquement les interfaces RTL.
+
+10. MULTI-CURRENCY
+
+Support :
+
+devise principale ;
+devises secondaires ;
+taux de change ;
+précision monétaire ;
+arrondis.
+
+Les écritures du Ledger conservent la devise d'origine et, si nécessaire, la devise de reporting.
+
+11. EXCHANGE RATES
+
+Les taux sont :
+
+versionnés ;
+horodatés ;
+auditables.
+
+Sources :
+
+Banque Centrale ;
+fournisseur agréé ;
+configuration interne.
+12. TIME ZONES
+
+Gestion :
+
+UTC interne ;
+affichage local ;
+heure d'été ;
+conversions automatiques.
+
+Toutes les opérations critiques sont enregistrées en UTC.
+
+13. DATE & NUMBER FORMATS
+
+Exemples :
+
+France :
+
+31/12/2026
+
+USA :
+
+12/31/2026
+
+Japon :
+
+2026-12-31
+
+Les formats sont déterminés par la localisation de l'utilisateur.
+
+14. REGULATORY PROFILES
+
+Chaque juridiction possède :
+
+exigences KYC ;
+exigences AML ;
+fiscalité ;
+conservation documentaire ;
+reporting.
+15. TAX CONFIGURATION
+
+Support :
+
+TVA ;
+GST ;
+Sales Tax ;
+retenues à la source ;
+taxes bancaires locales.
+16. BANKING CALENDARS
+
+Chaque pays définit :
+
+jours ouvrés ;
+jours fériés ;
+horaires bancaires ;
+jours de règlement.
+17. PAYMENT SCHEMES
+
+Configuration par pays :
+
+SEPA ;
+ACH ;
+Faster Payments ;
+SWIFT ;
+Instant Payments ;
+réseaux locaux.
+18. ADDRESS FORMATS
+
+Support :
+
+formats nationaux ;
+validation ;
+codes postaux ;
+provinces ;
+régions.
+19. DOCUMENT TEMPLATES
+
+Chaque pays possède :
+
+contrats ;
+relevés ;
+attestations ;
+mentions légales ;
+modèles réglementaires.
+20. COMPLIANCE ENGINE
+
+Le moteur applique automatiquement :
+
+réglementation ;
+obligations documentaires ;
+seuils AML ;
+exigences locales.
+21. COUNTRY CONFIGURATION PACKAGE
+
+Chaque package contient :
+
+
+Languages
+
+↓
+
+Currencies
+
+↓
+
+Compliance
+
+↓
+
+Taxes
+
+↓
+
+Bank Holidays
+
+↓
+
+Payment Schemes
+
+↓
+
+Document Templates
+
+22. USER EXPERIENCE
+
+L'utilisateur visualise automatiquement :
+
+sa langue ;
+sa devise ;
+ses formats locaux ;
+son fuseau horaire.
+
+Les préférences utilisateur peuvent surcharger les paramètres régionaux lorsque cela est autorisé.
+
+23. GOVERNANCE
+
+Chaque configuration nationale est :
+
+versionnée ;
+auditée ;
+approuvée ;
+documentée.
+24. SUPPORTED STANDARDS
+
+Compatible avec :
+
+ISO 639 (Languages)
+ISO 3166 (Countries)
+ISO 4217 (Currencies)
+Unicode
+CLDR
+IANA Time Zone Database
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER hardcode country-specific logic.
+ALWAYS use localization resources.
+ALWAYS support Unicode.
+ALWAYS store timestamps in UTC.
+ALWAYS version country configurations.
+ALWAYS separate global business logic from local regulations.
+ALWAYS support multiple currencies.
+ALWAYS respect RTL layouts where applicable.
+ALWAYS validate country-specific regulatory rules.
+ALWAYS follow Enterprise Globalization Standards.
+26. SUCCESS CRITERIA
+
+Le framework de mondialisation est conforme lorsque :
+
+une seule plateforme sert plusieurs pays ;
+les réglementations locales sont configurables ;
+les langues et devises sont gérées dynamiquement ;
+les calendriers bancaires sont respectés ;
+les interfaces s'adaptent automatiquement aux paramètres régionaux.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Real-Time Translation
+AI Regulatory Localization
+Dynamic Tax Engine
+Global Compliance Knowledge Graph
+Automatic Country Onboarding Wizard
+AI Multilingual Banking Assistant
+Cross-Border Banking Hub
+Global FX Optimization Engine
+Localized AI Document Generation
+International Digital Identity Federation

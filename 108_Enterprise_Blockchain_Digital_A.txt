@@ -1,0 +1,357 @@
+108_Enterprise_Blockchain_Digital_Assets_Framework.md
+(V3 — Enterprise Blockchain, Digital Assets, Tokenization, CBDC & Digital Custody Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Blockchain & Digital Assets d'Amanah.
+
+Il couvre :
+
+Blockchain Integration ;
+Digital Asset Custody ;
+Stablecoins ;
+Tokenized Deposits ;
+CBDC ;
+Asset Tokenization ;
+Smart Contracts ;
+Wallet Infrastructure ;
+Digital Asset Compliance ;
+On-Chain / Off-Chain Synchronization.
+
+L'objectif est de permettre l'utilisation des actifs numériques dans un environnement bancaire conforme et sécurisé.
+
+2. CORE PRINCIPLES
+2.1 Ledger First
+
+The Enterprise Ledger remains the official financial record.
+
+Blockchain complements the Ledger but never replaces it.
+
+2.2 Regulatory Compliance
+
+Digital assets must comply with applicable banking and financial regulations.
+
+2.3 Interoperability
+
+Blockchain integrations must remain network-agnostic.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Digital Asset API
+
+↓
+
+Blockchain Gateway
+
+↓
+
+Asset Engine
+
+↓
+
+Custody Platform
+
+↓
+
+Enterprise Ledger
+
+↓
+
+Compliance
+
+↓
+
+Blockchain Networks
+
+4. DIGITAL ASSET TYPES
+
+Support :
+
+Cryptocurrencies ;
+Stablecoins ;
+Tokenized Deposits ;
+CBDC ;
+Security Tokens ;
+Utility Tokens ;
+Real World Asset (RWA) Tokens.
+5. BLOCKCHAIN GATEWAY
+
+Responsabilités :
+
+abstraction des réseaux ;
+gestion des transactions ;
+surveillance ;
+synchronisation ;
+sécurité.
+
+Les applications ne communiquent jamais directement avec une blockchain.
+
+6. SUPPORTED NETWORKS
+
+Architecture compatible avec :
+
+Ethereum ;
+Polygon ;
+Solana ;
+Avalanche ;
+Hyperledger Besu ;
+Hyperledger Fabric ;
+Stellar ;
+Ripple/XRP Ledger ;
+autres réseaux via adaptateurs.
+7. DIGITAL WALLET INFRASTRUCTURE
+
+Support :
+
+Hot Wallet ;
+Warm Wallet ;
+Cold Wallet ;
+Institutional Wallet ;
+Multi-Signature Wallet.
+8. DIGITAL ASSET CUSTODY
+
+Fonctions :
+
+génération de clés ;
+stockage sécurisé ;
+rotation ;
+récupération ;
+approbation des transactions.
+
+Les clés critiques sont protégées par HSM ou MPC.
+
+9. MULTI-PARTY COMPUTATION (MPC)
+
+Le framework supporte :
+
+signatures distribuées ;
+suppression des clés uniques ;
+protection contre les compromissions.
+10. TOKENIZED DEPOSITS
+
+Les dépôts bancaires peuvent être représentés sous forme de tokens.
+
+Chaque token :
+
+représente un dépôt réel ;
+reste adossé à 100 % ;
+est synchronisé avec le Ledger.
+11. STABLECOINS
+
+Support :
+
+émission ;
+réception ;
+conservation ;
+conversion ;
+règlement.
+
+Les stablecoins sont soumis aux contrôles AML, sanctions et conformité.
+
+12. CENTRAL BANK DIGITAL CURRENCIES (CBDC)
+
+Architecture prête pour :
+
+CBDC retail ;
+CBDC wholesale ;
+paiements programmables.
+
+L'intégration est réalisée via des adaptateurs dédiés.
+
+13. SMART CONTRACTS
+
+Utilisation :
+
+tokenisation ;
+règlement ;
+escrow ;
+finance programmable.
+
+Les contrats suivent un processus d'audit et de validation avant déploiement.
+
+14. ASSET TOKENIZATION
+
+Actifs pouvant être tokenisés :
+
+Sukuk ;
+obligations ;
+immobilier ;
+matières premières ;
+créances ;
+fonds.
+
+Chaque actif conserve un lien avec son registre officiel.
+
+15. ON-CHAIN / OFF-CHAIN SYNCHRONIZATION
+
+Cycle :
+
+
+Ledger
+
+↓
+
+Blockchain Gateway
+
+↓
+
+Blockchain
+
+↓
+
+Confirmation
+
+↓
+
+Ledger Update
+
+
+Toute divergence déclenche une investigation.
+
+16. BLOCKCHAIN EVENTS
+
+Événements :
+
+AssetIssued ;
+AssetTransferred ;
+AssetRedeemed ;
+WalletCreated ;
+SmartContractExecuted.
+
+Tous les événements sont publiés sur l'Event Bus.
+
+17. DIGITAL ASSET SETTLEMENT
+
+Le moteur prend en charge :
+
+règlement atomique ;
+Delivery versus Payment (DvP) ;
+Payment versus Payment (PvP) ;
+règlements différés.
+18. COMPLIANCE ENGINE
+
+Contrôles :
+
+AML ;
+sanctions ;
+Travel Rule ;
+KYC ;
+surveillance des transactions.
+
+Les actifs numériques suivent les mêmes exigences de conformité que les actifs traditionnels.
+
+19. BLOCKCHAIN OBSERVABILITY
+
+Surveillance :
+
+état des réseaux ;
+confirmations ;
+frais ;
+latence ;
+échecs.
+20. DIGITAL ASSET RISK
+
+Le moteur surveille :
+
+volatilité ;
+liquidité ;
+concentration ;
+contreparties ;
+risques technologiques.
+21. AUDIT
+
+Chaque opération conserve :
+
+Asset ID ;
+Wallet ID ;
+Transaction Hash ;
+Ledger Entry ID ;
+utilisateur ;
+horodatage.
+
+Les journaux sont immuables.
+
+22. SECURITY
+
+Protection :
+
+HSM ;
+MPC ;
+chiffrement ;
+signatures numériques ;
+séparation des responsabilités.
+23. INTEGRATION
+
+Le framework Blockchain s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Treasury ;
+Payments ;
+AML ;
+Fraud Engine ;
+Risk Management ;
+API Gateway ;
+Notification Service.
+24. COMPLIANCE
+
+Compatible avec :
+
+MiCA (Union européenne) ;
+FATF Travel Rule ;
+ISO 20022 (paiements hybrides) ;
+BIS Digital Asset Principles ;
+recommandations du Financial Stability Board (FSB) ;
+réglementations locales sur les actifs numériques.
+25. DIGITAL ASSET GOVERNANCE
+
+La gouvernance comprend :
+
+Asset Committee ;
+Risk Committee ;
+Compliance ;
+Security ;
+IT Operations.
+
+Les nouveaux actifs suivent un processus formel d'approbation.
+
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS keep the Enterprise Ledger as the official accounting record.
+NEVER execute blockchain transactions without required authorization and compliance checks.
+ALWAYS synchronize on-chain and off-chain records.
+ALWAYS protect private keys using HSM or MPC.
+ALWAYS support immutable blockchain audit trails.
+ALWAYS validate smart contracts before deployment.
+ALWAYS integrate AML and sanctions controls into digital asset operations.
+ALWAYS expose blockchain capabilities through secure APIs.
+ALWAYS isolate blockchain-specific logic behind adapters.
+ALWAYS follow Amanah Enterprise Digital Asset Standards.
+27. SUCCESS CRITERIA
+
+Le framework Blockchain & Digital Assets est conforme lorsque :
+
+le Ledger reste la source officielle de vérité comptable ;
+les actifs numériques sont intégrés de manière sécurisée et conforme ;
+les opérations on-chain et off-chain sont synchronisées ;
+les clés cryptographiques sont protégées par des mécanismes institutionnels ;
+toutes les opérations sont traçables, auditables et compatibles avec les exigences réglementaires.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Digital Asset Risk Manager
+Cross-Chain Interoperability Hub
+Tokenized Sukuk Platform
+Institutional DeFi Gateway
+CBDC Settlement Engine
+Real World Asset Marketplace
+Autonomous Smart Contract Auditor
+Digital Identity for Web3
+Quantum-Resistant Digital Asset Custody
+Universal Digital Asset Banking Platform

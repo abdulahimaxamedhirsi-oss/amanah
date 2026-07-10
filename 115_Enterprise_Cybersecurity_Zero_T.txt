@@ -1,0 +1,449 @@
+115_Enterprise_Cybersecurity_Zero_Trust_Framework.md
+(V3 — Zero Trust Security, SOC, SIEM, SOAR, Threat Intelligence & Cyber Resilience Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Cybersecurity d'Amanah.
+
+Il couvre :
+
+Zero Trust Architecture ;
+Security Operations Center (SOC) ;
+SIEM ;
+SOAR ;
+Threat Intelligence ;
+Identity Security ;
+Encryption ;
+Key Management ;
+Application Security ;
+Network Security ;
+Incident Response ;
+Cyber Resilience.
+
+L'objectif est de protéger Amanah contre les cybermenaces modernes tout en assurant disponibilité, confidentialité et intégrité.
+
+2. CORE PRINCIPLES
+2.1 Zero Trust
+
+Never trust.
+Always verify.
+
+Every user, device, application and request must be continuously validated.
+
+2.2 Defense in Depth
+
+Multiple security layers must protect every critical asset.
+
+2.3 Security by Design
+
+Security controls must exist from architecture design to production operation.
+
+3. HIGH LEVEL SECURITY ARCHITECTURE
+
+Users
+
+↓
+
+Identity Security
+
+↓
+
+Zero Trust Access Layer
+
+↓
+
+Application Security
+
+↓
+
+Network Security
+
+↓
+
+Data Protection
+
+↓
+
+Security Operations Center
+
+↓
+
+Threat Intelligence
+
+4. ZERO TRUST ARCHITECTURE
+
+Le modèle Zero Trust contrôle :
+
+utilisateurs ;
+appareils ;
+applications ;
+API ;
+workloads ;
+données.
+
+Chaque accès nécessite :
+
+authentification ;
+autorisation ;
+validation du contexte ;
+surveillance continue.
+5. IDENTITY SECURITY
+
+L'identité devient le nouveau périmètre.
+
+Contrôles :
+
+MFA ;
+SSO ;
+Passwordless Authentication ;
+Passkeys ;
+Identity Federation ;
+Privileged Access Management.
+6. IDENTITY AND ACCESS MANAGEMENT (IAM)
+
+Gestion :
+
+utilisateurs ;
+rôles ;
+permissions ;
+politiques ;
+sessions.
+
+Support :
+
+RBAC ;
+ABAC ;
+Policy-Based Access Control.
+7. PRIVILEGED ACCESS MANAGEMENT (PAM)
+
+Protection des comptes sensibles :
+
+administrateurs ;
+opérateurs ;
+développeurs ;
+accès production.
+
+Fonctions :
+
+coffre-fort secrets ;
+session recording ;
+approbation temporaire ;
+rotation automatique.
+8. DEVICE SECURITY
+
+Contrôles :
+
+Device Identity ;
+conformité appareil ;
+posture sécurité ;
+chiffrement ;
+détection compromission.
+9. NETWORK SECURITY
+
+Architecture :
+
+
+Internet
+
+↓
+
+DDoS Protection
+
+↓
+
+WAF
+
+↓
+
+Firewall
+
+↓
+
+Micro Segmentation
+
+↓
+
+Applications
+
+10. MICRO-SEGMENTATION
+
+Les systèmes sont isolés :
+
+Core Banking ;
+Ledger ;
+Payments ;
+AML ;
+Fraud ;
+AI ;
+Blockchain.
+
+Une compromission limitée ne doit pas permettre une propagation.
+
+11. APPLICATION SECURITY
+
+Protection :
+
+Secure Coding ;
+Code Review ;
+SAST ;
+DAST ;
+Dependency Scanning ;
+API Security Testing.
+12. API SECURITY
+
+Contrôles :
+
+OAuth2 ;
+OpenID Connect ;
+mTLS ;
+JWT Validation ;
+Rate Limiting ;
+API Threat Detection.
+13. DATA SECURITY
+
+Protection :
+
+chiffrement au repos ;
+chiffrement en transit ;
+classification ;
+DLP ;
+tokenisation.
+14. ENCRYPTION FRAMEWORK
+
+Support :
+
+AES-256 ;
+TLS 1.3 ;
+chiffrement base de données ;
+chiffrement fichiers ;
+chiffrement backups.
+15. KEY MANAGEMENT
+
+Gestion :
+
+génération de clés ;
+rotation ;
+stockage ;
+destruction sécurisée.
+
+Les clés critiques utilisent :
+
+HSM ;
+KMS ;
+MPC lorsque nécessaire.
+16. HARDWARE SECURITY MODULE (HSM)
+
+Utilisation :
+
+clés Ledger ;
+clés paiement ;
+certificats ;
+signatures critiques.
+17. SECURITY OPERATIONS CENTER (SOC)
+
+Le SOC fonctionne :
+
+24/7 ;
+surveillance continue ;
+réponse incidents ;
+analyse menaces.
+18. SIEM PLATFORM
+
+Collecte :
+
+logs applications ;
+réseau ;
+identité ;
+Cloud ;
+endpoints ;
+sécurité.
+
+Analyse :
+
+corrélation ;
+détection anomalies ;
+alertes.
+19. SOAR PLATFORM
+
+Automatisation :
+
+
+Alert
+
+↓
+
+Investigation
+
+↓
+
+Automated Response
+
+↓
+
+Recovery
+
+
+Actions possibles :
+
+bloquer utilisateur ;
+isoler machine ;
+révoquer token ;
+ouvrir incident.
+20. THREAT INTELLIGENCE
+
+Sources :
+
+indicateurs compromission ;
+campagnes attaquants ;
+vulnérabilités ;
+techniques adversaires.
+21. SECURITY MONITORING
+
+Surveillance :
+
+utilisateurs ;
+transactions ;
+APIs ;
+infrastructures ;
+applications.
+22. VULNERABILITY MANAGEMENT
+
+Processus :
+
+découverte ;
+analyse ;
+priorisation ;
+correction ;
+validation.
+23. PENETRATION TESTING
+
+Tests :
+
+applications ;
+APIs ;
+réseau ;
+mobile ;
+Cloud.
+
+Les tests sont réalisés régulièrement.
+
+24. INCIDENT RESPONSE
+
+Processus :
+
+
+Detection
+
+↓
+
+Containment
+
+↓
+
+Investigation
+
+↓
+
+Eradication
+
+↓
+
+Recovery
+
+↓
+
+Lessons Learned
+
+25. CYBER FORENSICS
+
+Collecte :
+
+preuves ;
+logs ;
+événements ;
+traces numériques.
+
+Les preuves sont protégées.
+
+26. SECURITY AWARENESS
+
+Formation :
+
+phishing ;
+ingénierie sociale ;
+protection données ;
+bonnes pratiques.
+27. THIRD-PARTY SECURITY
+
+Evaluation :
+
+fournisseurs ;
+partenaires ;
+APIs externes ;
+SaaS.
+
+Contrôles :
+
+risque fournisseur ;
+audits ;
+certifications.
+28. SECURITY COMPLIANCE
+
+Compatible avec :
+
+ISO/IEC 27001 ;
+NIST Cybersecurity Framework ;
+PCI DSS ;
+SOC 2 ;
+CIS Controls ;
+réglementations bancaires.
+29. INTEGRATION
+
+Le framework Cybersecurity protège :
+
+Core Banking ;
+Enterprise Ledger ;
+Mobile App ;
+Web Portal ;
+API Platform ;
+Cloud Infrastructure ;
+Data Platform ;
+AI Platform ;
+Blockchain ;
+AML/Fraud Systems.
+30. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS apply security-by-design principles.
+NEVER bypass authentication or authorization controls.
+ALWAYS validate identity and permissions before operations.
+ALWAYS protect secrets and cryptographic keys.
+ALWAYS generate secure code following banking security standards.
+ALWAYS include security testing in development workflows.
+ALWAYS maintain security audit trails.
+ALWAYS avoid exposing sensitive financial information.
+ALWAYS follow Zero Trust principles.
+ALWAYS follow Amanah Enterprise Cybersecurity Standards.
+31. SUCCESS CRITERIA
+
+Le framework Cybersecurity est conforme lorsque :
+
+tous les accès sont vérifiés ;
+les données sensibles sont protégées ;
+les menaces sont détectées rapidement ;
+les incidents peuvent être contenus efficacement ;
+les opérations bancaires restent disponibles même sous attaque.
+32. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Security Operations Center (AI-SOC)
+Autonomous Threat Hunting
+Quantum-Resistant Cryptography
+AI Cyber Defense Agent
+Autonomous Incident Response
+Global Banking Threat Intelligence Network
+Self-Healing Security Architecture
+Confidential Computing
+Zero Trust Digital Bank Operating System
+Autonomous Cyber Resilience Platform

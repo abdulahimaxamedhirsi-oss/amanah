@@ -1,0 +1,469 @@
+99_Enterprise_Cybersecurity_ZeroTrust_Framework.md
+(V3 — Enterprise Cybersecurity, Zero Trust, IAM, SOC & Cyber Resilience Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de cybersécurité d'Amanah.
+
+Il couvre :
+
+Zero Trust Architecture ;
+Identity & Access Management (IAM) ;
+Privileged Access Management (PAM) ;
+Multi-Factor Authentication (MFA) ;
+Encryption ;
+Key Management ;
+Security Operations Center (SOC) ;
+SIEM/SOAR ;
+Threat Intelligence ;
+Incident Response ;
+Cyber Resilience.
+
+L'objectif est de protéger la banque contre les cybermenaces tout en garantissant disponibilité, confidentialité et intégrité.
+
+2. CORE PRINCIPLES
+2.1 Zero Trust Security
+
+Never trust.
+Always verify.
+
+Every user, device, application and request must be continuously authenticated and authorized.
+
+2.2 Defense in Depth
+
+Multiple independent security layers protect critical banking assets.
+
+2.3 Security by Design
+
+Security controls must be embedded from architecture to deployment.
+
+3. HIGH LEVEL SECURITY ARCHITECTURE
+
+Users
+
+↓
+
+Identity Security
+
+↓
+
+Zero Trust Gateway
+
+↓
+
+Application Security
+
+↓
+
+Data Security
+
+↓
+
+Monitoring
+
+↓
+
+SOC
+
+↓
+
+Incident Response
+
+4. ZERO TRUST MODEL
+
+Chaque accès est évalué selon :
+
+identité ;
+appareil ;
+localisation ;
+comportement ;
+risque ;
+contexte.
+
+Aucune connexion n'est considérée comme automatiquement fiable.
+
+5. IDENTITY & ACCESS MANAGEMENT (IAM)
+
+IAM centralise :
+
+utilisateurs ;
+employés ;
+clients ;
+partenaires ;
+applications ;
+services techniques.
+6. AUTHENTICATION
+
+Support :
+
+mot de passe sécurisé ;
+biométrie ;
+passkeys ;
+MFA ;
+certificats ;
+authentification adaptative.
+7. MULTI-FACTOR AUTHENTICATION (MFA)
+
+Obligatoire pour :
+
+administrateurs ;
+employés ;
+opérations sensibles ;
+accès réglementaires.
+
+Facteurs :
+
+possession ;
+connaissance ;
+biométrie ;
+comportement.
+8. PRIVILEGED ACCESS MANAGEMENT (PAM)
+
+Protection des comptes privilégiés :
+
+administrateurs système ;
+DBA ;
+ingénieurs sécurité ;
+opérateurs critiques.
+
+Fonctions :
+
+coffre-fort de secrets ;
+accès temporaire ;
+session recording ;
+approbation.
+9. ROLE BASED ACCESS CONTROL (RBAC)
+
+Les permissions sont basées sur :
+
+rôle ;
+département ;
+responsabilité.
+
+Exemples :
+
+Customer Service Agent
+
+≠
+
+Risk Manager
+
+≠
+
+System Administrator
+
+10. ATTRIBUTE BASED ACCESS CONTROL (ABAC)
+
+Décisions selon :
+
+utilisateur ;
+contexte ;
+localisation ;
+niveau de risque ;
+classification donnée.
+11. LEAST PRIVILEGE PRINCIPLE
+
+Chaque utilisateur reçoit uniquement :
+
+les accès nécessaires ;
+pendant la durée nécessaire ;
+pour une tâche précise.
+12. APPLICATION SECURITY
+
+Protection :
+
+Secure Coding ;
+API Security ;
+WAF ;
+DDoS Protection ;
+Runtime Protection.
+13. API SECURITY
+
+Contrôles :
+
+authentification ;
+autorisation ;
+rate limiting ;
+validation des entrées ;
+chiffrement.
+14. DATA SECURITY
+
+Protection :
+
+données clients ;
+transactions ;
+documents ;
+secrets.
+
+Techniques :
+
+chiffrement ;
+tokenisation ;
+anonymisation.
+15. ENCRYPTION FRAMEWORK
+
+Chiffrement :
+
+Data At Rest
+
+Bases de données, fichiers, sauvegardes.
+
+Data In Transit
+
+TLS obligatoire.
+
+Data In Use
+
+Protection des environnements sensibles.
+
+16. KEY MANAGEMENT
+
+Gestion :
+
+génération de clés ;
+rotation ;
+stockage sécurisé ;
+destruction contrôlée.
+
+Support :
+
+HSM ;
+KMS ;
+secrets management.
+17. SECRETS MANAGEMENT
+
+Protection :
+
+API keys ;
+tokens ;
+certificats ;
+credentials.
+
+Aucun secret ne doit être stocké dans le code source.
+
+18. SECURITY OPERATIONS CENTER (SOC)
+
+Le SOC surveille :
+
+événements sécurité ;
+anomalies ;
+attaques ;
+vulnérabilités.
+19. SIEM PLATFORM
+
+Collecte :
+
+logs ;
+événements ;
+alertes ;
+traces utilisateurs.
+
+Analyse :
+
+corrélation ;
+détection ;
+investigation.
+20. SOAR AUTOMATION
+
+Automatisation :
+
+réponse incidents ;
+blocage comptes compromis ;
+enrichissement alertes ;
+orchestration sécurité.
+21. THREAT INTELLIGENCE
+
+Sources :
+
+IOC ;
+malware intelligence ;
+vulnérabilités ;
+campagnes d'attaque.
+
+Les renseignements alimentent automatiquement les contrôles de sécurité.
+
+22. FRAUD & CYBER DETECTION
+
+Détection :
+
+comportements anormaux ;
+prise de contrôle compte ;
+attaques automatisées ;
+exfiltration données.
+23. VULNERABILITY MANAGEMENT
+
+Cycle :
+
+
+Discovery
+
+↓
+
+Assessment
+
+↓
+
+Prioritization
+
+↓
+
+Remediation
+
+↓
+
+Verification
+
+24. PATCH MANAGEMENT
+
+Gestion :
+
+systèmes ;
+applications ;
+dépendances ;
+infrastructures.
+
+Les correctifs critiques suivent des SLA définis.
+
+25. SECURITY TESTING
+
+Tests :
+
+penetration testing ;
+red team ;
+code scanning ;
+dependency scanning ;
+configuration review.
+26. INCIDENT RESPONSE
+
+Processus :
+
+
+Detection
+
+↓
+
+Containment
+
+↓
+
+Investigation
+
+↓
+
+Recovery
+
+↓
+
+Lessons Learned
+
+27. CYBER RESILIENCE
+
+Objectifs :
+
+continuité ;
+récupération rapide ;
+résistance aux attaques.
+
+Inclut :
+
+backup ;
+disaster recovery ;
+cyber recovery.
+28. BUSINESS CONTINUITY
+
+Gestion :
+
+RTO ;
+RPO ;
+sites secondaires ;
+procédures de crise.
+29. SECURITY MONITORING
+
+Surveillance :
+
+24/7 ;
+temps réel ;
+alertes ;
+tendances.
+30. COMPLIANCE
+
+Compatible avec :
+
+ISO 27001 ;
+ISO 22301 ;
+NIST Cybersecurity Framework ;
+PCI DSS ;
+DORA ;
+CIS Controls ;
+SOC 2 ;
+réglementations bancaires applicables.
+31. SECURITY GOVERNANCE
+
+Organisation :
+
+Board
+
+↓
+
+CISO
+
+↓
+
+Security Team
+
+↓
+
+SOC
+
+↓
+
+Engineering Teams
+
+32. SECURITY AUDIT
+
+Chaque événement critique conserve :
+
+utilisateur ;
+action ;
+date ;
+système ;
+résultat.
+
+Les logs sont immuables.
+
+33. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS implement Zero Trust principles.
+NEVER expose secrets or credentials.
+ALWAYS enforce authentication and authorization.
+ALWAYS encrypt sensitive banking data.
+ALWAYS maintain security audit logs.
+ALWAYS apply least privilege access.
+ALWAYS validate API security controls.
+ALWAYS protect privileged operations.
+ALWAYS integrate security monitoring.
+ALWAYS follow Enterprise Cybersecurity Standards.
+34. SUCCESS CRITERIA
+
+Le framework Cybersecurity est conforme lorsque :
+
+tous les accès sont vérifiés ;
+les données sensibles sont protégées ;
+les incidents sont détectés rapidement ;
+les opérations critiques sont sécurisées ;
+la banque peut continuer son activité malgré une cyberattaque.
+35. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Security Operations Center
+Autonomous Threat Hunting
+AI Cyber Analyst
+Continuous Zero Trust Verification
+Quantum Resistant Cryptography
+Autonomous Incident Response
+Cyber Digital Twin
+AI Security Governance Agent
+Predictive Attack Prevention
+Self-Healing Security Infrastructure

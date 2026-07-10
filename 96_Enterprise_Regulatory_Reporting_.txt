@@ -1,0 +1,352 @@
+96_Enterprise_Regulatory_Reporting_SupTech_Framework.md
+(V3 — Enterprise Regulatory Reporting, SupTech & Supervisory Compliance Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de reporting réglementaire d'Amanah.
+
+Il couvre :
+
+Regulatory Reporting ;
+Prudential Reporting ;
+Supervisory Technology (SupTech) ;
+COREP ;
+FINREP ;
+IFRS ;
+FATCA ;
+CRS ;
+XBRL ;
+ESG Reporting ;
+Regulatory Data Governance.
+
+L'objectif est de produire automatiquement des rapports réglementaires fiables, auditables et conformes aux exigences des autorités de supervision.
+
+2. CORE PRINCIPLES
+2.1 Single Source of Truth
+All regulatory reports must originate from governed and reconciled data sources.
+2.2 Automation by Default
+Regulatory reporting should be automated wherever possible.
+2.3 Full Traceability
+Every reported figure must be traceable back to its originating transaction.
+3. HIGH LEVEL ARCHITECTURE
+
+Core Banking
+
+↓
+
+Ledger
+
+↓
+
+Data Platform
+
+↓
+
+Regulatory Data Mart
+
+↓
+
+Reporting Engine
+
+↓
+
+Validation Engine
+
+↓
+
+Supervisor
+
+4. REPORTING DOMAINS
+
+Support :
+
+Prudential Reporting ;
+Financial Reporting ;
+Liquidity Reporting ;
+Capital Reporting ;
+Tax Reporting ;
+ESG Reporting ;
+Islamic Finance Reporting ;
+Statistical Reporting.
+5. REPORT CATALOG
+
+Chaque rapport possède :
+
+Report ID ;
+Version ;
+Régulateur ;
+Juridiction ;
+Fréquence ;
+Date d'effet ;
+Statut.
+6. SUPPORTED FRAMEWORKS
+
+Compatible avec :
+
+Basel III / IV ;
+IFRS ;
+COREP ;
+FINREP ;
+FATCA ;
+CRS ;
+EMIR (si applicable) ;
+MiFID II (si applicable) ;
+DORA ;
+AAOIFI Reporting ;
+exigences des banques centrales locales.
+7. DATA COLLECTION
+
+Sources :
+
+Core Banking ;
+Ledger ;
+Treasury ;
+CRM ;
+Risk Management ;
+AML ;
+KYC ;
+Payments.
+
+Toutes les données sont réconciliées avant utilisation.
+
+8. REGULATORY DATA MART
+
+Le Data Mart contient :
+
+données consolidées ;
+dimensions réglementaires ;
+historiques ;
+versions ;
+métadonnées.
+9. VALIDATION ENGINE
+
+Contrôles :
+
+cohérence ;
+complétude ;
+seuils ;
+rapprochements ;
+règles métier.
+
+Les anomalies sont bloquantes ou informatives selon leur criticité.
+
+10. REPORT GENERATION
+
+Formats :
+
+PDF ;
+Excel ;
+CSV ;
+XML ;
+JSON ;
+XBRL.
+11. XBRL SUPPORT
+
+Fonctionnalités :
+
+taxonomies ;
+validation ;
+génération automatique ;
+versioning.
+12. REGULATORY CALCULATIONS
+
+Calculs :
+
+ratios prudentiels ;
+fonds propres ;
+liquidité ;
+expositions ;
+pertes attendues (IFRS 9) ;
+indicateurs ESG.
+
+Les formules sont versionnées et documentées.
+
+13. SUBMISSION MANAGEMENT
+
+Cycle :
+
+
+Generate
+
+↓
+
+Validate
+
+↓
+
+Approve
+
+↓
+
+Submit
+
+↓
+
+Confirmation
+
+↓
+
+Archive
+
+14. SUPTECH APIs
+
+Le système peut transmettre les rapports via :
+
+API sécurisées ;
+SFTP ;
+portails réglementaires ;
+XBRL Gateway.
+15. FATCA & CRS
+
+Support :
+
+classification fiscale ;
+auto-certification ;
+reporting annuel ;
+contrôle qualité des données.
+16. ESG REPORTING
+
+Indicateurs :
+
+émissions financées ;
+gouvernance ;
+portefeuille durable ;
+risques climatiques.
+
+Le framework est extensible selon les évolutions réglementaires.
+
+17. ISLAMIC FINANCE REPORTING
+
+Rapports spécifiques :
+
+produits Shariah ;
+Sukuk ;
+Zakat (si applicable) ;
+revenus non conformes ;
+purification des revenus.
+18. APPROVAL WORKFLOW
+
+Chaque rapport suit un workflow :
+
+
+Generated
+
+↓
+
+Reviewed
+
+↓
+
+Approved
+
+↓
+
+Submitted
+
+↓
+
+Archived
+
+19. AUDIT TRAIL
+
+Chaque rapport conserve :
+
+version ;
+auteur ;
+approbateur ;
+données sources ;
+date de soumission ;
+accusé de réception.
+
+Les rapports archivés sont immuables.
+
+20. SCHEDULING
+
+Fréquences :
+
+quotidienne ;
+hebdomadaire ;
+mensuelle ;
+trimestrielle ;
+annuelle ;
+à la demande.
+21. DASHBOARDS
+
+Vue consolidée :
+
+rapports à produire ;
+statut ;
+erreurs ;
+validations ;
+échéances ;
+confirmations de réception.
+22. SECURITY
+
+Protection :
+
+chiffrement ;
+signature électronique ;
+contrôle d'accès RBAC ;
+MFA pour les validations critiques ;
+journalisation complète.
+23. DATA GOVERNANCE
+
+Chaque donnée réglementaire possède :
+
+propriétaire ;
+qualité ;
+source ;
+historique ;
+classification.
+
+Le framework s'appuie sur le référentiel de gouvernance des données d'Amanah.
+
+24. COMPLIANCE
+
+Compatible avec :
+
+Basel III / IV
+IFRS
+XBRL
+ISO 20022
+FATCA
+CRS
+DORA
+BCBS Principles
+réglementations des autorités nationales compétentes
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS generate regulatory reports from reconciled data.
+NEVER allow manual modification of validated regulatory figures without audit.
+ALWAYS validate reports before submission.
+ALWAYS preserve report versions and submission history.
+ALWAYS support XBRL where required.
+ALWAYS maintain traceability from reported values to source transactions.
+ALWAYS integrate reporting with risk, finance and ledger modules.
+ALWAYS enforce approval workflows before submission.
+ALWAYS archive submitted reports immutably.
+ALWAYS follow Enterprise Regulatory Reporting Standards.
+26. SUCCESS CRITERIA
+
+Le framework de reporting réglementaire est conforme lorsque :
+
+les rapports sont générés automatiquement ;
+toutes les données sont traçables jusqu'à leur origine ;
+les validations détectent les incohérences avant soumission ;
+les transmissions sont sécurisées et auditables ;
+les exigences des régulateurs sont satisfaites sans intervention manuelle excessive.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Regulatory Copilot
+Autonomous Regulatory Report Generation
+Real-Time Supervisory Dashboards
+AI Validation & Anomaly Detection
+Continuous Regulatory Monitoring
+Digital Regulatory Twin
+Predictive Compliance Analytics
+Cross-Border Supervisory Reporting Hub
+AI Regulatory Change Impact Analysis
+Direct SupTech Integration with Central Banks

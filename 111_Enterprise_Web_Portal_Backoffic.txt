@@ -1,0 +1,364 @@
+111_Enterprise_Web_Portal_Backoffice_Framework.md
+(V3 — Enterprise Web Portal, Operations Console, Administration & Backoffice Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel du portail Web et du Backoffice d'Amanah.
+
+Il couvre :
+
+Customer Web Portal ;
+Employee Portal ;
+Operations Console ;
+Compliance Console ;
+Risk Dashboard ;
+Administration Portal ;
+Workflow Management ;
+Audit Console ;
+Reporting ;
+Identity & Access Management.
+
+L'objectif est de fournir une plateforme web unifiée, sécurisée et orientée productivité.
+
+2. CORE PRINCIPLES
+2.1 Single Workspace
+
+Employees should access all operational capabilities from a unified platform.
+
+2.2 Least Privilege
+
+Users shall only access information required for their role.
+
+2.3 Operational Transparency
+
+All administrative actions must be visible, traceable and auditable.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Employee
+
+↓
+
+Web Portal
+
+↓
+
+API Gateway
+
+↓
+
+Backend for Frontend (BFF)
+
+↓
+
+Business Services
+
+↓
+
+Enterprise Ledger
+
+↓
+
+Audit
+
+↓
+
+Observability
+
+4. USER TYPES
+
+Support :
+
+Customer ;
+Customer Support ;
+Branch Employee ;
+Operations Officer ;
+Compliance Analyst ;
+Risk Analyst ;
+Treasury Officer ;
+Shariah Officer ;
+System Administrator ;
+Executive.
+
+Chaque profil dispose de permissions adaptées.
+
+5. WEB PORTAL MODULES
+
+Le portail comprend :
+
+Dashboard ;
+Customers ;
+Accounts ;
+Payments ;
+Cards ;
+Treasury ;
+Islamic Finance ;
+AML ;
+Fraud ;
+Reports ;
+Administration.
+6. CUSTOMER MANAGEMENT
+
+Les collaborateurs peuvent :
+
+consulter le profil client ;
+rechercher des comptes ;
+vérifier le statut KYC ;
+consulter les produits détenus ;
+suivre les interactions CRM.
+7. ACCOUNT MANAGEMENT
+
+Fonctions :
+
+ouverture ;
+fermeture ;
+suspension ;
+modification ;
+consultation des écritures Ledger.
+
+Toutes les opérations sont journalisées.
+
+8. PAYMENT OPERATIONS
+
+Les opérateurs peuvent :
+
+suivre les paiements ;
+traiter les exceptions ;
+visualiser les statuts ;
+lancer des investigations ;
+effectuer des corrections autorisées.
+9. CARD MANAGEMENT
+
+Fonctions :
+
+émission ;
+remplacement ;
+blocage ;
+renouvellement ;
+suivi des transactions.
+10. AML CONSOLE
+
+Fonctionnalités :
+
+alertes ;
+investigations ;
+SAR/STR ;
+sanctions ;
+PEP ;
+revues périodiques.
+11. FRAUD CONSOLE
+
+Support :
+
+alertes temps réel ;
+dossiers ;
+scores ;
+blocages ;
+récupération.
+12. RISK DASHBOARD
+
+Indicateurs :
+
+exposition ;
+concentration ;
+liquidité ;
+incidents ;
+risques opérationnels.
+
+Les tableaux de bord sont configurables.
+
+13. TREASURY DASHBOARD
+
+Visualisation :
+
+liquidité ;
+positions ;
+devises ;
+règlements ;
+prévisions.
+14. ISLAMIC FINANCE CONSOLE
+
+Modules :
+
+Fatwas ;
+produits ;
+Zakat ;
+purification ;
+audit Shariah ;
+contrats.
+15. REPORTING
+
+Rapports :
+
+réglementaires ;
+opérationnels ;
+financiers ;
+conformité ;
+KPI.
+
+Les exports sont disponibles selon les autorisations.
+
+16. WORKFLOW MANAGEMENT
+
+Flux :
+
+
+Request
+
+↓
+
+Review
+
+↓
+
+Approval
+
+↓
+
+Execution
+
+↓
+
+Audit
+
+
+Les étapes sont configurables.
+
+17. APPROVAL MATRIX
+
+Support :
+
+simple validation ;
+double validation ;
+quatre yeux (Four-Eyes Principle) ;
+validations multi-niveaux.
+18. ADMINISTRATION
+
+Gestion :
+
+utilisateurs ;
+rôles ;
+permissions ;
+politiques ;
+paramètres système.
+19. RBAC / ABAC
+
+Le système combine :
+
+Role-Based Access Control ;
+Attribute-Based Access Control.
+
+Les autorisations peuvent dépendre du rôle, de l'organisation, du pays ou du contexte.
+
+20. SEARCH
+
+Recherche globale :
+
+clients ;
+comptes ;
+paiements ;
+cartes ;
+dossiers AML ;
+événements d'audit.
+21. OBSERVABILITY
+
+Suivi :
+
+disponibilité ;
+erreurs ;
+performance ;
+activités administratives ;
+indicateurs métier.
+22. AUDIT
+
+Chaque action conserve :
+
+utilisateur ;
+rôle ;
+action ;
+objet ;
+ancienne valeur ;
+nouvelle valeur ;
+horodatage.
+
+Les journaux sont immuables.
+
+23. SECURITY
+
+Protection :
+
+MFA ;
+SSO ;
+chiffrement TLS ;
+journalisation complète ;
+gestion des sessions ;
+détection d'activité anormale.
+24. PERFORMANCE
+
+Objectifs :
+
+chargement des tableaux de bord < 3 secondes ;
+recherche < 1 seconde sur les index principaux ;
+support de milliers d'utilisateurs simultanés ;
+haute disponibilité.
+25. COMPLIANCE
+
+Compatible avec :
+
+ISO/IEC 27001 ;
+SOC 2 ;
+GDPR ;
+PCI DSS ;
+OWASP ASVS ;
+réglementations bancaires locales.
+26. INTEGRATION
+
+Le portail Web s'intègre avec :
+
+Core Banking ;
+Ledger ;
+CRM ;
+Payments ;
+Cards ;
+Treasury ;
+AML ;
+Fraud ;
+Identity Platform ;
+Notification Service ;
+AI Platform.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS enforce RBAC and ABAC for every operation.
+NEVER expose customer data beyond authorized permissions.
+ALWAYS record administrative actions in immutable audit logs.
+ALWAYS support configurable approval workflows.
+ALWAYS provide a unified user experience across operational modules.
+ALWAYS secure administrator sessions with MFA and session controls.
+ALWAYS expose operational capabilities through modular APIs.
+ALWAYS optimize dashboards and searches for enterprise-scale performance.
+ALWAYS integrate observability into all backoffice modules.
+ALWAYS follow Amanah Enterprise Backoffice Standards.
+28. SUCCESS CRITERIA
+
+Le framework Web Portal & Backoffice est conforme lorsque :
+
+les collaborateurs disposent d'un espace de travail unifié ;
+les contrôles d'accès sont appliqués de manière cohérente ;
+toutes les actions sont traçables et auditables ;
+les workflows d'approbation sont configurables ;
+les performances restent élevées même à grande échelle.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Operations Copilot
+AI Compliance Assistant
+AI Treasury Dashboard
+Natural Language Search
+Predictive Operations Center
+Digital Twin of Banking Operations
+Autonomous Workflow Orchestration
+Executive AI Decision Center
+Cross-Entity Operations Console
+Autonomous Enterprise Backoffice

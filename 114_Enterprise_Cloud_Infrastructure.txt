@@ -1,0 +1,435 @@
+114_Enterprise_Cloud_Infrastructure_DevOps_Framework.md
+(V3 — Cloud Native Infrastructure, DevSecOps, Kubernetes, Reliability Engineering & Production Operations Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Cloud & DevOps d'Amanah.
+
+Il couvre :
+
+Cloud Infrastructure ;
+Multi-Cloud Strategy ;
+Kubernetes ;
+Infrastructure as Code ;
+DevSecOps ;
+CI/CD ;
+Observability ;
+Site Reliability Engineering ;
+Disaster Recovery ;
+High Availability ;
+FinOps ;
+Production Operations.
+
+L'objectif est de fournir une infrastructure bancaire moderne, sécurisée, scalable et résiliente.
+
+2. CORE PRINCIPLES
+2.1 Cloud Native First
+
+Applications should be designed for cloud scalability and resilience.
+
+2.2 Automation Everywhere
+
+Infrastructure, deployment and operations should be automated whenever possible.
+
+2.3 Security by Design
+
+Security controls must be embedded into every infrastructure layer.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Users
+
+↓
+
+Global Edge Network
+
+↓
+
+Load Balancer
+
+↓
+
+API Gateway
+
+↓
+
+Kubernetes Platform
+
+↓
+
+Microservices
+
+↓
+
+Data Platform
+
+↓
+
+Enterprise Ledger
+
+↓
+
+Storage Systems
+
+4. CLOUD STRATEGY
+
+Support :
+
+Public Cloud ;
+Private Cloud ;
+Hybrid Cloud ;
+Sovereign Cloud.
+
+Objectifs :
+
+résilience ;
+conformité ;
+optimisation des coûts ;
+indépendance fournisseur.
+5. MULTI-CLOUD ARCHITECTURE
+
+La plateforme peut fonctionner avec :
+
+AWS ;
+Microsoft Azure ;
+Google Cloud ;
+Private Infrastructure.
+
+Les services critiques doivent éviter une dépendance excessive à un seul fournisseur.
+
+6. CLOUD LANDING ZONE
+
+Chaque environnement possède :
+
+réseau ;
+sécurité ;
+identité ;
+monitoring ;
+politiques ;
+gouvernance.
+7. NETWORK ARCHITECTURE
+
+Architecture :
+
+
+Internet
+
+↓
+
+WAF
+
+↓
+
+DMZ
+
+↓
+
+Application Network
+
+↓
+
+Private Services
+
+↓
+
+Data Network
+
+8. ZERO TRUST NETWORK
+
+Principes :
+
+aucune confiance implicite ;
+authentification continue ;
+segmentation réseau ;
+contrôle d'accès dynamique.
+9. KUBERNETES PLATFORM
+
+Utilisation :
+
+orchestration des containers ;
+scaling automatique ;
+isolation des services ;
+déploiement continu.
+10. CONTAINER SECURITY
+
+Protection :
+
+images signées ;
+scanning vulnérabilité ;
+registre privé ;
+politiques runtime.
+11. MICROSERVICE PLATFORM
+
+Chaque service possède :
+
+son cycle de vie ;
+son déploiement ;
+ses métriques ;
+ses politiques sécurité.
+12. INFRASTRUCTURE AS CODE (IaC)
+
+Support :
+
+Terraform ;
+CloudFormation ;
+Bicep ;
+Ansible.
+
+Toutes les infrastructures sont versionnées.
+
+13. CONFIGURATION MANAGEMENT
+
+Gestion :
+
+secrets ;
+paramètres ;
+certificats ;
+configurations.
+
+Les changements sont contrôlés.
+
+14. DEVSECOPS PIPELINE
+
+Architecture :
+
+
+Developer
+
+↓
+
+Code Repository
+
+↓
+
+Build
+
+↓
+
+Security Scan
+
+↓
+
+Testing
+
+↓
+
+Deployment
+
+↓
+
+Monitoring
+
+15. CI/CD PLATFORM
+
+Support :
+
+automatisation build ;
+tests ;
+déploiements ;
+rollback.
+16. SECURITY PIPELINE
+
+Contrôles :
+
+SAST ;
+DAST ;
+dependency scanning ;
+container scanning ;
+secret detection.
+17. ENVIRONMENTS
+
+Séparation :
+
+Development ;
+Testing ;
+Staging ;
+Production.
+
+Chaque environnement possède ses propres contrôles.
+
+18. RELEASE MANAGEMENT
+
+Support :
+
+Blue/Green Deployment ;
+Canary Release ;
+Progressive Delivery ;
+Feature Flags.
+19. OBSERVABILITY PLATFORM
+
+Trois piliers :
+
+Metrics
+performance ;
+disponibilité ;
+capacité.
+Logs
+événements ;
+erreurs ;
+audit.
+Traces
+parcours transactionnel complet.
+20. APPLICATION PERFORMANCE MONITORING
+
+Surveillance :
+
+latence ;
+erreurs ;
+dépendances ;
+transactions critiques.
+21. SITE RELIABILITY ENGINEERING (SRE)
+
+Objectifs :
+
+disponibilité ;
+fiabilité ;
+amélioration continue.
+22. SERVICE LEVEL OBJECTIVES (SLO)
+
+Exemples :
+
+disponibilité API ;
+temps de réponse ;
+récupération incident.
+23. INCIDENT MANAGEMENT
+
+Processus :
+
+
+Detection
+
+↓
+
+Alert
+
+↓
+
+Response
+
+↓
+
+Recovery
+
+↓
+
+Postmortem
+
+24. DISASTER RECOVERY
+
+Support :
+
+Backup ;
+Replication ;
+Failover ;
+Recovery Testing.
+25. BUSINESS CONTINUITY
+
+Objectifs :
+
+continuité bancaire ;
+réduction interruption ;
+procédures d'urgence.
+26. HIGH AVAILABILITY
+
+Techniques :
+
+multi-zone deployment ;
+réplication ;
+auto-healing ;
+load balancing.
+27. BACKUP STRATEGY
+
+Protection :
+
+bases de données ;
+Ledger ;
+documents ;
+configurations.
+
+Les backups sont chiffrés et testés.
+
+28. SECRET MANAGEMENT
+
+Support :
+
+Vault ;
+HSM ;
+Key Management Service.
+
+Aucun secret critique ne doit être stocké dans le code.
+
+29. FINOPS
+
+Gestion :
+
+coûts Cloud ;
+optimisation ressources ;
+budgets ;
+prévisions.
+30. PRODUCTION OPERATIONS
+
+Organisation :
+
+Cloud Operations ;
+SRE ;
+Security Operations ;
+Platform Engineering.
+31. COMPLIANCE
+
+Compatible avec :
+
+ISO/IEC 27001 ;
+SOC 2 ;
+PCI DSS ;
+NIST Cloud Security Framework ;
+CIS Benchmarks ;
+réglementations bancaires locales.
+32. INTEGRATION
+
+L'infrastructure supporte :
+
+Core Banking ;
+Ledger ;
+Mobile App ;
+Web Portal ;
+API Platform ;
+Data Platform ;
+AI Platform ;
+Blockchain Platform ;
+Security Systems.
+33. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design cloud-native architectures.
+ALWAYS use Infrastructure as Code for infrastructure changes.
+NEVER deploy production changes without security validation.
+ALWAYS implement automated testing pipelines.
+ALWAYS protect secrets using approved secret management systems.
+ALWAYS maintain environment separation.
+ALWAYS include observability in every production service.
+ALWAYS design for high availability and disaster recovery.
+ALWAYS follow Zero Trust security principles.
+ALWAYS follow Amanah Enterprise Cloud & DevOps Standards.
+34. SUCCESS CRITERIA
+
+Le framework Cloud & DevOps est conforme lorsque :
+
+l'infrastructure peut évoluer automatiquement ;
+les déploiements sont rapides et sécurisés ;
+les incidents sont détectés et traités rapidement ;
+les données critiques restent protégées ;
+la plateforme atteint un niveau bancaire de disponibilité.
+35. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Cloud Operations (AIOps)
+Self-Healing Infrastructure
+AI Incident Commander
+Carbon-Aware Cloud Optimization
+Quantum-Safe Infrastructure
+Edge Banking Infrastructure
+Sovereign Cloud Federation
+Autonomous Security Operations Center
+Digital Twin Infrastructure
+Fully Autonomous Banking Platform

@@ -1,0 +1,454 @@
+100_Enterprise_Cloud_Native_Infrastructure_Platform_Framework.md
+(V3 — Enterprise Cloud Native Architecture, Kubernetes, DevSecOps, Scalability & Resilience Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d’infrastructure Cloud Native d’Amanah.
+
+Il couvre :
+
+Cloud Native Architecture ;
+Kubernetes Enterprise ;
+Microservices ;
+Service Mesh ;
+API Gateway ;
+Event Driven Architecture ;
+Multi-Cloud Strategy ;
+DevSecOps ;
+CI/CD ;
+Infrastructure as Code ;
+Observability ;
+High Availability ;
+Disaster Recovery.
+
+L’objectif est de fournir une plateforme bancaire moderne, sécurisée, élastique et hautement disponible.
+
+2. CORE PRINCIPLES
+2.1 Cloud Native First
+
+Applications must be designed for cloud scalability, resilience and automation.
+
+2.2 Automation Everywhere
+
+Infrastructure, deployment and operations should be automated.
+
+2.3 Resilience by Design
+
+Failures are expected.
+Systems must continue operating.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Users
+
+↓
+
+Global CDN
+
+↓
+
+API Gateway
+
+↓
+
+Service Mesh
+
+↓
+
+Kubernetes Platform
+
+↓
+
+Microservices
+
+↓
+
+Data Services
+
+↓
+
+Cloud Infrastructure
+
+↓
+
+Monitoring & Security
+
+4. CLOUD STRATEGY
+
+Amanah supporte :
+
+Public Cloud ;
+Private Cloud ;
+Hybrid Cloud ;
+Multi-Cloud.
+
+Objectifs :
+
+éviter le verrouillage fournisseur ;
+améliorer la résilience ;
+optimiser les coûts.
+5. SUPPORTED CLOUD PROVIDERS
+
+Architecture compatible avec :
+
+AWS ;
+Microsoft Azure ;
+Google Cloud ;
+Private Cloud Enterprise.
+
+Les services doivent rester abstraits via des couches d’orchestration.
+
+6. KUBERNETES ENTERPRISE PLATFORM
+
+Kubernetes est la couche d’orchestration principale.
+
+Responsabilités :
+
+déploiement ;
+scaling ;
+récupération automatique ;
+gestion des workloads.
+7. CLUSTER ARCHITECTURE
+
+Organisation :
+
+
+Global Cluster
+
+↓
+
+Regional Clusters
+
+↓
+
+Environment Clusters
+
+↓
+
+Namespaces
+
+↓
+
+Applications
+
+8. ENVIRONMENTS
+
+Séparation :
+
+Development ;
+Testing ;
+Staging ;
+Production ;
+Disaster Recovery.
+
+Aucun mélange entre environnements.
+
+9. MICROSERVICES ARCHITECTURE
+
+Les capacités bancaires sont exposées comme services indépendants.
+
+Exemples :
+
+Customer Service ;
+Account Service ;
+Payment Service ;
+Ledger Service ;
+Risk Service ;
+Notification Service.
+10. MICROSERVICE PRINCIPLES
+
+Chaque service possède :
+
+responsabilité unique ;
+API définie ;
+données maîtrisées ;
+cycle de vie indépendant.
+11. API GATEWAY
+
+Fonctions :
+
+routage ;
+authentification ;
+limitation ;
+transformation ;
+monitoring.
+
+Toutes les API externes passent par cette couche.
+
+12. SERVICE MESH
+
+Le Service Mesh gère :
+
+communication interne ;
+chiffrement service-to-service ;
+observabilité ;
+politiques réseau.
+13. EVENT DRIVEN ARCHITECTURE
+
+Les systèmes communiquent via événements.
+
+Exemple :
+
+
+Payment Completed
+
+↓
+
+Event Bus
+
+↓
+
+Ledger Update
+
+↓
+
+Notification
+
+↓
+
+Analytics
+
+14. MESSAGE PLATFORM
+
+Support :
+
+Event Streaming ;
+Message Queue ;
+Pub/Sub.
+
+Utilisations :
+
+paiements ;
+notifications ;
+workflows ;
+analytics temps réel.
+15. DATABASE ARCHITECTURE
+
+Approche :
+
+Database per Service ;
+réplication ;
+partitionnement ;
+haute disponibilité.
+16. CONTAINER SECURITY
+
+Protection :
+
+images signées ;
+scanning vulnérabilité ;
+registry privée ;
+contrôle runtime.
+17. DEVSECOPS
+
+La sécurité est intégrée dans :
+
+développement ;
+build ;
+déploiement ;
+monitoring.
+18. CI/CD PIPELINE
+
+Processus :
+
+
+Code Commit
+
+↓
+
+Build
+
+↓
+
+Security Scan
+
+↓
+
+Tests
+
+↓
+
+Approval
+
+↓
+
+Deployment
+
+19. INFRASTRUCTURE AS CODE (IaC)
+
+Toute infrastructure est définie par code.
+
+Gestion :
+
+réseaux ;
+clusters ;
+bases ;
+sécurité ;
+configurations.
+
+Avantages :
+
+reproductibilité ;
+audit ;
+automatisation.
+20. CONFIGURATION MANAGEMENT
+
+Les configurations sont :
+
+versionnées ;
+sécurisées ;
+séparées du code.
+21. OBSERVABILITY PLATFORM
+
+Trois piliers :
+
+Metrics
+
+Mesures système.
+
+Logs
+
+Événements détaillés.
+
+Traces
+
+Suivi des transactions distribuées.
+
+22. APPLICATION PERFORMANCE MONITORING
+
+Surveillance :
+
+latence ;
+erreurs ;
+disponibilité ;
+dépendances.
+23. AUTO SCALING
+
+Support :
+
+horizontal scaling ;
+vertical scaling ;
+scaling basé sur événements.
+
+La plateforme adapte automatiquement les ressources.
+
+24. HIGH AVAILABILITY
+
+Architecture :
+
+multi-zone ;
+multi-région ;
+réplication ;
+failover automatique.
+25. DISASTER RECOVERY
+
+Gestion :
+
+sauvegardes ;
+réplication ;
+restauration ;
+tests réguliers.
+
+Objectifs :
+
+RTO défini ;
+RPO défini.
+26. BACKUP STRATEGY
+
+Protection :
+
+bases de données ;
+documents ;
+configurations ;
+secrets.
+
+Les restaurations sont régulièrement testées.
+
+27. NETWORK ARCHITECTURE
+
+Séparation :
+
+réseau public ;
+réseau applicatif ;
+réseau données ;
+réseau administration.
+28. ZERO TRUST NETWORKING
+
+Contrôles :
+
+authentification ;
+segmentation ;
+politiques réseau ;
+chiffrement.
+29. COST OPTIMIZATION
+
+Gestion :
+
+utilisation ressources ;
+réservation capacité ;
+autoscaling ;
+monitoring coûts.
+30. PLATFORM ENGINEERING
+
+Création d’une équipe Platform :
+
+Responsabilités :
+
+Kubernetes ;
+outils développeurs ;
+templates ;
+standards ;
+automatisation.
+31. INTERNAL DEVELOPER PLATFORM
+
+Les développeurs disposent :
+
+templates services ;
+pipelines prêts ;
+environnements automatiques ;
+documentation.
+32. COMPLIANCE
+
+Compatible avec :
+
+ISO 27001 ;
+ISO 22301 ;
+DORA ;
+PCI DSS ;
+NIST Cloud Security Framework ;
+CIS Kubernetes Benchmark.
+33. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design cloud-native applications.
+ALWAYS use containerized deployments.
+ALWAYS separate environments.
+ALWAYS automate infrastructure deployment.
+NEVER store secrets in source code.
+ALWAYS implement security controls in pipelines.
+ALWAYS design for failure recovery.
+ALWAYS support horizontal scalability.
+ALWAYS maintain deployment audit trails.
+ALWAYS follow Enterprise Cloud Native Standards.
+34. SUCCESS CRITERIA
+
+L’infrastructure Cloud Native est conforme lorsque :
+
+les applications peuvent évoluer automatiquement ;
+les déploiements sont automatisés ;
+les incidents peuvent être récupérés rapidement ;
+la sécurité est intégrée partout ;
+la plateforme supporte une croissance mondiale.
+35. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Cloud Operations AI
+Self-Healing Infrastructure
+AI DevOps Engineer
+Serverless Banking Components
+Edge Banking Infrastructure
+Quantum-Safe Cloud Architecture
+Autonomous Kubernetes Optimization
+Cloud Digital Twin
+AI Cost Optimization Engine
+Global Banking Infrastructure Fabric

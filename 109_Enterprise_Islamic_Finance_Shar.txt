@@ -1,0 +1,359 @@
+109_Enterprise_Islamic_Finance_Shariah_Governance_Framework.md
+(V3 — Enterprise Islamic Finance, Shariah Governance, AAOIFI Compliance & Islamic Banking Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de Finance Islamique d'Amanah.
+
+Il couvre :
+
+Shariah Governance ;
+Shariah Supervisory Board (SSB) ;
+Islamic Banking Products ;
+Profit & Loss Sharing ;
+Zakat ;
+Purification ;
+AAOIFI ;
+IFSB ;
+Islamic Accounting ;
+Shariah Audit.
+
+L'objectif est d'assurer une conformité complète aux principes de la Shariah sur l'ensemble des opérations bancaires.
+
+2. CORE PRINCIPLES
+2.1 Shariah First
+
+Every Islamic financial product must comply with approved Shariah principles.
+
+2.2 Transparency
+
+Contracts, pricing and profit calculations must be transparent.
+
+2.3 Ethical Banking
+
+Banking activities must promote fairness, shared risk and social responsibility.
+
+3. SHARIAH GOVERNANCE MODEL
+
+Board of Directors
+
+↓
+
+Shariah Supervisory Board
+
+↓
+
+Chief Shariah Officer
+
+↓
+
+Shariah Compliance Team
+
+↓
+
+Business Units
+
+↓
+
+Internal Shariah Audit
+
+4. SHARIAH SUPERVISORY BOARD (SSB)
+
+Le SSB est responsable de :
+
+l'approbation des produits ;
+l'émission des Fatwas ;
+la supervision continue ;
+la revue des contrats ;
+l'audit Shariah.
+
+Toutes les décisions sont documentées et archivées.
+
+5. CHIEF SHARIAH OFFICER
+
+Responsabilités :
+
+coordination avec le SSB ;
+supervision des opérations ;
+validation des nouveaux produits ;
+reporting au Conseil.
+6. SHARIAH COMPLIANCE ENGINE
+
+Le moteur vérifie :
+
+conformité des contrats ;
+règles métiers ;
+flux financiers ;
+revenus ;
+événements.
+
+Les contrôles sont intégrés dans les workflows métier.
+
+7. SHARIAH PRODUCT CATALOG
+
+Produits supportés :
+
+Murabaha ;
+Mudaraba ;
+Musharaka ;
+Ijara ;
+Salam ;
+Istisna ;
+Tawarruq ;
+Qard Hasan ;
+Wakala ;
+Sukuk.
+
+Chaque produit possède des règles métier spécifiques.
+
+8. MURABAHA
+
+Principes :
+
+achat réel de l'actif par la banque ;
+revente au client ;
+marge connue à l'avance ;
+absence d'intérêt (Riba).
+
+Le système suit :
+
+acquisition ;
+propriété ;
+revente ;
+paiements.
+9. MUDARABA
+
+Gestion :
+
+investisseur (Rab al-Mal) ;
+gestionnaire (Mudarib) ;
+partage des bénéfices ;
+pertes supportées selon les règles contractuelles.
+10. MUSHARAKA
+
+Support :
+
+partenariat ;
+participation au capital ;
+partage profits/pertes ;
+diminution progressive (Diminishing Musharaka).
+11. IJARA
+
+Le système gère :
+
+contrat de location ;
+propriété de l'actif ;
+loyers ;
+transfert éventuel de propriété (Ijara wa Iqtina).
+12. SALAM
+
+Gestion :
+
+paiement anticipé ;
+livraison différée ;
+suivi des engagements ;
+règlement.
+13. ISTISNA
+
+Support :
+
+financement de fabrication ;
+suivi de construction ;
+paiements échelonnés ;
+livraison finale.
+14. TAWARRUQ
+
+Le moteur garantit :
+
+achat réel ;
+vente réelle ;
+séparation des contrats ;
+traçabilité des actifs.
+15. QARD HASAN
+
+Gestion :
+
+prêt sans intérêt ;
+remboursement du principal uniquement ;
+suivi comptable dédié.
+16. WAKALA
+
+Support :
+
+mandat d'investissement ;
+frais de gestion ;
+reporting ;
+distribution des bénéfices.
+17. SUKUK
+
+Le système permet :
+
+émission ;
+souscription ;
+distribution des profits ;
+remboursement ;
+gestion des actifs sous-jacents.
+18. PROFIT CALCULATION
+
+Le moteur calcule :
+
+bénéfices ;
+pertes ;
+partage ;
+distributions.
+
+Toutes les formules sont configurables et approuvées par le SSB.
+
+19. SHARIAH SCREENING
+
+Contrôles :
+
+activités interdites (Haram) ;
+Riba ;
+Gharar excessif ;
+Maysir ;
+investissements non conformes.
+
+Les contreparties peuvent être filtrées automatiquement.
+
+20. ZAKAT MANAGEMENT
+
+Le système supporte :
+
+calcul de la Zakat ;
+seuil de Nisab ;
+périodes ;
+rapports ;
+paiement.
+
+Le calcul est configurable selon les avis juridiques retenus.
+
+21. PURIFICATION (TATHIR)
+
+Le moteur calcule :
+
+revenus non conformes ;
+montants à purifier ;
+affectation ;
+historique.
+
+Les écritures sont distinctes du résultat opérationnel.
+
+22. SHARIAH AUDIT
+
+Cycle :
+
+
+Transaction
+
+↓
+
+Compliance Review
+
+↓
+
+Audit
+
+↓
+
+Finding
+
+↓
+
+Remediation
+
+↓
+
+Closure
+
+23. FATWA MANAGEMENT
+
+Chaque Fatwa possède :
+
+référence ;
+date ;
+auteur ;
+portée ;
+statut ;
+historique des révisions.
+
+Les produits sont liés aux Fatwas applicables.
+
+24. SHARIAH REPORTING
+
+Rapports :
+
+conformité produits ;
+exceptions ;
+purification ;
+Zakat ;
+audit ;
+recommandations.
+25. ACCOUNTING
+
+Compatible avec :
+
+AAOIFI Financial Accounting Standards ;
+IFRS (si applicable selon la juridiction) ;
+comptabilité bancaire locale.
+
+Les traitements comptables sont configurables.
+
+26. COMPLIANCE
+
+Compatible avec :
+
+AAOIFI Standards ;
+IFSB Standards ;
+OIC Fiqh Academy Resolutions ;
+réglementations des banques centrales applicables ;
+normes locales de finance islamique.
+27. INTEGRATION
+
+Le framework Finance Islamique s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Treasury ;
+Risk Management ;
+Payments ;
+CRM ;
+Document Management ;
+AI Platform ;
+Regulatory Reporting.
+28. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS enforce Shariah compliance rules for Islamic financial products.
+NEVER allow prohibited interest (Riba) calculations within Islamic contracts.
+ALWAYS maintain complete traceability between contracts, assets and Ledger entries.
+ALWAYS support configurable AAOIFI-compliant accounting treatments.
+ALWAYS calculate profit and loss according to approved contract structures.
+ALWAYS support Zakat calculation and revenue purification workflows.
+ALWAYS maintain immutable Shariah audit trails.
+ALWAYS link Islamic products to approved Fatwas and governance decisions.
+ALWAYS separate Islamic and conventional product rules where both coexist.
+ALWAYS follow Amanah Enterprise Islamic Finance Standards.
+29. SUCCESS CRITERIA
+
+Le framework Finance Islamique est conforme lorsque :
+
+tous les produits islamiques respectent les principes de la Shariah ;
+chaque contrat est validé par la gouvernance Shariah ;
+les calculs de profits, Zakat et purification sont traçables ;
+les audits Shariah peuvent être réalisés à tout moment ;
+les traitements comptables sont conformes aux normes applicables.
+30. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Shariah Compliance Advisor
+Autonomous Shariah Audit Assistant
+Digital Sukuk Marketplace
+Tokenized Islamic Assets
+Smart Shariah Contracts
+AI Fatwa Knowledge Engine
+Global Islamic Banking Network
+Cross-Border Zakat Distribution Platform
+Waqf Management Platform
+Islamic Digital Asset Ecosystem

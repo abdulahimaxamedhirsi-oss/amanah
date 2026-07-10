@@ -1,0 +1,421 @@
+98_Enterprise_Data_Platform_Lakehouse_Analytics_Framework.md
+(V3 — Enterprise Data Lakehouse, Data Mesh, Analytics, Governance & Intelligence Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de la plateforme Data Enterprise d'Amanah.
+
+Il couvre :
+
+Enterprise Data Platform ;
+Data Lakehouse ;
+Data Mesh ;
+Data Governance ;
+Master Data Management (MDM) ;
+Data Quality ;
+Data Lineage ;
+Real-Time Analytics ;
+Business Intelligence ;
+AI Feature Store ;
+Regulatory Data Platform.
+
+L'objectif est de créer une architecture data capable de supporter une banque digitale mondiale, l'IA avancée et les exigences réglementaires.
+
+2. CORE PRINCIPLES
+2.1 Single Source of Truth
+
+All enterprise decisions must rely on trusted and governed data.
+
+2.2 Data as a Strategic Asset
+
+Enterprise data is treated as a critical banking asset.
+
+2.3 Privacy by Design
+
+Data usage must respect security, privacy and regulatory requirements.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Operational Systems
+
+(Core Banking, Ledger, CRM, Payments)
+
+↓
+
+Data Ingestion Layer
+
+↓
+
+Enterprise Data Lakehouse
+
+↓
+
+Data Governance Layer
+
+↓
+
+Analytics Platform
+
+↓
+
+AI Platform
+
+↓
+
+Business Applications
+
+4. DATA PLATFORM COMPONENTS
+
+La plateforme contient :
+
+Data Lake ;
+Data Warehouse ;
+Data Lakehouse ;
+Streaming Platform ;
+Data Catalog ;
+Feature Store ;
+Analytics Engine.
+5. DATA LAKEHOUSE
+
+Le Lakehouse combine :
+
+flexibilité du Data Lake ;
+performance du Data Warehouse ;
+gouvernance bancaire.
+
+Il stocke :
+
+transactions ;
+clients ;
+documents ;
+événements ;
+logs ;
+données analytiques.
+6. DATA INGESTION
+
+Sources :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+CRM ;
+Treasury ;
+Risk ;
+External APIs.
+
+Modes :
+
+Batch ;
+Streaming ;
+Real-Time Events.
+7. EVENT STREAMING
+
+Support :
+
+transactions temps réel ;
+événements clients ;
+événements risque ;
+événements opérationnels.
+
+Architecture :
+
+
+Banking Event
+
+↓
+
+Message Broker
+
+↓
+
+Data Processing
+
+↓
+
+Analytics / AI
+
+8. DATA MESH
+
+Amanah adopte une approche Data Mesh.
+
+Chaque domaine devient responsable de ses données :
+
+Payments Data Domain ;
+Customer Data Domain ;
+Risk Data Domain ;
+Treasury Data Domain ;
+Compliance Data Domain.
+9. DATA PRODUCTS
+
+Chaque domaine expose des Data Products :
+
+Exemple :
+
+
+Customer Risk Profile
+
+Owner:
+
+Risk Department
+
+Quality SLA:
+
+99.9%
+
+Access:
+
+Controlled API
+
+10. MASTER DATA MANAGEMENT (MDM)
+
+Gestion des données maîtres :
+
+Customer Master ;
+Account Master ;
+Product Master ;
+Organization Master ;
+Counterparty Master.
+11. CUSTOMER DATA PLATFORM
+
+Vue client consolidée :
+
+identité ;
+comportement ;
+produits ;
+interactions ;
+préférences ;
+risque.
+
+Cette couche alimente le Customer 360.
+
+12. DATA QUALITY ENGINE
+
+Contrôles :
+
+complétude ;
+exactitude ;
+cohérence ;
+unicité ;
+fraîcheur.
+
+Chaque donnée critique possède un score qualité.
+
+13. DATA LINEAGE
+
+Le système trace :
+
+
+Report Value
+
+↓
+
+Data Model
+
+↓
+
+Transformation
+
+↓
+
+Source System
+
+↓
+
+Original Transaction
+
+14. METADATA MANAGEMENT
+
+Le catalogue contient :
+
+définition ;
+propriétaire ;
+classification ;
+sens métier ;
+règles d'accès.
+15. DATA GOVERNANCE
+
+Gouvernance :
+
+Data Owner ;
+Data Steward ;
+Data Custodian ;
+Data Committee.
+16. SECURITY & PRIVACY
+
+Protection :
+
+chiffrement ;
+tokenisation ;
+anonymisation ;
+pseudonymisation ;
+contrôle d'accès.
+17. DATA ACCESS CONTROL
+
+Modèles :
+
+RBAC ;
+ABAC ;
+Policy-Based Access Control.
+
+Les accès sont décidés selon :
+
+rôle ;
+département ;
+contexte ;
+classification.
+18. REAL-TIME ANALYTICS
+
+Support :
+
+dashboards temps réel ;
+surveillance fraude ;
+liquidité ;
+opérations ;
+expérience client.
+19. BUSINESS INTELLIGENCE
+
+Dashboards :
+
+Executive
+revenus ;
+croissance ;
+risques ;
+performance.
+Operations
+volumes ;
+SLA ;
+incidents.
+Risk
+exposition ;
+défaut ;
+liquidité.
+20. AI FEATURE STORE
+
+La Feature Store contient :
+
+variables IA ;
+caractéristiques clients ;
+scores ;
+historiques.
+
+Utilisée par :
+
+Credit AI ;
+Fraud AI ;
+Marketing AI.
+21. MACHINE LEARNING PLATFORM
+
+Support :
+
+entraînement ;
+validation ;
+déploiement ;
+monitoring.
+
+Cycle :
+
+
+Data
+
+↓
+
+Training
+
+↓
+
+Validation
+
+↓
+
+Deployment
+
+↓
+
+Monitoring
+
+22. REGULATORY DATA PLATFORM
+
+Dédiée aux :
+
+rapports réglementaires ;
+audits ;
+autorités.
+
+Elle garantit :
+
+stabilité ;
+historique ;
+reproductibilité.
+23. ANALYTICS SANDBOX
+
+Les équipes peuvent :
+
+analyser ;
+tester ;
+créer des modèles.
+
+Sans modifier les systèmes de production.
+
+24. DATA OBSERVABILITY
+
+Surveillance :
+
+pipelines ;
+qualité ;
+erreurs ;
+latence ;
+disponibilité.
+25. DATA RETENTION
+
+Gestion :
+
+durée de conservation ;
+archivage ;
+suppression réglementaire ;
+legal hold.
+26. DATA MARKETPLACE
+
+Future capacité :
+
+partage interne ;
+partage partenaire ;
+Data Products ;
+APIs analytiques.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS use governed data sources.
+NEVER create duplicate customer master records.
+ALWAYS maintain complete data lineage.
+ALWAYS enforce privacy and access policies.
+ALWAYS validate data quality rules.
+ALWAYS separate operational data from analytical workloads.
+ALWAYS maintain versioned data models.
+ALWAYS protect sensitive banking information.
+ALWAYS support real-time and batch processing.
+ALWAYS follow Enterprise Data Governance Standards.
+28. SUCCESS CRITERIA
+
+La plateforme Data est conforme lorsque :
+
+les données critiques sont gouvernées ;
+chaque donnée possède une source identifiable ;
+les rapports sont reproductibles ;
+l'IA utilise des données fiables ;
+les équipes disposent d'analyses temps réel ;
+la confidentialité est garantie.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Data Governance AI
+AI Data Quality Agent
+Enterprise Knowledge Graph
+Real-Time Banking Intelligence Fabric
+Data Digital Twin
+AI Data Marketplace
+Privacy-Preserving Analytics
+Federated Learning Platform
+Autonomous Data Pipeline Optimization
+Banking Intelligence Operating System

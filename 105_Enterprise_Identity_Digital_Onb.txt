@@ -1,0 +1,384 @@
+105_Enterprise_Identity_Digital_Onboarding_Framework.md
+(V3 — Enterprise Identity, Digital Onboarding, eKYC, Identity Verification & Customer Lifecycle Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion de l'identité numérique et de l'onboarding d'Amanah.
+
+Il couvre :
+
+Digital Identity ;
+Digital Onboarding ;
+eKYC ;
+KYB ;
+Identity Verification ;
+Document Verification ;
+Biometric Verification ;
+Risk-Based Authentication ;
+Customer Identity Lifecycle ;
+Identity Governance.
+
+L'objectif est d'offrir un processus d'identification rapide, sécurisé et conforme aux réglementations internationales.
+
+2. CORE PRINCIPLES
+2.1 Digital First
+
+Identity verification should be fully digital whenever regulations allow.
+
+2.2 Trust by Verification
+
+Customer trust is established through verifiable identity evidence.
+
+2.3 Continuous Identity
+
+Identity verification continues throughout the customer relationship.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Identity Platform
+
+↓
+
+Document Verification
+
+↓
+
+Biometric Verification
+
+↓
+
+KYC Engine
+
+↓
+
+AML Screening
+
+↓
+
+Risk Assessment
+
+↓
+
+Core Banking
+
+↓
+
+Ledger
+
+4. IDENTITY TYPES
+
+Support :
+
+Individual ;
+Joint Account ;
+Minor ;
+Business ;
+Corporate ;
+Non-Profit ;
+Government Entity.
+5. DIGITAL ONBOARDING
+
+Le processus comprend :
+
+création du profil ;
+collecte des informations ;
+vérification documentaire ;
+biométrie ;
+contrôles KYC ;
+AML ;
+ouverture du compte.
+6. CUSTOMER JOURNEY
+
+Registration
+
+↓
+
+Identity Verification
+
+↓
+
+KYC
+
+↓
+
+AML Screening
+
+↓
+
+Risk Assessment
+
+↓
+
+Approval
+
+↓
+
+Account Opening
+
+↓
+
+Welcome
+
+7. DOCUMENT VERIFICATION
+
+Documents acceptés :
+
+Passeport ;
+Carte nationale d'identité ;
+Permis de conduire ;
+Titre de séjour ;
+Documents d'entreprise (KYB).
+
+Fonctions :
+
+OCR ;
+détection de fraude ;
+contrôle d'authenticité.
+8. OCR ENGINE
+
+Extraction automatique :
+
+nom ;
+prénom ;
+date de naissance ;
+numéro de document ;
+date d'expiration ;
+nationalité ;
+adresse (si présente).
+
+Les données extraites sont validées avant utilisation.
+
+9. BIOMETRIC VERIFICATION
+
+Support :
+
+reconnaissance faciale ;
+empreinte digitale (si disponible) ;
+reconnaissance vocale (optionnelle) ;
+selfie sécurisé.
+10. LIVENESS DETECTION
+
+Contrôles :
+
+présence réelle ;
+anti-photo ;
+anti-vidéo ;
+anti-deepfake ;
+détection de présentation frauduleuse.
+11. IDENTITY MATCHING
+
+Le moteur compare :
+
+selfie ↔ document ;
+biométrie ↔ historique ;
+identité ↔ bases officielles (si disponibles).
+
+Chaque comparaison reçoit un score de confiance.
+
+12. eKYC ENGINE
+
+Le moteur eKYC vérifie :
+
+identité ;
+âge ;
+résidence ;
+activité professionnelle ;
+origine des fonds (si applicable).
+13. KYB (KNOW YOUR BUSINESS)
+
+Support :
+
+registre du commerce ;
+bénéficiaires effectifs (UBO) ;
+représentants légaux ;
+structure de propriété ;
+documents statutaires.
+14. SANCTIONS & WATCHLIST SCREENING
+
+Contrôles :
+
+listes de sanctions ;
+PEP ;
+listes internes ;
+listes de surveillance.
+
+Les résultats sont transmis au moteur AML.
+
+15. RISK ASSESSMENT
+
+Le score initial prend en compte :
+
+pays ;
+activité ;
+PEP ;
+sanctions ;
+fraude ;
+comportement d'onboarding.
+16. ACCOUNT APPROVAL
+
+Workflow :
+
+
+Automatic Approval
+
+↓
+
+Manual Review (if required)
+
+↓
+
+Final Decision
+
+17. CUSTOMER IDENTITY PROFILE
+
+Chaque client possède :
+
+Customer ID ;
+Identity ID ;
+statut KYC ;
+score de risque ;
+niveau de vérification ;
+historique des vérifications.
+18. CONTINUOUS KYC
+
+Le système déclenche des revues en cas de :
+
+expiration de document ;
+changement d'adresse ;
+modification d'activité ;
+augmentation du risque ;
+évolution réglementaire.
+19. OMNICHANNEL SUPPORT
+
+Disponible via :
+
+Mobile App ;
+Web ;
+Agence ;
+Centre de relation client ;
+API partenaires.
+20. IDENTITY LIFECYCLE
+
+Created
+
+↓
+
+Verified
+
+↓
+
+Active
+
+↓
+
+Revalidated
+
+↓
+
+Suspended
+
+↓
+
+Closed
+
+↓
+
+Archived
+
+21. CUSTOMER CONSENT
+
+Le système enregistre :
+
+consentement RGPD ;
+partage de données ;
+biométrie ;
+marketing ;
+Open Banking.
+
+Les consentements sont horodatés et révocables.
+
+22. AUDIT
+
+Chaque étape conserve :
+
+utilisateur ;
+canal ;
+document ;
+décision ;
+score ;
+horodatage.
+
+Les journaux sont immuables.
+
+23. SECURITY
+
+Protection :
+
+chiffrement ;
+tokenisation des documents ;
+stockage sécurisé ;
+contrôle d'accès ;
+suppression sécurisée selon la politique de rétention.
+24. COMPLIANCE
+
+Compatible avec :
+
+FATF Recommendations ;
+AMLD (selon juridiction) ;
+eIDAS 2.0 (Union européenne) ;
+GDPR ;
+ISO/IEC 30107 (Presentation Attack Detection) ;
+ISO/IEC 27001 ;
+réglementations KYC des banques centrales applicables.
+25. INTEGRATION
+
+Le framework d'identité s'intègre avec :
+
+Core Banking ;
+CRM ;
+AML Engine ;
+Fraud Engine ;
+Document Management ;
+Notification Service ;
+API Gateway ;
+Ledger (pour les événements auditables).
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS verify customer identity before account activation.
+NEVER approve onboarding when mandatory KYC requirements are incomplete.
+ALWAYS validate identity documents using configurable verification rules.
+ALWAYS perform biometric verification where required.
+ALWAYS integrate AML and sanctions screening before account approval.
+ALWAYS maintain immutable onboarding audit trails.
+ALWAYS support continuous KYC throughout the customer lifecycle.
+ALWAYS protect identity documents using encryption and strict access controls.
+ALWAYS expose onboarding services through secure APIs.
+ALWAYS follow Amanah Enterprise Identity Standards.
+27. SUCCESS CRITERIA
+
+Le framework Identity & Digital Onboarding est conforme lorsque :
+
+un client peut ouvrir un compte entièrement à distance ;
+toutes les vérifications KYC et AML sont effectuées avant activation ;
+les documents et données biométriques sont protégés ;
+les revues KYC sont automatisées tout au long du cycle de vie du client ;
+chaque décision d'onboarding est entièrement traçable et auditée.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Self-Sovereign Identity (SSI)
+W3C Verifiable Credentials
+Decentralized Identifiers (DID)
+European Digital Identity Wallet (EUDI Wallet)
+AI Identity Risk Engine
+Passive Behavioral Biometrics
+Continuous Authentication
+Cross-Border Digital Identity Federation
+Quantum-Resistant Digital Identity
+Autonomous Customer Onboarding

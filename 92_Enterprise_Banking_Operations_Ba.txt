@@ -1,0 +1,347 @@
+92_Enterprise_Banking_Operations_BackOffice_Framework.md
+(V3 — Enterprise Banking Operations, Back Office, Reconciliation & Operational Control Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel des opérations bancaires d'Amanah.
+
+Il couvre :
+
+Back Office ;
+Banking Operations ;
+Case Management ;
+Reconciliation ;
+Exception Processing ;
+Clearing ;
+Settlement ;
+End-of-Day (EOD) ;
+End-of-Month (EOM) ;
+End-of-Year (EOY) ;
+Operational Controls.
+
+L'objectif est d'assurer des opérations bancaires fiables, traçables, conformes et hautement automatisées.
+
+2. CORE PRINCIPLES
+2.1 Operational Integrity
+Every banking operation must be traceable, auditable and reproducible.
+2.2 Automation First
+Operational processes should be automated whenever safely possible.
+2.3 Human Oversight for Exceptions
+Manual intervention should only occur for validated exception cases.
+3. HIGH LEVEL ARCHITECTURE
+
+Business Events
+
+↓
+
+Workflow Engine
+
+↓
+
+Operations Queue
+
+↓
+
+Case Management
+
+↓
+
+Reconciliation
+
+↓
+
+Settlement
+
+↓
+
+Ledger Validation
+
+↓
+
+Reporting
+
+4. OPERATIONS DOMAINS
+
+Les équipes Back Office couvrent :
+
+Accounts Operations ;
+Payments Operations ;
+Card Operations ;
+Financing Operations ;
+Treasury Operations ;
+Customer Operations ;
+Compliance Operations ;
+Settlement Operations.
+5. CASE MANAGEMENT
+
+Chaque dossier (Case) possède :
+
+Case ID ;
+Type ;
+Priorité ;
+Statut ;
+Assignation ;
+SLA ;
+Historique ;
+Documents associés.
+6. CASE LIFECYCLE
+
+New
+
+↓
+
+Assigned
+
+↓
+
+In Progress
+
+↓
+
+Pending
+
+↓
+
+Resolved
+
+↓
+
+Closed
+
+7. OPERATIONAL QUEUES
+
+Files de traitement :
+
+Paiements ;
+Ouverture de comptes ;
+Vérifications KYC ;
+Exceptions Ledger ;
+Réclamations ;
+Suspens ;
+Fraude.
+
+Les files sont priorisées selon des règles métier.
+
+8. EXCEPTION MANAGEMENT
+
+Types d'exceptions :
+
+échec de paiement ;
+incohérence Ledger ;
+rejet réglementaire ;
+doublon ;
+dépassement de limite ;
+erreur de rapprochement.
+
+Chaque exception suit un workflow documenté.
+
+9. RECONCILIATION
+
+Le moteur réalise :
+
+rapprochement bancaire ;
+rapprochement Ledger ;
+rapprochement PSP ;
+rapprochement cartes ;
+rapprochement comptes de règlement.
+
+Les écarts sont automatiquement détectés et classifiés.
+
+10. CLEARING
+
+Le système prend en charge :
+
+réception des fichiers ;
+validation ;
+traitement ;
+rapprochement ;
+génération des écritures comptables.
+11. SETTLEMENT
+
+Processus :
+
+
+Validated Transactions
+
+↓
+
+Netting (si applicable)
+
+↓
+
+Settlement Instructions
+
+↓
+
+Ledger Posting
+
+↓
+
+Confirmation
+
+12. SUSPENSE MANAGEMENT
+
+Les écritures non rapprochées sont dirigées vers des comptes de suspens.
+
+Chaque élément possède :
+
+raison ;
+propriétaire ;
+échéance ;
+statut.
+
+Les suspens doivent être résolus selon les SLA définis.
+
+13. END-OF-DAY (EOD)
+
+Traitements EOD :
+
+clôture journalière ;
+validation des transactions ;
+calcul des soldes ;
+génération des rapports ;
+sauvegardes ;
+contrôles d'intégrité.
+
+L'EOD est idempotent et relançable en cas d'interruption.
+
+14. END-OF-MONTH (EOM)
+
+Traitements :
+
+clôture mensuelle ;
+calcul des commissions ;
+intérêts ou profits ;
+amortissements ;
+états réglementaires.
+15. END-OF-YEAR (EOY)
+
+Traitements :
+
+clôture annuelle ;
+reports à nouveau ;
+états financiers ;
+archivage réglementaire.
+16. OPERATIONAL CONTROLS
+
+Contrôles :
+
+équilibre du Ledger ;
+transactions orphelines ;
+écarts de rapprochement ;
+limites opérationnelles ;
+anomalies de traitement.
+17. FOUR-EYES PRINCIPLE
+
+Les opérations sensibles nécessitent une validation par deux personnes distinctes.
+
+Exemples :
+
+annulation d'écriture ;
+ajustement manuel ;
+modification de limites ;
+clôture exceptionnelle.
+18. MANUAL ADJUSTMENTS
+
+Les ajustements manuels :
+
+sont exceptionnels ;
+nécessitent une justification ;
+sont approuvés ;
+sont intégralement audités.
+
+Ils ne suppriment jamais les écritures existantes : ils génèrent des écritures compensatoires.
+
+19. OPERATIONAL DASHBOARDS
+
+Vue temps réel :
+
+files d'attente ;
+SLA ;
+exceptions ;
+rapprochements ;
+volumes ;
+incidents.
+20. DOCUMENT MANAGEMENT
+
+Chaque dossier peut contenir :
+
+justificatifs ;
+captures ;
+contrats ;
+échanges clients ;
+preuves réglementaires.
+21. OPERATIONAL AUDIT
+
+Chaque action enregistre :
+
+opérateur ;
+date ;
+décision ;
+justification ;
+résultat.
+
+Les journaux d'audit sont immuables.
+
+22. ACCESS CONTROL
+
+Les opérations sont protégées par :
+
+RBAC ;
+ABAC ;
+séparation des tâches (SoD) ;
+MFA pour les actions critiques.
+23. COMPLIANCE
+
+Compatible avec :
+
+ISO 20022
+ISO 27001
+DORA
+PCI DSS (si applicable)
+COSO Internal Control Framework
+exigences des banques centrales applicables
+24. PERFORMANCE
+
+Objectifs :
+
+traitement parallèle ;
+reprise sur erreur ;
+surveillance en temps réel ;
+haute disponibilité.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS process banking operations through documented workflows.
+NEVER allow manual deletion of financial records.
+ALWAYS reconcile operational data with the Ledger.
+ALWAYS route exceptions through Case Management.
+ALWAYS require approval for manual adjustments.
+ALWAYS maintain immutable operational audit trails.
+ALWAYS support idempotent EOD, EOM and EOY processing.
+ALWAYS enforce segregation of duties for sensitive operations.
+ALWAYS monitor operational SLAs.
+ALWAYS follow Enterprise Banking Operations Standards.
+26. SUCCESS CRITERIA
+
+Le framework Back Office est conforme lorsque :
+
+toutes les opérations sont traçables ;
+les rapprochements détectent automatiquement les écarts ;
+les exceptions suivent des workflows contrôlés ;
+les clôtures EOD/EOM/EOY sont reproductibles ;
+les contrôles internes répondent aux exigences des banques Tier-1.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Operations Copilot
+Autonomous Reconciliation Engine
+Intelligent Case Routing
+Predictive Operational Risk Detection
+AI Exception Resolution
+Self-Healing Operational Workflows
+Digital Twin of Banking Operations
+Autonomous EOD/EOM Optimization
+Real-Time Operational Intelligence
+AI Back Office Assistant

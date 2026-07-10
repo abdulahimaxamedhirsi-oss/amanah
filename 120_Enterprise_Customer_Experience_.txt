@@ -1,0 +1,414 @@
+120_Enterprise_Customer_Experience_CRM_Framework.md
+(V3 — Customer 360, CRM Platform, Omnichannel Banking, Personalization AI & Customer Engagement Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel Customer Experience & CRM d'Amanah.
+
+Il couvre :
+
+Customer 360 Platform ;
+CRM Enterprise ;
+Customer Lifecycle Management ;
+Omnichannel Experience ;
+Customer Journey Engine ;
+AI Personalization ;
+Loyalty & Rewards ;
+Customer Service ;
+Contact Center ;
+Voice Banking ;
+Customer Analytics.
+
+L'objectif est de fournir une expérience bancaire personnalisée, proactive et cohérente.
+
+2. CORE PRINCIPLES
+2.1 Customer Centricity
+
+Every Amanah capability must create measurable customer value.
+
+2.2 One Customer View
+
+Every interaction should use a unified customer profile.
+
+2.3 Proactive Banking
+
+The bank should anticipate customer needs before requests occur.
+
+3. CUSTOMER EXPERIENCE ARCHITECTURE
+
+Customer
+
+↓
+
+Mobile App
+
+Web Portal
+
+Branch
+
+Contact Center
+
+Partners
+
+↓
+
+Customer Experience Platform
+
+↓
+
+CRM Platform
+
+↓
+
+Customer 360
+
+↓
+
+AI Personalization Engine
+
+↓
+
+Core Banking Systems
+
+4. CUSTOMER 360 PLATFORM
+
+La plateforme regroupe :
+
+identité ;
+comptes ;
+produits ;
+transactions ;
+préférences ;
+interactions ;
+objectifs financiers ;
+risques.
+5. CUSTOMER MASTER PROFILE
+
+Chaque client possède :
+
+Customer ID unique ;
+profil personnel ;
+profil financier ;
+préférences communication ;
+consentements ;
+historique relation.
+6. CRM ENTERPRISE PLATFORM
+
+Gestion :
+
+prospects ;
+clients ;
+entreprises ;
+relations ;
+opportunités ;
+campagnes.
+7. CUSTOMER LIFECYCLE MANAGEMENT
+
+Cycle :
+
+
+Prospect
+
+↓
+
+Onboarding
+
+↓
+
+Activation
+
+↓
+
+Growth
+
+↓
+
+Retention
+
+↓
+
+Advocacy
+
+8. CUSTOMER ONBOARDING EXPERIENCE
+
+Support :
+
+ouverture compte digitale ;
+KYC ;
+vérification identité ;
+signature électronique ;
+activation produits.
+
+Objectif :
+
+processus rapide et sécurisé.
+
+9. CUSTOMER JOURNEY ENGINE
+
+Analyse :
+
+étapes client ;
+points de friction ;
+opportunités d'amélioration.
+
+Exemples :
+
+ouverture compte ;
+demande financement ;
+investissement ;
+paiement.
+10. OMNICHANNEL EXPERIENCE
+
+Canaux :
+
+Mobile ;
+Web ;
+Agence ;
+Centre contact ;
+Chat ;
+Voice Assistant ;
+Partenaires.
+
+Tous partagent le même contexte client.
+
+11. CUSTOMER INTERACTION HISTORY
+
+Conservation :
+
+appels ;
+messages ;
+demandes ;
+réclamations ;
+rendez-vous ;
+transactions.
+12. AI PERSONALIZATION ENGINE
+
+L'IA propose :
+
+produits adaptés ;
+conseils financiers ;
+alertes personnalisées ;
+contenus pertinents.
+13. NEXT BEST ACTION ENGINE
+
+Le moteur recommande :
+
+prochaine action commerciale ;
+accompagnement financier ;
+opportunité service.
+14. CUSTOMER ANALYTICS
+
+Analyse :
+
+comportement ;
+satisfaction ;
+engagement ;
+fidélité ;
+besoins futurs.
+15. SEGMENTATION ENGINE
+
+Segmentation :
+
+particuliers ;
+professionnels ;
+entreprises ;
+investisseurs ;
+clients premium.
+
+Basée sur :
+
+besoins ;
+comportements ;
+objectifs.
+16. PERSONAL FINANCIAL EXPERIENCE
+
+Fonctions :
+
+conseils budget ;
+objectifs ;
+épargne ;
+investissements ;
+santé financière.
+17. CUSTOMER SERVICE PLATFORM
+
+Support :
+
+demandes clients ;
+tickets ;
+réclamations ;
+suivi résolution.
+18. CONTACT CENTER
+
+Fonctions :
+
+appels ;
+chat ;
+email ;
+vidéo ;
+assistance digitale.
+19. AI CUSTOMER SERVICE ASSISTANT
+
+L'IA aide :
+
+agents support ;
+clients ;
+recherche documentaire ;
+résolution rapide.
+20. VOICE BANKING
+
+Support :
+
+commandes vocales ;
+consultation compte ;
+informations produits ;
+assistance.
+
+Avec contrôles d'identité appropriés.
+
+21. CHATBOT PLATFORM
+
+Fonctions :
+
+réponses instantanées ;
+FAQ intelligente ;
+orientation vers agents humains.
+22. COMPLAINT MANAGEMENT
+
+Gestion :
+
+réclamations ;
+escalades ;
+délais résolution ;
+satisfaction finale.
+23. CUSTOMER FEEDBACK PLATFORM
+
+Collecte :
+
+enquêtes ;
+avis ;
+satisfaction ;
+suggestions.
+24. CUSTOMER LOYALTY PLATFORM
+
+Support :
+
+récompenses ;
+points ;
+avantages ;
+programmes partenaires.
+25. REWARDS ENGINE
+
+Gestion :
+
+accumulation ;
+utilisation ;
+règles ;
+campagnes.
+26. MARKETING AUTOMATION
+
+Support :
+
+campagnes personnalisées ;
+notifications ;
+offres ;
+événements clients.
+27. CONSENT MANAGEMENT
+
+Gestion :
+
+préférences communication ;
+marketing ;
+partage données ;
+autorisations.
+28. CUSTOMER TRUST & TRANSPARENCY
+
+Le client peut voir :
+
+données utilisées ;
+recommandations reçues ;
+permissions accordées.
+29. ISLAMIC CUSTOMER EXPERIENCE
+
+Fonctions :
+
+produits Shariah ;
+calcul Zakat ;
+contributions Waqf ;
+informations conformité.
+30. CUSTOMER EXPERIENCE ANALYTICS
+
+Mesures :
+
+NPS ;
+satisfaction ;
+engagement ;
+résolution ;
+fidélisation.
+31. INTEGRATION
+
+Le CRM s'intègre avec :
+
+Core Banking ;
+Mobile App ;
+Web Portal ;
+Contact Center ;
+Marketing Platform ;
+AI Platform ;
+Data Platform ;
+Identity Platform ;
+Payment Platform ;
+Islamic Finance Engine.
+32. SECURITY & PRIVACY
+
+Protection :
+
+données personnelles ;
+consentements ;
+accès employés ;
+chiffrement ;
+audit.
+33. COMPLIANCE
+
+Compatible avec :
+
+GDPR ;
+Data Protection Regulations ;
+Consumer Protection Rules ;
+ISO 27701 ;
+réglementations bancaires locales.
+34. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design customer-centric experiences.
+NEVER expose customer information without authorization.
+ALWAYS maintain a unified Customer 360 model.
+ALWAYS respect communication preferences and consent.
+ALWAYS protect personal financial data.
+ALWAYS integrate customer interactions across channels.
+ALWAYS provide explainable personalization.
+ALWAYS maintain customer journey traceability.
+ALWAYS support accessibility standards.
+ALWAYS follow Amanah Enterprise Customer Experience Standards.
+35. SUCCESS CRITERIA
+
+Le framework Customer Experience & CRM est conforme lorsque :
+
+chaque client possède une vue unifiée ;
+les interactions sont cohérentes sur tous les canaux ;
+les recommandations sont pertinentes et transparentes ;
+le service client est rapide et efficace ;
+la relation bancaire devient proactive.
+36. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Personal Financial Companion
+Autonomous Customer Relationship Manager
+Emotion-Aware Banking Assistant
+Predictive Customer Needs Engine
+Digital Human Banking Advisor
+Metaverse Banking Experience
+Hyper-Personalized Islamic Finance Journey
+Autonomous Customer Success Platform
+Global Financial Lifestyle Assistant
+Self-Learning Customer Experience Engine

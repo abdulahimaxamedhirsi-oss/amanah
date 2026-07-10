@@ -1,0 +1,373 @@
+93_Enterprise_Customer_Service_CRM_Interaction_Framework.md
+(V3 — Enterprise Customer Service, CRM, Omnichannel & Customer Experience Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion de la relation client d'Amanah.
+
+Il couvre :
+
+Customer 360 ;
+CRM ;
+Contact Center ;
+Omnichannel ;
+Case Management ;
+Service Requests ;
+Complaints ;
+Customer Journey ;
+Marketing ;
+Customer Success.
+
+L'objectif est de fournir une expérience client cohérente, personnalisée et conforme sur tous les canaux.
+
+2. CORE PRINCIPLES
+2.1 Customer-Centric
+Every interaction must improve the customer experience.
+2.2 Single Customer View
+All customer information must be available through a unified profile.
+2.3 Omnichannel Consistency
+Customers receive a consistent experience across every communication channel.
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Channel
+
+↓
+
+CRM Platform
+
+↓
+
+Customer 360
+
+↓
+
+Business Services
+
+↓
+
+AI Assistant
+
+↓
+
+Operations
+
+4. CUSTOMER 360
+
+Le profil client comprend :
+
+identité ;
+comptes ;
+produits ;
+interactions ;
+préférences ;
+documents ;
+consentements ;
+tickets ;
+historique financier.
+5. SUPPORTED CHANNELS
+
+Support :
+
+Agence ;
+Web ;
+Mobile ;
+Centre d'appels ;
+Chat ;
+Email ;
+SMS ;
+WhatsApp ;
+Notifications Push ;
+API partenaires.
+
+Les canaux partagent un historique commun.
+
+6. CUSTOMER TIMELINE
+
+Chronologie unique :
+
+
+Account Opened
+
+↓
+
+KYC
+
+↓
+
+Transfer
+
+↓
+
+Complaint
+
+↓
+
+Resolution
+
+↓
+
+Financing
+
+
+Toutes les interactions sont horodatées.
+
+7. CONTACT CENTER
+
+Fonctions :
+
+identification du client ;
+historique instantané ;
+scripts dynamiques ;
+transfert d'appels ;
+supervision.
+8. CUSTOMER INTERACTIONS
+
+Chaque interaction enregistre :
+
+canal ;
+agent ;
+sujet ;
+durée ;
+résultat ;
+satisfaction.
+9. SERVICE REQUESTS
+
+Exemples :
+
+ouverture de compte ;
+modification d'adresse ;
+demande de carte ;
+augmentation de plafond ;
+demande de financement.
+
+Chaque demande suit un workflow défini.
+
+10. COMPLAINT MANAGEMENT
+
+Cycle :
+
+
+Complaint
+
+↓
+
+Classification
+
+↓
+
+Investigation
+
+↓
+
+Resolution
+
+↓
+
+Closure
+
+↓
+
+Customer Feedback
+
+
+Les délais de traitement sont suivis par SLA.
+
+11. CASE MANAGEMENT
+
+Chaque dossier contient :
+
+Case ID ;
+priorité ;
+statut ;
+responsable ;
+pièces jointes ;
+historique.
+
+Les dossiers peuvent être liés aux opérations Back Office.
+
+12. CUSTOMER PREFERENCES
+
+Préférences configurables :
+
+langue ;
+devise ;
+fuseau horaire ;
+canal préféré ;
+fréquence des notifications ;
+consentements marketing.
+13. CONSENT MANAGEMENT
+
+Gestion des consentements :
+
+marketing ;
+Open Banking ;
+partage de données ;
+IA ;
+cookies.
+
+Chaque consentement est versionné et auditable.
+
+14. MARKETING CAMPAIGNS
+
+Support :
+
+segmentation ;
+campagnes email ;
+SMS ;
+Push ;
+offres personnalisées.
+
+Les campagnes respectent les consentements du client.
+
+15. CUSTOMER SEGMENTATION
+
+Critères :
+
+particulier ;
+professionnel ;
+entreprise ;
+patrimoine ;
+risque ;
+comportement ;
+produits détenus.
+16. CUSTOMER SATISFACTION
+
+Indicateurs :
+
+CSAT ;
+NPS ;
+CES (Customer Effort Score).
+
+Les résultats alimentent les tableaux de bord.
+
+17. AI CUSTOMER ASSISTANT
+
+Fonctions :
+
+réponses automatiques ;
+assistance aux agents ;
+résumé des interactions ;
+recommandations ;
+traduction multilingue.
+
+Les réponses sensibles peuvent nécessiter une validation humaine.
+
+18. KNOWLEDGE BASE
+
+Contenu :
+
+FAQ ;
+procédures ;
+guides ;
+produits ;
+réglementations.
+
+Les agents et l'IA utilisent une base de connaissances commune.
+
+19. CUSTOMER JOURNEYS
+
+Parcours gérés :
+
+onboarding ;
+activation ;
+financement ;
+paiement ;
+réclamation ;
+clôture de compte.
+
+Chaque étape est mesurable.
+
+20. NOTIFICATIONS
+
+Canaux :
+
+email ;
+SMS ;
+Push ;
+courrier ;
+messagerie instantanée.
+
+Les modèles sont localisés selon le framework Globalization.
+
+21. SECURITY
+
+Protection :
+
+RBAC ;
+chiffrement ;
+masquage des données sensibles ;
+MFA pour les agents ;
+audit.
+22. AUDIT
+
+Chaque interaction conserve :
+
+auteur ;
+canal ;
+date ;
+action ;
+résultat.
+
+Les journaux sont immuables.
+
+23. COMPLIANCE
+
+Compatible avec :
+
+GDPR
+ISO 27001
+ISO 10002 (Gestion des réclamations)
+DORA
+réglementations locales sur la protection des données
+24. INTEGRATION
+
+Le CRM s'intègre avec :
+
+Core Banking ;
+Ledger ;
+KYC ;
+AML ;
+Workflow Engine ;
+Notification Service ;
+AI Platform ;
+Product Factory.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS maintain a unified Customer 360 profile.
+NEVER duplicate customer interaction history.
+ALWAYS respect customer consent preferences.
+ALWAYS route service requests through workflow engines.
+ALWAYS preserve immutable interaction history.
+ALWAYS support omnichannel communication.
+ALWAYS secure customer data according to privacy regulations.
+ALWAYS expose CRM services through documented APIs.
+ALWAYS measure customer satisfaction metrics.
+ALWAYS follow Enterprise CRM Standards.
+26. SUCCESS CRITERIA
+
+Le framework CRM est conforme lorsque :
+
+chaque client possède une vue 360° unifiée ;
+toutes les interactions sont centralisées ;
+les demandes suivent des workflows contrôlés ;
+les consentements sont respectés ;
+les indicateurs de satisfaction sont suivis et exploitables.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Relationship Manager
+Voice Banking Assistant
+Emotion & Sentiment Analysis
+Hyper-Personalization Engine
+Customer Digital Twin
+Predictive Churn Detection
+AI Next Best Action
+Autonomous Contact Center
+Customer Lifetime Value AI
+Enterprise Customer Intelligence Hub

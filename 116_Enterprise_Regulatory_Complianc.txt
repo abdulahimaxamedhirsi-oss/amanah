@@ -1,0 +1,417 @@
+116_Enterprise_Regulatory_Compliance_Governance_Framework.md
+(V3 — Regulatory Compliance, Governance, Internal Controls, Audit & Regulatory Intelligence Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gouvernance réglementaire d'Amanah.
+
+Il couvre :
+
+Regulatory Compliance Management ;
+Compliance Monitoring ;
+Regulatory Reporting ;
+Internal Controls ;
+Audit Management ;
+Policy Management ;
+Regulatory Change Management ;
+Governance Committees ;
+Enterprise Risk Controls.
+
+L'objectif est de garantir une conformité continue, proactive et mesurable.
+
+2. CORE PRINCIPLES
+2.1 Compliance by Design
+
+Regulatory requirements must be embedded into products, processes and technology.
+
+2.2 Continuous Compliance
+
+Compliance is continuously monitored, not performed only periodically.
+
+2.3 Three Lines of Defense
+
+Business Ownership
+
+↓
+
+Risk & Compliance Oversight
+
+↓
+
+Independent Audit
+
+3. GOVERNANCE ARCHITECTURE
+
+Board of Directors
+
+↓
+
+Executive Committee
+
+↓
+
+Risk Committee
+
+↓
+
+Compliance Committee
+
+↓
+
+Business Units
+
+↓
+
+Internal Audit
+
+4. COMPLIANCE MANAGEMENT SYSTEM
+
+Le système centralise :
+
+réglementations ;
+politiques ;
+procédures ;
+contrôles ;
+incidents ;
+plans correctifs.
+5. REGULATORY INVENTORY
+
+Base réglementaire contenant :
+
+lois ;
+directives ;
+standards ;
+obligations locales ;
+obligations internationales.
+
+Chaque exigence possède :
+
+source ;
+propriétaire ;
+date ;
+statut ;
+impact.
+6. REGULATORY CHANGE MANAGEMENT
+
+Processus :
+
+
+New Regulation
+
+↓
+
+Impact Analysis
+
+↓
+
+Implementation Plan
+
+↓
+
+Control Update
+
+↓
+
+Validation
+
+↓
+
+Monitoring
+
+7. POLICY MANAGEMENT
+
+Gestion :
+
+politiques internes ;
+procédures ;
+standards ;
+guides opérationnels.
+
+Fonctions :
+
+création ;
+validation ;
+publication ;
+révision ;
+archivage.
+8. COMPLIANCE CONTROL FRAMEWORK
+
+Chaque contrôle possède :
+
+Control ID ;
+objectif ;
+propriétaire ;
+fréquence ;
+preuve attendue ;
+résultat.
+9. INTERNAL CONTROL SYSTEM
+
+Contrôles sur :
+
+opérations bancaires ;
+paiements ;
+crédit ;
+trésorerie ;
+données ;
+sécurité ;
+conformité.
+10. RISK AND CONTROL SELF-ASSESSMENT (RCSA)
+
+Les équipes évaluent :
+
+risques ;
+contrôles existants ;
+efficacité ;
+actions correctives.
+11. COMPLIANCE MONITORING
+
+Surveillance :
+
+transactions ;
+processus ;
+accès ;
+produits ;
+employés.
+
+Les exceptions génèrent des alertes.
+
+12. REGULATORY REPORTING
+
+Le système supporte :
+
+rapports prudentiels ;
+rapports AML ;
+rapports financiers ;
+rapports risques ;
+rapports opérationnels.
+13. REPORTING AUTOMATION
+
+Fonctions :
+
+collecte automatique ;
+validation ;
+génération ;
+signature ;
+transmission.
+14. BASEL RISK GOVERNANCE
+
+Support :
+
+capital réglementaire ;
+risque crédit ;
+risque marché ;
+risque opérationnel ;
+liquidité.
+15. AML/KYC GOVERNANCE
+
+Coordination avec :
+
+KYC Framework ;
+AML Engine ;
+Sanctions Screening ;
+Transaction Monitoring.
+16. DATA PRIVACY COMPLIANCE
+
+Gestion :
+
+consentements ;
+accès données ;
+conservation ;
+suppression ;
+demandes clients.
+17. THIRD-PARTY RISK MANAGEMENT
+
+Evaluation :
+
+fournisseurs Cloud ;
+fintechs ;
+partenaires API ;
+prestataires critiques.
+
+Contrôles :
+
+due diligence ;
+contrats ;
+monitoring ;
+audits.
+18. AUDIT MANAGEMENT
+
+Cycle :
+
+
+Planning
+
+↓
+
+Execution
+
+↓
+
+Findings
+
+↓
+
+Remediation
+
+↓
+
+Closure
+
+19. INTERNAL AUDIT PLATFORM
+
+Fonctions :
+
+programmes d'audit ;
+tests ;
+preuves ;
+recommandations ;
+suivi.
+20. ISSUE MANAGEMENT
+
+Chaque problème possède :
+
+Issue ID ;
+gravité ;
+propriétaire ;
+échéance ;
+plan d'action.
+21. COMPLIANCE DASHBOARD
+
+Indicateurs :
+
+conformité globale ;
+contrôles échoués ;
+incidents ;
+audits ouverts ;
+risques critiques.
+22. COMMITTEE MANAGEMENT
+
+Support :
+
+Risk Committee ;
+Compliance Committee ;
+Audit Committee ;
+Shariah Committee ;
+Security Committee.
+23. REGULATORY INTELLIGENCE
+
+Le système analyse :
+
+nouvelles réglementations ;
+changements ;
+impacts métiers ;
+obligations futures.
+24. COMPLIANCE AUTOMATION
+
+Automatisation :
+
+collecte de preuves ;
+contrôles périodiques ;
+alertes ;
+reporting.
+25. GOVERNANCE DATA MODEL
+
+Objets principaux :
+
+
+Regulation
+
+Policy
+
+Control
+
+Risk
+
+Issue
+
+Audit
+
+Evidence
+
+26. EVIDENCE MANAGEMENT
+
+Conservation :
+
+documents ;
+captures ;
+logs ;
+validations ;
+rapports.
+
+Toutes les preuves sont horodatées.
+
+27. INTEGRATION
+
+Le framework Compliance s'intègre avec :
+
+Core Banking ;
+Ledger ;
+AML ;
+Fraud ;
+Risk Engine ;
+Data Platform ;
+Identity Platform ;
+Document Management ;
+Audit Platform.
+28. COMPLIANCE TECHNOLOGY (REGTECH)
+
+Support :
+
+automatisation réglementaire ;
+surveillance intelligente ;
+analyse documentaire ;
+IA conformité.
+29. SECURITY
+
+Protection :
+
+accès contrôlés ;
+chiffrement ;
+audit complet ;
+séparation des responsabilités.
+30. COMPLIANCE STANDARDS
+
+Compatible avec :
+
+Basel Framework ;
+FATF Recommendations ;
+ISO 37301 Compliance Management Systems ;
+ISO 31000 Risk Management ;
+COSO Internal Control Framework ;
+réglementations bancaires locales.
+31. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS consider regulatory requirements during system design.
+NEVER create financial features without compliance controls.
+ALWAYS maintain regulatory audit trails.
+ALWAYS preserve evidence required for audits.
+ALWAYS enforce separation of duties.
+ALWAYS support configurable compliance rules.
+ALWAYS protect regulatory and customer data.
+ALWAYS integrate compliance monitoring into workflows.
+ALWAYS support regulatory reporting capabilities.
+ALWAYS follow Amanah Enterprise Compliance Standards.
+32. SUCCESS CRITERIA
+
+Le framework Regulatory Compliance est conforme lorsque :
+
+les obligations réglementaires sont identifiées et suivies ;
+les contrôles sont mesurables ;
+les audits peuvent être réalisés efficacement ;
+les changements réglementaires sont intégrés rapidement ;
+la conformité devient une capacité native de la plateforme.
+33. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Regulatory Compliance Officer
+Autonomous Regulatory Monitoring
+AI Policy Generator
+Automated Regulatory Gap Analysis
+Global Compliance Intelligence Network
+Predictive Regulatory Risk Engine
+Autonomous Audit Assistant
+Digital Regulatory Twin
+Real-Time Compliance Operating System
+Self-Adaptive Compliance Platform

@@ -1,0 +1,380 @@
+83_Enterprise_Reporting_BI_Analytics_Framework.md
+(V3 — Enterprise Reporting, Business Intelligence, Data Warehouse & Analytics Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture officielle de reporting et d'analytics d'Amanah.
+
+Il couvre :
+
+Enterprise Reporting ;
+Business Intelligence (BI) ;
+Executive Dashboards ;
+Data Warehouse ;
+Data Lake ;
+Real-Time Analytics ;
+Regulatory Reporting ;
+Financial Reporting ;
+AI Analytics ;
+Self-Service Analytics.
+
+L'objectif est de fournir une plateforme de données unique pour l'ensemble de l'écosystème Amanah.
+
+2. CORE PRINCIPLES
+2.1 Single Source of Analytical Truth
+Operational systems execute transactions.
+Analytical systems produce insights.
+
+Les systèmes analytiques ne remplacent jamais le Ledger.
+
+2.2 Near Real-Time Analytics
+Business insights should be available with minimal delay.
+2.3 Governed Data
+Every analytical dataset must have an owner, lineage and quality controls.
+3. HIGH LEVEL ARCHITECTURE
+
+Operational Systems
+
+↓
+
+Event Streaming
+
+↓
+
+Data Ingestion
+
+↓
+
+Data Lake
+
+↓
+
+Enterprise Data Warehouse
+
+↓
+
+Semantic Layer
+
+↓
+
+BI Platform
+
+↓
+
+Dashboards / Reports / AI
+
+4. ANALYTICS COMPONENTS
+Data Lake
+
+Stockage :
+
+données brutes ;
+événements ;
+logs ;
+documents structurés.
+Enterprise Data Warehouse
+
+Stockage :
+
+données nettoyées ;
+dimensions ;
+faits ;
+indicateurs métier.
+Semantic Layer
+
+Responsable :
+
+définitions métiers ;
+KPI ;
+métriques communes.
+BI Platform
+
+Responsable :
+
+visualisations ;
+tableaux de bord ;
+rapports.
+5. DATA SOURCES
+
+Les données proviennent de :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+Wallet ;
+CRM ;
+Workflow Engine ;
+AI ;
+Logs ;
+Documents.
+6. DATA INGESTION
+
+Flux :
+
+
+Business Event
+
+↓
+
+Streaming
+
+↓
+
+Validation
+
+↓
+
+Transformation
+
+↓
+
+Warehouse
+
+7. DATA MODEL
+
+Architecture :
+
+
+Dimension Tables
+
+↓
+
+Fact Tables
+
+↓
+
+Business Metrics
+
+
+Exemples :
+
+Dimensions :
+
+Client ;
+Produit ;
+Temps ;
+Devise ;
+Région.
+
+Faits :
+
+Transactions ;
+Paiements ;
+Prêts ;
+Dépôts.
+8. DATA QUALITY
+
+Contrôles :
+
+complétude ;
+cohérence ;
+unicité ;
+exactitude ;
+fraîcheur ;
+conformité.
+9. DATA LINEAGE
+
+Chaque donnée possède :
+
+origine ;
+transformations ;
+propriétaire ;
+date de création ;
+version.
+10. KPI CATALOG
+
+Exemples :
+
+nombre de comptes actifs ;
+volume des paiements ;
+dépôts totaux ;
+encours de prêts ;
+coût du risque ;
+revenus ;
+taux de fraude ;
+délai moyen KYC.
+11. EXECUTIVE DASHBOARDS
+
+Destinés :
+
+CEO ;
+CFO ;
+CRO ;
+COO ;
+CISO ;
+Compliance Officer.
+
+Chaque rôle voit uniquement les indicateurs pertinents.
+
+12. FINANCIAL REPORTING
+
+Rapports :
+
+bilan ;
+compte de résultat ;
+flux de trésorerie ;
+revenus ;
+coûts ;
+rentabilité.
+13. REGULATORY REPORTING
+
+Support :
+
+rapports banque centrale ;
+AML ;
+KYC ;
+FATCA ;
+CRS ;
+exigences locales.
+
+Les modèles sont versionnés.
+
+14. REAL-TIME DASHBOARDS
+
+Actualisation :
+
+transactions ;
+paiements ;
+fraude ;
+incidents ;
+disponibilité.
+15. SELF-SERVICE ANALYTICS
+
+Les utilisateurs autorisés peuvent :
+
+créer leurs tableaux de bord ;
+filtrer ;
+exporter ;
+planifier des rapports.
+
+Les autorisations sont contrôlées par RBAC/ABAC.
+
+16. REPORT SCHEDULER
+
+Support :
+
+quotidien ;
+hebdomadaire ;
+mensuel ;
+trimestriel ;
+annuel ;
+déclenché par événement.
+17. EXPORT FORMATS
+
+Support :
+
+PDF ;
+Excel ;
+CSV ;
+JSON ;
+API.
+18. AI ANALYTICS
+
+Fonctions :
+
+détection d'anomalies ;
+prévisions ;
+segmentation ;
+tendances ;
+recommandations.
+
+Les résultats restent consultatifs et ne modifient jamais directement les données opérationnelles.
+
+19. DATA GOVERNANCE
+
+Chaque jeu de données possède :
+
+propriétaire ;
+classification ;
+qualité ;
+politique de rétention ;
+politique d'accès.
+20. SECURITY
+
+Protection :
+
+chiffrement ;
+contrôle d'accès ;
+masquage des données ;
+audit.
+
+Les données sensibles peuvent être pseudonymisées ou anonymisées selon les besoins analytiques.
+
+21. MULTI-TENANT ANALYTICS
+
+Chaque tenant dispose de :
+
+son Data Warehouse logique ;
+ses rapports ;
+ses KPI ;
+ses tableaux de bord.
+
+Aucune donnée n'est partagée entre tenants, sauf dans des analyses agrégées et anonymisées autorisées.
+
+22. PERFORMANCE
+
+Objectifs :
+
+requêtes optimisées ;
+cache analytique ;
+partitionnement ;
+traitement distribué.
+23. OBSERVABILITY
+
+Surveillance :
+
+temps d'exécution ;
+qualité des données ;
+pipelines ;
+coûts ;
+utilisation.
+24. COMPATIBLE PLATFORMS
+
+Architecture compatible avec :
+
+Snowflake
+Databricks
+Microsoft Fabric
+BigQuery
+Redshift
+Synapse Analytics
+
+L'architecture reste indépendante du fournisseur.
+
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER use analytical systems as the operational source of truth.
+ALWAYS preserve data lineage.
+ALWAYS validate data quality.
+ALWAYS version regulatory reports.
+ALWAYS isolate tenant analytics.
+ALWAYS secure sensitive analytical data.
+ALWAYS support near real-time reporting.
+ALWAYS maintain KPI consistency.
+ALWAYS integrate analytics through governed pipelines.
+ALWAYS follow Enterprise Analytics Standards.
+26. SUCCESS CRITERIA
+
+Le framework Analytics est conforme lorsque :
+
+les données sont gouvernées et traçables ;
+les KPI sont cohérents dans toute la plateforme ;
+les tableaux de bord sont disponibles en quasi temps réel ;
+les rapports réglementaires sont reproductibles ;
+les analyses IA sont explicables et sécurisées.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Executive Copilot
+Predictive Banking Analytics
+Digital Twin of the Bank
+Natural Language BI
+Streaming AI Analytics
+Customer 360 Intelligence
+ESG Reporting Framework
+Open Data Marketplace
+Real-Time Regulatory Intelligence
+Autonomous Financial Insights

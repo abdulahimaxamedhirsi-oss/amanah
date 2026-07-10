@@ -1,0 +1,365 @@
+89_Enterprise_Plugin_Extensibility_SDK_Framework.md
+(V3 — Enterprise Plugin, SDK, Marketplace & Extensibility Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d'extensibilité d'Amanah.
+
+Il couvre :
+
+Plugin Architecture ;
+SDK ;
+Marketplace ;
+Extensions ;
+Event Hooks ;
+UI Extensions ;
+API Extensions ;
+Sandboxing ;
+Certification ;
+Lifecycle des plugins.
+
+L'objectif est de permettre aux partenaires d'étendre Amanah sans modifier le Core Banking.
+
+2. CORE PRINCIPLES
+2.1 Core Remains Untouched
+Plugins must never modify the Core Banking Platform directly.
+2.2 Secure by Design
+Every extension must execute within a controlled security boundary.
+2.3 Backward Compatibility
+Platform upgrades must not break certified plugins.
+3. HIGH LEVEL ARCHITECTURE
+
+Core Platform
+
+↓
+
+Plugin Runtime
+
+↓
+
+Plugin SDK
+
+↓
+
+Certified Plugins
+
+↓
+
+Marketplace
+
+↓
+
+Customers
+
+4. EXTENSIBILITY MODEL
+
+Les extensions sont autorisées via :
+
+APIs ;
+Event Hooks ;
+Webhooks ;
+UI Extensions ;
+Workflow Extensions ;
+AI Extensions.
+
+Aucune extension ne peut accéder directement aux bases de données du Core.
+
+5. PLUGIN TYPES
+
+Support :
+
+Business Plugin ;
+Payment Plugin ;
+KYC Plugin ;
+Notification Plugin ;
+Reporting Plugin ;
+AI Plugin ;
+Compliance Plugin ;
+Integration Plugin ;
+UI Plugin.
+6. PLUGIN LIFECYCLE
+
+Develop
+
+↓
+
+Validate
+
+↓
+
+Sign
+
+↓
+
+Publish
+
+↓
+
+Install
+
+↓
+
+Update
+
+↓
+
+Retire
+
+7. SDK COMPONENTS
+
+Le SDK fournit :
+
+API Client ;
+Event SDK ;
+Authentication Library ;
+Logging Library ;
+Configuration API ;
+Testing Toolkit ;
+Documentation.
+8. PLUGIN MANIFEST
+
+Chaque plugin possède un manifeste.
+
+{
+  "pluginId":"com.amanah.fx",
+  "name":"Foreign Exchange",
+  "version":"1.0.0",
+  "sdkVersion":"3.0",
+  "permissions":[
+      "payments.read",
+      "payments.execute"
+  ]
+}
+9. PLUGIN PERMISSIONS
+
+Permissions possibles :
+
+accounts.read ;
+accounts.write ;
+payments.read ;
+payments.execute ;
+customer.read ;
+notifications.send ;
+reports.generate ;
+workflows.execute.
+
+Le principe du moindre privilège est obligatoire.
+
+10. PLUGIN SANDBOX
+
+Chaque plugin s'exécute dans un environnement isolé.
+
+Isolation :
+
+mémoire ;
+réseau ;
+stockage ;
+permissions.
+11. EVENT HOOKS
+
+Exemples :
+
+
+customer.created
+
+payment.completed
+
+account.opened
+
+loan.approved
+
+kyc.completed
+
+fraud.detected
+
+
+Les plugins réagissent aux événements sans modifier les services producteurs.
+
+12. WEBHOOKS
+
+Support :
+
+HTTP ;
+Signature HMAC ;
+Retry ;
+Dead Letter Queue.
+13. UI EXTENSIONS
+
+Les partenaires peuvent ajouter :
+
+widgets ;
+tableaux de bord ;
+pages ;
+menus ;
+formulaires.
+
+Les composants respectent le Design System officiel d'Amanah.
+
+14. API EXTENSIONS
+
+Les plugins peuvent exposer leurs propres APIs.
+
+Conditions :
+
+documentation OpenAPI ;
+authentification ;
+versioning ;
+monitoring.
+15. WORKFLOW EXTENSIONS
+
+Les plugins peuvent :
+
+ajouter des étapes ;
+déclencher des workflows ;
+créer des validations ;
+enrichir les processus métier.
+
+Ils ne remplacent jamais le moteur Workflow officiel.
+
+16. AI EXTENSIONS
+
+Support :
+
+scoring IA ;
+assistants métier ;
+classification documentaire ;
+recommandations ;
+OCR spécialisé.
+
+Les modèles doivent respecter les politiques d'AI Governance.
+
+17. SECURITY
+
+Chaque plugin est soumis à :
+
+revue de sécurité ;
+analyse SAST ;
+analyse DAST ;
+scan des dépendances ;
+vérification des signatures.
+18. CODE SIGNING
+
+Tous les plugins sont :
+
+signés ;
+versionnés ;
+vérifiés avant installation.
+
+Les plugins non signés sont rejetés.
+
+19. MARKETPLACE
+
+Le Marketplace permet :
+
+découverte ;
+installation ;
+mises à jour ;
+évaluations ;
+certification.
+20. CERTIFICATION PROCESS
+
+Étapes :
+
+
+Submission
+
+↓
+
+Automated Validation
+
+↓
+
+Security Review
+
+↓
+
+Functional Testing
+
+↓
+
+Approval
+
+↓
+
+Marketplace
+
+21. VERSIONING
+
+Chaque plugin suit :
+
+Semantic Versioning ;
+compatibilité SDK ;
+historique complet.
+22. OBSERVABILITY
+
+Chaque plugin expose :
+
+logs ;
+métriques ;
+traces ;
+consommation de ressources ;
+erreurs.
+23. AUDIT
+
+Chaque action du plugin enregistre :
+
+plugin ;
+utilisateur ;
+opération ;
+date ;
+résultat.
+24. GOVERNANCE
+
+Les plugins sont gouvernés par :
+
+politique de sécurité ;
+politique de confidentialité ;
+politique de conformité ;
+politique de cycle de vie.
+25. COMPATIBILITY
+
+Architecture compatible avec :
+
+OpenAPI
+OAuth 2.1
+OpenID Connect
+CloudEvents
+gRPC
+Webhooks
+GraphQL
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER allow plugins to access the Core Banking database directly.
+ALWAYS execute plugins inside isolated runtime environments.
+ALWAYS validate plugin signatures before execution.
+ALWAYS enforce least-privilege permissions.
+ALWAYS version plugin APIs.
+ALWAYS expose extension points through supported SDKs.
+ALWAYS audit plugin activity.
+ALWAYS certify plugins before Marketplace publication.
+ALWAYS maintain backward compatibility across SDK versions.
+ALWAYS follow Enterprise Plugin Standards.
+27. SUCCESS CRITERIA
+
+Le framework Plugin est conforme lorsque :
+
+les extensions sont isolées du Core ;
+les plugins utilisent uniquement les interfaces officielles ;
+les permissions sont contrôlées ;
+les plugins sont signés et certifiés ;
+les mises à jour sont compatibles avec les versions précédentes.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Plugin Generator
+Low-Code Plugin Builder
+Visual Workflow Extension Designer
+Multi-Tenant Plugin Marketplace
+Revenue Sharing Marketplace
+Autonomous Plugin Security Review
+AI Compatibility Testing
+Cross-Cloud Plugin Federation
+Enterprise Extension Analytics
+No-Code Banking Module Studio

@@ -1,0 +1,396 @@
+106_Enterprise_AML_Transaction_Monitoring_Framework.md
+(V3 — Enterprise AML, Transaction Monitoring, Sanctions Screening & Financial Crime Compliance Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel AML d'Amanah.
+
+Il couvre :
+
+Anti-Money Laundering (AML) ;
+Counter-Terrorist Financing (CTF) ;
+Transaction Monitoring ;
+Customer Risk Rating ;
+Sanctions Screening ;
+PEP Screening ;
+Case Management ;
+Suspicious Activity Reporting (SAR/STR) ;
+Financial Crime Intelligence ;
+Continuous Monitoring.
+
+L'objectif est de prévenir, détecter et signaler les activités financières suspectes conformément aux réglementations internationales.
+
+2. CORE PRINCIPLES
+2.1 Risk-Based Approach
+
+AML controls shall be proportional to customer and transaction risk.
+
+2.2 Real-Time Detection
+
+High-risk transactions must be detected before completion whenever possible.
+
+2.3 Continuous Compliance
+
+AML controls remain active throughout the customer lifecycle.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+KYC
+
+↓
+
+Customer Risk Engine
+
+↓
+
+Transaction Monitoring
+
+↓
+
+AML Rules Engine
+
+↓
+
+AI Detection
+
+↓
+
+Case Management
+
+↓
+
+Compliance Officer
+
+↓
+
+Regulatory Reporting
+
+4. AML DOMAINS
+
+Support :
+
+Customer Due Diligence (CDD) ;
+Enhanced Due Diligence (EDD) ;
+Transaction Monitoring ;
+Sanctions Screening ;
+PEP Screening ;
+Adverse Media Screening ;
+SAR/STR Reporting ;
+Ongoing Monitoring.
+5. CUSTOMER RISK RATING
+
+Le score prend en compte :
+
+pays ;
+profession ;
+activité économique ;
+produits utilisés ;
+volume d'activité ;
+historique AML ;
+statut PEP ;
+sanctions.
+
+Les scores sont recalculés automatiquement.
+
+6. CUSTOMER RISK LEVELS
+
+Niveaux :
+
+Low ;
+Medium ;
+High ;
+Critical.
+
+Chaque niveau déclenche des contrôles adaptés.
+
+7. TRANSACTION MONITORING
+
+Le moteur surveille :
+
+virements ;
+paiements ;
+dépôts ;
+retraits ;
+transferts internationaux ;
+opérations cartes ;
+mouvements Ledger.
+
+Toutes les transactions sont évaluées avant ou immédiatement après leur exécution selon le type d'opération.
+
+8. AML RULE ENGINE
+
+Exemples de règles :
+
+structuration (smurfing) ;
+transactions inhabituelles ;
+forte croissance d'activité ;
+pays à haut risque ;
+bénéficiaires inhabituels ;
+comptes dormants réactivés.
+
+Les règles sont versionnées et configurables.
+
+9. SANCTIONS SCREENING
+
+Contrôles sur :
+
+client ;
+bénéficiaire ;
+expéditeur ;
+entreprise ;
+UBO ;
+contrepartie.
+
+Sources possibles :
+
+ONU ;
+Union européenne ;
+OFAC ;
+HMT ;
+listes nationales.
+10. PEP SCREENING
+
+Détection :
+
+Politically Exposed Persons ;
+proches associés ;
+membres de la famille.
+
+Le niveau de risque est ajusté automatiquement.
+
+11. ADVERSE MEDIA SCREENING
+
+Recherche de :
+
+fraude ;
+corruption ;
+criminalité financière ;
+blanchiment ;
+financement du terrorisme.
+
+Les résultats alimentent le score de risque.
+
+12. NETWORK ANALYSIS
+
+Analyse des relations :
+
+
+Customer
+
+↓
+
+Accounts
+
+↓
+
+Transactions
+
+↓
+
+Counterparties
+
+↓
+
+Risk Network
+
+
+Le moteur identifie :
+
+réseaux de fraude ;
+comptes relais ;
+bénéficiaires communs ;
+schémas circulaires.
+13. BEHAVIORAL ANALYTICS
+
+Analyse :
+
+fréquence ;
+montants ;
+horaires ;
+localisation ;
+évolution du comportement.
+
+Les écarts significatifs génèrent des alertes.
+
+14. AI DETECTION ENGINE
+
+L'IA peut détecter :
+
+anomalies ;
+nouveaux schémas ;
+comportements émergents ;
+faux positifs récurrents.
+
+Les recommandations restent soumises à validation humaine pour les décisions critiques.
+
+15. ALERT MANAGEMENT
+
+Chaque alerte possède :
+
+Alert ID ;
+priorité ;
+score ;
+statut ;
+propriétaire ;
+historique.
+16. CASE MANAGEMENT
+
+Workflow :
+
+
+Alert
+
+↓
+
+Investigation
+
+↓
+
+Evidence
+
+↓
+
+Decision
+
+↓
+
+Closure
+
+↓
+
+Archive
+
+17. SUSPICIOUS ACTIVITY REPORTS (SAR/STR)
+
+Le système permet :
+
+génération automatique ;
+validation ;
+approbation ;
+transmission au régulateur ;
+archivage.
+
+Les rapports sont conservés selon les exigences légales.
+
+18. CONTINUOUS MONITORING
+
+Le moteur réévalue :
+
+clients ;
+entreprises ;
+bénéficiaires ;
+transactions ;
+changements de profil.
+19. WATCHLIST MANAGEMENT
+
+Support :
+
+listes internes ;
+listes externes ;
+listes partenaires ;
+surveillance renforcée.
+20. INVESTIGATION WORKBENCH
+
+Les analystes disposent :
+
+chronologie ;
+visualisation des flux ;
+graphes relationnels ;
+historique KYC ;
+historique des alertes ;
+accès aux documents.
+21. AML DASHBOARDS
+
+Indicateurs :
+
+alertes ouvertes ;
+alertes critiques ;
+SAR en attente ;
+faux positifs ;
+délai moyen de traitement ;
+exposition par pays.
+22. AUDIT
+
+Chaque décision conserve :
+
+analyste ;
+décision ;
+justification ;
+pièces ;
+date ;
+approbateur.
+
+Les journaux sont immuables.
+
+23. SECURITY
+
+Protection :
+
+chiffrement ;
+contrôle d'accès RBAC/ABAC ;
+séparation des responsabilités ;
+confidentialité des investigations.
+24. COMPLIANCE
+
+Compatible avec :
+
+FATF Recommendations ;
+AMLD (selon juridiction) ;
+Bank Secrecy Act (États-Unis, si applicable) ;
+FinCEN Guidance ;
+Wolfsberg Principles ;
+OFAC ;
+réglementations des banques centrales et autorités locales.
+25. INTEGRATION
+
+Le framework AML s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+Identity & KYC ;
+Fraud Engine ;
+CRM ;
+Regulatory Reporting ;
+AI Platform.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS evaluate transactions against AML rules before completion whenever technically feasible.
+NEVER allow sanctioned parties to transact without following applicable legal and regulatory requirements.
+ALWAYS maintain customer AML risk scores.
+ALWAYS preserve immutable AML audit trails.
+ALWAYS support configurable rule-based and AI-assisted detection.
+ALWAYS integrate sanctions, PEP and adverse media screening.
+ALWAYS maintain complete investigation histories.
+ALWAYS support SAR/STR generation and regulatory reporting.
+ALWAYS separate AML decision-making from operational transaction processing through appropriate governance.
+ALWAYS follow Amanah Enterprise AML Standards.
+27. SUCCESS CRITERIA
+
+Le framework AML est conforme lorsque :
+
+les transactions sont surveillées en temps réel ;
+les clients sont évalués selon une approche basée sur le risque ;
+les alertes sont investiguées de manière structurée ;
+les déclarations réglementaires sont produites conformément aux exigences légales ;
+chaque décision AML est entièrement traçable et auditée.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Financial Crime Investigator
+Autonomous AML Case Prioritization
+Graph Neural Network Risk Detection
+Cross-Bank Financial Crime Intelligence
+Digital Identity Risk Federation
+Predictive AML Analytics
+Continuous Entity Resolution
+AI False Positive Reduction
+Global Financial Crime Intelligence Hub
+Autonomous Regulatory Reporting

@@ -1,0 +1,496 @@
+81_Enterprise_Workflow_Orchestration_Framework.md
+(V3 — Enterprise Workflow Orchestration, BPM & Distributed Process Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d'orchestration des processus métier d'Amanah.
+
+Il couvre :
+
+Workflow Engine ;
+BPM ;
+Saga Pattern ;
+Human Tasks ;
+Event-Driven Workflows ;
+Long Running Processes ;
+Compensation ;
+Timers ;
+Retry Policies ;
+Process Monitoring.
+
+Le moteur de workflow est responsable d'orchestrer tous les processus métier complexes de la plateforme.
+
+2. CORE PRINCIPLES
+2.1 Processes Are Durable
+Business workflows must survive crashes, deployments and infrastructure failures.
+2.2 State Persistence
+Workflow state must always be persisted.
+2.3 Business Before Technology
+Workflows represent business processes, not implementation details.
+3. HIGH LEVEL ARCHITECTURE
+
+API
+
+↓
+
+Workflow Engine
+
+↓
+
+Workflow State Store
+
+↓
+
+Task Queue
+
+↓
+
+Workers
+
+↓
+
+Business Services
+
+↓
+
+Ledger
+
+4. WORKFLOW COMPONENTS
+Workflow Engine
+
+Responsable :
+
+orchestration ;
+état ;
+timers ;
+transitions.
+Task Queue
+
+Responsable :
+
+distribution ;
+retry ;
+priorité.
+Workers
+
+Responsable :
+
+exécution métier.
+State Store
+
+Responsable :
+
+persistance ;
+reprise ;
+historique.
+5. WORKFLOW TYPES
+System Workflow
+
+Automatique.
+
+Exemple :
+
+Paiement.
+
+Human Workflow
+
+Validation humaine.
+
+Exemple :
+
+Validation KYC.
+
+Hybrid Workflow
+
+Humain + automatisation.
+
+Scheduled Workflow
+
+Déclenchement planifié.
+
+Event Workflow
+
+Déclenché par événement.
+
+6. LONG RUNNING WORKFLOWS
+
+Support :
+
+plusieurs jours ;
+plusieurs semaines ;
+reprise automatique.
+
+Exemples :
+
+prêt immobilier ;
+onboarding entreprise ;
+enquête AML.
+7. SAGA PATTERN
+
+Les transactions distribuées utilisent Saga.
+
+Architecture :
+
+
+Service A
+
+↓
+
+Service B
+
+↓
+
+Service C
+
+↓
+
+Completed
+
+
+En cas d'échec :
+
+
+Service C Undo
+
+↓
+
+Service B Undo
+
+↓
+
+Service A Undo
+
+8. COMPENSATION ACTIONS
+
+Exemple :
+
+Paiement :
+
+
+Reserve Funds
+
+↓
+
+Ledger Entry
+
+↓
+
+Settlement
+
+
+Si Settlement échoue :
+
+
+Reverse Ledger
+
+↓
+
+Release Funds
+
+9. WORKFLOW STATE MACHINE
+
+Chaque workflow suit :
+
+
+CREATED
+
+↓
+
+RUNNING
+
+↓
+
+WAITING
+
+↓
+
+COMPLETED
+
+
+Ou :
+
+
+FAILED
+
+↓
+
+RETRY
+
+↓
+
+FAILED
+
+↓
+
+MANUAL REVIEW
+
+10. TASK MANAGEMENT
+
+Chaque tâche possède :
+
+{
+ "taskId":"uuid",
+
+ "workflowId":"uuid",
+
+ "status":"READY",
+
+ "priority":"HIGH"
+}
+11. PRIORITY LEVELS
+
+Support :
+
+Niveau	Exemple
+Critical	Settlement
+High	Payment
+Medium	KYC
+Low	Reporting
+12. RETRY POLICY
+
+Configuration :
+
+
+Retry 1
+
+↓
+
+Retry 2
+
+↓
+
+Retry 3
+
+↓
+
+Dead Letter Queue
+
+
+Backoff :
+
+exponentiel ;
+linéaire ;
+personnalisé.
+13. DEAD LETTER QUEUE
+
+Les tâches impossibles sont déplacées :
+
+
+Workflow
+
+↓
+
+DLQ
+
+↓
+
+Manual Investigation
+
+14. TIMERS
+
+Support :
+
+délais ;
+expiration ;
+rappels ;
+échéances.
+
+Exemple :
+
+
+Wait 48 Hours
+
+↓
+
+Resume Workflow
+
+15. HUMAN TASKS
+
+Certaines étapes nécessitent une validation.
+
+Exemple :
+
+
+AML Alert
+
+↓
+
+Compliance Officer
+
+↓
+
+Approve
+
+↓
+
+Continue Workflow
+
+16. BPMN COMPATIBILITY
+
+Compatible avec BPMN 2.0.
+
+Éléments :
+
+Start Event ;
+Tasks ;
+Gateways ;
+Timers ;
+End Event.
+17. EVENT-DRIVEN WORKFLOWS
+
+Déclencheurs :
+
+
+payment.completed
+
+customer.created
+
+kyc.approved
+
+fraud.detected
+
+18. PARALLEL EXECUTION
+
+Exemple :
+
+
+Payment
+
+↓
+
+AML Check
+
++
+
+Fraud Check
+
++
+
+Risk Check
+
+↓
+
+Join
+
+↓
+
+Continue
+
+19. CONDITIONAL BRANCHING
+
+Exemple :
+
+
+Amount > 10000 ?
+
+↓
+
+YES
+
+↓
+
+Manual Review
+
+
+Sinon :
+
+
+Auto Approval
+
+20. VERSIONING
+
+Chaque workflow possède :
+
+version ;
+historique ;
+migration.
+
+Les workflows déjà démarrés continuent avec leur version d'origine, sauf stratégie de migration explicitement définie.
+
+21. OBSERVABILITY
+
+Mesures :
+
+durée ;
+taux succès ;
+retries ;
+erreurs ;
+tâches humaines.
+22. AUDIT
+
+Chaque transition enregistre :
+
+utilisateur ;
+système ;
+timestamp ;
+état précédent ;
+nouvel état.
+23. HIGH AVAILABILITY
+
+Le moteur supporte :
+
+clustering ;
+reprise automatique ;
+réplication ;
+failover.
+24. INTEGRATION
+
+Le Workflow Engine orchestre :
+
+Payments ;
+Ledger ;
+KYC ;
+AML ;
+Cards ;
+Wallet ;
+AI ;
+Notifications ;
+Documents.
+25. SUPPORTED IMPLEMENTATIONS
+
+Architecture compatible avec :
+
+Temporal
+Camunda
+Netflix Conductor
+AWS Step Functions
+Azure Durable Functions
+
+Le moteur reste découplé de toute implémentation spécifique grâce à une couche d'abstraction.
+
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS orchestrate long-running business processes through workflows.
+NEVER implement complex business flows using chained REST calls.
+ALWAYS persist workflow state.
+ALWAYS implement compensation for distributed transactions.
+ALWAYS support retries and timeouts.
+ALWAYS version workflow definitions.
+ALWAYS audit workflow transitions.
+ALWAYS support human approval tasks where required.
+ALWAYS emit workflow events.
+ALWAYS follow Enterprise Workflow Standards.
+27. SUCCESS CRITERIA
+
+Le framework Workflow est conforme lorsque :
+
+les processus survivent aux pannes ;
+les workflows peuvent durer plusieurs jours ;
+les compensations restaurent un état cohérent ;
+les validations humaines sont intégrées ;
+les processus sont observables, auditables et versionnés.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Workflow Optimization
+Natural Language Workflow Designer
+Autonomous Process Automation
+Self-Healing Workflow Engine
+AI Process Mining
+Low-Code Workflow Builder
+Multi-Cloud Workflow Federation
+Predictive SLA Monitoring
+Business Process Digital Twin
+Autonomous Human Task Assignment

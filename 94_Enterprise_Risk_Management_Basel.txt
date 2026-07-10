@@ -1,0 +1,308 @@
+94_Enterprise_Risk_Management_Basel_IFRS9_Framework.md
+(V3 — Enterprise Risk Management, Basel III/IV, IFRS 9 & Capital Management Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion des risques d'Amanah.
+
+Il couvre :
+
+Enterprise Risk Management (ERM) ;
+Credit Risk ;
+Market Risk ;
+Liquidity Risk ;
+Operational Risk ;
+Counterparty Risk ;
+IFRS 9 ;
+Basel III / IV ;
+ICAAP ;
+Stress Testing ;
+Capital Management.
+
+L'objectif est d'assurer une gestion proactive, mesurable et conforme des risques auxquels la banque est exposée.
+
+2. CORE PRINCIPLES
+2.1 Risk Awareness
+Risk management must be embedded in every business process.
+2.2 Three Lines of Defense
+Risk ownership follows the Three Lines of Defense model.
+2.3 Risk-Based Decision Making
+Business decisions must consider their impact on the institution's risk profile.
+3. RISK GOVERNANCE
+
+Board Risk Committee
+
+↓
+
+Chief Risk Officer (CRO)
+
+↓
+
+Risk Management
+
+↓
+
+Business Units
+
+↓
+
+Internal Audit
+
+4. RISK DOMAINS
+
+Support :
+
+Credit Risk ;
+Market Risk ;
+Liquidity Risk ;
+Operational Risk ;
+Counterparty Risk ;
+Compliance Risk ;
+Cyber Risk ;
+Model Risk ;
+Reputational Risk ;
+Shariah Non-Compliance Risk.
+5. RISK APPETITE FRAMEWORK
+
+Chaque catégorie de risque possède :
+
+niveau cible ;
+seuil d'alerte ;
+limite maximale ;
+plan d'escalade.
+6. CREDIT RISK
+
+Éléments suivis :
+
+Probability of Default (PD) ;
+Loss Given Default (LGD) ;
+Exposure at Default (EAD) ;
+Expected Loss (EL).
+7. IFRS 9 EXPECTED CREDIT LOSS
+
+Le moteur prend en charge :
+
+Stage 1 ;
+Stage 2 ;
+Stage 3 ;
+calcul des pertes de crédit attendues (Expected Credit Loss - ECL) ;
+scénarios macroéconomiques pondérés.
+
+Les modèles et hypothèses sont documentés, versionnés et validés.
+
+8. MARKET RISK
+
+Suivi :
+
+taux d'intérêt ;
+change (FX) ;
+matières premières ;
+titres ;
+volatilité.
+9. LIQUIDITY RISK
+
+Mesures :
+
+LCR (Liquidity Coverage Ratio) ;
+NSFR (Net Stable Funding Ratio) ;
+gaps de liquidité ;
+concentration des financements.
+10. OPERATIONAL RISK
+
+Événements :
+
+erreurs humaines ;
+défaillances systèmes ;
+fraude interne ;
+fraude externe ;
+interruptions d'activité.
+
+Les pertes opérationnelles sont enregistrées dans une base dédiée.
+
+11. COUNTERPARTY RISK
+
+Suivi :
+
+exposition ;
+limites ;
+garanties ;
+concentration.
+12. CAPITAL MANAGEMENT
+
+Calcul :
+
+CET1 ;
+Tier 1 ;
+Total Capital ;
+Risk Weighted Assets (RWA).
+
+Le moteur produit des indicateurs de solvabilité.
+
+13. ICAAP
+
+Le processus ICAAP couvre :
+
+identification des risques ;
+évaluation ;
+allocation du capital ;
+scénarios de stress ;
+validation par la gouvernance.
+14. STRESS TESTING
+
+Scénarios :
+
+récession ;
+hausse des taux ;
+défaut massif ;
+crise de liquidité ;
+choc géopolitique.
+
+Les résultats alimentent les décisions de gestion.
+
+15. LIMIT MANAGEMENT
+
+Les limites peuvent être définies par :
+
+client ;
+groupe ;
+produit ;
+pays ;
+secteur ;
+contrepartie.
+
+Les dépassements génèrent des alertes et suivent un processus d'approbation.
+
+16. EARLY WARNING INDICATORS
+
+Indicateurs :
+
+retards de paiement ;
+baisse de revenus ;
+dépassements de limites ;
+dégradation du score ;
+incidents KYC/AML.
+17. RISK SCORING
+
+Chaque exposition reçoit un score calculé à partir :
+
+données financières ;
+comportement client ;
+garanties ;
+historique ;
+facteurs macroéconomiques.
+
+Les modèles sont gouvernés par le framework AI/Model Risk.
+
+18. SHARIAH RISK
+
+Pour les produits islamiques :
+
+conformité aux décisions du Shariah Board ;
+suivi des non-conformités ;
+actions correctives.
+19. RISK REPORTING
+
+Rapports :
+
+Board ;
+CRO ;
+Comité des Risques ;
+Régulateur ;
+Audit.
+
+Les rapports sont versionnés et archivés.
+
+20. RISK DASHBOARDS
+
+Vue consolidée :
+
+expositions ;
+limites ;
+capital ;
+liquidité ;
+ECL ;
+stress tests ;
+incidents.
+21. AUDIT
+
+Chaque décision de risque enregistre :
+
+auteur ;
+date ;
+justification ;
+approbateurs ;
+impact.
+
+Les journaux sont immuables.
+
+22. COMPLIANCE
+
+Compatible avec :
+
+Basel III / IV
+IFRS 9
+BCBS Principles
+EBA Guidelines
+COSO ERM
+ISO 31000
+AAOIFI (pour les produits islamiques)
+réglementations des banques centrales applicables
+23. INTEGRATION
+
+Le moteur de risque s'intègre avec :
+
+Core Banking ;
+Product Factory ;
+Ledger ;
+CRM ;
+KYC/AML ;
+Treasury ;
+AI Platform ;
+Reporting.
+24. MODEL GOVERNANCE
+
+Les modèles de risque :
+
+sont versionnés ;
+validés indépendamment ;
+surveillés en production ;
+recalibrés périodiquement.
+
+Toute modification suit un processus d'approbation documenté.
+
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS evaluate financial decisions against defined risk policies.
+NEVER bypass risk limits without documented approval.
+ALWAYS calculate and preserve complete audit trails for risk assessments.
+ALWAYS support IFRS 9 staging and Expected Credit Loss calculations.
+ALWAYS enforce Basel capital and liquidity constraints where applicable.
+ALWAYS separate model configuration from business logic.
+ALWAYS support stress testing and scenario analysis.
+ALWAYS version risk models and assumptions.
+ALWAYS integrate risk controls with operational workflows.
+ALWAYS follow Enterprise Risk Management Standards.
+26. SUCCESS CRITERIA
+
+Le framework de gestion des risques est conforme lorsque :
+
+tous les risques matériels sont identifiés et suivis ;
+les limites sont contrôlées automatiquement ;
+les calculs IFRS 9 et les indicateurs Bâle sont reproductibles ;
+les modèles sont gouvernés et auditables ;
+les décisions de risque sont documentées et traçables.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Credit Risk Copilot
+Real-Time Portfolio Risk Engine
+Autonomous Stress Testing
+Predictive Liquidity Monitoring
+AI Early Warning System
+Dynamic Capital Optimization
+Climate Risk Assessment (ESG)
+Network-Based Counterparty Risk Analysis
+Digital Twin of Enterprise Risk
+Autonomous Regulatory Risk Reporting

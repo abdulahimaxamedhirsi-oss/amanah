@@ -1,0 +1,356 @@
+88_Enterprise_Operational_Runbooks_SRE_Framework.md
+(V3 — Enterprise Site Reliability Engineering, Operational Runbooks & Service Operations Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d'exploitation opérationnelle d'Amanah.
+
+Il couvre :
+
+Site Reliability Engineering (SRE) ;
+Service Operations ;
+Runbooks ;
+Playbooks ;
+Incident Management ;
+SLO / SLI ;
+Error Budgets ;
+On-Call Management ;
+Operational Excellence ;
+Continuous Improvement.
+
+L'objectif est d'assurer une exploitation fiable, mesurable et standardisée de l'ensemble de la plateforme.
+
+2. CORE PRINCIPLES
+2.1 Reliability Is a Feature
+System reliability is a core product requirement.
+2.2 Automate Operations
+Operational tasks should be automated whenever possible.
+2.3 Measure Everything
+Operational decisions must be based on measurable indicators.
+3. HIGH LEVEL ARCHITECTURE
+
+Applications
+
+↓
+
+Monitoring
+
+↓
+
+Alerting
+
+↓
+
+Incident Response
+
+↓
+
+Runbooks
+
+↓
+
+Recovery
+
+↓
+
+Postmortem
+
+↓
+
+Continuous Improvement
+
+4. OPERATIONAL COMPONENTS
+Monitoring Platform
+
+Responsable :
+
+métriques ;
+disponibilité ;
+santé des services.
+Alerting Platform
+
+Responsable :
+
+alertes ;
+escalades ;
+notifications.
+Runbook Repository
+
+Responsable :
+
+procédures ;
+automatisation ;
+documentation.
+Incident Platform
+
+Responsable :
+
+gestion des incidents ;
+communication ;
+suivi.
+5. SERVICE LEVEL INDICATORS (SLI)
+
+Exemples :
+
+disponibilité ;
+latence ;
+taux d'erreur ;
+débit ;
+temps de traitement.
+
+Chaque SLI est mesuré automatiquement.
+
+6. SERVICE LEVEL OBJECTIVES (SLO)
+
+Chaque service définit :
+
+disponibilité cible ;
+performance cible ;
+fiabilité cible.
+
+Exemple :
+
+
+Availability
+
+99.95%
+
+7. ERROR BUDGETS
+
+Le budget d'erreur représente le niveau maximal d'indisponibilité acceptable avant qu'une action corrective soit exigée.
+
+Lorsque le budget est consommé :
+
+réduction des déploiements non critiques ;
+analyse des causes ;
+amélioration de la fiabilité.
+8. MONITORING
+
+Surveillance :
+
+API ;
+Ledger ;
+Paiements ;
+Bases de données ;
+Kubernetes ;
+Réseau ;
+Sécurité ;
+Infrastructure.
+9. ALERTING
+
+Une alerte contient :
+
+criticité ;
+impact ;
+service concerné ;
+contexte ;
+recommandations.
+10. ALERT SEVERITY
+Niveau	Description
+P1	Incident critique
+P2	Incident majeur
+P3	Incident modéré
+P4	Information
+11. ON-CALL MANAGEMENT
+
+Rotation :
+
+Primary ;
+Secondary ;
+Incident Commander ;
+Escalation Manager.
+
+Les rotations sont documentées et régulièrement testées.
+
+12. RUNBOOKS
+
+Chaque service possède un runbook contenant :
+
+architecture ;
+commandes ;
+diagnostics ;
+procédures ;
+rollback ;
+contacts.
+13. PLAYBOOKS
+
+Playbooks disponibles :
+
+panne API ;
+panne base de données ;
+panne Kubernetes ;
+perte de région ;
+incident sécurité ;
+fraude ;
+panne Ledger.
+14. INCIDENT MANAGEMENT
+
+Cycle :
+
+
+Detection
+
+↓
+
+Acknowledgement
+
+↓
+
+Diagnosis
+
+↓
+
+Mitigation
+
+↓
+
+Recovery
+
+↓
+
+Postmortem
+
+15. MAJOR INCIDENT PROCESS
+
+Pour les incidents critiques :
+
+Incident Commander ;
+équipe technique dédiée ;
+communication continue ;
+journal des décisions ;
+revue post-incident obligatoire.
+16. POSTMORTEM
+
+Chaque incident majeur produit un rapport comprenant :
+
+chronologie ;
+causes racines ;
+impact ;
+actions correctives ;
+actions préventives.
+
+Les postmortems sont blameless : l'objectif est l'amélioration du système, non la recherche de coupables.
+
+17. CAPACITY MANAGEMENT
+
+Suivi :
+
+CPU ;
+mémoire ;
+stockage ;
+réseau ;
+capacité des files de messages ;
+croissance des données.
+18. CHANGE COORDINATION
+
+Les changements critiques nécessitent :
+
+validation ;
+fenêtre de maintenance (si applicable) ;
+plan de retour arrière ;
+surveillance renforcée.
+19. OPERATIONAL DASHBOARDS
+
+Tableaux de bord :
+
+disponibilité ;
+incidents ;
+SLO ;
+Error Budget ;
+performances ;
+coûts cloud.
+20. KNOWLEDGE BASE
+
+Documentation centralisée :
+
+runbooks ;
+FAQ ;
+procédures ;
+guides d'exploitation ;
+historique des incidents.
+21. OBSERVABILITY
+
+Chaque service expose :
+
+métriques ;
+logs structurés ;
+traces distribuées ;
+événements métier.
+22. AUTOMATION
+
+Automatisation :
+
+redémarrage contrôlé ;
+scaling ;
+nettoyage ;
+sauvegardes ;
+diagnostics ;
+notifications.
+
+Les actions automatiques sont auditables et configurables.
+
+23. COMPLIANCE
+
+Compatible avec :
+
+Google SRE Principles
+ISO 20000
+ISO 22301
+DORA
+ITIL 4
+NIST Cybersecurity Framework
+24. CONTINUOUS IMPROVEMENT
+
+Chaque trimestre :
+
+revue des SLO ;
+revue des runbooks ;
+optimisation des alertes ;
+réduction de la dette opérationnelle.
+25. OPERATIONAL METRICS
+
+Indicateurs :
+
+MTTR ;
+MTTD ;
+disponibilité ;
+taux d'incidents ;
+erreurs récurrentes ;
+respect des SLO ;
+consommation de l'Error Budget.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS define SLIs and SLOs for production services.
+ALWAYS create operational runbooks for critical components.
+NEVER deploy critical services without monitoring and alerting.
+ALWAYS automate repetitive operational tasks where appropriate.
+ALWAYS support structured incident response workflows.
+ALWAYS preserve complete operational audit logs.
+ALWAYS maintain observability through metrics, logs and traces.
+ALWAYS document rollback procedures.
+ALWAYS perform blameless postmortems after major incidents.
+ALWAYS follow Enterprise SRE Standards.
+27. SUCCESS CRITERIA
+
+Le framework SRE est conforme lorsque :
+
+chaque service possède des SLI et SLO documentés ;
+les incidents sont détectés et traités rapidement ;
+les procédures opérationnelles sont documentées et testées ;
+les équipes disposent d'une observabilité complète ;
+les améliorations issues des incidents sont suivies jusqu'à leur mise en œuvre.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Incident Commander
+Autonomous Runbook Execution
+Predictive Failure Detection
+Self-Healing Operations
+AI Alert Noise Reduction
+Autonomous Capacity Planning
+Digital Twin Operations Center
+AI Operational Knowledge Assistant
+Intelligent Root Cause Analysis
+Autonomous Reliability Optimization

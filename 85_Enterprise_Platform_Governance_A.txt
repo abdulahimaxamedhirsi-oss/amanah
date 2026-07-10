@@ -1,0 +1,345 @@
+85_Enterprise_Platform_Governance_Architecture.md
+(V3 — Enterprise Platform Governance, Architecture & Technology Standards Framework)
+1. OBJECTIF
+
+Ce document définit le cadre officiel de gouvernance technique d'Amanah.
+
+Il couvre :
+
+Enterprise Architecture Governance ;
+Technology Standards ;
+Architecture Decision Records (ADR) ;
+API Governance ;
+Data Governance ;
+AI Governance ;
+Cloud Governance ;
+Change Management ;
+Technical Debt ;
+Lifecycle Management.
+
+L'objectif est de garantir la cohérence, la qualité et la pérennité de la plateforme.
+
+2. CORE PRINCIPLES
+2.1 Architecture Before Implementation
+Every major technical decision must be reviewed before implementation.
+2.2 Standards Over Preferences
+Technology choices follow enterprise standards rather than individual preferences.
+2.3 Long-Term Maintainability
+Maintainability is more important than short-term optimization.
+3. GOVERNANCE MODEL
+
+Executive Steering Committee
+
+↓
+
+Enterprise Architecture Board
+
+↓
+
+Domain Architecture Owners
+
+↓
+
+Engineering Teams
+
+↓
+
+Platform Operations
+
+4. GOVERNANCE DOMAINS
+
+La gouvernance couvre :
+
+Architecture ;
+Sécurité ;
+Données ;
+IA ;
+APIs ;
+Infrastructure ;
+DevSecOps ;
+Conformité ;
+Risques.
+5. ENTERPRISE ARCHITECTURE BOARD
+
+Responsabilités :
+
+validation des architectures ;
+arbitrage technologique ;
+évolution des standards ;
+revue des ADR ;
+supervision des domaines.
+6. DOMAIN OWNERS
+
+Chaque domaine possède un responsable.
+
+Exemples :
+
+Payments
+Ledger
+Lending
+Cards
+Wallet
+Compliance
+AI
+Platform
+Security
+7. ARCHITECTURE DECISION RECORDS (ADR)
+
+Chaque décision majeure est documentée.
+
+Structure minimale :
+
+
+Decision
+
+↓
+
+Context
+
+↓
+
+Options Considered
+
+↓
+
+Decision
+
+↓
+
+Consequences
+
+8. TECHNOLOGY STANDARDS
+
+Chaque technologie utilisée doit être :
+
+approuvée ;
+documentée ;
+supportée ;
+maintenue.
+9. TECHNOLOGY CATALOG
+
+Classification :
+
+Niveau	Description
+Approved	Utilisation recommandée
+Allowed	Utilisation autorisée
+Experimental	Évaluation uniquement
+Deprecated	Migration requise
+Retired	Interdite
+10. API GOVERNANCE
+
+Toutes les APIs doivent respecter :
+
+OpenAPI ;
+versioning ;
+documentation ;
+sécurité ;
+monitoring ;
+conventions de nommage.
+11. DATA GOVERNANCE
+
+Chaque donnée possède :
+
+propriétaire ;
+classification ;
+qualité ;
+durée de conservation ;
+politique d'accès.
+12. AI GOVERNANCE
+
+Les modèles IA sont gouvernés par :
+
+validation ;
+évaluation ;
+sécurité ;
+audit ;
+suivi des performances.
+13. CHANGE MANAGEMENT
+
+Cycle :
+
+
+Proposal
+
+↓
+
+Review
+
+↓
+
+Approval
+
+↓
+
+Implementation
+
+↓
+
+Validation
+
+↓
+
+Production
+
+14. RISK ASSESSMENT
+
+Chaque changement est évalué selon :
+
+impact métier ;
+impact sécurité ;
+impact conformité ;
+impact disponibilité.
+15. TECHNICAL DEBT MANAGEMENT
+
+La dette technique est :
+
+identifiée ;
+priorisée ;
+suivie ;
+planifiée.
+
+Chaque élément possède :
+
+propriétaire ;
+criticité ;
+échéance.
+16. DOCUMENTATION STANDARDS
+
+Chaque composant possède :
+
+architecture ;
+API ;
+modèle de données ;
+runbook ;
+guide d'exploitation.
+17. DESIGN REVIEWS
+
+Les revues sont obligatoires pour :
+
+nouveaux services ;
+changements majeurs ;
+nouvelles technologies ;
+architectures critiques.
+18. DEPENDENCY GOVERNANCE
+
+Chaque dépendance est évaluée selon :
+
+sécurité ;
+maintenance ;
+licence ;
+communauté ;
+compatibilité.
+19. LIFECYCLE MANAGEMENT
+
+Cycle de vie :
+
+
+Proposed
+
+↓
+
+Approved
+
+↓
+
+Active
+
+↓
+
+Deprecated
+
+↓
+
+Retired
+
+20. COMPLIANCE GOVERNANCE
+
+Suivi des exigences :
+
+ISO 27001 ;
+PCI DSS ;
+GDPR ;
+DORA ;
+NIST ;
+réglementations bancaires locales.
+21. METRICS
+
+Indicateurs :
+
+conformité aux standards ;
+dette technique ;
+ADR ouverts ;
+taux de couverture documentaire ;
+dérogations accordées.
+22. EXCEPTION MANAGEMENT
+
+Les exceptions doivent être :
+
+justifiées ;
+approuvées ;
+limitées dans le temps ;
+réévaluées périodiquement.
+23. AUDIT
+
+Chaque décision de gouvernance enregistre :
+
+auteur ;
+approbateurs ;
+date ;
+justification ;
+impact.
+24. PLATFORM EVOLUTION
+
+L'évolution est pilotée par :
+
+feuille de route ;
+ADR ;
+retour d'expérience ;
+indicateurs ;
+veille technologique.
+25. KNOWLEDGE MANAGEMENT
+
+La connaissance est centralisée dans :
+
+Architecture Repository ;
+ADR Repository ;
+Documentation Portal ;
+Runbooks ;
+Standards Catalog.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS follow approved enterprise standards.
+NEVER introduce unapproved technologies without an ADR.
+ALWAYS document architectural decisions.
+ALWAYS respect governance workflows.
+ALWAYS maintain technical documentation.
+ALWAYS assess risks before major changes.
+ALWAYS manage technical debt proactively.
+ALWAYS version architecture documents.
+ALWAYS preserve platform consistency.
+ALWAYS follow Enterprise Governance Standards.
+27. SUCCESS CRITERIA
+
+La gouvernance est conforme lorsque :
+
+toutes les décisions majeures sont documentées ;
+les standards techniques sont appliqués de manière cohérente ;
+les exceptions sont contrôlées ;
+la dette technique est maîtrisée ;
+la plateforme évolue sans perte de cohérence.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Architecture Review Assistant
+Automated ADR Generation
+Governance-as-Code
+Continuous Architecture Compliance
+AI Technical Debt Analyzer
+Autonomous Standards Validation
+Enterprise Knowledge Graph
+Architecture Digital Twin
+Continuous Technology Radar
+AI Enterprise Governance Copilot

@@ -1,0 +1,418 @@
+82_Enterprise_Document_Management_eSignature_Framework.md
+(V3 — Enterprise Document Management, Records & Electronic Signature Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion documentaire d'Amanah.
+
+Il couvre :
+
+Enterprise Document Management (EDMS) ;
+gestion documentaire ;
+génération de documents ;
+OCR ;
+archivage ;
+signatures électroniques ;
+workflows documentaires ;
+conservation légale ;
+conformité réglementaire.
+
+Le système documentaire constitue la référence officielle pour tous les documents produits ou reçus par la plateforme.
+
+2. CORE PRINCIPLES
+2.1 Documents Are Business Assets
+Every document has business and legal value.
+
+Chaque document est considéré comme un actif métier.
+
+2.2 Immutable Audit Trail
+Every document modification must be traceable.
+2.3 Security By Design
+Sensitive documents must always be protected.
+3. HIGH LEVEL ARCHITECTURE
+
+Applications
+
+↓
+
+Document API
+
+↓
+
+Document Service
+
+↓
+
+Version Engine
+
+↓
+
+Metadata Store
+
+↓
+
+Object Storage
+
+↓
+
+Archive
+
+↓
+
+Audit
+
+4. DOCUMENT COMPONENTS
+Document Service
+
+Responsable :
+
+création ;
+consultation ;
+suppression logique ;
+téléchargement.
+Metadata Engine
+
+Responsable :
+
+indexation ;
+recherche ;
+tags ;
+classification.
+Storage Engine
+
+Responsable :
+
+stockage sécurisé ;
+chiffrement ;
+réplication.
+Signature Service
+
+Responsable :
+
+signatures électroniques ;
+validation ;
+certificats.
+5. DOCUMENT TYPES
+
+Support :
+
+contrats ;
+KYC ;
+passeports ;
+cartes d'identité ;
+relevés bancaires ;
+justificatifs de domicile ;
+factures ;
+rapports AML ;
+audits ;
+rapports réglementaires.
+6. DOCUMENT LIFECYCLE
+
+CREATED
+
+↓
+
+UPLOADED
+
+↓
+
+VALIDATED
+
+↓
+
+SIGNED
+
+↓
+
+ACTIVE
+
+↓
+
+ARCHIVED
+
+↓
+
+DESTROYED (according to retention policy)
+
+7. DOCUMENT DATA MODEL
+{
+  "documentId":"uuid",
+  "type":"KYC",
+  "ownerId":"customer-id",
+  "version":"1.0",
+  "status":"ACTIVE",
+  "classification":"CONFIDENTIAL",
+  "createdAt":"2026-01-01"
+}
+8. DOCUMENT CLASSIFICATION
+Niveau	Exemple
+Public	Brochure
+Internal	Procédure
+Confidential	Contrat client
+Restricted	Pièce d'identité
+Highly Restricted	Documents réglementaires sensibles
+9. DOCUMENT VERSIONING
+
+Chaque modification crée :
+
+
+Version 1
+
+↓
+
+Version 2
+
+↓
+
+Version 3
+
+
+Aucune version n'est écrasée.
+
+10. STORAGE ARCHITECTURE
+
+Upload
+
+↓
+
+Encryption
+
+↓
+
+Object Storage
+
+↓
+
+Replication
+
+↓
+
+Backup
+
+11. ENCRYPTION
+
+Tous les documents sont :
+
+chiffrés au repos ;
+chiffrés en transit ;
+protégés par KMS.
+12. OCR ENGINE
+
+Support :
+
+extraction texte ;
+indexation ;
+recherche plein texte.
+
+Formats :
+
+PDF
+PNG
+JPG
+TIFF
+13. DOCUMENT SEARCH
+
+Recherche possible par :
+
+client ;
+type ;
+date ;
+référence ;
+métadonnées ;
+texte OCR.
+14. DOCUMENT GENERATION
+
+Production automatique :
+
+contrats ;
+relevés ;
+attestations ;
+confirmations ;
+rapports.
+
+Formats :
+
+PDF
+HTML
+DOCX
+15. TEMPLATE ENGINE
+
+Templates versionnés :
+
+
+Contract Template
+
+↓
+
+Variables
+
+↓
+
+Generated Document
+
+16. ELECTRONIC SIGNATURES
+
+Support :
+
+Signature électronique simple ;
+Signature électronique avancée ;
+Signature électronique qualifiée (lorsque prise en charge par le prestataire et la juridiction).
+17. SIGNATURE WORKFLOW
+
+Generate Document
+
+↓
+
+Send For Signature
+
+↓
+
+Customer Signs
+
+↓
+
+Verification
+
+↓
+
+Archive
+
+18. MULTI-PARTY SIGNATURES
+
+Support :
+
+client ;
+conseiller ;
+banque ;
+témoin (si nécessaire).
+
+Les signatures peuvent être séquentielles ou parallèles.
+
+19. SIGNATURE AUDIT
+
+Chaque signature conserve :
+
+signataire ;
+horodatage ;
+adresse IP (selon les politiques de confidentialité applicables) ;
+méthode d'authentification ;
+certificat utilisé ;
+empreinte (hash) du document.
+20. LEGAL ARCHIVING
+
+Archivage conforme :
+
+durée configurable ;
+archivage inviolable ;
+restauration contrôlée ;
+destruction documentée en fin de rétention.
+21. RETENTION POLICIES
+
+Chaque type documentaire possède :
+
+durée minimale ;
+durée maximale si applicable ;
+politique d'archivage ;
+règles de destruction.
+
+Les durées dépendent des exigences réglementaires du pays concerné.
+
+22. DOCUMENT WORKFLOWS
+
+Exemple :
+
+
+Upload
+
+↓
+
+OCR
+
+↓
+
+Compliance Review
+
+↓
+
+Approval
+
+↓
+
+Archive
+
+23. ACCESS CONTROL
+
+Chaque document est protégé par :
+
+RBAC ;
+ABAC ;
+tenant isolation ;
+chiffrement ;
+journal d'accès.
+24. INTEGRATION
+
+Le système documentaire s'intègre avec :
+
+KYC ;
+AML ;
+Lending ;
+Islamic Banking ;
+CRM ;
+Workflow Engine ;
+Notifications ;
+AI Assistant.
+25. COMPLIANCE
+
+Compatible avec :
+
+eIDAS
+ESIGN Act
+UETA
+GDPR
+ISO 27001
+ISO 15489 (Records Management)
+PCI DSS (lorsque applicable)
+26. HIGH AVAILABILITY
+
+Le système documentaire supporte :
+
+réplication multi-régions ;
+stockage objet distribué ;
+sauvegardes automatiques ;
+restauration granulaire.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS version documents.
+NEVER overwrite existing documents.
+ALWAYS encrypt stored files.
+ALWAYS preserve audit history.
+ALWAYS classify documents.
+ALWAYS enforce retention policies.
+ALWAYS validate digital signatures.
+ALWAYS integrate document workflows with the Workflow Engine.
+ALWAYS protect confidential customer documents.
+ALWAYS follow Enterprise Document Management Standards.
+28. SUCCESS CRITERIA
+
+Le système documentaire est conforme lorsque :
+
+tous les documents sont versionnés ;
+les signatures sont juridiquement traçables ;
+les recherches sont rapides et précises ;
+les archives respectent les politiques de conservation ;
+les accès sont sécurisés et auditables.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Document Classification
+AI Contract Review
+Intelligent OCR & Handwriting Recognition
+Automatic Legal Clause Detection
+Multi-Language Document Generation
+Blockchain Document Notarization
+AI Records Retention Advisor
+Semantic Enterprise Search
+Digital Safe for Customers
+Smart Contract Generation Assistant

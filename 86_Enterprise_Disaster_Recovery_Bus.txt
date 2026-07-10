@@ -1,0 +1,345 @@
+86_Enterprise_Disaster_Recovery_Business_Continuity_Framework.md
+(V3 — Enterprise Disaster Recovery, Business Continuity & Cyber Resilience Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de continuité d'activité et de reprise après sinistre d'Amanah.
+
+Il couvre :
+
+Business Continuity Planning (BCP) ;
+Disaster Recovery (DR) ;
+Haute disponibilité ;
+Cyber Resilience ;
+Sauvegardes ;
+Failover ;
+Multi-Régions ;
+Tests DR ;
+Gestion de crise ;
+Continuité des opérations.
+
+L'objectif est d'assurer que les services critiques restent disponibles ou puissent être restaurés dans des délais conformes aux exigences réglementaires et contractuelles.
+
+2. CORE PRINCIPLES
+2.1 Availability First
+Critical banking services must remain available during failures whenever technically possible.
+2.2 Recoverability
+Every critical system must have a documented recovery strategy.
+2.3 Tested Resilience
+Recovery plans must be regularly exercised and validated.
+3. RESILIENCE ARCHITECTURE
+
+Primary Region
+
+↓
+
+Replication
+
+↓
+
+Secondary Region
+
+↓
+
+Failover
+
+↓
+
+Business Continuity
+
+↓
+
+Recovery
+
+4. RESILIENCE TIERS
+Tier	Description
+Tier 1	Core Banking, Ledger, Payments
+Tier 2	Cards, Wallet, Identity
+Tier 3	CRM, Reporting
+Tier 4	Internal Tools
+
+Les objectifs de reprise sont définis par niveau de criticité.
+
+5. BUSINESS IMPACT ANALYSIS (BIA)
+
+Chaque service possède :
+
+criticité ;
+impact financier ;
+impact réglementaire ;
+impact client ;
+dépendances.
+6. RTO & RPO
+
+Définition :
+
+RTO (Recovery Time Objective) : temps cible de restauration.
+RPO (Recovery Point Objective) : perte maximale de données acceptable.
+
+Les valeurs sont définies par service selon les exigences métier et réglementaires.
+
+7. MULTI-REGION DEPLOYMENT
+
+Architecture :
+
+
+Region A
+
+⇄
+
+Region B
+
+⇄
+
+Region C
+
+
+Support :
+
+Active-Active ;
+Active-Passive ;
+Warm Standby ;
+Cold Standby.
+8. DATABASE REPLICATION
+
+Support :
+
+synchrone ;
+asynchrone ;
+lecture seule ;
+multi-régions.
+
+Le choix dépend des besoins de disponibilité, de latence et de cohérence.
+
+9. BACKUP STRATEGY
+
+Sauvegardes :
+
+complètes ;
+incrémentales ;
+différentielles ;
+snapshots.
+10. IMMUTABLE BACKUPS
+
+Les sauvegardes critiques utilisent :
+
+stockage immuable ;
+protection WORM ;
+suppression protégée ;
+chiffrement.
+11. FAILOVER PROCESS
+
+Failure Detection
+
+↓
+
+Health Validation
+
+↓
+
+Traffic Switch
+
+↓
+
+Recovery
+
+↓
+
+Monitoring
+
+12. FAILBACK PROCESS
+
+Après restauration :
+
+
+Primary Restored
+
+↓
+
+Data Synchronization
+
+↓
+
+Validation
+
+↓
+
+Traffic Return
+
+13. CYBER RESILIENCE
+
+Protection contre :
+
+ransomware ;
+destruction de données ;
+sabotage ;
+compromission d'identités ;
+attaques sur la chaîne d'approvisionnement logicielle.
+14. INCIDENT MANAGEMENT
+
+Cycle :
+
+
+Detection
+
+↓
+
+Classification
+
+↓
+
+Containment
+
+↓
+
+Recovery
+
+↓
+
+Post Mortem
+
+15. CRISIS MANAGEMENT
+
+Structure :
+
+Crisis Manager ;
+Operations ;
+Security ;
+Compliance ;
+Communication ;
+Executive Leadership.
+16. COMMUNICATION PLAN
+
+Communication vers :
+
+clients ;
+régulateurs ;
+partenaires ;
+équipes internes ;
+fournisseurs.
+
+Les messages sont préparés selon différents scénarios.
+
+17. DR TESTING
+
+Tests :
+
+tabletop ;
+restauration de sauvegarde ;
+basculement complet ;
+perte de région ;
+perte de base de données ;
+cyberattaque simulée.
+18. CHAOS ENGINEERING
+
+Scénarios :
+
+arrêt d'un nœud ;
+panne réseau ;
+perte de stockage ;
+indisponibilité d'une API externe ;
+surcharge.
+
+Objectif :
+
+Valider la résilience avant les incidents réels.
+
+19. SERVICE DEPENDENCIES
+
+Chaque service documente :
+
+dépendances internes ;
+dépendances externes ;
+ordre de redémarrage.
+20. OPERATIONAL RUNBOOKS
+
+Chaque scénario possède :
+
+procédure ;
+responsables ;
+commandes ;
+critères de validation ;
+plan de retour à la normale.
+21. OBSERVABILITY
+
+Surveillance :
+
+disponibilité ;
+réplication ;
+sauvegardes ;
+latence ;
+erreurs ;
+capacité.
+22. AUDIT
+
+Chaque événement DR conserve :
+
+date ;
+responsable ;
+cause ;
+durée ;
+actions ;
+résultats.
+23. COMPLIANCE
+
+Compatible avec :
+
+ISO 22301
+ISO 27001
+DORA
+NIST Cybersecurity Framework
+PCI DSS
+exigences des banques centrales applicables
+24. BUSINESS CONTINUITY
+
+Le plan BCP couvre :
+
+continuité des opérations ;
+télétravail sécurisé ;
+sites alternatifs ;
+fournisseurs critiques ;
+continuité des équipes.
+25. CONTINUOUS IMPROVEMENT
+
+Après chaque incident ou exercice :
+
+revue ;
+analyse des causes ;
+mise à jour des procédures ;
+amélioration des contrôles.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design for resilience.
+NEVER assume infrastructure is always available.
+ALWAYS support automated recovery where appropriate.
+ALWAYS protect backups with immutability.
+ALWAYS document recovery procedures.
+ALWAYS support multi-region deployment.
+ALWAYS validate disaster recovery plans through testing.
+ALWAYS preserve audit trails during recovery.
+ALWAYS prioritize customer data integrity.
+ALWAYS follow Enterprise Disaster Recovery Standards.
+27. SUCCESS CRITERIA
+
+Le framework DR/BCP est conforme lorsque :
+
+les services critiques disposent de plans de reprise documentés ;
+les sauvegardes sont sécurisées et testées ;
+les procédures de basculement sont validées régulièrement ;
+les rôles et responsabilités sont clairement définis ;
+les objectifs de reprise sont suivis et mesurés.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Disaster Recovery Orchestrator
+Predictive Infrastructure Failure Detection
+Autonomous Multi-Region Failover
+Self-Healing Banking Platform
+AI Crisis Management Assistant
+Continuous Resilience Scoring
+Digital Twin for Disaster Simulation
+Autonomous Backup Verification
+Quantum-Resistant Backup Encryption
+Global Resilience Control Center

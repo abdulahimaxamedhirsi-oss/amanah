@@ -1,0 +1,361 @@
+117_Enterprise_Risk_Management_Framework.md
+(V3 — Enterprise Risk Management, Credit Risk, Market Risk, Liquidity Risk, Operational Risk & AI Risk Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion des risques d'Amanah.
+
+Il couvre :
+
+Enterprise Risk Management (ERM) ;
+Risk Appetite Framework ;
+Credit Risk ;
+Market Risk ;
+Liquidity Risk ;
+Operational Risk ;
+Cyber Risk ;
+Model Risk ;
+AI Risk ;
+ESG Risk ;
+Stress Testing ;
+Risk Analytics.
+
+L'objectif est de permettre une gestion proactive, quantitative et intégrée des risques.
+
+2. CORE PRINCIPLES
+2.1 Risk Awareness
+
+Every business decision must consider risk impact.
+
+2.2 Risk-Based Management
+
+Resources and controls must be aligned with risk exposure.
+
+2.3 Forward Looking Risk
+
+Risk management must anticipate future threats, not only react to past events.
+
+3. ENTERPRISE RISK GOVERNANCE
+
+Board of Directors
+
+↓
+
+Risk Committee
+
+↓
+
+Chief Risk Officer (CRO)
+
+↓
+
+Risk Functions
+
+↓
+
+Business Units
+
+↓
+
+Independent Validation
+
+4. THREE LINES OF DEFENSE
+Première ligne
+
+Business Units :
+
+prennent les risques ;
+appliquent les contrôles.
+Deuxième ligne
+
+Risk & Compliance :
+
+surveillent ;
+définissent les limites ;
+challengent les décisions.
+Troisième ligne
+
+Internal Audit :
+
+évalue indépendamment l'efficacité.
+5. RISK APPETITE FRAMEWORK (RAF)
+
+Définit :
+
+niveau de risque acceptable ;
+limites ;
+indicateurs ;
+seuils d'alerte.
+
+Exemples :
+
+perte maximale acceptable ;
+exposition crédit ;
+liquidité minimale ;
+risque opérationnel.
+6. ENTERPRISE RISK REGISTER
+
+Catalogue central :
+
+risque ;
+propriétaire ;
+probabilité ;
+impact ;
+contrôles ;
+plans de mitigation.
+7. RISK SCORING ENGINE
+
+Le moteur calcule :
+
+probabilité ;
+impact financier ;
+impact opérationnel ;
+impact réglementaire ;
+criticité globale.
+8. CREDIT RISK MANAGEMENT
+
+Gestion :
+
+octroi crédit ;
+scoring ;
+exposition ;
+défaut ;
+recouvrement.
+9. CREDIT DECISION ENGINE
+
+Analyse :
+
+revenus ;
+historique ;
+comportement ;
+capacité remboursement ;
+garanties.
+10. CREDIT SCORING AI
+
+L'IA peut analyser :
+
+habitudes financières ;
+signaux alternatifs ;
+évolution du risque.
+
+Les modèles restent explicables.
+
+11. IFRS 9 / EXPECTED CREDIT LOSS
+
+Support :
+
+Stage 1 ;
+Stage 2 ;
+Stage 3 ;
+Expected Credit Loss (ECL).
+12. MARKET RISK
+
+Surveillance :
+
+taux d'intérêt ;
+devises ;
+investissements ;
+actifs numériques.
+13. MARKET RISK ENGINE
+
+Calcul :
+
+exposition ;
+sensibilité ;
+Value at Risk ;
+scénarios.
+14. LIQUIDITY RISK
+
+Gestion :
+
+réserves ;
+flux entrants ;
+flux sortants ;
+stress liquidité.
+15. LIQUIDITY MONITORING
+
+Indicateurs :
+
+LCR ;
+NSFR ;
+concentration dépôts ;
+besoins financement.
+16. OPERATIONAL RISK
+
+Risques :
+
+processus ;
+humains ;
+systèmes ;
+fournisseurs ;
+incidents.
+17. OPERATIONAL RISK MANAGEMENT
+
+Gestion :
+
+incidents ;
+pertes opérationnelles ;
+contrôles ;
+plans correctifs.
+18. CYBER RISK MANAGEMENT
+
+Analyse :
+
+menaces ;
+vulnérabilités ;
+exposition ;
+incidents cyber.
+
+Connecté au SOC.
+
+19. THIRD-PARTY RISK
+
+Surveillance :
+
+Cloud providers ;
+fintech partners ;
+fournisseurs critiques.
+20. MODEL RISK MANAGEMENT
+
+Contrôle :
+
+modèles statistiques ;
+modèles IA ;
+modèles crédit ;
+modèles fraude.
+
+Chaque modèle possède :
+
+validation ;
+documentation ;
+monitoring.
+21. AI RISK MANAGEMENT
+
+Contrôles :
+
+biais ;
+dérive ;
+explicabilité ;
+sécurité ;
+gouvernance.
+22. ESG RISK
+
+Analyse :
+
+risques environnementaux ;
+risques sociaux ;
+gouvernance.
+23. STRESS TESTING PLATFORM
+
+Simulation :
+
+crise liquidité ;
+choc marché ;
+crise crédit ;
+cyberattaque majeure.
+24. SCENARIO ENGINE
+
+Permet :
+
+simulations historiques ;
+scénarios hypothétiques ;
+analyses prospectives.
+25. RISK ANALYTICS PLATFORM
+
+Centralise :
+
+données risques ;
+modèles ;
+indicateurs ;
+rapports.
+26. RISK DASHBOARD
+
+Visualisation :
+
+exposition globale ;
+alertes ;
+limites ;
+tendances.
+27. EARLY WARNING SYSTEM
+
+Détection :
+
+dégradation client ;
+anomalies financières ;
+risque émergent.
+28. RISK REPORTING
+
+Rapports :
+
+CRO ;
+comité risque ;
+conseil administration ;
+régulateurs.
+29. INTEGRATION
+
+Le Risk Framework s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Credit Engine ;
+AML ;
+Fraud Engine ;
+Data Platform ;
+AI Platform ;
+Treasury ;
+Compliance Platform.
+30. SECURITY
+
+Protection :
+
+données risques sensibles ;
+accès restreints ;
+audit complet ;
+chiffrement.
+31. COMPLIANCE
+
+Compatible avec :
+
+Basel Framework ;
+ICAAP ;
+ILAAP ;
+IFRS 9 ;
+ISO 31000 ;
+COSO ERM ;
+réglementations bancaires locales.
+32. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS evaluate risk impact when designing financial capabilities.
+NEVER bypass risk controls or exposure limits.
+ALWAYS maintain risk calculation audit trails.
+ALWAYS support configurable risk thresholds.
+ALWAYS integrate risk monitoring into financial workflows.
+ALWAYS validate AI models used for risk decisions.
+ALWAYS support stress testing capabilities.
+ALWAYS protect sensitive risk information.
+ALWAYS maintain separation between risk approval and execution.
+ALWAYS follow Amanah Enterprise Risk Management Standards.
+33. SUCCESS CRITERIA
+
+Le framework Risk Management est conforme lorsque :
+
+les risques sont identifiés avant impact majeur ;
+les limites de risque sont surveillées en temps réel ;
+les décisions sont basées sur des données fiables ;
+les modèles sont contrôlés et validés ;
+la direction possède une vision complète de l'exposition bancaire.
+34. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Chief Risk Officer Assistant
+Autonomous Risk Monitoring
+Real-Time Enterprise Risk Digital Twin
+Predictive Default Engine
+AI Stress Testing Platform
+Quantum Risk Simulation
+Autonomous Model Validation
+Global Risk Intelligence Network
+Self-Adaptive Risk Controls
+Enterprise Risk Operating System

@@ -1,0 +1,449 @@
+84_Enterprise_DevSecOps_Platform_Architecture.md
+(V3 — Enterprise DevSecOps, GitOps & Cloud Platform Engineering Framework)
+1. OBJECTIF
+
+Ce document définit l'architecture officielle DevSecOps d'Amanah.
+
+Il couvre :
+
+GitOps ;
+CI/CD ;
+DevSecOps ;
+Infrastructure as Code ;
+Kubernetes ;
+ArgoCD ;
+Terraform ;
+gestion des secrets ;
+Software Supply Chain Security ;
+observabilité des déploiements.
+
+L'objectif est de garantir des livraisons rapides, sécurisées, reproductibles et conformes aux exigences bancaires.
+
+2. CORE PRINCIPLES
+2.1 Everything as Code
+Infrastructure, applications, security policies and deployments must be managed as code.
+2.2 Security by Default
+Security controls must be embedded into every stage of delivery.
+2.3 Git is the Source of Truth
+All production changes originate from version-controlled repositories.
+3. HIGH LEVEL ARCHITECTURE
+
+Developer
+
+↓
+
+Git Repository
+
+↓
+
+CI Pipeline
+
+↓
+
+Security Scanning
+
+↓
+
+Artifact Registry
+
+↓
+
+GitOps Repository
+
+↓
+
+ArgoCD
+
+↓
+
+Kubernetes
+
+↓
+
+Production
+
+4. PLATFORM COMPONENTS
+Source Control
+
+Responsable :
+
+versioning ;
+pull requests ;
+code reviews ;
+branches.
+CI Pipeline
+
+Responsable :
+
+compilation ;
+tests ;
+qualité ;
+packaging.
+Security Pipeline
+
+Responsable :
+
+SAST ;
+DAST ;
+Dependency Scan ;
+Secret Scan ;
+Container Scan.
+GitOps Engine
+
+Responsable :
+
+synchronisation ;
+déploiement ;
+rollback.
+5. GIT STRATEGY
+
+Branches :
+
+
+main
+
+↓
+
+release
+
+↓
+
+feature/*
+
+↓
+
+hotfix/*
+
+
+Chaque Pull Request nécessite :
+
+revue de code ;
+tests automatiques ;
+validation sécurité.
+6. CI PIPELINE
+
+Étapes :
+
+
+Checkout
+
+↓
+
+Build
+
+↓
+
+Unit Tests
+
+↓
+
+Static Analysis
+
+↓
+
+Security Scan
+
+↓
+
+Package
+
+↓
+
+Publish Artifact
+
+7. CD PIPELINE
+
+Étapes :
+
+
+Artifact
+
+↓
+
+GitOps Update
+
+↓
+
+ArgoCD Sync
+
+↓
+
+Deployment
+
+↓
+
+Health Check
+
+↓
+
+Monitoring
+
+8. INFRASTRUCTURE AS CODE
+
+Toute l'infrastructure est décrite sous forme déclarative.
+
+Exemples :
+
+Kubernetes ;
+Réseau ;
+Bases de données ;
+Stockage ;
+IAM ;
+Monitoring.
+9. GITOPS
+
+Architecture :
+
+
+Git Repository
+
+↓
+
+Desired State
+
+↓
+
+ArgoCD
+
+↓
+
+Cluster
+
+↓
+
+Actual State
+
+
+Git représente toujours l'état souhaité.
+
+10. KUBERNETES PLATFORM
+
+Le cluster héberge :
+
+API ;
+microservices ;
+workers ;
+AI services ;
+monitoring ;
+ingress ;
+batch jobs.
+11. DEPLOYMENT STRATEGIES
+
+Support :
+
+Rolling Update
+Blue/Green
+Canary
+Progressive Delivery
+
+Les stratégies sont sélectionnées selon la criticité du service.
+
+12. ROLLBACK
+
+Détection :
+
+
+Deployment
+
+↓
+
+Health Failure
+
+↓
+
+Automatic Rollback
+
+
+Le rollback est automatique lorsque les critères de santé sont configurés.
+
+13. SECRETS MANAGEMENT
+
+Les secrets ne sont jamais stockés dans Git.
+
+Support :
+
+KMS ;
+Vault ;
+Cloud Secret Managers.
+
+Rotation automatique des secrets.
+
+14. SOFTWARE SUPPLY CHAIN SECURITY
+
+Chaque artefact possède :
+
+signature ;
+provenance ;
+SBOM (Software Bill of Materials) ;
+version.
+
+Les artefacts non vérifiés sont rejetés.
+
+15. SECURITY SCANNING
+
+Contrôles :
+
+SAST ;
+DAST ;
+SCA (Software Composition Analysis) ;
+Secret Detection ;
+Container Image Scanning ;
+IaC Security Scanning.
+16. POLICY AS CODE
+
+Les politiques sont codifiées.
+
+Exemples :
+
+OPA (Open Policy Agent)
+Kyverno
+
+Contrôles :
+
+sécurité ;
+conformité ;
+ressources.
+17. OBSERVABILITY
+
+Chaque déploiement produit :
+
+métriques ;
+logs ;
+traces ;
+événements.
+18. RELEASE MANAGEMENT
+
+Chaque release possède :
+
+version ;
+changelog ;
+approbateurs ;
+tickets associés ;
+audit.
+19. ENVIRONMENTS
+
+Support :
+
+
+Local
+
+↓
+
+Development
+
+↓
+
+Integration
+
+↓
+
+QA
+
+↓
+
+UAT
+
+↓
+
+Pre-Production
+
+↓
+
+Production
+
+
+Les promotions entre environnements sont contrôlées par des politiques définies.
+
+20. PLATFORM SECURITY
+
+Protection :
+
+Zero Trust ;
+MFA ;
+RBAC ;
+réseau segmenté ;
+chiffrement ;
+audit.
+21. COMPLIANCE
+
+Compatible avec :
+
+DORA
+ISO 27001
+NIST
+CIS Benchmarks
+SOC 2
+PCI DSS (lorsque applicable)
+SLSA (Supply-chain Levels for Software Artifacts)
+22. DISASTER RECOVERY
+
+Support :
+
+sauvegardes ;
+restauration automatisée ;
+réplication multi-régions ;
+tests réguliers des procédures de reprise.
+23. PLATFORM METRICS
+
+Mesures :
+
+fréquence de déploiement ;
+taux d'échec ;
+MTTR ;
+disponibilité ;
+vulnérabilités ;
+couverture de tests.
+24. SUPPORTED TECHNOLOGIES
+
+Architecture compatible avec :
+
+GitHub
+GitLab
+Azure DevOps
+Kubernetes
+ArgoCD
+Terraform
+Helm
+Vault
+Prometheus
+Grafana
+
+La plateforme reste indépendante d'un fournisseur spécifique.
+
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS manage infrastructure as code.
+NEVER deploy directly to production outside approved workflows.
+ALWAYS require automated testing before deployment.
+ALWAYS perform security scanning in CI/CD.
+ALWAYS use GitOps for production deployments.
+ALWAYS sign release artifacts.
+ALWAYS protect secrets using a dedicated secret manager.
+ALWAYS support automated rollback.
+ALWAYS maintain complete deployment audit trails.
+ALWAYS follow Enterprise DevSecOps Standards.
+26. SUCCESS CRITERIA
+
+La plateforme DevSecOps est conforme lorsque :
+
+tous les changements passent par Git ;
+chaque déploiement est reproductible ;
+les contrôles de sécurité sont automatisés ;
+les artefacts sont signés et traçables ;
+les déploiements peuvent être annulés rapidement et en sécurité.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Code Review Assistant
+Autonomous CI/CD Optimization
+AI Vulnerability Remediation
+Self-Healing Kubernetes Platform
+AI Release Risk Prediction
+Compliance-as-Code Automation
+Multi-Cloud GitOps Federation
+Autonomous Platform Engineering
+Secure AI Software Factory
+Quantum-Safe Software Supply Chain

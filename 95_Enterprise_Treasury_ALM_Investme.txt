@@ -1,0 +1,328 @@
+95_Enterprise_Treasury_ALM_Investment_Framework.md
+(V3 — Enterprise Treasury, Asset & Liability Management, Liquidity & Investment Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de Trésorerie et d'Asset & Liability Management (ALM) d'Amanah.
+
+Il couvre :
+
+Treasury Management ;
+Asset & Liability Management (ALM) ;
+Liquidity Management ;
+Cash Management ;
+FX Management ;
+Investment Portfolio ;
+Sukuk Portfolio ;
+Collateral Management ;
+Interest & Profit Rate Risk ;
+Cash Forecasting.
+
+L'objectif est d'assurer une gestion optimisée de la liquidité, du bilan et des investissements, tout en respectant les contraintes réglementaires et les principes de la finance islamique.
+
+2. CORE PRINCIPLES
+2.1 Liquidity First
+The institution must maintain sufficient liquidity under both normal and stressed conditions.
+2.2 Balance Sheet Optimization
+Treasury decisions must optimize the balance sheet while respecting risk appetite.
+2.3 Regulatory Compliance
+Treasury operations must comply with Basel III, IFRS and applicable regulatory requirements.
+3. HIGH LEVEL ARCHITECTURE
+
+Cash Positions
+
+↓
+
+Liquidity Engine
+
+↓
+
+ALM Engine
+
+↓
+
+Treasury Operations
+
+↓
+
+Investment Portfolio
+
+↓
+
+Risk Management
+
+↓
+
+Reporting
+
+4. TREASURY DOMAINS
+
+Support :
+
+Cash Management ;
+Liquidity Management ;
+ALM ;
+FX ;
+Investments ;
+Sukuk ;
+Funding ;
+Capital Markets ;
+Collateral.
+5. CASH POSITION MANAGEMENT
+
+Chaque position comprend :
+
+devise ;
+banque dépositaire ;
+compte ;
+montant disponible ;
+montant réservé ;
+valeur temps réel.
+6. LIQUIDITY MANAGEMENT
+
+Suivi :
+
+liquidité intrajournalière ;
+liquidité quotidienne ;
+réserves obligatoires ;
+positions consolidées.
+
+Des alertes sont générées en cas de seuil critique.
+
+7. CASH FORECASTING
+
+Prévisions :
+
+court terme ;
+moyen terme ;
+long terme.
+
+Sources :
+
+historiques ;
+échéanciers ;
+paiements planifiés ;
+scénarios métier.
+8. ASSET & LIABILITY MANAGEMENT (ALM)
+
+Le moteur ALM analyse :
+
+actifs ;
+passifs ;
+maturités ;
+écarts de taux ;
+écarts de liquidité.
+9. GAP ANALYSIS
+
+Analyse :
+
+échéances ;
+devises ;
+taux ;
+liquidité.
+
+Les écarts sont visualisés par horizon temporel.
+
+10. INTEREST / PROFIT RATE RISK
+
+Support :
+
+sensibilité ;
+duration ;
+simulations de variation des taux ;
+partage de profits pour les produits islamiques.
+11. FX MANAGEMENT
+
+Gestion :
+
+positions ouvertes ;
+limites ;
+conversions ;
+couverture (hedging lorsque autorisée) ;
+valorisation.
+
+Les opérations doivent respecter la politique de risque et, pour les produits islamiques, les contraintes de conformité Shariah.
+
+12. INVESTMENT PORTFOLIO
+
+Support :
+
+obligations ;
+Sukuk ;
+dépôts interbancaires ;
+fonds monétaires ;
+placements autorisés.
+
+Chaque actif est classé et valorisé selon les normes comptables applicables.
+
+13. SUKUK MANAGEMENT
+
+Fonctions :
+
+émission (si applicable) ;
+souscription ;
+valorisation ;
+revenus ;
+échéances.
+
+Le moteur prend en compte les spécificités des Sukuk conformément aux standards AAOIFI.
+
+14. FUNDING MANAGEMENT
+
+Sources :
+
+dépôts ;
+financement interbancaire ;
+émissions ;
+refinancement.
+
+Les coûts et les échéances sont suivis.
+
+15. COLLATERAL MANAGEMENT
+
+Gestion :
+
+garanties ;
+valorisation ;
+appels de marge ;
+substitutions ;
+libérations.
+16. TREASURY LIMITS
+
+Limites :
+
+contrepartie ;
+devise ;
+instrument ;
+portefeuille ;
+pays.
+
+Les dépassements déclenchent des alertes et des workflows d'approbation.
+
+17. STRESS SCENARIOS
+
+Scénarios :
+
+retrait massif de dépôts ;
+crise de liquidité ;
+hausse brutale des taux ;
+dépréciation d'une devise ;
+choc de marché.
+
+Les résultats sont intégrés au framework Enterprise Risk Management.
+
+18. VALUATION
+
+Méthodes :
+
+coût amorti ;
+juste valeur ;
+valeur de marché.
+
+Les méthodes utilisées sont documentées et cohérentes avec les politiques comptables.
+
+19. TREASURY OPERATIONS
+
+Opérations :
+
+placement ;
+refinancement ;
+arbitrage ;
+règlements ;
+confirmations.
+
+Les opérations sont rapprochées avec le Ledger.
+
+20. REPORTING
+
+Rapports :
+
+positions de trésorerie ;
+liquidité ;
+ALM ;
+portefeuille ;
+limites ;
+expositions.
+
+Les rapports peuvent être générés à la demande ou selon un calendrier.
+
+21. DASHBOARDS
+
+Vue consolidée :
+
+liquidité temps réel ;
+prévisions ;
+portefeuille ;
+ratios ;
+expositions FX ;
+indicateurs ALM.
+22. AUDIT
+
+Chaque opération conserve :
+
+opérateur ;
+date ;
+décision ;
+approbation ;
+résultat.
+
+Les journaux sont immuables.
+
+23. COMPLIANCE
+
+Compatible avec :
+
+Basel III
+IFRS
+ISO 20022
+BCBS Principles
+AAOIFI (finance islamique)
+réglementations des banques centrales applicables
+24. INTEGRATION
+
+Le framework Trésorerie s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Risk Management ;
+Product Factory ;
+Payments ;
+Reporting ;
+Data Platform ;
+Compliance.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS maintain real-time treasury positions.
+ALWAYS reconcile treasury operations with the Ledger.
+NEVER allow treasury limit breaches without documented approval.
+ALWAYS support liquidity forecasting and stress testing.
+ALWAYS version treasury policies and valuation methods.
+ALWAYS preserve immutable audit trails.
+ALWAYS integrate treasury decisions with enterprise risk controls.
+ALWAYS support Shariah-compliant treasury products where applicable.
+ALWAYS expose treasury data through secure APIs.
+ALWAYS follow Enterprise Treasury & ALM Standards.
+26. SUCCESS CRITERIA
+
+Le framework Trésorerie et ALM est conforme lorsque :
+
+les positions de trésorerie sont suivies en temps réel ;
+les besoins de liquidité sont anticipés ;
+les investissements sont gouvernés et auditables ;
+les limites sont contrôlées automatiquement ;
+les opérations sont intégrées au Ledger et au moteur de gestion des risques.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Treasury Copilot
+Autonomous Cash Forecasting
+Real-Time Liquidity Optimization
+AI FX Risk Advisor
+Autonomous Investment Allocation
+Digital Twin of Treasury
+Predictive ALM Analytics
+AI Collateral Optimization
+Smart Sukuk Portfolio Management
+Autonomous Treasury Operations

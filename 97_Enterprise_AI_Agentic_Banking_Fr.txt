@@ -1,0 +1,338 @@
+97_Enterprise_AI_Agentic_Banking_Framework.md
+(V3 — Enterprise AI Agents, Agentic Banking, Responsible AI & AI Governance Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d'intelligence artificielle d'Amanah.
+
+Il couvre :
+
+AI Agents ;
+Multi-Agent Architecture ;
+AI Orchestration ;
+Retrieval-Augmented Generation (RAG) ;
+Model Context Protocol (MCP) ;
+Human-In-The-Loop ;
+Explainable AI ;
+AI Security ;
+AI Governance ;
+Responsible AI.
+
+L'objectif est de créer une plateforme bancaire augmentée par l'IA, sécurisée, explicable et conforme aux réglementations internationales.
+
+2. CORE PRINCIPLES
+2.1 AI Assists Humans
+
+AI augments human decisions.
+AI does not replace critical human accountability.
+
+2.2 Responsible AI
+
+Every AI decision must be secure, explainable and governed.
+
+2.3 Controlled Autonomy
+
+AI agents may automate tasks only within defined permissions and policies.
+
+3. HIGH LEVEL ARCHITECTURE
+
+User
+
+↓
+
+AI Interface
+
+↓
+
+AI Orchestrator
+
+↓
+
+Specialized AI Agents
+
+↓
+
+Enterprise Services
+
+↓
+
+Core Banking
+
+↓
+
+Ledger
+
+↓
+
+Audit Layer
+
+4. AI AGENT ECOSYSTEM
+
+Amanah supporte des agents spécialisés.
+
+5. CUSTOMER AI AGENT
+
+Responsabilités :
+
+assistance client ;
+réponse aux questions ;
+explication des produits ;
+suivi des demandes ;
+recommandations personnalisées.
+
+Restrictions :
+
+aucune décision financière critique sans validation.
+6. CREDIT RISK AI AGENT
+
+Fonctions :
+
+analyse financière ;
+scoring ;
+détection de risque ;
+analyse documentaire ;
+recommandation de décision.
+
+Sources :
+
+données financières ;
+historique client ;
+documents ;
+modèles de risque.
+7. AML / FRAUD AI AGENT
+
+Fonctions :
+
+détection d'anomalies ;
+analyse transactionnelle ;
+génération d'alertes ;
+investigation assistée.
+8. COMPLIANCE AI AGENT
+
+Fonctions :
+
+surveillance réglementaire ;
+analyse des changements de réglementation ;
+assistance aux équipes conformité ;
+génération de rapports.
+9. TREASURY AI AGENT
+
+Fonctions :
+
+prévision de liquidité ;
+analyse portefeuille ;
+scénarios ALM ;
+recommandations.
+10. OPERATIONS AI AGENT
+
+Fonctions :
+
+résolution d'exceptions ;
+analyse des incidents ;
+automatisation Back Office ;
+optimisation des workflows.
+11. AI ORCHESTRATOR
+
+Le moteur d'orchestration gère :
+
+sélection des agents ;
+planification des tâches ;
+contexte ;
+permissions ;
+validation.
+12. MULTI-AGENT COMMUNICATION
+
+Les agents communiquent via :
+
+événements ;
+messages structurés ;
+API internes ;
+MCP.
+13. MODEL CONTEXT PROTOCOL (MCP)
+
+Support :
+
+accès sécurisé aux outils ;
+partage de contexte ;
+contrôle des permissions ;
+interaction avec les systèmes internes.
+14. RETRIEVAL AUGMENTED GENERATION (RAG)
+
+Le système utilise :
+
+bases documentaires ;
+politiques internes ;
+réglementations ;
+procédures ;
+connaissances métiers.
+
+Architecture :
+
+
+Documents
+
+↓
+
+Embedding Engine
+
+↓
+
+Vector Database
+
+↓
+
+Retriever
+
+↓
+
+AI Model
+
+↓
+
+Response
+
+15. KNOWLEDGE GOVERNANCE
+
+Chaque source IA possède :
+
+propriétaire ;
+date ;
+version ;
+classification ;
+niveau de confiance.
+16. HUMAN-IN-THE-LOOP
+
+Validation humaine obligatoire pour :
+
+crédit important ;
+mouvements sensibles ;
+décisions réglementaires ;
+actions irréversibles.
+17. AI GUARDRAILS
+
+Contrôles :
+
+permissions ;
+limites ;
+filtres ;
+validation ;
+sécurité.
+18. AI SECURITY
+
+Protection :
+
+chiffrement ;
+isolation ;
+contrôle accès ;
+prévention fuite de données ;
+journalisation.
+19. PROMPT GOVERNANCE
+
+Les prompts métier sont :
+
+versionnés ;
+testés ;
+approuvés ;
+audités.
+20. MODEL GOVERNANCE
+
+Chaque modèle possède :
+
+version ;
+propriétaire ;
+métriques ;
+validation ;
+historique.
+21. EXPLAINABLE AI (XAI)
+
+Chaque recommandation IA doit fournir :
+
+facteurs influents ;
+sources utilisées ;
+niveau de confiance ;
+justification.
+22. AI OBSERVABILITY
+
+Surveillance :
+
+latence ;
+coût ;
+qualité ;
+erreurs ;
+hallucinations ;
+dérive modèle.
+23. AI AUDIT TRAIL
+
+Chaque interaction IA conserve :
+
+utilisateur ;
+agent ;
+modèle ;
+contexte ;
+sources ;
+résultat ;
+décision finale.
+24. AI MARKETPLACE
+
+Support futur :
+
+agents internes ;
+agents partenaires ;
+extensions certifiées.
+
+Chaque agent suit le framework Plugin Amanah.
+
+25. AI ETHICS
+
+Principes :
+
+équité ;
+transparence ;
+confidentialité ;
+sécurité ;
+responsabilité humaine.
+26. REGULATORY ALIGNMENT
+
+Compatible avec :
+
+EU AI Act ;
+NIST AI Risk Management Framework ;
+ISO/IEC 42001 ;
+ISO/IEC 23894 ;
+Responsible AI Principles.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS enforce AI governance policies.
+NEVER allow AI agents unrestricted access to banking systems.
+ALWAYS apply permission-based tool access.
+ALWAYS maintain AI audit trails.
+ALWAYS provide explanations for critical AI recommendations.
+ALWAYS support human approval workflows.
+ALWAYS protect confidential customer information.
+ALWAYS version AI models and prompts.
+ALWAYS monitor AI performance and risks.
+ALWAYS follow Enterprise Responsible AI Standards.
+28. SUCCESS CRITERIA
+
+Le framework AI Agentic Banking est conforme lorsque :
+
+les agents IA sont spécialisés et contrôlés ;
+les décisions critiques restent gouvernées par l'humain ;
+les données sensibles sont protégées ;
+chaque réponse IA est traçable ;
+les modèles sont surveillés et audités.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+Autonomous Banking Agents
+AI Digital Bank Manager
+AI CFO Assistant
+AI Compliance Officer
+AI Relationship Manager
+Autonomous Fraud Investigation
+AI Regulatory Analyst
+Self-Optimizing Banking Operations
+Enterprise AI Agent Marketplace
+Banking AGI Research Layer

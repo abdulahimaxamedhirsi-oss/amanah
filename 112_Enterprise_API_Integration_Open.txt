@@ -1,0 +1,383 @@
+112_Enterprise_API_Integration_Open_Banking_Framework.md
+(V3 — Enterprise API Gateway, Open Banking, Open Finance, Embedded Finance & Partner Platform Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel API & Open Banking d'Amanah.
+
+Il couvre :
+
+API Gateway ;
+API Management ;
+REST APIs ;
+GraphQL APIs ;
+gRPC Services ;
+Event-Driven APIs ;
+Open Banking ;
+Open Finance ;
+Partner APIs ;
+Embedded Finance ;
+Developer Platform ;
+API Security ;
+API Monetization.
+
+L'objectif est de fournir une infrastructure API sécurisée, scalable et prête pour l'écosystème financier mondial.
+
+2. CORE PRINCIPLES
+2.1 API First
+
+Every Amanah capability should be accessible through secure APIs.
+
+2.2 Security by Default
+
+Every API request must be authenticated, authorized and monitored.
+
+2.3 Platform Thinking
+
+Amanah operates as a financial platform, not only a banking application.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer Apps
+
+Partner Apps
+
+Fintechs
+
+Enterprise Clients
+
+↓
+
+API Gateway
+
+↓
+
+API Management Layer
+
+↓
+
+Authentication Layer
+
+↓
+
+Business Services
+
+↓
+
+Event Bus
+
+↓
+
+Enterprise Ledger
+
+↓
+
+Core Banking Systems
+
+4. API LAYERS
+
+Architecture en plusieurs couches :
+
+4.1 Experience APIs
+
+Destinées aux :
+
+Mobile Apps ;
+Web Apps ;
+Customer interfaces.
+4.2 Partner APIs
+
+Destinées aux :
+
+fintechs ;
+entreprises ;
+partenaires stratégiques.
+4.3 Internal APIs
+
+Destinées aux :
+
+microservices ;
+applications internes ;
+automatisations.
+4.4 Regulatory APIs
+
+Destinées aux :
+
+régulateurs ;
+autorités ;
+reporting obligatoire.
+5. API GATEWAY
+
+Responsabilités :
+
+routage ;
+authentification ;
+limitation de débit ;
+transformation ;
+validation ;
+monitoring.
+6. API MANAGEMENT PLATFORM
+
+Fonctions :
+
+catalogue API ;
+versioning ;
+documentation ;
+analytics ;
+abonnement ;
+gouvernance.
+7. API STANDARDS
+
+Support :
+
+REST ;
+GraphQL ;
+gRPC ;
+WebSocket ;
+Async APIs.
+8. REST API FRAMEWORK
+
+Principes :
+
+ressources clairement définies ;
+JSON standard ;
+pagination ;
+filtrage ;
+idempotence ;
+versioning.
+
+Exemple :
+
+GET /customers/{id}
+
+GET /accounts/{id}
+
+POST /payments
+
+GET /transactions
+
+9. GRAPHQL API
+
+Utilisation :
+
+applications riches ;
+dashboards ;
+agrégation de données.
+
+Avantages :
+
+réduction des appels ;
+requêtes personnalisées ;
+meilleure expérience frontend.
+10. EVENT-DRIVEN API
+
+Basé sur :
+
+événements financiers ;
+Kafka/Event Streaming ;
+Webhooks.
+
+Exemples :
+
+PaymentCompleted
+
+CardActivated
+
+CustomerVerified
+
+TransactionPosted
+
+11. OPEN BANKING
+
+Support :
+
+Account Information Services (AIS) ;
+Payment Initiation Services (PIS) ;
+Consent Management ;
+Third Party Providers.
+12. OPEN FINANCE
+
+Extension vers :
+
+investissements ;
+assurances ;
+crédits ;
+actifs numériques ;
+données financières enrichies.
+13. CONSENT MANAGEMENT
+
+Le système gère :
+
+autorisation client ;
+durée ;
+périmètre ;
+révocation ;
+historique.
+
+Chaque consentement est auditable.
+
+14. EMBEDDED FINANCE
+
+Amanah peut fournir :
+
+Banking-as-a-Service ;
+Payments-as-a-Service ;
+Wallet-as-a-Service ;
+Cards-as-a-Service ;
+Islamic Finance-as-a-Service.
+15. PARTNER PLATFORM
+
+Les partenaires disposent :
+
+portail développeur ;
+clés API ;
+documentation ;
+sandbox ;
+monitoring.
+16. DEVELOPER PORTAL
+
+Fonctions :
+
+création d'application ;
+gestion API keys ;
+documentation interactive ;
+tests ;
+statistiques.
+17. SANDBOX ENVIRONMENT
+
+Support :
+
+environnement de test ;
+données simulées ;
+transactions fictives ;
+webhook testing.
+18. API SECURITY
+
+Protection :
+
+OAuth 2.0 ;
+OpenID Connect ;
+mTLS ;
+JWT ;
+API Keys ;
+FAPI 2.0 ;
+Rate Limiting.
+19. IDENTITY & ACCESS
+
+Chaque appel API vérifie :
+
+identité ;
+application ;
+permissions ;
+scopes ;
+contexte.
+20. API RATE MANAGEMENT
+
+Contrôle :
+
+quotas ;
+limites par partenaire ;
+protection contre abus ;
+priorisation.
+21. WEBHOOK PLATFORM
+
+Support :
+
+notifications temps réel ;
+événements financiers ;
+signatures cryptographiques ;
+retry automatique.
+22. API OBSERVABILITY
+
+Mesures :
+
+latence ;
+erreurs ;
+disponibilité ;
+volume ;
+consommation.
+23. API VERSIONING
+
+Support :
+
+versions majeures ;
+compatibilité descendante ;
+migration progressive.
+
+Exemple :
+
+/api/v1/payments
+
+/api/v2/payments
+
+24. API MONETIZATION
+
+Possibilité de :
+
+facturation API ;
+plans partenaires ;
+usage-based pricing ;
+marketplace API.
+25. INTEGRATION AVEC LE CORE AMANAH
+
+Les APIs connectent :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+Identity ;
+AML ;
+Fraud ;
+Treasury ;
+Blockchain ;
+Islamic Finance.
+26. COMPLIANCE
+
+Compatible avec :
+
+PSD2 / PSD3 ;
+Open Banking Standards ;
+OAuth 2.0 ;
+OpenID Connect ;
+FAPI 2.0 ;
+ISO 20022 ;
+PCI DSS ;
+GDPR ;
+réglementations bancaires locales.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS design new capabilities as API-accessible services.
+NEVER expose internal banking services without security controls.
+ALWAYS authenticate and authorize every API request.
+ALWAYS implement versioning for public APIs.
+ALWAYS maintain API audit logs.
+ALWAYS support OAuth2/OIDC and enterprise security standards.
+ALWAYS provide developer documentation.
+ALWAYS protect customer financial data through scoped access.
+ALWAYS support event-driven integrations.
+ALWAYS follow Amanah Enterprise API Standards.
+28. SUCCESS CRITERIA
+
+Le framework API & Open Banking est conforme lorsque :
+
+toutes les capacités principales sont accessibles via API sécurisées ;
+les partenaires peuvent intégrer Amanah facilement ;
+les consentements clients sont contrôlés et audités ;
+la plateforme supporte une croissance mondiale ;
+les standards ouverts sont respectés.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI API Management Assistant
+Autonomous API Security Monitoring
+Global Banking API Marketplace
+Real-Time Financial Data Exchange
+Embedded Islamic Finance APIs
+Cross-Border Payment APIs
+Quantum-Safe API Security
+Autonomous Partner Onboarding
+AI Developer Assistant
+Universal Financial API Network

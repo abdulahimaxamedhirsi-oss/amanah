@@ -1,0 +1,343 @@
+110_Enterprise_Mobile_Banking_Super_App_Framework.md
+(V3 — Enterprise Mobile Banking, Super App, Digital Experience & Omnichannel Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de la Super App Amanah.
+
+Il couvre :
+
+Mobile Banking ;
+Super App ;
+Omnichannel Experience ;
+Design System ;
+Digital Wallet ;
+Personal Finance Management (PFM) ;
+Embedded Finance ;
+AI Personalization ;
+Offline Capabilities ;
+Accessibility.
+
+L'objectif est d'offrir une expérience bancaire mobile moderne, intuitive, sécurisée et hautement performante.
+
+2. CORE PRINCIPLES
+2.1 Mobile First
+
+Every feature must be designed for mobile before desktop.
+
+2.2 User Experience First
+
+Customer experience is a primary business capability.
+
+2.3 Real-Time Experience
+
+Users should receive immediate feedback for every financial operation.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Mobile App (iOS / Android)
+
+↓
+
+API Gateway
+
+↓
+
+Backend for Frontend (BFF)
+
+↓
+
+Business Services
+
+↓
+
+Enterprise Ledger
+
+↓
+
+Notifications
+
+4. APPLICATION MODULES
+
+La Super App comprend :
+
+Dashboard ;
+Accounts ;
+Payments ;
+Cards ;
+Investments ;
+Islamic Finance ;
+Budget & Analytics ;
+Rewards ;
+Marketplace ;
+Settings.
+5. DESIGN SYSTEM
+
+Le Design System définit :
+
+couleurs ;
+typographie ;
+composants ;
+animations ;
+icônes ;
+espacements ;
+responsive layouts.
+
+Tous les écrans utilisent une bibliothèque de composants unique.
+
+6. RESPONSIVE DESIGN
+
+Support :
+
+smartphone ;
+tablette ;
+desktop web ;
+écrans pliables (foldables).
+
+Les interfaces s'adaptent automatiquement aux tailles d'écran.
+
+7. HOME DASHBOARD
+
+Le tableau de bord affiche :
+
+soldes ;
+comptes ;
+cartes ;
+dépenses récentes ;
+objectifs ;
+alertes ;
+raccourcis.
+
+Les widgets sont personnalisables.
+
+8. PERSONAL FINANCE MANAGEMENT (PFM)
+
+Fonctionnalités :
+
+catégorisation automatique des dépenses ;
+budgets ;
+objectifs d'épargne ;
+prévisions de trésorerie ;
+analyses graphiques.
+9. DIGITAL WALLET
+
+Support :
+
+cartes ;
+comptes ;
+QR Codes ;
+paiements sans contact ;
+cartes virtuelles ;
+actifs numériques (si activés).
+10. PAYMENTS EXPERIENCE
+
+Le client peut :
+
+effectuer des virements ;
+payer par QR ;
+envoyer de l'argent ;
+programmer des paiements ;
+suivre les statuts en temps réel.
+11. CARD EXPERIENCE
+
+Fonctions :
+
+blocage/déblocage ;
+affichage du PIN ;
+limites ;
+cartes virtuelles ;
+gestion des abonnements.
+
+Toutes les modifications sont instantanées.
+
+12. ISLAMIC FINANCE EXPERIENCE
+
+Modules dédiés :
+
+Murabaha ;
+Ijara ;
+Sukuk ;
+Zakat ;
+Purification ;
+avis Shariah ;
+calculs de profits.
+
+Les produits sont clairement identifiés comme conformes à la Shariah.
+
+13. AI PERSONALIZATION
+
+L'IA peut proposer :
+
+recommandations financières ;
+alertes intelligentes ;
+budgets personnalisés ;
+objectifs d'épargne ;
+détection d'anomalies.
+
+Les recommandations restent explicables et contrôlables par l'utilisateur.
+
+14. MINI APPS
+
+La plateforme peut accueillir :
+
+assurances ;
+voyages ;
+e-commerce ;
+fidélité ;
+investissements ;
+partenaires.
+
+Chaque Mini App est isolée et intégrée via des API sécurisées.
+
+15. OFFLINE MODE
+
+Support :
+
+consultation des données récemment synchronisées ;
+préparation d'opérations non sensibles ;
+synchronisation automatique au retour du réseau.
+
+Les opérations nécessitant une validation serveur restent indisponibles hors ligne.
+
+16. BIOMETRIC AUTHENTICATION
+
+Support :
+
+Face ID ;
+Touch ID ;
+Android Biometrics ;
+Passkeys (FIDO2/WebAuthn).
+17. PUSH NOTIFICATIONS
+
+Notifications :
+
+paiements ;
+virements ;
+cartes ;
+sécurité ;
+fraude ;
+investissements ;
+finance islamique.
+
+Les notifications sont configurables.
+
+18. SEARCH
+
+Recherche globale :
+
+transactions ;
+bénéficiaires ;
+produits ;
+documents ;
+paramètres.
+19. ACCESSIBILITY
+
+Compatible avec :
+
+WCAG 2.2 AA ;
+VoiceOver ;
+TalkBack ;
+contraste élevé ;
+tailles de police dynamiques.
+20. PERFORMANCE
+
+Objectifs :
+
+ouverture < 2 secondes ;
+réponse API courante < 200 ms (hors latence réseau) ;
+animations fluides à 60 FPS sur appareils compatibles ;
+consommation optimisée de batterie et de données.
+21. SECURITY
+
+Protection :
+
+chiffrement local ;
+Secure Enclave / Keystore ;
+détection de root/jailbreak ;
+protection contre les captures d'écran sur les écrans sensibles (si activée) ;
+authentification forte.
+22. OBSERVABILITY
+
+Mesures :
+
+temps de réponse ;
+taux de crash ;
+disponibilité ;
+erreurs ;
+satisfaction utilisateur.
+23. OMNICHANNEL
+
+Expérience cohérente entre :
+
+mobile ;
+web ;
+centre d'appel ;
+agence ;
+API partenaires.
+
+Le contexte utilisateur est partagé lorsque cela est approprié.
+
+24. INTEGRATION
+
+La Super App s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+Identity Platform ;
+CRM ;
+AI Platform ;
+Notification Service ;
+Marketplace ;
+API Gateway.
+25. COMPLIANCE
+
+Compatible avec :
+
+WCAG 2.2 AA ;
+GDPR ;
+PSD2 / PSD3 (selon juridiction) ;
+PCI DSS ;
+OWASP Mobile Application Security Verification Standard (MASVS) ;
+réglementations locales applicables.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS prioritize mobile-first user experience.
+ALWAYS keep the interface responsive across supported devices.
+ALWAYS use the shared Design System.
+NEVER expose sensitive information without strong authentication.
+ALWAYS synchronize financial data securely and efficiently.
+ALWAYS support biometric authentication and Passkeys where available.
+ALWAYS optimize performance for common banking operations.
+ALWAYS provide accessible interfaces compliant with WCAG standards.
+ALWAYS integrate all customer actions through secure APIs.
+ALWAYS follow Amanah Enterprise Mobile Banking Standards.
+27. SUCCESS CRITERIA
+
+Le framework Mobile Banking est conforme lorsque :
+
+l'application offre une expérience fluide sur tous les appareils pris en charge ;
+les opérations financières sont rapides et sécurisées ;
+les fonctionnalités sont cohérentes entre les différents canaux ;
+les normes d'accessibilité sont respectées ;
+l'application reste évolutive grâce à son architecture modulaire.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Financial Copilot
+Voice Banking Assistant
+Augmented Reality Financial Insights
+Wearable Banking (montres et objets connectés)
+Super App Marketplace
+Embedded Lifestyle Services
+Offline Peer-to-Peer Payments
+AI Hyper-Personalization Engine
+Cross-Platform Desktop Experience
+Autonomous Financial Assistant

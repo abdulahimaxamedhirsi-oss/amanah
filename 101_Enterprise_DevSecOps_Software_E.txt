@@ -1,0 +1,362 @@
+101_Enterprise_DevSecOps_Software_Engineering_Framework.md
+(V3 — Enterprise Software Engineering, DevSecOps, SDLC & Development Standards Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel d'ingénierie logicielle d'Amanah.
+
+Il couvre :
+
+Software Development Lifecycle (SDLC) ;
+Domain-Driven Design (DDD) ;
+Clean Architecture ;
+Secure Coding ;
+Backend Engineering ;
+Frontend Engineering ;
+API Engineering ;
+Testing Strategy ;
+DevSecOps ;
+Release Management ;
+AI-Assisted Development.
+
+L'objectif est de garantir un développement cohérent, sécurisé et de qualité sur l'ensemble de la plateforme.
+
+2. CORE PRINCIPLES
+2.1 Clean Code
+
+Code should be simple, readable and maintainable.
+
+2.2 Security First
+
+Security must be integrated into every development phase.
+
+2.3 Automation by Default
+
+Testing, deployment and quality controls must be automated.
+
+3. SOFTWARE DEVELOPMENT LIFECYCLE (SDLC)
+
+Cycle :
+
+
+Requirements
+
+↓
+
+Architecture
+
+↓
+
+Development
+
+↓
+
+Testing
+
+↓
+
+Security Review
+
+↓
+
+Deployment
+
+↓
+
+Monitoring
+
+↓
+
+Continuous Improvement
+
+4. ARCHITECTURAL PRINCIPLES
+
+Les applications suivent :
+
+Clean Architecture ;
+Domain-Driven Design (DDD) ;
+Hexagonal Architecture ;
+SOLID ;
+CQRS (si nécessaire) ;
+Event-Driven Architecture.
+5. DOMAIN-DRIVEN DESIGN
+
+Chaque domaine métier possède :
+
+Bounded Context ;
+Aggregates ;
+Entities ;
+Value Objects ;
+Domain Services ;
+Domain Events.
+
+Les dépendances entre domaines sont explicites et minimisées.
+
+6. CLEAN ARCHITECTURE
+
+Structure :
+
+
+Presentation
+
+↓
+
+Application
+
+↓
+
+Domain
+
+↓
+
+Infrastructure
+
+
+Les règles métier ne dépendent jamais des frameworks techniques.
+
+7. BACKEND ENGINEERING STANDARDS
+
+Les services backend doivent :
+
+être stateless lorsque possible ;
+exposer des API documentées ;
+appliquer la validation des entrées ;
+gérer les erreurs de manière uniforme ;
+produire des logs structurés.
+8. FRONTEND ENGINEERING STANDARDS
+
+Le frontend doit :
+
+être responsive ;
+respecter le Design System Amanah ;
+être accessible (WCAG) ;
+optimiser les performances ;
+utiliser des composants réutilisables.
+9. API ENGINEERING
+
+Toutes les API :
+
+sont versionnées ;
+documentées via OpenAPI ;
+sécurisées par OAuth2/OIDC ;
+suivent des conventions REST ou gRPC selon le cas d'usage.
+10. CODE ORGANIZATION
+
+Chaque dépôt contient :
+
+/domain
+/application
+/infrastructure
+/api
+/tests
+/docs
+
+La structure est homogène entre les projets.
+
+11. CODING STANDARDS
+
+Les équipes appliquent :
+
+conventions de nommage ;
+style guide ;
+linting automatique ;
+formatage automatique.
+
+Les revues de code vérifient également la lisibilité et la cohérence.
+
+12. TESTING STRATEGY
+
+Types de tests :
+
+unitaires ;
+intégration ;
+contrats API ;
+end-to-end ;
+performance ;
+sécurité.
+
+Les tests critiques sont exécutés automatiquement dans le pipeline CI.
+
+13. TEST PYRAMID
+
+End-to-End
+
+↓
+
+Integration
+
+↓
+
+Unit Tests
+
+
+La majorité des tests doit être constituée de tests unitaires.
+
+14. SECURE CODING
+
+Exigences :
+
+validation des entrées ;
+protection contre les injections ;
+gestion sécurisée des sessions ;
+gestion des secrets ;
+chiffrement des données sensibles.
+15. CODE REVIEW
+
+Chaque Pull Request :
+
+est revue par au moins un pair ;
+passe les contrôles automatiques ;
+respecte les standards d'architecture.
+
+Les changements critiques peuvent nécessiter une seconde approbation.
+
+16. STATIC & DYNAMIC ANALYSIS
+
+Le pipeline inclut :
+
+SAST ;
+DAST ;
+analyse des dépendances ;
+recherche de secrets ;
+contrôle des licences.
+17. RELEASE MANAGEMENT
+
+Chaque version suit :
+
+
+Feature Branch
+
+↓
+
+Pull Request
+
+↓
+
+Validation
+
+↓
+
+Release Candidate
+
+↓
+
+Production
+
+
+Les releases sont versionnées selon Semantic Versioning.
+
+18. FEATURE FLAGS
+
+Les nouvelles fonctionnalités peuvent être :
+
+activées ;
+désactivées ;
+limitées à certains utilisateurs ;
+testées progressivement.
+19. OBSERVABILITY
+
+Les applications publient :
+
+métriques ;
+logs ;
+traces distribuées.
+
+Les erreurs critiques génèrent des alertes.
+
+20. DOCUMENTATION
+
+Chaque projet comprend :
+
+Architecture Decision Records (ADR) ;
+diagrammes ;
+documentation API ;
+guides développeurs ;
+guides d'exploitation.
+21. AI-ASSISTED DEVELOPMENT
+
+L'IA peut assister pour :
+
+génération de code ;
+documentation ;
+refactoring ;
+tests ;
+revues de code.
+
+Toute proposition est validée par un développeur.
+
+22. ENGINEERING GOVERNANCE
+
+La gouvernance comprend :
+
+Architecture Review Board ;
+standards techniques ;
+gestion de la dette technique ;
+roadmap d'ingénierie.
+23. DEPRECATION POLICY
+
+Les API et composants obsolètes suivent un cycle :
+
+
+Announced
+
+↓
+
+Deprecated
+
+↓
+
+Sunset Period
+
+↓
+
+Removal
+
+
+Les utilisateurs sont informés à l'avance.
+
+24. COMPLIANCE
+
+Compatible avec :
+
+OWASP ASVS ;
+OWASP Top 10 ;
+ISO 27001 ;
+NIST Secure Software Development Framework (SSDF) ;
+CNCF Cloud Native Best Practices.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS follow Clean Architecture and Domain-Driven Design.
+NEVER place business logic inside controllers or UI components.
+ALWAYS write maintainable, testable and documented code.
+ALWAYS generate unit tests for business-critical logic.
+ALWAYS validate inputs and handle errors consistently.
+ALWAYS use dependency injection where appropriate.
+ALWAYS produce structured logs and metrics.
+ALWAYS follow Semantic Versioning for releases.
+ALWAYS integrate security checks into the development lifecycle.
+ALWAYS follow Amanah Enterprise Engineering Standards.
+26. SUCCESS CRITERIA
+
+Le framework d'ingénierie est conforme lorsque :
+
+le code est cohérent et maintenable ;
+les architectures sont homogènes ;
+les pipelines automatisent les contrôles de qualité ;
+la sécurité est intégrée dès le développement ;
+les équipes peuvent livrer rapidement sans compromettre la qualité.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Pair Programming
+Autonomous Code Review
+AI Test Generation
+AI Refactoring Assistant
+Predictive Technical Debt Analysis
+Self-Healing CI/CD Pipelines
+Intelligent Release Orchestration
+AI Architecture Advisor
+Enterprise Developer Knowledge Graph
+Autonomous Software Engineering Metrics

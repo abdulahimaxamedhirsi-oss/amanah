@@ -1,0 +1,387 @@
+104_Enterprise_Card_Digital_Wallet_Framework.md
+(V3 — Enterprise Card Management, Digital Wallet, Tokenization & Wallet-as-a-Service Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de gestion des cartes et portefeuilles numériques d'Amanah.
+
+Il couvre :
+
+Card Management System (CMS) ;
+Debit Cards ;
+Credit Cards ;
+Prepaid Cards ;
+Virtual Cards ;
+Disposable Cards ;
+Digital Wallets ;
+Tokenization ;
+Card Controls ;
+Wallet-as-a-Service (WaaS).
+
+L'objectif est de fournir une plateforme de cartes moderne, temps réel, hautement sécurisée et extensible.
+
+2. CORE PRINCIPLES
+2.1 Digital First
+
+Cards should be available digitally before physical delivery whenever possible.
+
+2.2 Security by Design
+
+Every card operation must be authenticated, encrypted and auditable.
+
+2.3 Real-Time Control
+
+Customers must control their cards instantly.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Mobile/Web App
+
+↓
+
+Card API
+
+↓
+
+Card Management System
+
+↓
+
+Tokenization
+
+↓
+
+Payment Networks
+
+↓
+
+Ledger
+
+↓
+
+Notification
+
+4. CARD TYPES
+
+Support :
+
+Debit Card ;
+Credit Card ;
+Charge Card ;
+Prepaid Card ;
+Business Card ;
+Corporate Card ;
+Virtual Card ;
+Disposable Card.
+5. CARD LIFECYCLE
+
+Requested
+
+↓
+
+Approved
+
+↓
+
+Issued
+
+↓
+
+Activated
+
+↓
+
+In Use
+
+↓
+
+Suspended
+
+↓
+
+Replaced
+
+↓
+
+Expired
+
+↓
+
+Closed
+
+6. CARD MANAGEMENT SYSTEM (CMS)
+
+Le CMS gère :
+
+émission ;
+activation ;
+renouvellement ;
+remplacement ;
+blocage ;
+fermeture.
+7. VIRTUAL CARDS
+
+Fonctionnalités :
+
+création instantanée ;
+usage unique ou permanent ;
+limites configurables ;
+suppression immédiate.
+8. DISPOSABLE CARDS
+
+Chaque utilisation peut générer :
+
+un nouveau PAN ;
+un nouveau CVV ;
+une nouvelle date d'expiration virtuelle.
+
+Idéal pour les achats en ligne.
+
+9. DIGITAL WALLET
+
+Compatibilité :
+
+Apple Wallet ;
+Google Wallet ;
+Samsung Wallet ;
+Garmin Pay (si disponible) ;
+autres wallets compatibles avec les réseaux de cartes.
+10. TOKENIZATION
+
+Chaque carte peut être représentée par plusieurs tokens.
+
+Types :
+
+Device Token ;
+Merchant Token ;
+Network Token.
+
+Les PAN réels ne sont jamais exposés aux commerçants.
+
+11. CARD CONTROLS
+
+Le client peut :
+
+bloquer/débloquer ;
+activer le sans contact ;
+activer les paiements en ligne ;
+autoriser les retraits ATM ;
+limiter les montants ;
+restreindre certains pays ou catégories de commerçants (MCC).
+
+Les changements prennent effet immédiatement.
+
+12. PIN MANAGEMENT
+
+Support :
+
+création ;
+changement ;
+réinitialisation sécurisée ;
+affichage temporaire dans l'application (si autorisé).
+13. CARD LIMITS
+
+Limites :
+
+quotidienne ;
+hebdomadaire ;
+mensuelle ;
+transaction unique ;
+ATM ;
+sans contact.
+14. AUTHORIZATION ENGINE
+
+Chaque autorisation vérifie :
+
+disponibilité des fonds ;
+statut de la carte ;
+limites ;
+risque ;
+fraude ;
+sanctions (si applicable).
+15. 3-D SECURE (3DS 2.x)
+
+Support :
+
+authentification forte ;
+challenge ;
+frictionless flow ;
+gestion des exemptions réglementaires.
+16. FRAUD CONTROLS
+
+Détection :
+
+transactions inhabituelles ;
+géolocalisation incohérente ;
+utilisation simultanée ;
+tests de cartes ;
+comportement anormal.
+
+Les alertes alimentent le moteur de fraude.
+
+17. CARD TRANSACTIONS
+
+Cycle :
+
+
+Authorization
+
+↓
+
+Clearing
+
+↓
+
+Settlement
+
+↓
+
+Ledger Posting
+
+↓
+
+Notification
+
+18. CARD REPLACEMENT
+
+Motifs :
+
+expiration ;
+perte ;
+vol ;
+dommage ;
+fraude.
+
+Les remplacements conservent l'historique de la relation client.
+
+19. CARD DISPUTES
+
+Support :
+
+contestation ;
+chargeback ;
+preuves ;
+suivi ;
+résolution.
+
+Les dossiers sont intégrés au module CRM.
+
+20. REWARDS & LOYALTY
+
+Support :
+
+cashback ;
+points ;
+miles ;
+programmes partenaires.
+
+Les règles sont configurables par produit.
+
+21. WALLET-AS-A-SERVICE (WaaS)
+
+Les partenaires peuvent :
+
+créer des wallets ;
+émettre des cartes ;
+gérer les tokens ;
+consulter les transactions.
+
+Toutes les opérations passent par des API sécurisées.
+
+22. NOTIFICATIONS
+
+Événements :
+
+CardIssued ;
+CardActivated ;
+CardFrozen ;
+CardUnfrozen ;
+CardReplaced ;
+TransactionAuthorized ;
+TransactionDeclined.
+23. AUDIT
+
+Chaque événement conserve :
+
+Card ID ;
+Token ID (si applicable) ;
+utilisateur ;
+canal ;
+horodatage ;
+résultat.
+
+Les journaux sont immuables.
+
+24. SECURITY
+
+Protection :
+
+chiffrement des données ;
+HSM pour les clés cryptographiques ;
+tokenisation ;
+authentification forte ;
+détection de fraude en temps réel.
+25. COMPLIANCE
+
+Compatible avec :
+
+PCI DSS ;
+EMV ;
+EMVCo Tokenization ;
+3-D Secure 2.x ;
+PSD2 / PSD3 (selon juridiction) ;
+ISO 8583 ;
+ISO 20022 (interfaces modernes) ;
+réglementations des réseaux de cartes.
+26. INTEGRATION
+
+Le framework Cartes s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Payment Engine ;
+Fraud Engine ;
+AML ;
+CRM ;
+Notification Service ;
+API Gateway.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS tokenize sensitive card information.
+NEVER expose PAN or CVV outside authorized secure components.
+ALWAYS support real-time card controls.
+ALWAYS reconcile card transactions with the Ledger.
+ALWAYS integrate fraud screening before authorization.
+ALWAYS maintain immutable card audit trails.
+ALWAYS support virtual and disposable cards.
+ALWAYS expose card services through secure APIs.
+ALWAYS support wallet token lifecycle management.
+ALWAYS follow Amanah Enterprise Card Standards.
+28. SUCCESS CRITERIA
+
+Le framework Cartes est conforme lorsque :
+
+les cartes peuvent être émises et activées en temps réel ;
+les contrôles clients sont instantanés ;
+toutes les transactions sont rapprochées avec le Ledger ;
+les données sensibles sont tokenisées et protégées ;
+les intégrations avec les wallets numériques sont sécurisées et conformes.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Card Fraud Analyst
+Autonomous Card Risk Scoring
+Dynamic CVV Technology
+Biometric Payment Cards
+CBDC Payment Cards
+Multi-Network Smart Routing
+AI Spending Insights
+Family & Shared Wallets
+Embedded Corporate Expense Cards
+Autonomous Card Operations

@@ -1,0 +1,397 @@
+87_Enterprise_Testing_Quality_Assurance_Framework.md
+(V3 — Enterprise Testing, Quality Assurance & Software Validation Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de tests et d'assurance qualité d'Amanah.
+
+Il couvre :
+
+stratégie de tests ;
+tests unitaires ;
+tests d'intégration ;
+tests End-to-End ;
+tests de performance ;
+tests de sécurité ;
+tests de résilience ;
+chaos engineering ;
+qualité logicielle ;
+validation métier.
+
+L'objectif est de garantir que chaque composant respecte les exigences fonctionnelles, techniques et réglementaires avant sa mise en production.
+
+2. CORE PRINCIPLES
+2.1 Quality Is Built In
+Quality is everyone's responsibility.
+
+Les tests sont intégrés au cycle de développement.
+
+2.2 Automation First
+Every repeatable test should be automated.
+2.3 Risk-Based Testing
+Testing effort must be proportional to business risk.
+
+Les composants critiques bénéficient d'un niveau de validation plus élevé.
+
+3. TESTING PYRAMID
+
+           E2E
+
+      Integration
+
+        Unit Tests
+
+
+Objectif :
+
+beaucoup de tests unitaires ;
+moins de tests d'intégration ;
+peu de tests End-to-End.
+4. TESTING ARCHITECTURE
+
+Developer
+
+↓
+
+Unit Tests
+
+↓
+
+Integration Tests
+
+↓
+
+API Tests
+
+↓
+
+E2E Tests
+
+↓
+
+Performance Tests
+
+↓
+
+Security Tests
+
+↓
+
+Production Approval
+
+5. TEST CATEGORIES
+
+Support :
+
+Unit Tests ;
+Component Tests ;
+Integration Tests ;
+Contract Tests ;
+API Tests ;
+End-to-End Tests ;
+Regression Tests ;
+Acceptance Tests.
+6. UNIT TESTS
+
+Objectif :
+
+Valider une unité métier.
+
+Exemple :
+
+
+TransferService
+
+↓
+
+validateAmount()
+
+↓
+
+Expected Result
+
+
+Objectifs :
+
+rapides ;
+isolés ;
+déterministes.
+7. INTEGRATION TESTS
+
+Validation :
+
+base de données ;
+messaging ;
+Ledger ;
+APIs.
+
+Les interactions entre composants sont testées.
+
+8. CONTRACT TESTING
+
+Les contrats API sont validés automatiquement.
+
+Contrôles :
+
+schéma ;
+compatibilité ;
+version ;
+erreurs.
+9. API TESTING
+
+Validation :
+
+REST ;
+GraphQL ;
+gRPC ;
+Open Banking APIs.
+10. END-TO-END TESTS
+
+Scénarios :
+
+
+Customer Login
+
+↓
+
+Transfer
+
+↓
+
+Ledger
+
+↓
+
+Notification
+
+↓
+
+Success
+
+
+Les parcours critiques sont exécutés dans un environnement représentatif.
+
+11. REGRESSION TESTING
+
+Avant chaque release :
+
+exécution automatique ;
+comparaison résultats ;
+validation complète.
+12. PERFORMANCE TESTING
+
+Tests :
+
+Load Testing ;
+Stress Testing ;
+Spike Testing ;
+Endurance Testing.
+13. PERFORMANCE TARGETS
+
+Exemples :
+
+temps de réponse API ;
+débit ;
+latence ;
+utilisation CPU ;
+mémoire.
+
+Les objectifs sont définis par service et SLA.
+
+14. SECURITY TESTING
+
+Support :
+
+SAST ;
+DAST ;
+tests de pénétration ;
+fuzz testing ;
+scans de dépendances.
+15. RESILIENCE TESTING
+
+Scénarios :
+
+perte réseau ;
+panne base de données ;
+indisponibilité d'un service ;
+timeout ;
+failover.
+16. CHAOS ENGINEERING
+
+Expériences :
+
+arrêt d'un pod ;
+perte d'une région ;
+saturation réseau ;
+dégradation d'un service externe.
+
+Les résultats sont documentés et analysés.
+
+17. TEST DATA MANAGEMENT
+
+Les données de test sont :
+
+isolées ;
+anonymisées si dérivées de données réelles ;
+versionnées ;
+reproductibles.
+18. TEST ENVIRONMENTS
+
+Support :
+
+
+Local
+
+↓
+
+Development
+
+↓
+
+Integration
+
+↓
+
+QA
+
+↓
+
+UAT
+
+↓
+
+Pre-Production
+
+
+Chaque environnement reflète son objectif de validation.
+
+19. TEST AUTOMATION
+
+Déclenchement :
+
+Pull Request ;
+Merge ;
+Nightly ;
+Release ;
+On Demand.
+20. BUSINESS ACCEPTANCE TESTS
+
+Validation :
+
+workflows métier ;
+conformité réglementaire ;
+finance islamique ;
+Ledger ;
+paiements.
+
+Les représentants métier participent à l'acceptation lorsque nécessaire.
+
+21. TEST REPORTING
+
+Chaque exécution produit :
+
+nombre de tests ;
+succès ;
+échecs ;
+durée ;
+couverture ;
+anomalies.
+22. DEFECT MANAGEMENT
+
+Cycle :
+
+
+Bug
+
+↓
+
+Classification
+
+↓
+
+Fix
+
+↓
+
+Retest
+
+↓
+
+Close
+
+23. QUALITY METRICS
+
+Indicateurs :
+
+couverture de tests ;
+taux de réussite ;
+densité de défauts ;
+MTTR ;
+défauts en production ;
+régressions.
+24. COMPLIANCE
+
+Compatible avec :
+
+ISO 9001
+ISO 25010
+ISO 29119
+ISTQB Best Practices
+PCI DSS (tests applicables)
+DORA (tests de résilience opérationnelle)
+25. TEST GOVERNANCE
+
+Chaque suite possède :
+
+propriétaire ;
+fréquence ;
+criticité ;
+historique ;
+résultats.
+26. RELEASE GATES
+
+Une release est autorisée uniquement si :
+
+les tests critiques réussissent ;
+les vulnérabilités bloquantes sont corrigées ;
+les exigences métier sont validées ;
+les critères de qualité sont atteints.
+
+Les exceptions suivent un processus d'approbation documenté.
+
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS write automated tests for new business logic.
+NEVER deploy untested critical functionality.
+ALWAYS validate API contracts.
+ALWAYS execute regression tests before release.
+ALWAYS isolate test environments.
+ALWAYS anonymize sensitive test data.
+ALWAYS include performance and security testing for critical services.
+ALWAYS preserve test reports and audit history.
+ALWAYS validate business workflows end-to-end.
+ALWAYS follow Enterprise Testing Standards.
+28. SUCCESS CRITERIA
+
+Le framework QA est conforme lorsque :
+
+les tests couvrent les composants critiques ;
+les régressions sont détectées automatiquement ;
+les performances et la sécurité sont validées ;
+les données de test sont maîtrisées ;
+les mises en production respectent des critères de qualité mesurables.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Test Case Generation
+Autonomous Regression Testing
+Self-Healing Test Suites
+AI Bug Root Cause Analysis
+Predictive Quality Analytics
+Synthetic Customer Journeys
+Continuous Chaos Engineering
+Digital Twin Testing Environment
+AI Performance Optimization
+Autonomous Release Validation

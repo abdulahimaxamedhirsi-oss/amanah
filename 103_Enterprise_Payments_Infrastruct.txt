@@ -1,0 +1,408 @@
+103_Enterprise_Payments_Infrastructure_Framework.md
+(V3 — Enterprise Payments Infrastructure, Payment Orchestration, Real-Time Payments & Global Clearing Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de l'infrastructure de paiements d'Amanah.
+
+Il couvre :
+
+Domestic Payments ;
+Cross-Border Payments ;
+Instant Payments ;
+Payment Orchestration ;
+Clearing & Settlement ;
+Payment Routing ;
+Payment Networks ;
+ISO 20022 ;
+Payment Reconciliation ;
+Payment Observability.
+
+L'objectif est de fournir une infrastructure de paiements mondiale, résiliente, interopérable et temps réel.
+
+2. CORE PRINCIPLES
+2.1 Payment Integrity
+
+Every payment must be processed exactly once.
+
+2.2 Ledger Consistency
+
+Every payment must reconcile with the immutable ledger.
+
+2.3 Network Independence
+
+Payment channels must remain interchangeable through orchestration.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Channels
+
+↓
+
+Payment API
+
+↓
+
+Payment Orchestrator
+
+↓
+
+Validation Engine
+
+↓
+
+Risk & AML
+
+↓
+
+Payment Router
+
+↓
+
+Clearing Network
+
+↓
+
+Settlement
+
+↓
+
+Ledger
+
+↓
+
+Notification
+
+4. PAYMENT DOMAINS
+
+Support :
+
+Internal Transfers ;
+Domestic Transfers ;
+Cross-Border Transfers ;
+Instant Payments ;
+Scheduled Payments ;
+Bulk Payments ;
+Corporate Payments ;
+QR Payments ;
+Merchant Payments.
+5. PAYMENT LIFECYCLE
+
+Initiated
+
+↓
+
+Validated
+
+↓
+
+AML & Fraud Checks
+
+↓
+
+Authorized
+
+↓
+
+Routed
+
+↓
+
+Cleared
+
+↓
+
+Settled
+
+↓
+
+Posted to Ledger
+
+↓
+
+Completed
+
+6. PAYMENT ORCHESTRATOR
+
+Responsabilités :
+
+sélection automatique du réseau ;
+orchestration multi-rail ;
+reprise sur erreur ;
+idempotence ;
+suivi de bout en bout.
+7. PAYMENT RAILS
+
+Le système peut utiliser :
+
+Internal Ledger Transfers ;
+SEPA ;
+SEPA Instant ;
+SWIFT ;
+ACH ;
+RTP ;
+FedNow ;
+Faster Payments ;
+PIX ;
+UPI ;
+Visa Direct ;
+Mastercard Send.
+
+De nouveaux réseaux peuvent être ajoutés sans modifier les services métier.
+
+8. PAYMENT ROUTING
+
+Le moteur choisit automatiquement le meilleur rail selon :
+
+pays ;
+devise ;
+coût ;
+délai ;
+disponibilité ;
+préférences métier.
+
+Les règles sont configurables.
+
+9. ISO 20022
+
+Tous les paiements utilisent un modèle canonique compatible ISO 20022.
+
+Messages pris en charge :
+
+pacs ;
+pain ;
+camt ;
+remittance information.
+10. PAYMENT VALIDATION
+
+Contrôles :
+
+IBAN ;
+BIC/SWIFT ;
+devise ;
+montant ;
+disponibilité des fonds ;
+bénéficiaire ;
+limites.
+11. CONFIRMATION OF PAYEE
+
+Le moteur peut vérifier :
+
+correspondance du nom ;
+IBAN ;
+compte bénéficiaire.
+
+Les résultats sont retournés avant validation finale.
+
+12. REAL-TIME PAYMENTS
+
+Caractéristiques :
+
+disponibilité 24/7 ;
+traitement en quelques secondes ;
+notifications instantanées ;
+rapprochement immédiat avec le Ledger.
+13. CROSS-BORDER PAYMENTS
+
+Support :
+
+multi-devises ;
+frais ;
+taux de change ;
+suivi des correspondants ;
+conformité internationale.
+14. FX INTEGRATION
+
+Les paiements multi-devises utilisent :
+
+taux en temps réel ;
+spreads ;
+verrouillage temporaire des taux ;
+rapprochement comptable.
+15. PAYMENT STATUS MODEL
+
+États :
+
+
+Draft
+
+↓
+
+Pending
+
+↓
+
+Validated
+
+↓
+
+Authorized
+
+↓
+
+Processing
+
+↓
+
+Settled
+
+↓
+
+Completed
+
+↓
+
+Failed
+
+↓
+
+Cancelled
+
+↓
+
+Reversed
+
+16. PAYMENT REVERSALS
+
+Support :
+
+annulation avant règlement ;
+remboursement ;
+contre-passation ;
+correction.
+
+Chaque opération est journalisée et reliée à l'écriture du Ledger.
+
+17. PAYMENT RECONCILIATION
+
+Le moteur rapproche :
+
+paiement ;
+compensation ;
+règlement ;
+Ledger ;
+relevés externes.
+
+Les écarts génèrent des exceptions.
+
+18. PAYMENT OBSERVABILITY
+
+Suivi :
+
+latence ;
+volume ;
+taux d'échec ;
+disponibilité des réseaux ;
+SLA.
+19. PAYMENT DASHBOARDS
+
+Indicateurs :
+
+paiements en attente ;
+temps moyen de traitement ;
+taux de succès ;
+volumes par rail ;
+volumes par devise.
+20. EXCEPTION MANAGEMENT
+
+Gestion :
+
+paiements bloqués ;
+rejets réseau ;
+délais ;
+investigations ;
+relances automatiques.
+21. NOTIFICATIONS
+
+Événements :
+
+PaymentInitiated ;
+PaymentAuthorized ;
+PaymentCompleted ;
+PaymentFailed ;
+PaymentReversed.
+
+Les notifications sont publiées via Event Bus et Webhooks.
+
+22. AUDIT
+
+Chaque paiement conserve :
+
+Payment ID ;
+Correlation ID ;
+initiateur ;
+approbateurs ;
+réseau utilisé ;
+écritures Ledger ;
+horodatage.
+
+Les journaux sont immuables.
+
+23. SECURITY
+
+Protection :
+
+chiffrement TLS ;
+signatures numériques ;
+authentification forte ;
+anti-rejeu (anti-replay) ;
+idempotency keys.
+24. COMPLIANCE
+
+Compatible avec :
+
+ISO 20022 ;
+SWIFT Standards ;
+SEPA Rulebooks ;
+PSD2 / PSD3 ;
+PCI DSS ;
+FATF ;
+réglementations des banques centrales applicables.
+25. INTEGRATION
+
+Le moteur de paiements s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Treasury ;
+Risk Management ;
+AML ;
+Fraud Engine ;
+Notification Service ;
+API Gateway.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS guarantee exactly-once payment processing.
+ALWAYS post completed payments to the immutable Ledger.
+NEVER bypass AML, fraud or sanction screening.
+ALWAYS implement idempotency for payment requests.
+ALWAYS support ISO 20022 canonical data models.
+ALWAYS reconcile payments with settlement records.
+ALWAYS maintain immutable payment audit trails.
+ALWAYS publish payment lifecycle events.
+ALWAYS isolate payment rail integrations behind adapters.
+ALWAYS follow Amanah Enterprise Payments Standards.
+27. SUCCESS CRITERIA
+
+Le framework de paiements est conforme lorsque :
+
+chaque paiement est traité une seule fois ;
+les paiements sont rapprochés automatiquement avec le Ledger ;
+les différents rails de paiement sont interchangeables ;
+les contrôles AML/Fraud sont appliqués avant l'exécution ;
+les paiements sont observables, auditables et traçables de bout en bout.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Payment Routing Engine
+Autonomous Payment Repair
+Smart Fee Optimization
+Predictive Payment Failure Detection
+Digital Currency (CBDC) Payment Rails
+Stablecoin Settlement Network
+AI Treasury Liquidity Routing
+Global Payment Hub
+Autonomous Payment Operations
+Universal Real-Time Payment Fabric

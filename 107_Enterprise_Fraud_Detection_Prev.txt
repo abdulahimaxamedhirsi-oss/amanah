@@ -1,0 +1,375 @@
+107_Enterprise_Fraud_Detection_Prevention_Framework.md
+(V3 — Enterprise Fraud Detection, Prevention, Behavioral Analytics & Financial Crime Protection Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de lutte contre la fraude d'Amanah.
+
+Il couvre :
+
+Fraud Detection ;
+Fraud Prevention ;
+Real-Time Fraud Scoring ;
+Behavioral Biometrics ;
+Device Intelligence ;
+Account Takeover (ATO) Detection ;
+Payment Fraud ;
+Card Fraud ;
+Mule Account Detection ;
+Fraud Case Management.
+
+L'objectif est de détecter, prévenir et limiter les fraudes tout en réduisant les faux positifs.
+
+2. CORE PRINCIPLES
+2.1 Prevention First
+
+Prevent fraud before financial loss occurs.
+
+2.2 Risk Adaptive
+
+Fraud controls adapt dynamically to contextual risk.
+
+2.3 Customer Experience
+
+Security must minimize friction for legitimate customers.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Customer
+
+↓
+
+Channels
+
+↓
+
+Fraud Gateway
+
+↓
+
+Behavior Engine
+
+↓
+
+AI Fraud Engine
+
+↓
+
+Decision Engine
+
+↓
+
+Payments / Cards / Accounts
+
+↓
+
+Ledger
+
+↓
+
+Fraud Case Management
+
+4. FRAUD DOMAINS
+
+Support :
+
+Login Fraud ;
+Account Takeover ;
+Payment Fraud ;
+Card Fraud ;
+Identity Fraud ;
+Merchant Fraud ;
+Insider Fraud ;
+Social Engineering ;
+Authorized Push Payment (APP) Fraud ;
+Mule Account Detection.
+5. FRAUD RISK ENGINE
+
+Le moteur calcule un score basé sur :
+
+identité ;
+appareil ;
+localisation ;
+comportement ;
+historique ;
+réseau relationnel ;
+contexte de la transaction.
+6. DEVICE INTELLIGENCE
+
+Le système collecte :
+
+Device ID ;
+empreinte navigateur ;
+système d'exploitation ;
+adresse IP ;
+VPN / Proxy ;
+géolocalisation ;
+réputation du terminal.
+7. BEHAVIORAL BIOMETRICS
+
+Analyse :
+
+vitesse de frappe ;
+mouvements de souris ;
+gestes tactiles ;
+vitesse de défilement ;
+habitudes d'utilisation.
+
+Ces signaux enrichissent le score de fraude.
+
+8. ACCOUNT TAKEOVER (ATO)
+
+Détection :
+
+changement brutal d'appareil ;
+nouvelle localisation ;
+changement d'identifiants ;
+tentatives de connexion répétées ;
+comportement inhabituel.
+
+Les comptes suspects peuvent être temporairement protégés.
+
+9. PAYMENT FRAUD
+
+Contrôles :
+
+bénéficiaires inhabituels ;
+montants atypiques ;
+fréquence anormale ;
+destinations à risque ;
+fraude APP ;
+double paiement.
+10. CARD FRAUD
+
+Détection :
+
+Card Testing ;
+Card Not Present (CNP) ;
+fraude sans contact ;
+fraude ATM ;
+géolocalisation impossible ;
+transactions simultanées.
+11. MULE ACCOUNT DETECTION
+
+Identification :
+
+comptes relais ;
+flux circulaires ;
+retraits rapides ;
+comptes nouvellement créés ;
+comportements coordonnés.
+
+Analyse par graphes relationnels.
+
+12. IDENTITY FRAUD
+
+Contrôles :
+
+faux documents ;
+identités synthétiques ;
+doublons ;
+deepfakes ;
+biométrie incohérente.
+13. AI FRAUD ENGINE
+
+L'IA détecte :
+
+anomalies comportementales ;
+nouveaux schémas de fraude ;
+corrélations invisibles aux règles ;
+dérive des attaques.
+
+Les modèles sont surveillés et réentraînés régulièrement.
+
+14. RULE ENGINE
+
+Les règles couvrent :
+
+montants ;
+fréquence ;
+géographie ;
+catégories de commerçants ;
+appareils ;
+utilisateurs ;
+listes internes.
+
+Les règles sont versionnées et auditables.
+
+15. DECISION ENGINE
+
+Décisions possibles :
+
+
+Approve
+
+↓
+
+Step-Up Authentication
+
+↓
+
+Manual Review
+
+↓
+
+Decline
+
+↓
+
+Block
+
+16. ADAPTIVE AUTHENTICATION
+
+Le niveau d'authentification dépend du risque :
+
+aucune action supplémentaire ;
+MFA ;
+biométrie ;
+validation manuelle.
+17. REAL-TIME RESPONSE
+
+Actions automatiques :
+
+suspension de transaction ;
+blocage carte ;
+verrouillage temporaire du compte ;
+alerte client ;
+ouverture de dossier.
+18. CASE MANAGEMENT
+
+Workflow :
+
+
+Alert
+
+↓
+
+Investigation
+
+↓
+
+Evidence
+
+↓
+
+Decision
+
+↓
+
+Recovery
+
+↓
+
+Closure
+
+19. FRAUD INTELLIGENCE
+
+Le système centralise :
+
+indicateurs de compromission (IOC) ;
+nouvelles techniques de fraude ;
+listes internes ;
+renseignements partenaires (si autorisés).
+20. CUSTOMER NOTIFICATIONS
+
+Notifications :
+
+tentative suspecte ;
+connexion inhabituelle ;
+paiement bloqué ;
+carte gelée ;
+nouvelle authentification.
+
+Le client peut confirmer ou contester l'activité.
+
+21. DASHBOARDS
+
+Indicateurs :
+
+fraude détectée ;
+pertes évitées ;
+taux de faux positifs ;
+alertes ouvertes ;
+temps moyen d'investigation ;
+fraude par canal.
+22. AUDIT
+
+Chaque événement conserve :
+
+Fraud Event ID ;
+utilisateur ;
+appareil ;
+score ;
+décision ;
+justification ;
+horodatage.
+
+Les journaux sont immuables.
+
+23. SECURITY
+
+Protection :
+
+chiffrement ;
+RBAC/ABAC ;
+séparation des responsabilités ;
+conservation sécurisée des preuves.
+24. COMPLIANCE
+
+Compatible avec :
+
+PCI DSS ;
+NIST Cybersecurity Framework ;
+ISO/IEC 27001 ;
+PSD2 Strong Customer Authentication (SCA) ;
+réglementations bancaires applicables ;
+recommandations des réseaux de cartes.
+25. INTEGRATION
+
+Le framework Fraude s'intègre avec :
+
+Core Banking ;
+Ledger ;
+Payments ;
+Cards ;
+Identity Platform ;
+AML Engine ;
+CRM ;
+Notification Service ;
+AI Platform.
+26. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS evaluate fraud risk before authorizing high-risk operations.
+ALWAYS combine rule-based and AI-assisted fraud detection.
+NEVER allow fraud decisions to bypass audit logging.
+ALWAYS support adaptive authentication based on risk.
+ALWAYS correlate fraud signals across channels and products.
+ALWAYS maintain immutable fraud investigation histories.
+ALWAYS minimize customer friction for low-risk activities.
+ALWAYS integrate fraud controls with payments, cards and identity services.
+ALWAYS monitor fraud model performance and false-positive rates.
+ALWAYS follow Amanah Enterprise Fraud Prevention Standards.
+27. SUCCESS CRITERIA
+
+Le framework Fraude est conforme lorsque :
+
+les fraudes sont détectées avant la perte financière lorsque cela est possible ;
+les faux positifs restent maîtrisés ;
+les décisions sont explicables et auditables ;
+les réponses sont adaptées au niveau de risque ;
+tous les canaux (mobile, web, cartes, paiements, API) sont protégés de manière cohérente.
+28. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Fraud Copilot
+Graph Neural Network Fraud Detection
+Continuous Behavioral Authentication
+Federated Fraud Intelligence Network
+Deepfake Detection Engine
+Autonomous Fraud Investigation
+AI Recovery Optimization
+Quantum-Resistant Identity Verification
+Cross-Border Fraud Intelligence Exchange
+Self-Learning Fraud Prevention Platform

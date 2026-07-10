@@ -1,0 +1,369 @@
+102_Enterprise_API_Economy_Open_Banking_Framework.md
+(V3 — Enterprise API Economy, Open Banking, Open Finance & Banking-as-a-Service Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel API Economy d'Amanah.
+
+Il couvre :
+
+API-First Architecture ;
+Open Banking ;
+Open Finance ;
+Banking-as-a-Service (BaaS) ;
+Embedded Finance ;
+API Marketplace ;
+Developer Portal ;
+Consent Management ;
+Partner Ecosystem ;
+API Monetization.
+
+L'objectif est de transformer Amanah en une plateforme bancaire ouverte, extensible et sécurisée.
+
+2. CORE PRINCIPLES
+2.1 API First
+
+Every banking capability must be exposed through secure and documented APIs.
+
+2.2 Open by Design
+
+External integrations must be designed as first-class citizens.
+
+2.3 Secure by Default
+
+Every API request must be authenticated, authorized and auditable.
+
+3. HIGH LEVEL ARCHITECTURE
+
+Partners
+
+↓
+
+Developer Portal
+
+↓
+
+API Gateway
+
+↓
+
+API Management
+
+↓
+
+Microservices
+
+↓
+
+Core Banking
+
+↓
+
+Ledger
+
+↓
+
+Audit
+
+4. API DOMAINS
+
+Le catalogue couvre :
+
+Customers ;
+Accounts ;
+Payments ;
+Cards ;
+Financing ;
+Treasury ;
+CRM ;
+Risk ;
+Notifications ;
+Documents.
+5. API STANDARDS
+
+Les API respectent :
+
+REST ;
+gRPC (interne) ;
+GraphQL (lecture sélective) ;
+Webhooks ;
+Async Events.
+6. OPEN BANKING
+
+Support :
+
+Account Information Services (AIS) ;
+Payment Initiation Services (PIS) ;
+Confirmation of Funds ;
+Consent APIs.
+
+Compatible avec les réglementations Open Banking applicables.
+
+7. OPEN FINANCE
+
+Extension vers :
+
+assurances ;
+investissements ;
+retraite ;
+patrimoine ;
+financement.
+
+Les consentements couvrent tous les produits financiers.
+
+8. BANKING-AS-A-SERVICE (BaaS)
+
+Services exposés :
+
+ouverture de compte ;
+émission d'IBAN ;
+paiements ;
+cartes ;
+KYC ;
+Ledger ;
+Notifications.
+
+Les partenaires peuvent intégrer ces capacités via API.
+
+9. EMBEDDED FINANCE
+
+Capacités :
+
+comptes intégrés ;
+paiements intégrés ;
+financement intégré ;
+cartes virtuelles ;
+onboarding intégré.
+10. API GATEWAY
+
+Fonctions :
+
+authentification ;
+routage ;
+limitation de débit ;
+validation ;
+journalisation ;
+transformation.
+
+Toutes les API publiques transitent par cette couche.
+
+11. API MANAGEMENT
+
+Le portail gère :
+
+versions ;
+documentation ;
+analytics ;
+clés API ;
+politiques.
+12. DEVELOPER PORTAL
+
+Fonctionnalités :
+
+documentation OpenAPI ;
+guides ;
+SDK ;
+exemples ;
+sandbox ;
+console interactive.
+13. SANDBOX ENVIRONMENT
+
+Le Sandbox fournit :
+
+données fictives ;
+APIs simulées ;
+tests ;
+validation des intégrations.
+
+Aucune donnée de production n'est exposée.
+
+14. AUTHENTICATION
+
+Support :
+
+OAuth 2.1 ;
+OpenID Connect ;
+Mutual TLS (mTLS) ;
+JWT ;
+Client Credentials ;
+Authorization Code + PKCE.
+15. CONSENT MANAGEMENT
+
+Chaque consentement enregistre :
+
+client ;
+partenaire ;
+portée (scope) ;
+durée ;
+révocation ;
+historique.
+
+Les consentements sont audités et révocables.
+
+16. API SECURITY
+
+Protection :
+
+WAF ;
+DDoS ;
+mTLS ;
+chiffrement TLS ;
+validation des schémas ;
+protection contre les abus.
+17. WEBHOOK FRAMEWORK
+
+Support :
+
+signature des événements ;
+retries ;
+idempotence ;
+journalisation ;
+accusés de réception.
+18. EVENT APIs
+
+Événements publiés :
+
+AccountCreated ;
+PaymentCompleted ;
+CardIssued ;
+FinancingApproved ;
+CustomerUpdated ;
+LedgerPosted.
+
+Les événements suivent un schéma versionné.
+
+19. API VERSIONING
+
+Cycle :
+
+
+v1
+
+↓
+
+v2
+
+↓
+
+Deprecation Notice
+
+↓
+
+Sunset
+
+
+Les anciennes versions restent disponibles pendant une période définie.
+
+20. RATE LIMITING
+
+Contrôles :
+
+quotas ;
+débit ;
+burst ;
+limites par partenaire ;
+limites par application.
+21. PARTNER MANAGEMENT
+
+Chaque partenaire possède :
+
+Partner ID ;
+statut ;
+certificats ;
+permissions ;
+contrats ;
+environnements.
+22. API MARKETPLACE
+
+Marketplace pour :
+
+APIs internes ;
+APIs partenaires ;
+extensions ;
+services financiers.
+
+Les APIs peuvent être publiques, privées ou partenaires.
+
+23. API MONETIZATION
+
+Modèles :
+
+gratuit ;
+abonnement ;
+paiement à l'usage ;
+partage de revenus.
+
+Les métriques de consommation alimentent la facturation.
+
+24. OBSERVABILITY
+
+Surveillance :
+
+disponibilité ;
+latence ;
+erreurs ;
+trafic ;
+consommation ;
+SLA.
+25. AUDIT
+
+Chaque appel API conserve :
+
+client ;
+application ;
+endpoint ;
+date ;
+IP ;
+résultat ;
+identifiant de corrélation.
+
+Les journaux sont immuables.
+
+26. COMPLIANCE
+
+Compatible avec :
+
+PSD2 / PSD3 (selon juridiction) ;
+Open Banking Standards ;
+Open Finance Frameworks ;
+OAuth 2.1 ;
+OpenID Connect ;
+FAPI (Financial-grade API) ;
+ISO 20022 ;
+réglementations locales applicables.
+27. CLAUDE CODE RULES
+
+Claude Code must:
+
+ALWAYS expose business capabilities through secure APIs.
+NEVER bypass API Gateway security policies.
+ALWAYS version public APIs.
+ALWAYS require explicit customer consent where applicable.
+ALWAYS support OAuth 2.1 and OpenID Connect.
+ALWAYS implement idempotency for financial operations.
+ALWAYS document APIs using OpenAPI specifications.
+ALWAYS maintain immutable API audit logs.
+ALWAYS publish versioned event schemas.
+ALWAYS follow Amanah API Governance Standards.
+28. SUCCESS CRITERIA
+
+Le framework API Economy est conforme lorsque :
+
+toutes les capacités bancaires sont accessibles via API ;
+les partenaires disposent d'un portail développeur complet ;
+les consentements clients sont respectés ;
+les APIs sont sécurisées, versionnées et observables ;
+les intégrations sont découplées du Core Banking.
+29. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI API Gateway
+Autonomous API Governance
+AI Developer Assistant
+Open Finance Marketplace
+Banking Super APIs
+Dynamic API Monetization
+AI Partner Risk Scoring
+Event Mesh Federation
+API Digital Twin
+Autonomous API Lifecycle Management

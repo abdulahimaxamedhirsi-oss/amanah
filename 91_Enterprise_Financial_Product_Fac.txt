@@ -1,0 +1,341 @@
+91_Enterprise_Financial_Product_Factory_Framework.md
+(V3 — Enterprise Financial Product Factory, Product Configuration & No-Code Banking Framework)
+1. OBJECTIF
+
+Ce document définit le framework officiel de création et de gestion des produits financiers d'Amanah.
+
+Il couvre :
+
+Product Factory ;
+Product Catalog ;
+No-Code Product Designer ;
+Product Versioning ;
+Pricing ;
+Fees ;
+Interest & Profit Rules ;
+Islamic Finance Products ;
+Eligibility Rules ;
+Product Lifecycle.
+
+L'objectif est de permettre la création, la configuration et l'évolution des produits financiers sans développement spécifique.
+
+2. CORE PRINCIPLES
+2.1 Configuration Over Code
+Financial products must be created and modified through configuration whenever possible.
+2.2 Product Reusability
+Common product components should be reusable across multiple financial products.
+2.3 Regulatory Compliance by Design
+Products must embed regulatory and Shariah compliance rules from creation.
+3. HIGH LEVEL ARCHITECTURE
+
+Product Catalog
+
+↓
+
+Product Designer
+
+↓
+
+Business Rules
+
+↓
+
+Pricing Engine
+
+↓
+
+Workflow Engine
+
+↓
+
+Ledger Templates
+
+↓
+
+Published Products
+
+4. PRODUCT CATALOG
+
+Chaque produit possède :
+
+Product ID ;
+Version ;
+Nom ;
+Catégorie ;
+Statut ;
+Juridictions ;
+Devise ;
+Date d'effet.
+5. PRODUCT CATEGORIES
+
+Support :
+
+Current Accounts ;
+Savings Accounts ;
+Term Deposits ;
+Wallets ;
+Debit Cards ;
+Credit Cards ;
+Virtual Cards ;
+Consumer Financing ;
+Corporate Financing ;
+Islamic Financing ;
+Investments ;
+Treasury Products ;
+FX Products.
+6. PRODUCT LIFECYCLE
+
+Draft
+
+↓
+
+Review
+
+↓
+
+Approval
+
+↓
+
+Published
+
+↓
+
+Deprecated
+
+↓
+
+Retired
+
+7. PRODUCT DESIGNER
+
+Le Product Designer permet de configurer :
+
+caractéristiques ;
+conditions ;
+frais ;
+workflow ;
+règles ;
+documents ;
+notifications.
+
+Aucune modification du code applicatif n'est requise.
+
+8. PRODUCT COMPONENTS
+
+Composants réutilisables :
+
+Eligibility Rules ;
+Pricing Rules ;
+Ledger Templates ;
+Workflow Templates ;
+Notification Templates ;
+Compliance Policies ;
+Risk Rules.
+9. ELIGIBILITY ENGINE
+
+Critères possibles :
+
+âge ;
+pays ;
+résidence ;
+type de client ;
+niveau KYC ;
+revenus ;
+score de risque ;
+segmentation.
+10. PRICING ENGINE
+
+Configuration :
+
+frais fixes ;
+frais variables ;
+commissions ;
+remises ;
+plafonds ;
+promotions.
+11. PROFIT & INTEREST RULES
+
+Support :
+
+intérêt simple ;
+intérêt composé ;
+partage de profits ;
+marges Murabaha ;
+loyers Ijara ;
+bénéfices Mudaraba.
+
+Le calcul dépend du type de produit et des règles applicables.
+
+12. ISLAMIC FINANCE PRODUCTS
+
+Support natif :
+
+Murabaha ;
+Ijara ;
+Musharaka ;
+Mudaraba ;
+Salam ;
+Istisna ;
+Wakala ;
+Qard Hasan ;
+Sukuk.
+
+Chaque produit peut être associé à une validation du Shariah Board avant publication.
+
+13. PRODUCT PARAMETERS
+
+Paramètres configurables :
+
+devise ;
+durée ;
+montant minimum ;
+montant maximum ;
+fréquence ;
+plafond ;
+conditions d'ouverture.
+14. LEDGER TEMPLATES
+
+Chaque produit référence un modèle comptable.
+
+Exemple :
+
+
+Product
+
+↓
+
+Ledger Template
+
+↓
+
+Accounting Entries
+
+
+Les écritures sont générées automatiquement lors des opérations.
+
+15. WORKFLOW CONFIGURATION
+
+Chaque produit peut définir :
+
+validations ;
+approbations ;
+signatures ;
+étapes KYC ;
+étapes AML.
+16. DOCUMENT GENERATION
+
+Documents associés :
+
+contrat ;
+conditions générales ;
+fiche tarifaire ;
+disclosures ;
+documents réglementaires.
+17. PRODUCT VERSIONING
+
+Chaque modification crée une nouvelle version.
+
+Les contrats existants continuent d'utiliser la version avec laquelle ils ont été souscrits, sauf migration approuvée.
+
+18. COUNTRY CONFIGURATION
+
+Chaque produit peut être :
+
+global ;
+régional ;
+spécifique à un pays.
+
+Les paramètres locaux sont hérités du framework de mondialisation.
+
+19. RISK CONFIGURATION
+
+Configuration :
+
+limites ;
+scoring ;
+garanties ;
+seuils ;
+approbations.
+20. COMPLIANCE
+
+Chaque produit référence :
+
+exigences KYC ;
+exigences AML ;
+règles fiscales ;
+obligations réglementaires ;
+politiques de conservation documentaire.
+21. PRODUCT SIMULATION
+
+Avant publication, le moteur permet de simuler :
+
+ouverture ;
+tarification ;
+échéancier ;
+écritures comptables ;
+impacts réglementaires.
+22. PRODUCT TESTING
+
+Chaque produit est validé par :
+
+tests fonctionnels ;
+tests comptables ;
+tests réglementaires ;
+tests de performance ;
+tests Shariah (si applicable).
+23. PRODUCT GOVERNANCE
+
+Chaque produit possède :
+
+propriétaire métier ;
+propriétaire technique ;
+approbateurs ;
+historique ;
+audit.
+24. API SUPPORT
+
+Le Product Factory expose des APIs pour :
+
+consultation du catalogue ;
+simulation ;
+souscription ;
+calcul des frais ;
+génération d'échéanciers.
+25. CLAUDE CODE RULES
+
+Claude Code must:
+
+NEVER hardcode financial products into business services.
+ALWAYS retrieve product definitions from the Product Catalog.
+ALWAYS version product configurations.
+ALWAYS separate pricing logic from application code.
+ALWAYS use Ledger Templates for accounting entries.
+ALWAYS validate regulatory and Shariah rules before publication.
+ALWAYS support simulation before product activation.
+ALWAYS preserve backward compatibility for existing contracts.
+ALWAYS maintain complete audit trails for product changes.
+ALWAYS follow Enterprise Product Factory Standards.
+26. SUCCESS CRITERIA
+
+Le Product Factory est conforme lorsque :
+
+un nouveau produit peut être créé sans développement ;
+les composants sont réutilisables ;
+les règles tarifaires sont configurables ;
+les écritures comptables sont générées automatiquement ;
+les produits sont versionnés, auditables et conformes.
+27. FUTURE EXTENSIONS (V4 READY)
+
+La plateforme est conçue pour intégrer :
+
+AI Product Designer
+No-Code Banking Studio
+AI Pricing Optimization
+Dynamic Profit Sharing Engine
+AI Product Recommendation
+Product Digital Twin
+Autonomous Product Testing
+Marketplace of Banking Products
+Industry Product Templates
+AI Regulatory Product Validation
